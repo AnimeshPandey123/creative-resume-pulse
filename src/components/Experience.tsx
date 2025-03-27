@@ -80,7 +80,7 @@ const Experience: React.FC = () => {
   }, []);
 
   return (
-    <section id="experience" className="py-20 bg-accent/50">
+    <section id="experience" className="py-20 bg-accent/50 dark:bg-accent/20">
       <div className="section-container">
         <h2 className="section-title">Professional Experience</h2>
         <p className="section-subtitle">
@@ -96,10 +96,10 @@ const Experience: React.FC = () => {
                 className="timeline-item opacity-0"
                 style={{ animationDelay: `${index * 100}ms` }}
               >
-                <div className="bg-white rounded-xl p-6 shadow-sm border border-border">
+                <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-border">
                   <div className="flex flex-col md:flex-row md:items-center justify-between mb-4">
                     <div>
-                      <h3 className="text-xl font-bold">{experience.title}</h3>
+                      <h3 className="text-xl font-bold text-foreground">{experience.title}</h3>
                       <p className="text-primary font-medium">{experience.company}</p>
                     </div>
                     <div className="mt-2 md:mt-0 text-muted-foreground">
@@ -111,7 +111,7 @@ const Experience: React.FC = () => {
                     {experience.responsibilities.map((responsibility, idx) => (
                       <li key={idx} className="flex items-start">
                         <span className="text-primary mr-2 mt-1.5">•</span>
-                        <span>{responsibility}</span>
+                        <span className="text-foreground dark:text-foreground">{responsibility}</span>
                       </li>
                     ))}
                   </ul>

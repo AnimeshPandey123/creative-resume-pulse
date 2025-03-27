@@ -92,7 +92,7 @@ const Projects: React.FC = () => {
   }, []);
 
   return (
-    <section id="projects" className="py-20 bg-white">
+    <section id="projects" className="py-20 bg-white dark:bg-gray-900">
       <div className="section-container">
         <h2 className="section-title">Notable Projects</h2>
         <p className="section-subtitle">
@@ -104,13 +104,13 @@ const Projects: React.FC = () => {
             <div
               key={index}
               ref={el => projectCardsRef.current[index] = el}
-              className="project-card opacity-0"
+              className="project-card opacity-0 dark:bg-gray-800/80 dark:border-gray-700/20"
               style={{ animationDelay: `${index * 100}ms` }}
             >
               <div className="p-6">
                 <div className="flex justify-between items-start mb-4">
                   <div>
-                    <h3 className="text-xl font-bold">{project.title}</h3>
+                    <h3 className="text-xl font-bold text-foreground">{project.title}</h3>
                     <p className="text-primary">{project.role}</p>
                   </div>
                   <a 
@@ -128,14 +128,14 @@ const Projects: React.FC = () => {
                   {project.description.map((point, idx) => (
                     <li key={idx} className="text-sm flex">
                       <span className="text-primary mr-2">•</span>
-                      <span>{point}</span>
+                      <span className="text-foreground">{point}</span>
                     </li>
                   ))}
                 </ul>
                 
                 <div className="flex flex-wrap gap-2 mt-auto">
                   {project.technologies.map((tech, idx) => (
-                    <span key={idx} className="skill-pill">
+                    <span key={idx} className="skill-pill dark:bg-gray-700 dark:text-gray-200">
                       {tech}
                     </span>
                   ))}

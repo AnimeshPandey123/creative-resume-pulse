@@ -60,7 +60,7 @@ const Education: React.FC = () => {
   }, []);
 
   return (
-    <section id="education" className="py-20 bg-white">
+    <section id="education" className="py-20 bg-white dark:bg-gray-900">
       <div className="section-container">
         <h2 className="section-title">Education</h2>
         <p className="section-subtitle">
@@ -73,17 +73,17 @@ const Education: React.FC = () => {
               <div
                 key={index}
                 ref={el => educationItemsRef.current[index] = el}
-                className="glass-card p-6 opacity-0"
+                className="glass-card p-6 opacity-0 dark:bg-gray-800/80 dark:border-gray-700/20"
                 style={{ animationDelay: `${index * 100}ms` }}
               >
                 <div className="flex flex-col md:flex-row justify-between">
                   <div>
-                    <h3 className="text-xl font-bold">{education.degree}</h3>
+                    <h3 className="text-xl font-bold text-foreground">{education.degree}</h3>
                     <p className="text-primary">{education.institution}</p>
                     <p className="text-muted-foreground">{education.location}</p>
                   </div>
                   <div className="mt-2 md:mt-0">
-                    <span className="px-4 py-1 bg-accent rounded-full text-sm font-medium">
+                    <span className="px-4 py-1 bg-accent dark:bg-gray-700 rounded-full text-sm font-medium text-accent-foreground dark:text-gray-200">
                       {education.period}
                     </span>
                   </div>

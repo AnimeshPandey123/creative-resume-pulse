@@ -115,7 +115,7 @@
   }
 
   .section-title {
-    @apply text-3xl md:text-4xl font-display font-bold mb-8 text-center;
+    @apply text-3xl md:text-4xl font-display font-bold mb-8 text-center text-foreground;
   }
 
   .section-subtitle {
@@ -139,7 +139,7 @@
   }
 
   .skill-pill {
-    @apply py-1.5 px-3 rounded-full bg-accent text-accent-foreground text-sm font-medium transition-all hover:bg-accent/80;
+    @apply py-1.5 px-3 rounded-full bg-accent text-accent-foreground text-sm font-medium transition-all hover:bg-accent/80 dark:hover:bg-gray-600;
   }
 
   .contact-input {

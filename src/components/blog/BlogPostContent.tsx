@@ -13,6 +13,15 @@ interface BlogPostContentProps {
   post: BlogPost;
 }
 
+// Define the type for code block props
+interface CodeProps {
+  node: any;
+  inline?: boolean;
+  className?: string;
+  children: React.ReactNode;
+  [key: string]: any;
+}
+
 const BlogPostContent: React.FC<BlogPostContentProps> = ({ post }) => {
   return (
     <article className="max-w-3xl mx-auto">
@@ -69,10 +78,11 @@ const BlogPostContent: React.FC<BlogPostContentProps> = ({ post }) => {
       <div className="prose prose-lg dark:prose-invert max-w-none">
         <ReactMarkdown
           components={{
-            code({node, inline, className, children, ...props}) {
+            code: ({ node, inline, className, children, ...props }: CodeProps) => {
               const match = /language-(\w+)/.exec(className || '');
               return !inline && match ? (
                 <SyntaxHighlighter
+                  // @ts-ignore - Working around type issues with react-syntax-highlighter
                   style={atomDark}
                   language={match[1]}
                   PreTag="div"

@@ -21,6 +21,7 @@ import { blogTags } from '@/data/mockBlogData';
 const BlogTagFilter: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [open, setOpen] = React.useState(false);
+  const [value, setValue] = React.useState('');
   const currentTag = searchParams.get('tag') || '';
 
   const handleTagSelect = (value: string) => {
@@ -29,8 +30,10 @@ const BlogTagFilter: React.FC = () => {
     if (value === currentTag) {
       // If selecting the same tag, clear the filter
       newParams.delete('tag');
+      setValue('');
     } else {
       newParams.set('tag', value);
+      setValue(value);
     }
     
     // Reset to page 1 when changing tags
@@ -44,7 +47,13 @@ const BlogTagFilter: React.FC = () => {
     const newParams = new URLSearchParams(searchParams);
     newParams.delete('tag');
     setSearchParams(newParams);
+    setValue('');
   };
+
+  // Initialize value from URL params when component mounts
+  React.useEffect(() => {
+    setValue(currentTag || '');
+  }, [currentTag]);
 
   const selectedTag = blogTags.find(tag => tag.slug === currentTag);
 

@@ -81,6 +81,8 @@ const BlogTagFilter: React.FC = () => {
               <CommandGroup>
                 {blogTags.map((tag) => (
                   <CommandItem
+                    className="!pointer-events-auto"
+
                     key={tag.id}
                     value={tag.slug}
                     onSelect={(currentValue) => handleTagSelect(currentValue)}

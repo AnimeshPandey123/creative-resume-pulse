@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Check, ChevronsUpDown } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -22,8 +22,14 @@ import { blogTags } from '@/data/mockBlogData';
 const BlogTagFilter: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [open, setOpen] = React.useState(false);
-  const [value, setValue] = React.useState('');
   const currentTag = searchParams.get('tag') || '';
+  // Initialize value state from URL params
+  const [value, setValue] = React.useState(currentTag);
+
+  // Update value when URL params change
+  useEffect(() => {
+    setValue(currentTag);
+  }, [currentTag]);
 
   const handleTagSelect = (selectedValue: string) => {
     const newParams = new URLSearchParams(searchParams);
@@ -51,11 +57,6 @@ const BlogTagFilter: React.FC = () => {
     setValue('');
   };
 
-  // Initialize value from URL params when component mounts
-  React.useEffect(() => {
-    setValue(currentTag || '');
-  }, [currentTag]);
-
   const selectedTag = blogTags.find(tag => tag.slug === currentTag);
 
   return (
@@ -73,7 +74,7 @@ const BlogTagFilter: React.FC = () => {
           </Button>
         </PopoverTrigger>
         <PopoverContent className="w-[200px] p-0">
-          <Command>
+          <Command value={value}>
             <CommandInput placeholder="Search tags..." />
             <CommandList>
               <CommandEmpty>No tag found.</CommandEmpty>
@@ -82,7 +83,7 @@ const BlogTagFilter: React.FC = () => {
                   <CommandItem
                     key={tag.id}
                     value={tag.slug}
-                    onSelect={() => handleTagSelect(tag.slug)}
+                    onSelect={(currentValue) => handleTagSelect(currentValue)}
                   >
                     <Check
                       className={cn(

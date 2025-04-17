@@ -1,5 +1,10 @@
 
 User-agent: *
 Allow: /
+Index: /
+Disallow: 
+
+# Override the x-robots-tag: noindex directive
+X-Robots-Tag: index, follow
 
 Sitemap: https://animeshpandey.com/sitemap.xml

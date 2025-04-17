@@ -1,8 +1,9 @@
 
 import React, { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
-import { Menu, X, Moon, Sun } from 'lucide-react';
+import { Menu, X, Moon, Sun, BookOpen } from 'lucide-react';
 import { useTheme } from '@/components/ThemeProvider';
+import { Link } from 'react-router-dom';
 
 const Navigation: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -16,6 +17,7 @@ const Navigation: React.FC = () => {
     { name: 'Skills', href: '#skills' },
     { name: 'Education', href: '#education' },
     { name: 'Contact', href: '#contact' },
+    { name: 'Blog', href: '/blog', icon: BookOpen },
   ];
 
   useEffect(() => {
@@ -42,9 +44,16 @@ const Navigation: React.FC = () => {
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-1">
           {navLinks.map((link) => (
-            <a key={link.name} href={link.href} className="nav-link">
-              {link.name}
-            </a>
+            link.href.startsWith('#') ? (
+              <a key={link.name} href={link.href} className="nav-link">
+                {link.name}
+              </a>
+            ) : (
+              <Link key={link.name} to={link.href} className="nav-link flex items-center gap-1">
+                {link.icon && <link.icon size={16} />}
+                {link.name}
+              </Link>
+            )
           ))}
           <button 
             onClick={toggleTheme} 
@@ -81,14 +90,27 @@ const Navigation: React.FC = () => {
       )}>
         <nav className="flex flex-col space-y-4">
           {navLinks.map((link) => (
-            <a 
-              key={link.name} 
-              href={link.href} 
-              className="text-xl py-2 px-4 border-b border-border"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              {link.name}
-            </a>
+            link.href.startsWith('#') ? (
+              <a 
+                key={link.name} 
+                href={link.href} 
+                className="text-xl py-2 px-4 border-b border-border flex items-center gap-2"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                {link.icon && <link.icon size={18} />}
+                {link.name}
+              </a>
+            ) : (
+              <Link 
+                key={link.name} 
+                to={link.href} 
+                className="text-xl py-2 px-4 border-b border-border flex items-center gap-2"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                {link.icon && <link.icon size={18} />}
+                {link.name}
+              </Link>
+            )
           ))}
         </nav>
       </div>

@@ -10,6 +10,7 @@ import {
   CommandGroup,
   CommandInput,
   CommandItem,
+  CommandList,
 } from '@/components/ui/command';
 import {
   Popover,
@@ -24,16 +25,16 @@ const BlogTagFilter: React.FC = () => {
   const [value, setValue] = React.useState('');
   const currentTag = searchParams.get('tag') || '';
 
-  const handleTagSelect = (value: string) => {
+  const handleTagSelect = (selectedValue: string) => {
     const newParams = new URLSearchParams(searchParams);
     
-    if (value === currentTag) {
+    if (selectedValue === currentTag) {
       // If selecting the same tag, clear the filter
       newParams.delete('tag');
       setValue('');
     } else {
-      newParams.set('tag', value);
-      setValue(value);
+      newParams.set('tag', selectedValue);
+      setValue(selectedValue);
     }
     
     // Reset to page 1 when changing tags
@@ -74,24 +75,26 @@ const BlogTagFilter: React.FC = () => {
         <PopoverContent className="w-[200px] p-0">
           <Command>
             <CommandInput placeholder="Search tags..." />
-            <CommandEmpty>No tag found.</CommandEmpty>
-            <CommandGroup>
-              {blogTags.map((tag) => (
-                <CommandItem
-                  key={tag.id}
-                  value={tag.slug}
-                  onSelect={() => handleTagSelect(tag.slug)}
-                >
-                  <Check
-                    className={cn(
-                      "mr-2 h-4 w-4",
-                      currentTag === tag.slug ? "opacity-100" : "opacity-0"
-                    )}
-                  />
-                  {tag.name}
-                </CommandItem>
-              ))}
-            </CommandGroup>
+            <CommandList>
+              <CommandEmpty>No tag found.</CommandEmpty>
+              <CommandGroup>
+                {blogTags.map((tag) => (
+                  <CommandItem
+                    key={tag.id}
+                    value={tag.slug}
+                    onSelect={() => handleTagSelect(tag.slug)}
+                  >
+                    <Check
+                      className={cn(
+                        "mr-2 h-4 w-4",
+                        currentTag === tag.slug ? "opacity-100" : "opacity-0"
+                      )}
+                    />
+                    {tag.name}
+                  </CommandItem>
+                ))}
+              </CommandGroup>
+            </CommandList>
           </Command>
         </PopoverContent>
       </Popover>

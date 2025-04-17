@@ -1,4 +1,3 @@
-
 import React, { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
@@ -22,12 +21,10 @@ const Blog: React.FC = () => {
     blogTags.find(t => t.slug === tag)?.name || tag : 
     '';
   
-  // Scroll to top on initial load
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
   
-  // Generate title based on filters
   const generateTitle = () => {
     if (search && tag) {
       return `Search: ${search} in ${currentTagName} | Blog`;
@@ -67,28 +64,30 @@ const Blog: React.FC = () => {
         />
       </Helmet>
 
-      <section className="py-12 md:py-16">
+      <section className="pt-24 md:pt-28 pb-12 md:pb-16">
         <div className="container">
-          <h1 className="text-3xl md:text-4xl font-bold mb-2">Blog</h1>
-          <p className="text-muted-foreground mb-8 text-lg">
-            {tag ? `Articles about ${currentTagName}` : 'Thoughts, ideas and tutorials'}
-          </p>
+          <div className="mb-10">
+            <h1 className="text-4xl md:text-5xl font-bold mb-4 text-foreground">Blog</h1>
+            <p className="text-muted-foreground text-lg max-w-2xl">
+              {tag ? `Exploring articles about ${currentTagName}` : 'Thoughts, ideas, and tutorials to inspire and inform'}
+            </p>
+          </div>
           
-          <div className="flex flex-col sm:flex-row justify-between items-start gap-4 mb-8">
+          <div className="flex flex-col sm:flex-row justify-between items-start gap-4 mb-10">
             <BlogSearch />
             <BlogTagFilter />
           </div>
           
           {posts.length === 0 ? (
-            <div className="text-center py-12">
-              <h2 className="text-xl font-medium mb-2">No posts found</h2>
+            <div className="text-center py-16 bg-secondary/50 rounded-xl">
+              <h2 className="text-2xl font-semibold mb-4">No posts found</h2>
               <p className="text-muted-foreground">
-                Try changing your search term or removing filters.
+                Try adjusting your search term or removing filters.
               </p>
             </div>
           ) : (
             <>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
                 {posts.map(post => (
                   <BlogPostCard key={post.id} post={post} />
                 ))}

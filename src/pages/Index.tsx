@@ -10,6 +10,20 @@ import Education from '@/components/Education';
 import Contact from '@/components/Contact';
 
 const Index: React.FC = () => {
+  useEffect(() => {
+    if (location.hash) {
+      // Small timeout to ensure the DOM is fully loaded
+      setTimeout(() => {
+        const targetElement = document.querySelector(location.hash);
+        if (targetElement) {
+          window.scrollTo({
+            top: targetElement.getBoundingClientRect().top + window.scrollY - 80,
+            behavior: 'smooth'
+          });
+        }
+      }, 100);
+    }
+  }, [location.hash]);
   // Smooth scroll to sections when clicking on navigation links
   useEffect(() => {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {

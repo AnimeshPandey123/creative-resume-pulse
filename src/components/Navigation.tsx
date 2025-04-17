@@ -3,12 +3,14 @@ import React, { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
 import { Menu, X, Moon, Sun, BookOpen } from 'lucide-react';
 import { useTheme } from '@/components/ThemeProvider';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const Navigation: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { theme, toggleTheme } = useTheme();
+  const location = useLocation();
+  const isHomePage = location.pathname === '/';
 
   const navLinks = [
     { name: 'About', href: '#about' },
@@ -29,6 +31,14 @@ const Navigation: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Handle navigation for section links when not on homepage
+  const handleSectionNavigation = (e: React.MouseEvent, href: string) => {
+    if (href.startsWith('#') && !isHomePage) {
+      e.preventDefault();
+      window.location.href = `/${href}`;
+    }
+  };
+
   return (
     <header className={cn(
       'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
@@ -37,15 +47,20 @@ const Navigation: React.FC = () => {
         : 'bg-transparent'
     )}>
       <div className="container mx-auto px-4 flex items-center justify-between h-16 md:h-20">
-        <a href="#" className="font-display font-bold text-lg md:text-xl">
+        <Link to="/" className="font-display font-bold text-lg md:text-xl">
           Animesh Pandey
-        </a>
+        </Link>
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-1">
           {navLinks.map((link) => (
             link.href.startsWith('#') ? (
-              <a key={link.name} href={link.href} className="nav-link">
+              <a 
+                key={link.name} 
+                href={isHomePage ? link.href : `/${link.href}`} 
+                className="nav-link"
+                onClick={(e) => handleSectionNavigation(e, link.href)}
+              >
                 {link.name}
               </a>
             ) : (
@@ -93,9 +108,12 @@ const Navigation: React.FC = () => {
             link.href.startsWith('#') ? (
               <a 
                 key={link.name} 
-                href={link.href} 
+                href={isHomePage ? link.href : `/${link.href}`}
                 className="text-xl py-2 px-4 border-b border-border flex items-center gap-2"
-                onClick={() => setMobileMenuOpen(false)}
+                onClick={(e) => {
+                  setMobileMenuOpen(false);
+                  handleSectionNavigation(e, link.href);
+                }}
               >
                 {link.icon && <link.icon size={18} />}
                 {link.name}

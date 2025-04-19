@@ -47,7 +47,6 @@ const Contact: React.FC = () => {
         description: "Thank you for reaching out. I'll get back to you soon.",
       });
     } else {
-      console.log("Failed to send email", res.json());
       toast({
         title: "Message not sent!",
         description: "Something went wrong",

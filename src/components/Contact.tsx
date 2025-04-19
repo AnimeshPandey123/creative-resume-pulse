@@ -24,12 +24,17 @@ const Contact: React.FC = () => {
     setFormState(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitting(true);
-    
-    // Simulate form submission
-    setTimeout(() => {
+
+    const res = await fetch('/api/contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(formState),
+    });
+
+    if (res.ok) {
       setSubmitting(false);
       setFormState({
         name: '',
@@ -41,7 +46,13 @@ const Contact: React.FC = () => {
         title: "Message sent!",
         description: "Thank you for reaching out. I'll get back to you soon.",
       });
-    }, 1500);
+    } else {
+      console.log("Failed to send email", res.json());
+      toast({
+        title: "Message not sent!",
+        description: "Something went wrong",
+      });
+    }
   };
 
   useEffect(() => {

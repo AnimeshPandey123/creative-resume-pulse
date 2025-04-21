@@ -18,10 +18,15 @@ export default async function handler(req: Request) {
 
   try {
     const data = await resend.emails.send({
-      from: 'Animesh  <onboarding@resend.dev>', // or a verified sender
-      to: ['animeshpandey.pro@gmail.com'], // where the message goes
-      subject: `New Contact Form Message from ${name}`,
-      html: `<p><strong>Email:</strong> ${email}</p><p><strong>Message:</strong><br/>${message}</p>`,
+      from: 'Animesh  <onboarding@resend.dev>',
+      to: ['animeshpandey.pro@gmail.com'],
+      subject: `📬 New Message from ${name} via Your Website`,
+      html: `<div style="font-family: Arial, sans-serif; line-height: 1.6;">
+            <p><strong>Email:</strong> ${email}</p>
+            <p><strong>Name:</strong> ${name}</p>
+            <p><strong>Message:</strong></p>
+            <p style="margin-left: 1em;">${message}</p>
+          </div>`
     });
     console.log(data);
 

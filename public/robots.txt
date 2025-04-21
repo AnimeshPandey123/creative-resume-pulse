@@ -1,10 +1,9 @@
-
+# *
 User-agent: *
 Allow: /
-Index: /
-Disallow: 
 
-# Override the x-robots-tag: noindex directive
-X-Robots-Tag: index, follow
+# Host
+Host: https://www.animeshpandey.com
 
-Sitemap: https://animeshpandey.com/sitemap.xml
+# Sitemaps
+Sitemap: https://www.animeshpandey.com/sitemap.xml

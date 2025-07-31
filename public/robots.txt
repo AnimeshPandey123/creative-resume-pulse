@@ -1,9 +1,34 @@
-# *
+# Robots.txt for Animesh Pandey Portfolio
+# https://animeshpandey.com
+
+# Allow all crawlers
 User-agent: *
 Allow: /
+
+# Disallow admin and private areas
+Disallow: /admin/
+Disallow: /private/
+Disallow: /api/
+Disallow: /_next/
+Disallow: /static/
+
+# Crawl-delay for respectful crawling
+Crawl-delay: 1
 
 # Host
 Host: https://www.animeshpandey.com
 
 # Sitemaps
 Sitemap: https://www.animeshpandey.com/sitemap.xml
+Sitemap: https://www.animeshpandey.com/sitemap-blog.xml
+
+# Additional directives for better SEO
+# Block common bots that might cause issues
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: AhrefsBot
+Crawl-delay: 10
+
+User-agent: SemrushBot
+Crawl-delay: 10

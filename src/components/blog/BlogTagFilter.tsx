@@ -1,6 +1,7 @@
+"use client";
 
 import React, { useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, useRouter } from 'next/navigation';
 import { Check, ChevronsUpDown } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -20,9 +21,10 @@ import {
 import { blogTags } from '@/data/mockBlogData';
 
 const BlogTagFilter: React.FC = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const searchParams = useSearchParams();
+  const router = useRouter();
   const [open, setOpen] = React.useState(false);
-  const currentTag = searchParams.get('tag') || '';
+  const currentTag = searchParams?.get('tag') ?? '';
   // Initialize value state from URL params
   const [value, setValue] = React.useState(currentTag);
 
@@ -32,8 +34,8 @@ const BlogTagFilter: React.FC = () => {
   }, [currentTag]);
 
   const handleTagSelect = (selectedValue: string) => {
-    const newParams = new URLSearchParams(searchParams);
-    
+    const newParams = new URLSearchParams(searchParams ? searchParams.toString() : '');
+
     if (selectedValue === currentTag) {
       // If selecting the same tag, clear the filter
       newParams.delete('tag');
@@ -42,18 +44,18 @@ const BlogTagFilter: React.FC = () => {
       newParams.set('tag', selectedValue);
       setValue(selectedValue);
     }
-    
+
     // Reset to page 1 when changing tags
     newParams.set('page', '1');
-    
-    setSearchParams(newParams);
+
+    router.push(`/blog?${newParams.toString()}`);
     setOpen(false);
   };
 
   const clearTagFilter = () => {
-    const newParams = new URLSearchParams(searchParams);
+    const newParams = new URLSearchParams(searchParams ? searchParams.toString() : '');
     newParams.delete('tag');
-    setSearchParams(newParams);
+    router.push(`/blog?${newParams.toString()}`);
     setValue('');
   };
 
@@ -101,11 +103,11 @@ const BlogTagFilter: React.FC = () => {
           </Command>
         </PopoverContent>
       </Popover>
-      
+
       {currentTag && (
-        <Button 
-          variant="ghost" 
-          onClick={clearTagFilter} 
+        <Button
+          variant="ghost"
+          onClick={clearTagFilter}
           className="h-9 px-2"
         >
           Clear filter

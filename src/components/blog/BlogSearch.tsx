@@ -1,14 +1,17 @@
+"use client";
+
 import React, { useEffect, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, useRouter } from 'next/navigation';
 import { Search } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 
 const BlogSearch: React.FC = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const [searchTerm, setSearchTerm] = useState(searchParams.get('search') || '');
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const [searchTerm, setSearchTerm] = useState(searchParams?.get('search') ?? '');
 
   useEffect(() => {
-    const search = searchParams.get('search') || '';
+    const search = searchParams?.get('search') ?? '';
     setSearchTerm(search);
   }, [searchParams]);
 
@@ -16,7 +19,7 @@ const BlogSearch: React.FC = () => {
     const value = e.target.value;
     setSearchTerm(value);
 
-    const newParams = new URLSearchParams(searchParams);
+    const newParams = new URLSearchParams(searchParams ? searchParams.toString() : '');
 
     if (value) {
       newParams.set('search', value);
@@ -25,7 +28,7 @@ const BlogSearch: React.FC = () => {
     }
 
     newParams.set('page', '1');
-    setSearchParams(newParams);
+    router.push(`/blog?${newParams.toString()}`);
   };
 
   return (

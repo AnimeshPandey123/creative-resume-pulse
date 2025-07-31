@@ -1,3 +1,4 @@
+"use client";
 
 import React, { useEffect, useRef } from 'react';
 
@@ -11,7 +12,7 @@ const skillsData: SkillCategory[] = [
     title: "Programming Languages & Frameworks",
     skills: [
       "Python", "PHP", "JavaScript", "SQL", "TypeScript", "Dart", "Golang",
-      "Laravel", "Lumen", "Symfony", "Drupal", "Magento", "Flask", "Vue.js", 
+      "Laravel", "Lumen", "Symfony", "Drupal", "Magento", "Flask", "Vue.js",
       "React", "Next.js", "Node.js", "Selenium", "RESTful APIs", "GraphQL",
       "3rd-Party Integrations", "Object-Oriented Programming", "Microservices Architecture"
     ]
@@ -70,22 +71,22 @@ const Skills: React.FC = () => {
           My technical toolkit and areas of expertise.
         </p>
 
-        <div 
+        <div
           ref={skillsContainerRef}
           className="max-w-4xl mx-auto"
         >
           {skillsData.map((category, categoryIndex) => (
             <div key={categoryIndex} className="mb-12 last:mb-0">
               <h3 className="text-xl font-bold mb-6 text-center">{category.title}</h3>
-              
+
               <div className="flex flex-wrap justify-center gap-3">
                 {category.skills.map((skill, skillIndex) => {
                   const globalIndex = categoryIndex * skillsData[0].skills.length + skillIndex;
                   return (
                     <div
                       key={skillIndex}
-                      ref={el => skillsRefs.current[globalIndex] = el}
-                      className="skill-pill opacity-0 transition-transform hover:scale-105 cursor-default"
+                      ref={el => { skillsRefs.current[globalIndex] = el; }}
+                      className="skill-pill transition-transform hover:scale-105 cursor-default"
                     >
                       {skill}
                     </div>

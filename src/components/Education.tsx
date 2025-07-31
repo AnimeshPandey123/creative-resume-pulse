@@ -1,3 +1,4 @@
+"use client";
 
 import React, { useEffect, useRef } from 'react';
 
@@ -72,8 +73,8 @@ const Education: React.FC = () => {
             {educationData.map((education, index) => (
               <div
                 key={index}
-                ref={el => educationItemsRef.current[index] = el}
-                className="glass-card p-6 opacity-0 dark:bg-gray-800/80 dark:border-gray-700/20"
+                ref={el => { educationItemsRef.current[index] = el; }}
+                className="glass-card p-6 dark:bg-gray-800/80 dark:border-gray-700/20"
                 style={{ animationDelay: `${index * 100}ms` }}
               >
                 <div className="flex flex-col md:flex-row justify-between">

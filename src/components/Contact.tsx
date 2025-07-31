@@ -1,3 +1,4 @@
+"use client";
 
 import React, { useState, useEffect, useRef } from 'react';
 import { Mail, Phone, MapPin } from 'lucide-react';
@@ -41,7 +42,7 @@ const Contact: React.FC = () => {
         email: '',
         message: ''
       });
-      
+
       toast({
         title: "Message sent!",
         description: "Thank you for reaching out. I'll get back to you soon.",
@@ -89,14 +90,14 @@ const Contact: React.FC = () => {
           Have a project in mind or want to discuss a potential opportunity? I'd love to hear from you.
         </p>
 
-        <div 
+        <div
           ref={contactContentRef}
-          className="max-w-5xl mx-auto glass-card p-8 md:p-10 opacity-0"
+          className="max-w-5xl mx-auto glass-card p-8 md:p-10"
         >
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
             <div>
               <h3 className="text-2xl font-bold mb-6">Contact Information</h3>
-              
+
               <div className="space-y-6">
                 <div className="flex items-start">
                   <MapPin className="text-primary mt-1 mr-4" size={20} />
@@ -105,26 +106,26 @@ const Contact: React.FC = () => {
                     <p className="text-muted-foreground">West Bromwich, Birmingham</p>
                   </div>
                 </div>
-                
+
                 <div className="flex items-start">
                   <Mail className="text-primary mt-1 mr-4" size={20} />
                   <div>
                     <p className="font-medium">Email</p>
-                    <a 
-                      href="mailto:animeshpandey.pro@gmail.com" 
+                    <a
+                      href="mailto:animeshpandey.pro@gmail.com"
                       className="text-muted-foreground hover:text-primary transition-colors"
                     >
                       animeshpandey.pro@gmail.com
                     </a>
                   </div>
                 </div>
-                
+
                 <div className="flex items-start">
                   <Phone className="text-primary mt-1 mr-4" size={20} />
                   <div>
                     <p className="font-medium">Phone</p>
-                    <a 
-                      href="tel:+447775658685" 
+                    <a
+                      href="tel:+447775658685"
                       className="text-muted-foreground hover:text-primary transition-colors"
                     >
                       +44 7775 658685
@@ -132,11 +133,11 @@ const Contact: React.FC = () => {
                   </div>
                 </div>
               </div>
-              
+
               <div className="mt-10">
                 <h3 className="text-xl font-bold mb-4">Connect</h3>
                 <div className="flex space-x-4">
-                  <a 
+                  <a
                     href="https://www.linkedin.com/in/animesh-pandey-26546213a"
                     target="_blank"
                     rel="noopener noreferrer"
@@ -144,12 +145,12 @@ const Contact: React.FC = () => {
                     aria-label="LinkedIn"
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-linkedin">
-                      <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
-                      <rect width="4" height="12" x="2" y="9"/>
-                      <circle cx="4" cy="4" r="2"/>
+                      <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+                      <rect width="4" height="12" x="2" y="9" />
+                      <circle cx="4" cy="4" r="2" />
                     </svg>
                   </a>
-                  <a 
+                  <a
                     href="https://animeshpandey.com"
                     target="_blank"
                     rel="noopener noreferrer"
@@ -157,18 +158,18 @@ const Contact: React.FC = () => {
                     aria-label="Website"
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-globe">
-                      <circle cx="12" cy="12" r="10"/>
-                      <line x1="2" x2="22" y1="12" y2="12"/>
-                      <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                      <circle cx="12" cy="12" r="10" />
+                      <line x1="2" x2="22" y1="12" y2="12" />
+                      <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
                     </svg>
                   </a>
                 </div>
               </div>
             </div>
-            
+
             <div>
               <h3 className="text-2xl font-bold mb-6">Send Me a Message</h3>
-              
+
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium mb-2">
@@ -185,7 +186,7 @@ const Contact: React.FC = () => {
                     placeholder="John Doe"
                   />
                 </div>
-                
+
                 <div>
                   <label htmlFor="email" className="block text-sm font-medium mb-2">
                     Your Email
@@ -201,7 +202,7 @@ const Contact: React.FC = () => {
                     placeholder="john@example.com"
                   />
                 </div>
-                
+
                 <div>
                   <label htmlFor="message" className="block text-sm font-medium mb-2">
                     Message
@@ -217,7 +218,7 @@ const Contact: React.FC = () => {
                     placeholder="Your message here..."
                   ></textarea>
                 </div>
-                
+
                 <button
                   type="submit"
                   disabled={submitting}

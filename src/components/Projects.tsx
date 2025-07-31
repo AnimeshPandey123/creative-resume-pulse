@@ -1,3 +1,4 @@
+"use client";
 
 import React, { useEffect, useRef } from 'react';
 import { ExternalLink } from 'lucide-react';
@@ -103,8 +104,8 @@ const Projects: React.FC = () => {
           {projectsData.map((project, index) => (
             <div
               key={index}
-              ref={el => projectCardsRef.current[index] = el}
-              className="project-card opacity-0 dark:bg-gray-800/80 dark:border-gray-700/20"
+              ref={el => { projectCardsRef.current[index] = el; }}
+              className="project-card dark:bg-gray-800/80 dark:border-gray-700/20"
               style={{ animationDelay: `${index * 100}ms` }}
             >
               <div className="p-6">
@@ -113,9 +114,9 @@ const Projects: React.FC = () => {
                     <h3 className="text-xl font-bold text-foreground">{project.title}</h3>
                     <p className="text-primary">{project.role}</p>
                   </div>
-                  <a 
-                    href={project.url} 
-                    target="_blank" 
+                  <a
+                    href={project.url}
+                    target="_blank"
                     rel="noopener noreferrer"
                     className="text-muted-foreground hover:text-primary transition-colors"
                     aria-label={`Visit ${project.title} website`}
@@ -123,7 +124,7 @@ const Projects: React.FC = () => {
                     <ExternalLink size={20} />
                   </a>
                 </div>
-                
+
                 <ul className="mb-4 space-y-2">
                   {project.description.map((point, idx) => (
                     <li key={idx} className="text-sm flex">
@@ -132,7 +133,7 @@ const Projects: React.FC = () => {
                     </li>
                   ))}
                 </ul>
-                
+
                 <div className="flex flex-wrap gap-2 mt-auto">
                   {project.technologies.map((tech, idx) => (
                     <span key={idx} className="skill-pill dark:bg-gray-700 dark:text-gray-200">

@@ -1,3 +1,4 @@
+"use client";
 
 import React, { useEffect, useRef } from 'react';
 
@@ -90,10 +91,10 @@ const Experience: React.FC = () => {
         <div className="max-w-4xl mx-auto">
           <ul className="mt-8">
             {experienceData.map((experience, index) => (
-              <li 
+              <li
                 key={index}
-                ref={el => experienceItemsRef.current[index] = el}
-                className="timeline-item opacity-0"
+                ref={el => { experienceItemsRef.current[index] = el; }}
+                className="timeline-item"
                 style={{ animationDelay: `${index * 100}ms` }}
               >
                 <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-border">

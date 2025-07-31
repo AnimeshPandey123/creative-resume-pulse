@@ -13,7 +13,7 @@ const currentDate = new Date().toISOString().split('T')[0];
 
 // Generate main sitemap
 function generateMainSitemap() {
-    const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+  const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" 
         xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" 
         xmlns:xhtml="http://www.w3.org/1999/xhtml" 
@@ -82,15 +82,15 @@ function generateMainSitemap() {
   
 </urlset>`;
 
-    fs.writeFileSync(path.join(__dirname, '../public/sitemap.xml'), sitemap);
-    console.log('✅ Main sitemap generated successfully');
+  fs.writeFileSync(path.join(__dirname, '../public/sitemap.xml'), sitemap);
+  console.log('✅ Main sitemap generated successfully');
 }
 
 // Generate blog sitemap (placeholder for dynamic blog posts)
 function generateBlogSitemap() {
-    // This would typically fetch blog posts from a CMS or database
-    // For now, we'll create a template
-    const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+  // This would typically fetch blog posts from a CMS or database
+  // For now, we'll create a template
+  const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" 
         xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" 
         xmlns:xhtml="http://www.w3.org/1999/xhtml" 
@@ -114,13 +114,13 @@ function generateBlogSitemap() {
   
 </urlset>`;
 
-    fs.writeFileSync(path.join(__dirname, '../public/sitemap-blog.xml'), sitemap);
-    console.log('✅ Blog sitemap generated successfully');
+  fs.writeFileSync(path.join(__dirname, '../public/sitemap-blog.xml'), sitemap);
+  console.log('✅ Blog sitemap generated successfully');
 }
 
 // Generate sitemap index
 function generateSitemapIndex() {
-    const sitemapIndex = `<?xml version="1.0" encoding="UTF-8"?>
+  const sitemapIndex = `<?xml version="1.0" encoding="UTF-8"?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <sitemap>
     <loc>${BASE_URL}/sitemap.xml</loc>
@@ -132,32 +132,32 @@ function generateSitemapIndex() {
   </sitemap>
 </sitemapindex>`;
 
-    fs.writeFileSync(path.join(__dirname, '../public/sitemap-index.xml'), sitemapIndex);
-    console.log('✅ Sitemap index generated successfully');
+  fs.writeFileSync(path.join(__dirname, '../public/sitemap-index.xml'), sitemapIndex);
+  console.log('✅ Sitemap index generated successfully');
 }
 
 // Main execution
 function main() {
-    try {
-        console.log('🚀 Generating sitemaps...');
-        generateMainSitemap();
-        generateBlogSitemap();
-        generateSitemapIndex();
-        console.log('✅ All sitemaps generated successfully!');
-    } catch (error) {
-        console.error('❌ Error generating sitemaps:', error);
-        process.exit(1);
-    }
+  try {
+    console.log('🚀 Generating sitemaps for Next.js...');
+    generateMainSitemap();
+    generateBlogSitemap();
+    generateSitemapIndex();
+    console.log('✅ All sitemaps generated successfully!');
+  } catch (error) {
+    console.error('❌ Error generating sitemaps:', error);
+    process.exit(1);
+  }
 }
 
 // Run if called directly
 if (import.meta.url === `file://${process.argv[1]}`) {
-    main();
+  main();
 }
 
 export {
-    generateMainSitemap,
-    generateBlogSitemap,
-    generateSitemapIndex,
-    main
+  generateMainSitemap,
+  generateBlogSitemap,
+  generateSitemapIndex,
+  main
 }; 

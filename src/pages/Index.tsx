@@ -8,6 +8,7 @@ import Projects from '@/components/Projects';
 import Skills from '@/components/Skills';
 import Education from '@/components/Education';
 import Contact from '@/components/Contact';
+import SEO from '@/components/SEO';
 
 const Index: React.FC = () => {
   useEffect(() => {
@@ -27,7 +28,7 @@ const Index: React.FC = () => {
   // Smooth scroll to sections when clicking on navigation links
   useEffect(() => {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
+      anchor.addEventListener('click', function (e) {
         e.preventDefault();
         const targetId = this.getAttribute('href');
         if (targetId && targetId !== '#') {
@@ -44,7 +45,7 @@ const Index: React.FC = () => {
 
     return () => {
       document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.removeEventListener('click', function() {});
+        anchor.removeEventListener('click', function () { });
       });
     };
   }, []);
@@ -75,22 +76,46 @@ const Index: React.FC = () => {
     };
 
     window.addEventListener('scroll', handleScroll);
-    
+
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
 
   return (
-    <Layout>
-      <Hero />
-      <About />
-      <Experience />
-      <Projects />
-      <Skills />
-      <Education />
-      <Contact />
-    </Layout>
+    <>
+      <SEO
+        title="Animesh Pandey | Senior Software Engineer | Full Stack Developer"
+        description="Explore the portfolio of Animesh Pandey, a Senior Software Engineer with 6+ years of expertise in backend development using PHP, Javascript, Python, and modern web technologies."
+        keywords={[
+          'Animesh Pandey',
+          'Software Engineer',
+          'PHP',
+          'Python',
+          'Backend Developer',
+          'Full Stack Developer',
+          'Web Engineer',
+          'Software Portfolio',
+          'React',
+          'Node.js',
+          'TypeScript',
+          'AWS',
+          'Docker',
+          'Kubernetes'
+        ]}
+        url="https://animeshpandey.com"
+        type="profile"
+      />
+      <Layout>
+        <Hero />
+        <About />
+        <Experience />
+        <Projects />
+        <Skills />
+        <Education />
+        <Contact />
+      </Layout>
+    </>
   );
 };
 

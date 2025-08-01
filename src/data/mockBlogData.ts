@@ -133,7 +133,7 @@ Process all regex matches or replace all occurrences of a substring.
 \`\`\`javascript
 // matchAll returns an iterator of all matches
 const text = "test1 test2 test3";
-const pattern = /test(\d)/g;
+const pattern = /test([0-9])/g;
 const matches = [...text.matchAll(pattern)];
 console.log(matches);
 // [
@@ -229,32 +229,32 @@ These modern JavaScript features can significantly improve your code by making i
 
 export const fetchBlogPosts = (page = 1, limit = 6, search = '', tag = '') => {
   let filteredPosts = [...blogPosts];
-  
+
   // Filter by search term
   if (search) {
     const searchLower = search.toLowerCase();
-    filteredPosts = filteredPosts.filter(post => 
+    filteredPosts = filteredPosts.filter(post =>
       post.title.toLowerCase().includes(searchLower) ||
       post.excerpt.toLowerCase().includes(searchLower) ||
       post.content.toLowerCase().includes(searchLower)
     );
   }
-  
+
   // Filter by tag
   if (tag) {
-    filteredPosts = filteredPosts.filter(post => 
+    filteredPosts = filteredPosts.filter(post =>
       post.tags.some(t => t.slug === tag)
     );
   }
-  
+
   const totalPosts = filteredPosts.length;
   const totalPages = Math.ceil(totalPosts / limit);
-  
+
   // Calculate pagination
   const startIndex = (page - 1) * limit;
   const endIndex = startIndex + limit;
   const paginatedPosts = filteredPosts.slice(startIndex, endIndex);
-  
+
   return {
     posts: paginatedPosts,
     totalPosts,
@@ -270,9 +270,9 @@ export const fetchBlogPostBySlug = (slug: string) => {
 export const fetchRelatedPosts = (currentPostId: string, limit = 3) => {
   const currentPost = blogPosts.find(post => post.id === currentPostId);
   if (!currentPost) return [];
-  
+
   const currentPostTagIds = currentPost.tags.map(tag => tag.id);
-  
+
   return blogPosts
     .filter(post => post.id !== currentPostId)
     .map(post => {

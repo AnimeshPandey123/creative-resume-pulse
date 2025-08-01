@@ -16,12 +16,12 @@ type CarouselProps = {
   opts?: CarouselOptions
   plugins?: CarouselPlugin
   orientation?: "horizontal" | "vertical"
-  // eslint-disable-next-line no-unused-vars
-  setApi?: (carouselApi: CarouselApi) => void
+  setApi?: (api: CarouselApi) => void
 }
 
 type CarouselContextProps = {
   carouselRef: ReturnType<typeof useEmblaCarousel>[0]
+  api: ReturnType<typeof useEmblaCarousel>[1]
   scrollPrev: () => void
   scrollNext: () => void
   canScrollPrev: boolean
@@ -66,13 +66,13 @@ const Carousel = React.forwardRef<
     const [canScrollPrev, setCanScrollPrev] = React.useState(false)
     const [canScrollNext, setCanScrollNext] = React.useState(false)
 
-    const onSelect = React.useCallback((carouselApi: CarouselApi) => {
-      if (!carouselApi) {
+    const onSelect = React.useCallback((api: CarouselApi) => {
+      if (!api) {
         return
       }
 
-      setCanScrollPrev(carouselApi.canScrollPrev())
-      setCanScrollNext(carouselApi.canScrollNext())
+      setCanScrollPrev(api.canScrollPrev())
+      setCanScrollNext(api.canScrollNext())
     }, [])
 
     const scrollPrev = React.useCallback(() => {

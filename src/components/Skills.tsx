@@ -52,14 +52,13 @@ const Skills: React.FC = () => {
       }
     }, options);
 
-    const currentRef = skillsContainerRef.current;
-    if (currentRef) {
-      observer.observe(currentRef);
+    if (skillsContainerRef.current) {
+      observer.observe(skillsContainerRef.current);
     }
 
     return () => {
-      if (currentRef) {
-        observer.unobserve(currentRef);
+      if (skillsContainerRef.current) {
+        observer.unobserve(skillsContainerRef.current);
       }
     };
   }, []);

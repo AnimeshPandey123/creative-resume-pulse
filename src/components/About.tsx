@@ -21,14 +21,13 @@ const About: React.FC = () => {
       });
     }, options);
 
-    const currentRef = aboutContentRef.current;
-    if (currentRef) {
-      observer.observe(currentRef);
+    if (aboutContentRef.current) {
+      observer.observe(aboutContentRef.current);
     }
 
     return () => {
-      if (currentRef) {
-        observer.unobserve(currentRef);
+      if (aboutContentRef.current) {
+        observer.unobserve(aboutContentRef.current);
       }
     };
   }, []);

@@ -22,13 +22,14 @@ const Hero: React.FC = () => {
       });
     }, options);
 
-    if (subtitleRef.current) {
-      observer.observe(subtitleRef.current);
+    const currentRef = subtitleRef.current;
+    if (currentRef) {
+      observer.observe(currentRef);
     }
 
     return () => {
-      if (subtitleRef.current) {
-        observer.unobserve(subtitleRef.current);
+      if (currentRef) {
+        observer.unobserve(currentRef);
       }
     };
   }, []);

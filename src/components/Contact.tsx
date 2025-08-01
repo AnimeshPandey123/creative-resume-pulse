@@ -71,13 +71,14 @@ const Contact: React.FC = () => {
       });
     }, options);
 
-    if (contactContentRef.current) {
-      observer.observe(contactContentRef.current);
+    const currentRef = contactContentRef.current;
+    if (currentRef) {
+      observer.observe(currentRef);
     }
 
     return () => {
-      if (contactContentRef.current) {
-        observer.unobserve(contactContentRef.current);
+      if (currentRef) {
+        observer.unobserve(currentRef);
       }
     };
   }, []);

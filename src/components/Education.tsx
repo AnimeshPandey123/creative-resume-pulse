@@ -49,12 +49,13 @@ const Education: React.FC = () => {
       });
     }, options);
 
-    educationItemsRef.current.forEach(item => {
+    const currentRefs = educationItemsRef.current;
+    currentRefs.forEach(item => {
       if (item) observer.observe(item);
     });
 
     return () => {
-      educationItemsRef.current.forEach(item => {
+      currentRefs.forEach(item => {
         if (item) observer.unobserve(item);
       });
     };

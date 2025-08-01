@@ -2,6 +2,7 @@
   "name": "animesh-pandey-portfolio",
   "private": true,
   "version": "0.0.0",
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "dev:static": "mv next.config.ts next.config.dev.ts && mv next.config.static.ts next.config.ts && next dev",

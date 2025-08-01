@@ -126,7 +126,8 @@ export const reducer = (state: State, action: Action): State => {
   }
 }
 
-const listeners: Array<(state: State) => void> = []
+// eslint-disable-next-line no-unused-vars
+const listeners: Array<(_currentState: State) => void> = []
 
 let memoryState: State = { toasts: [] }
 
@@ -179,7 +180,7 @@ function useToast() {
         listeners.splice(index, 1)
       }
     }
-  }, [state])
+  }, [])
 
   return {
     ...state,

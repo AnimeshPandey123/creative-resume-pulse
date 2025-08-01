@@ -27,9 +27,11 @@ const SIDEBAR_KEYBOARD_SHORTCUT = "b"
 type SidebarContext = {
   state: "expanded" | "collapsed"
   open: boolean
-  setOpen: (open: boolean) => void
+  // eslint-disable-next-line no-unused-vars
+  setOpen: (_openState: boolean) => void
   openMobile: boolean
-  setOpenMobile: (open: boolean) => void
+  // eslint-disable-next-line no-unused-vars
+  setOpenMobile: (_mobileState: boolean) => void
   isMobile: boolean
   toggleSidebar: () => void
 }
@@ -50,7 +52,8 @@ const SidebarProvider = React.forwardRef<
   React.ComponentProps<"div"> & {
     defaultOpen?: boolean
     open?: boolean
-    onOpenChange?: (open: boolean) => void
+    // eslint-disable-next-line no-unused-vars
+    onOpenChange?: (_openState: boolean) => void
   }
 >(
   (
@@ -73,16 +76,17 @@ const SidebarProvider = React.forwardRef<
     const [_open, _setOpen] = React.useState(defaultOpen)
     const open = openProp ?? _open
     const setOpen = React.useCallback(
-      (value: boolean | ((value: boolean) => boolean)) => {
-        const openState = typeof value === "function" ? value(open) : value
+      // eslint-disable-next-line no-unused-vars
+      (openState: boolean | ((_currentOpen: boolean) => boolean)) => {
+        const newOpenState = typeof openState === "function" ? openState(open) : openState
         if (setOpenProp) {
-          setOpenProp(openState)
+          setOpenProp(newOpenState)
         } else {
-          _setOpen(openState)
+          _setOpen(newOpenState)
         }
 
         // This sets the cookie to keep the sidebar state.
-        document.cookie = `${SIDEBAR_COOKIE_NAME}=${openState}; path=/; max-age=${SIDEBAR_COOKIE_MAX_AGE}`
+        document.cookie = `${SIDEBAR_COOKIE_NAME}=${newOpenState}; path=/; max-age=${SIDEBAR_COOKIE_MAX_AGE}`
       },
       [setOpenProp, open]
     )
@@ -612,7 +616,7 @@ const SidebarMenuAction = React.forwardRef<
         "peer-data-[size=lg]/menu-button:top-2.5",
         "group-data-[collapsible=icon]:hidden",
         showOnHover &&
-          "group-focus-within/menu-item:opacity-100 group-hover/menu-item:opacity-100 data-[state=open]:opacity-100 peer-data-[active=true]/menu-button:text-sidebar-accent-foreground md:opacity-0",
+        "group-focus-within/menu-item:opacity-100 group-hover/menu-item:opacity-100 data-[state=open]:opacity-100 peer-data-[active=true]/menu-button:text-sidebar-accent-foreground md:opacity-0",
         className
       )}
       {...props}

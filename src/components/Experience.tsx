@@ -51,14 +51,14 @@ const Experience: React.FC = () => {
                 className="timeline-item"
                 style={{ animationDelay: `${index * 100}ms` }}
               >
-                <div className="timeline-content glass-card dark:bg-gray-800/80 dark:border-gray-700/20">
+                <div className="p-6 rounded-lg bg-white/50 dark:bg-transparent border border-white/20 dark:border-gray-700/30 shadow-sm hover:shadow-md transition-shadow duration-300">
                   <div className="flex flex-col md:flex-row justify-between items-start mb-4">
                     <div>
                       <h3 className="text-xl font-bold text-foreground">{experience.title}</h3>
                       <p className="text-primary font-medium">{experience.company}</p>
                       <p className="text-muted-foreground">{experience.location}</p>
                     </div>
-                    <span className="px-4 py-1 bg-accent dark:bg-gray-700 rounded-full text-sm font-medium text-accent-foreground dark:text-gray-200 mt-2 md:mt-0">
+                    <span className="px-4 py-1 bg-accent dark:bg-gray-700/50 rounded-full text-sm font-medium text-accent-foreground dark:text-gray-200 mt-2 md:mt-0">
                       {experience.period}
                     </span>
                   </div>

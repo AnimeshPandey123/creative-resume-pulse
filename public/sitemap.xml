@@ -8,7 +8,7 @@
   <!-- Homepage -->
   <url>
     <loc>https://animeshpandey.com/</loc>
-    <lastmod>2025-07-31</lastmod>
+    <lastmod>2025-08-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <image:image>
@@ -20,7 +20,7 @@
   <!-- Blog -->
   <url>
     <loc>https://animeshpandey.com/blog</loc>
-    <lastmod>2025-07-31</lastmod>
+    <lastmod>2025-08-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
@@ -28,7 +28,7 @@
   <!-- About section -->
   <url>
     <loc>https://animeshpandey.com/#about</loc>
-    <lastmod>2025-07-31</lastmod>
+    <lastmod>2025-08-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -36,7 +36,7 @@
   <!-- Projects section -->
   <url>
     <loc>https://animeshpandey.com/#projects</loc>
-    <lastmod>2025-07-31</lastmod>
+    <lastmod>2025-08-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -44,7 +44,7 @@
   <!-- Experience section -->
   <url>
     <loc>https://animeshpandey.com/#experience</loc>
-    <lastmod>2025-07-31</lastmod>
+    <lastmod>2025-08-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -52,7 +52,7 @@
   <!-- Skills section -->
   <url>
     <loc>https://animeshpandey.com/#skills</loc>
-    <lastmod>2025-07-31</lastmod>
+    <lastmod>2025-08-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
@@ -60,7 +60,7 @@
   <!-- Contact section -->
   <url>
     <loc>https://animeshpandey.com/#contact</loc>
-    <lastmod>2025-07-31</lastmod>
+    <lastmod>2025-08-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>

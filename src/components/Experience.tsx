@@ -69,12 +69,13 @@ const Experience: React.FC = () => {
       });
     }, options);
 
-    experienceItemsRef.current.forEach(item => {
+    const currentRefs = experienceItemsRef.current;
+    currentRefs.forEach(item => {
       if (item) observer.observe(item);
     });
 
     return () => {
-      experienceItemsRef.current.forEach(item => {
+      currentRefs.forEach(item => {
         if (item) observer.unobserve(item);
       });
     };

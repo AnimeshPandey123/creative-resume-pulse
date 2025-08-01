@@ -81,12 +81,13 @@ const Projects: React.FC = () => {
       });
     }, options);
 
-    projectCardsRef.current.forEach(card => {
+    const currentRefs = projectCardsRef.current;
+    currentRefs.forEach(card => {
       if (card) observer.observe(card);
     });
 
     return () => {
-      projectCardsRef.current.forEach(card => {
+      currentRefs.forEach(card => {
         if (card) observer.unobserve(card);
       });
     };

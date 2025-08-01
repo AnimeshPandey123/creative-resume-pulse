@@ -1,267 +1,323 @@
 {
     "hero": {
-        "title": "SENIOR SOFTWARE ENGINEER",
-        "name": "Animesh Pandey",
-        "subtitle": "Specialized in PHP and backend development with 6 years of experience building scalable, high-performance applications.",
-        "cta": {
-            "primary": {
-                "text": "Get in touch",
-                "href": "#contact"
-            },
-            "secondary": {
-                "text": "Learn more",
-                "href": "#about"
-            }
+      "title": "SENIOR SOFTWARE ENGINEER",
+      "name": "Animesh Pandey",
+      "subtitle": "Specialized in PHP, Python, and backend development with 6 years of experience delivering scalable, high-performance systems.",
+      "cta": {
+        "primary": {
+          "text": "Get in touch",
+          "href": "#contact"
+        },
+        "secondary": {
+          "text": "Learn more",
+          "href": "#about"
         }
+      }
     },
     "about": {
-        "title": "About Me",
-        "subtitle": "A passionate software engineer with a dedication to creating efficient, scalable solutions.",
-        "content": [
-            "As a Senior Software Engineer with 6 years of experience, I specialize in PHP and backend development, focusing on building scalable, high-performance applications. I have a solid background in designing testable, extensible systems, optimizing APIs, and applying SOLID principles and TDD methodologies.",
-            "With expertise in MySQL, PostgreSQL, and Docker, I excel in creating robust CI/CD pipelines and maintaining high development standards through code reviews and best practices.",
-            "I am passionate about mentoring junior developers, solving complex technical challenges, and continuously learning new technologies such as DevOps tools and CMS platforms. My goal is to deliver solutions that not only meet technical requirements but also drive business success."
-        ],
-        "contact": {
-            "location": "West Bromwich, Birmingham",
-            "email": "animeshpandey.pro@gmail.com",
-            "phone": "+44 7775 658685"
-        }
+      "title": "About Me",
+      "subtitle": "A passionate engineer who thrives on solving complex challenges and mentoring others.",
+      "content": [
+        "As a Senior Software Engineer with 6 years of experience, I specialize in PHP, Python, and Node.js. My core focus lies in backend development, building scalable, testable, and performance-optimized systems.",
+        "I have hands-on expertise in designing CI/CD pipelines, writing clean, test-driven code, and integrating 3rd-party services. My strengths include API development, microservices architecture, and cloud-native tooling using Docker and Kubernetes.",
+        "I enjoy working with cross-functional teams, mentoring junior developers, and staying updated with AI, DevOps, and CMS technologies to continually deliver value and innovation."
+      ],
+      "contact": {
+        "location": "West Bromwich, Birmingham",
+        "email": "animeshpandey.pro@gmail.com",
+        "phone": "+44 7775 658685"
+      }
     },
     "experience": {
-        "title": "Professional Experience",
-        "subtitle": "My professional journey and the valuable experience I've gained along the way.",
-        "items": [
-            {
-                "title": "Sr. Software Engineer",
-                "company": "Red Airship",
-                "period": "July 2022 - July 2024",
-                "location": "Singapore",
-                "responsibilities": [
-                    "Led backend and frontend development, creating scalable, performance-optimized solutions for complex applications.",
-                    "Worked closely with cross-functional teams to design and implement microservice architectures using Python, PHP, Vue, React, and TypeScript.",
-                    "Enhanced database queries and UI components to improve application efficiency, ensuring an optimal user experience.",
-                    "Conducted code reviews and implemented best practices like clean code, testing (unit/integration), and agile methodologies to maintain high-quality development standards.",
-                    "Collaborated on project requirements and development lifecycle, ensuring smooth client interactions and alignment with business goals."
-                ]
-            },
-            {
-                "title": "Sr. Software Engineer",
-                "company": "Hazesoft",
-                "period": "March 2020 - July 2022",
-                "location": "Baneshwor",
-                "responsibilities": [
-                    "Led backend development with a focus on PHP, Python and MySQL, ensuring high scalability and performance.",
-                    "Developed and optimized microservices architecture using Docker and Kubernetes, delivering innovative marketing solutions.",
-                    "Spearheaded the transition from monolithic to microservices architecture, significantly improving system performance and efficiency.",
-                    "Developed RESTful APIs and integrated third-party services for diverse client requirements, ensuring scalable software products.",
-                    "Played a key role in designing system architecture, implementing best practices like testing and code reviews to deliver robust solutions."
-                ]
-            },
-            {
-                "title": "Web Developer",
-                "company": "Karkhana",
-                "period": "December 2017 - March 2020",
-                "location": "Gyaneshwor",
-                "responsibilities": [
-                    "Contributed to both backend and frontend development using PHP, JavaScript, and SQL, delivering user-friendly applications in a fast-paced environment.",
-                    "Implemented robust, data-driven solutions to enhance user interaction and streamline content management systems.",
-                    "Worked closely with stakeholders to gather requirements and deliver efficient, scalable web applications."
-                ]
-            }
-        ]
+      "title": "Professional Experience",
+      "subtitle": "My professional journey and the valuable experience I've gained along the way.",
+      "items": [
+        {
+          "title": "Sr. Python Software Engineer",
+          "company": "Mercor",
+          "period": "May 2025 - July 2025",
+          "location": "USA",
+          "responsibilities": [
+            "Built and maintained Docker environments across multiple repositories, ensuring consistency and reliability.",
+            "Achieved 100% test coverage with pytest across AI pipeline components.",
+            "Created technical documentation and tested AI agents in Cursor for usability and correctness."
+          ]
+        },
+        {
+          "title": "Sr. Full Stack Developer",
+          "company": "Red Airship",
+          "period": "July 2022 - July 2024",
+          "location": "Singapore",
+          "responsibilities": [
+            "Led backend and frontend initiatives using Python, PHP, React, Vue, and TypeScript.",
+            "Optimized systems through lazy loading, reduced page load times by 80%, and implemented CI/CD to cut deployment from 1 hour to 5 minutes.",
+            "Mentored junior developers and contributed to hiring through interviews and code assessments."
+          ]
+        },
+        {
+          "title": "Sr. Full Stack Developer",
+          "company": "Hazesoft",
+          "period": "March 2020 - July 2022",
+          "location": "Baneshwor",
+          "responsibilities": [
+            "Led PHP and Python-based backend development with performance tuning and microservices architecture.",
+            "Reduced API response time from 10s to 500ms via query optimization and Redis/Elasticsearch caching.",
+            "Guided junior developers, ran code reviews, and conducted technical hiring."
+          ]
+        },
+        {
+          "title": "Full Stack Developer",
+          "company": "Karkhana",
+          "period": "December 2017 - March 2020",
+          "location": "Gyaneshwor",
+          "responsibilities": [
+            "Contributed to full-stack development in PHP and JavaScript in an agile, fast-paced setting.",
+            "Delivered CMS enhancements and worked directly with stakeholders on scalable solutions."
+          ]
+        }
+      ]
     },
     "projects": {
-        "title": "Notable Projects",
-        "subtitle": "A showcase of my work across various technologies and industries.",
-        "items": [
-            {
-                "title": "AQUA Expeditions",
-                "role": "Senior Software Engineer",
-                "url": "https://www.aquaexpeditions.com/",
-                "description": [
-                    "Developed backend using PHP, ensuring seamless functionality for the booking platform.",
-                    "Implemented CI/CD pipelines with Docker to ensure continuous integration and testing."
-                ],
-                "technologies": [
-                    "PHP",
-                    "MySQL",
-                    "Docker",
-                    "CI/CD"
-                ]
-            },
-            {
-                "title": "SSN",
-                "role": "Senior Software Engineer",
-                "url": "https://startupsg.gov.sg/",
-                "description": [
-                    "A platform bolstering Singapore's startup ecosystem, and enhancing tech startup collaborations in Singapore."
-                ],
-                "technologies": [
-                    "PHP",
-                    "JavaScript",
-                    "React",
-                    "MySQL"
-                ]
-            },
-            {
-                "title": "Lugmety",
-                "role": "API and Backend Developer",
-                "url": "https://lugmety.com/",
-                "description": [
-                    "Built PHP-based microservices for order management, optimizing database interactions with MySQL.",
-                    "Used TDD to ensure high code quality, utilizing PHPUnit for continuous testing."
-                ],
-                "technologies": [
-                    "PHP",
-                    "Microservices",
-                    "MySQL",
-                    "TDD",
-                    "PHPUnit"
-                ]
-            },
-            {
-                "title": "SpaceTogether",
-                "role": "Full Stack Developer",
-                "url": "https://spacetogether.com/",
-                "description": [
-                    "Developed API and backend for space rental platform using PHP and MySQL.",
-                    "Implemented SOLID design patterns to create extensible, maintainable code."
-                ],
-                "technologies": [
-                    "PHP",
-                    "MySQL",
-                    "SOLID",
-                    "API Development"
-                ]
-            },
-            {
-                "title": "Keppler Hosting",
-                "role": "API and Backend Developer",
-                "url": "https://customerv2.keplerhosting.cloud",
-                "description": [
-                    "This application provides hosting features for WordPress, React, and E-commerce applications."
-                ],
-                "technologies": [
-                    "PHP",
-                    "Docker",
-                    "WordPress",
-                    "React",
-                    "E-commerce"
-                ]
-            }
-        ]
+      "title": "Notable Projects",
+      "subtitle": "A showcase of my work across various technologies and industries.",
+      "items": [
+        {
+          "title": "AI Investor – Multi-Agent Stock Trading System",
+          "role": "AI Engineer",
+          "url": "",
+          "description": [
+            "Created an AI-powered system where multiple agents collaborate to produce trading signals.",
+            "Used vectorbt for backtesting and Streamlit for real-time visualization."
+          ],
+          "technologies": [
+            "Python",
+            "LangChain",
+            "vectorbt",
+            "Streamlit",
+            "Agent Collaboration"
+          ]
+        },
+        {
+          "title": "LLM-Powered Research Assistant",
+          "role": "Senior Software Engineer",
+          "url": "",
+          "description": [
+            "Built a vector-search tool for querying academic papers using LangChain and Ollama.",
+            "Integrated Qdrant and Elasticsearch with a custom Python-based API."
+          ],
+          "technologies": [
+            "Python",
+            "LangChain",
+            "Qdrant",
+            "Ollama",
+            "Elasticsearch"
+          ]
+        },
+        {
+          "title": "Resume Analyser",
+          "role": "Full Stack Developer",
+          "url": "",
+          "description": [
+            "Built a resume parsing tool using Gemini AI for job description matching and scoring.",
+            "React frontend integrated with Laravel backend."
+          ],
+          "technologies": [
+            "React",
+            "Laravel",
+            "Gemini AI",
+            "REST APIs"
+          ]
+        },
+        {
+          "title": "AQUA Expeditions",
+          "role": "Senior Software Engineer",
+          "url": "https://www.aquaexpeditions.com/",
+          "description": [
+            "Developed PHP-based backend for a cruise booking platform.",
+            "Implemented Dockerized CI/CD pipeline for deployment automation."
+          ],
+          "technologies": [
+            "PHP",
+            "MySQL",
+            "Docker",
+            "CI/CD"
+          ]
+        },
+        {
+          "title": "SSN",
+          "role": "Senior Software Engineer",
+          "url": "https://startupsg.gov.sg/",
+          "description": [
+            "Strengthened Singapore's startup ecosystem with scalable, collaborative features."
+          ],
+          "technologies": [
+            "PHP",
+            "React",
+            "JavaScript",
+            "MySQL"
+          ]
+        },
+        {
+          "title": "Lugmety",
+          "role": "API and Backend Developer",
+          "url": "https://lugmety.com/",
+          "description": [
+            "Built order management microservices and implemented TDD with PHPUnit."
+          ],
+          "technologies": [
+            "PHP",
+            "MySQL",
+            "PHPUnit",
+            "TDD"
+          ]
+        },
+        {
+          "title": "SpaceTogether",
+          "role": "Full Stack Developer",
+          "url": "https://spacetogether.com/",
+          "description": [
+            "Designed and implemented APIs and backend for a space rental platform.",
+            "Applied SOLID principles for maintainable code."
+          ],
+          "technologies": [
+            "PHP",
+            "MySQL",
+            "SOLID",
+            "API Development"
+          ]
+        },
+        {
+          "title": "Keppler Hosting",
+          "role": "API and Backend Developer",
+          "url": "https://customerv2.keplerhosting.cloud",
+          "description": [
+            "Enabled hosting for WordPress, React, and eCommerce applications."
+          ],
+          "technologies": [
+            "PHP",
+            "Docker",
+            "React",
+            "WordPress",
+            "E-commerce"
+          ]
+        }
+      ]
     },
     "skills": {
-        "title": "Technical Skills",
-        "subtitle": "My technical toolkit and areas of expertise.",
-        "categories": [
-            {
-                "title": "Programming Languages & Frameworks",
-                "skills": [
-                    "Python",
-                    "PHP",
-                    "JavaScript",
-                    "SQL",
-                    "TypeScript",
-                    "Dart",
-                    "Golang",
-                    "Laravel",
-                    "Lumen",
-                    "Symfony",
-                    "Drupal",
-                    "Magento",
-                    "Flask",
-                    "Vue.js",
-                    "React",
-                    "Next.js",
-                    "Node.js",
-                    "Selenium",
-                    "RESTful APIs",
-                    "GraphQL",
-                    "3rd-Party Integrations",
-                    "Object-Oriented Programming",
-                    "Microservices Architecture"
-                ]
-            },
-            {
-                "title": "Tools & Technologies",
-                "skills": [
-                    "MySQL",
-                    "PostgreSQL",
-                    "MongoDB",
-                    "ElasticSearch",
-                    "Docker",
-                    "Kubernetes",
-                    "AWS",
-                    "RabbitMQ",
-                    "Digital Ocean",
-                    "LAMP stack",
-                    "DNS",
-                    "Load Balancing",
-                    "Git",
-                    "PHPUnit",
-                    "CI/CD Pipelines",
-                    "Unit Testing",
-                    "SCRUM",
-                    "Code Reviews",
-                    "Integration Testing"
-                ]
-            }
-        ]
+      "title": "Technical Skills",
+      "subtitle": "My technical toolkit and areas of expertise.",
+      "categories": [
+        {
+          "title": "Programming Languages & Frameworks",
+          "skills": [
+            "Python",
+            "PHP",
+            "JavaScript",
+            "TypeScript",
+            "SQL",
+            "Node.js",
+            "Golang",
+            "Java",
+            "Laravel",
+            "Lumen",
+            "Symfony",
+            "Drupal",
+            "WordPress",
+            "Magento",
+            "Flask",
+            "React",
+            "Vue.js",
+            "Next.js",
+            "Selenium",
+            "LangChain",
+            "LLMs (OpenAI, Gemini, Ollama)",
+            "RESTful APIs",
+            "GraphQL",
+            "AI Integration",
+            "Prompt Engineering",
+            "Object-Oriented Programming",
+            "Microservices Architecture"
+          ]
+        },
+        {
+          "title": "Tools & Technologies",
+          "skills": [
+            "MySQL",
+            "PostgreSQL",
+            "MongoDB",
+            "ElasticSearch",
+            "Qdrant",
+            "Docker",
+            "Kubernetes",
+            "AWS",
+            "RabbitMQ",
+            "Digital Ocean",
+            "LAMP stack",
+            "Git",
+            "PHPUnit",
+            "CI/CD Pipelines",
+            "Unit Testing",
+            "Integration Testing",
+            "Load Balancing",
+            "SCRUM",
+            "Code Reviews"
+          ]
+        }
+      ]
     },
     "education": {
-        "title": "Education",
-        "subtitle": "My academic background and qualifications.",
-        "items": [
-            {
-                "degree": "Master's degree in Computer Science",
-                "institution": "University of Wolverhampton",
-                "location": "Wolverhampton, UK",
-                "period": "2025 - present"
-            },
-            {
-                "degree": "Bachelor's degree in Computer Science and Information Technology",
-                "institution": "St. Xavier's College",
-                "location": "Maitighar, Kathmandu",
-                "period": "2015 - 2019"
-            },
-            {
-                "degree": "High School with Physics as a Major",
-                "institution": "St. Xavier's College",
-                "location": "Maitighar, Kathmandu",
-                "period": "2012 - 2015"
-            }
-        ]
+      "title": "Education",
+      "subtitle": "My academic background and qualifications.",
+      "items": [
+        {
+          "degree": "Master's degree in Computer Science",
+          "institution": "University of Wolverhampton",
+          "location": "Wolverhampton, UK",
+          "period": "2025 - present"
+        },
+        {
+          "degree": "Bachelor's degree in Computer Science and Information Technology",
+          "institution": "St. Xavier's College",
+          "location": "Maitighar, Kathmandu",
+          "period": "2015 - 2019"
+        },
+        {
+          "degree": "High School with Physics as a Major",
+          "institution": "St. Xavier's College",
+          "location": "Maitighar, Kathmandu",
+          "period": "2012 - 2015"
+        }
+      ]
     },
     "contact": {
-        "title": "Get In Touch",
-        "subtitle": "Have a project in mind or want to discuss a potential opportunity? I'd love to hear from you.",
-        "info": {
-            "location": {
-                "label": "Location",
-                "value": "West Bromwich, Birmingham"
-            },
-            "email": {
-                "label": "Email",
-                "value": "animeshpandey.pro@gmail.com"
-            },
-            "phone": {
-                "label": "Phone",
-                "value": "+44 7775 658685"
-            }
+      "title": "Get In Touch",
+      "subtitle": "Have a project in mind or want to discuss a potential opportunity? I'd love to hear from you.",
+      "info": {
+        "location": {
+          "label": "Location",
+          "value": "West Bromwich, Birmingham"
         },
-        "social": [
-            {
-                "name": "LinkedIn",
-                "url": "https://www.linkedin.com/in/animesh-pandey-26546213a",
-                "icon": "linkedin"
-            },
-            {
-                "name": "Website",
-                "url": "https://animeshpandey.com",
-                "icon": "globe"
-            }
-        ]
+        "email": {
+          "label": "Email",
+          "value": "animeshpandey.pro@gmail.com"
+        },
+        "phone": {
+          "label": "Phone",
+          "value": "+44 7775 658685"
+        }
+      },
+      "social": [
+        {
+          "name": "LinkedIn",
+          "url": "https://www.linkedin.com/in/animesh-pandey-26546213a",
+          "icon": "linkedin"
+        },
+        {
+          "name": "Website",
+          "url": "https://animeshpandey.com",
+          "icon": "globe"
+        }
+      ]
     }
-}
+  }
+  

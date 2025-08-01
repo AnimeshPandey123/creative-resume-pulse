@@ -4,20 +4,54 @@
         xmlns:xhtml="http://www.w3.org/1999/xhtml" 
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" 
         xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
-  
-  <!-- Blog posts will be dynamically generated here -->
-  <!-- Example structure for blog posts -->
-  <!-- 
   <url>
-    <loc>https://animeshpandey.com/blog/example-post</loc>
-    <lastmod>2025-07-31</lastmod>
+    <loc>https://animeshpandey.com/blog/ta-lib-candlestick-pattern-detection-python</loc>
+    <lastmod>2025-03-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <image:image>
-      <image:loc>https://animeshpandey.com/images/blog/example-post.png</image:loc>
-      <image:title>Example Blog Post</image:title>
+      <image:loc>http://d1iukwsziul56d.cloudfront.net/drupal-prodv2/s3fs-public/2025-03/DALL%C2%B7E%202025-02-27%2017.27.28%20-%20A%20financial%20trading%20chart%20with%20candlestick%20patterns%20highlighted.%20The%20chart%20includes%20green%20and%20red%20candlesticks%20representing%20bullish%20and%20bearish%20trends_1.webp</image:loc>
+      <image:title>Implementing TA-Lib and Matching Candlestick Patterns with Python</image:title>
     </image:image>
   </url>
-  -->
-  
+  <url>
+    <loc>https://animeshpandey.com/blog/a-beginners-guide-to-vuejs-practical-implementation-and-real-world-applications</loc>
+    <lastmod>2024-12-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>http://d1iukwsziul56d.cloudfront.net/drupal-prodv2/s3fs-public/2024-12/https___dev-to-uploads.s3.amazonaws.com_i_s7ccbilncopcaign1ayw.jpeg</image:loc>
+      <image:title>A Beginner's Guide to Vue.js: Practical Implementation and Real-World Applications</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://animeshpandey.com/blog/a-comprehensive-guide-to-learning-laravel-mastering-the-php-framework-for-web-development</loc>
+    <lastmod>2024-12-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>http://d1iukwsziul56d.cloudfront.net/drupal-prodv2/s3fs-public/2024-12/educational%20and%20eye-catching%20featured%20image%20for%20a%20blog%20about%20Laravel%20application_0.png</image:loc>
+      <image:title>A Comprehensive Guide to Learning Laravel: Mastering the PHP Framework for Web Development</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://animeshpandey.com/blog/deploying-a-nextjs-application-with-nginx-and-docker-a-comprehensive-guide</loc>
+    <lastmod>2024-11-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>http://d1iukwsziul56d.cloudfront.net/drupal-prodv2/s3fs-public/2024-11/docker-nginx_1.png</image:loc>
+      <image:title>Deploying a Next.js Application with Nginx and Docker: A Comprehensive Guide</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://animeshpandey.com/blog/how-to-easily-dockerize-a-python-flask-application-a-step-by-step-guide</loc>
+    <lastmod>2024-10-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>http://d1iukwsziul56d.cloudfront.net/drupal-prodv2/s3fs-public/2024-10/DALL_E_2024-09-26_10-1_2.webp</image:loc>
+      <image:title>How to Easily Dockerize a Python Flask Application: A Step-by-Step Guide</image:title>
+    </image:image>
+  </url>
 </urlset>

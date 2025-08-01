@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef } from 'react';
+import { aboutData } from '@/data/landingData';
 
 const About: React.FC = () => {
   const aboutContentRef = useRef<HTMLDivElement>(null);
@@ -36,47 +37,36 @@ const About: React.FC = () => {
   return (
     <section id="about" className="py-20 bg-white dark:bg-gray-900">
       <div className="section-container">
-        <h2 className="section-title">About Me</h2>
+        <h2 className="section-title">{aboutData.title}</h2>
         <p className="section-subtitle">
-          A passionate software engineer with a dedication to creating efficient, scalable solutions.
+          {aboutData.subtitle}
         </p>
 
         <div
           ref={aboutContentRef}
           className="max-w-4xl mx-auto glass-card p-8 md:p-10 dark:bg-gray-800/80"
         >
-          <p className="text-lg leading-relaxed mb-6 text-foreground">
-            As a Senior Software Engineer with 6 years of experience, I specialize in PHP and backend development,
-            focusing on building scalable, high-performance applications. I have a solid background in designing
-            testable, extensible systems, optimizing APIs, and applying SOLID principles and TDD methodologies.
-          </p>
-
-          <p className="text-lg leading-relaxed mb-6 text-foreground">
-            With expertise in MySQL, PostgreSQL, and Docker, I excel in creating robust CI/CD pipelines and
-            maintaining high development standards through code reviews and best practices.
-          </p>
-
-          <p className="text-lg leading-relaxed text-foreground">
-            I am passionate about mentoring junior developers, solving complex technical challenges, and
-            continuously learning new technologies such as DevOps tools and CMS platforms. My goal is to
-            deliver solutions that not only meet technical requirements but also drive business success.
-          </p>
+          {aboutData.content.map((paragraph, index) => (
+            <p key={index} className="text-lg leading-relaxed mb-6 text-foreground">
+              {paragraph}
+            </p>
+          ))}
 
           <div className="mt-8 flex flex-wrap gap-4">
             <div className="flex items-center">
               <span className="text-primary font-medium mr-3">Location:</span>
-              <span className="text-foreground">West Bromwich, Birmingham</span>
+              <span className="text-foreground">{aboutData.contact.location}</span>
             </div>
             <div className="flex items-center">
               <span className="text-primary font-medium mr-3">Email:</span>
-              <a href="mailto:animeshpandey.pro@gmail.com" className="text-foreground hover:text-primary transition-colors">
-                animeshpandey.pro@gmail.com
+              <a href={`mailto:${aboutData.contact.email}`} className="text-foreground hover:text-primary transition-colors">
+                {aboutData.contact.email}
               </a>
             </div>
             <div className="flex items-center">
               <span className="text-primary font-medium mr-3">Phone:</span>
-              <a href="tel:+447775658685" className="text-foreground hover:text-primary transition-colors">
-                +44 7775 658685
+              <a href={`tel:${aboutData.contact.phone}`} className="text-foreground hover:text-primary transition-colors">
+                {aboutData.contact.phone}
               </a>
             </div>
           </div>

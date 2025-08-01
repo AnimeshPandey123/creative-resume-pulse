@@ -17,7 +17,7 @@ export const blogPosts: BlogPost[] = posts.map((post: any) => ({
   tags: blogTags.filter(tag => post.tagIds.includes(tag.id))
 }));
 
-export const fetchBlogPosts = (page = 1, limit = 6, search = '', tag = '') => {
+export const fetchBlogPosts = (page = 1, limit = 10, search = '', tag = '') => {
   let filteredPosts = [...blogPosts];
 
   // Filter by search term

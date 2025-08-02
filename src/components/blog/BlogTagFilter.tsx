@@ -66,16 +66,21 @@ const BlogTagFilter: React.FC = () => {
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           <Button
-            variant="outline"
+            className={cn(
+              "justify-between min-w-[150px] h-9 px-3 py-2 text-sm font-medium transition-colors",
+              "bg-white/50 dark:bg-gray-800/50 border border-white/20 dark:border-gray-700/30",
+              "hover:bg-white/70 dark:hover:bg-gray-800/70",
+              "text-foreground hover:text-foreground",
+              selectedTag ? "bg-primary/10 dark:bg-primary/20 border-primary/30 dark:border-primary/30" : ""
+            )}
             role="combobox"
             aria-expanded={open}
-            className="justify-between min-w-[150px]"
           >
             {selectedTag ? selectedTag.name : "Filter by tag"}
             <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-[200px] p-0">
+        <PopoverContent className="w-[200px] p-0 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md border border-white/20 dark:border-gray-700/30 shadow-lg">
           <Command value={value}>
             <CommandInput placeholder="Search tags..." />
             <CommandList>

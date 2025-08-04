@@ -53,11 +53,11 @@ export const fetchBlogPosts = (page = 1, limit = 10, search = '', tag = '') => {
   };
 };
 
-export const fetchBlogPostBySlug = (slug: string) => {
+export const fetchBlogPostBySlug = async (slug: string) => {
   return blogPosts.find(post => post.slug === slug);
 };
 
-export const fetchRelatedPosts = (currentPostId: string, limit = 3) => {
+export const fetchRelatedPosts = async (currentPostId: string, limit = 3) => {
   const currentPost = blogPosts.find(post => post.id === currentPostId);
   if (!currentPost) return [];
 

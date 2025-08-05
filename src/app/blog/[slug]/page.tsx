@@ -11,9 +11,10 @@ export function generateStaticParams() {
 }
 
 // Generate metadata for each blog post
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
     try {
-        const post = await fetchBlogPostBySlug(params.slug);
+        const { slug } = await params;
+        const post = await fetchBlogPostBySlug(slug);
 
         if (!post) {
             return {
@@ -81,10 +82,9 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     }
 }
 
-// @ts-expect-error Next.js App Router dynamic route params typing
-export default async function BlogPostPage({ params }) {
+export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
     try {
-        const slug = params.slug;
+        const { slug } = await params;
         const post = await fetchBlogPostBySlug(slug);
         const relatedPosts = post ? await fetchRelatedPosts(post.id, 3) : [];
 

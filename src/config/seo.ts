@@ -31,7 +31,7 @@ export const SEO_CONFIG = {
             'Docker',
             'Kubernetes'
         ],
-        image: 'https://animeshpandey.com/images/opengraph-image.png',
+        image: 'https://animeshpandey.com/opengraph-image.png',
         type: 'website' as const,
     },
 
@@ -88,7 +88,7 @@ export const SEO_CONFIG = {
             jobTitle: 'Senior Software Engineer',
             description: 'Senior Software Engineer with 6+ years of expertise in backend development using PHP, Javascript, Python, and modern web technologies.',
             url: 'https://animeshpandey.com',
-            image: 'https://animeshpandey.com/images/opengraph-image.png',
+            image: 'https://animeshpandey.com/opengraph-image.png',
             sameAs: [
                 'https://github.com/animeshpandey',
                 'https://linkedin.com/in/animeshpandey',
@@ -137,7 +137,6 @@ export const SEO_CONFIG = {
     performance: {
         preload: [
             'https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap',
-            '/images/opengraph-image.png',
             '/favicon.ico'
         ],
         dnsPrefetch: [

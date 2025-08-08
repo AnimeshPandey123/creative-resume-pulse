@@ -19,7 +19,6 @@ const PerformanceOptimizer: React.FC<PerformanceOptimizerProps> = ({ children })
 
             // Preload critical images
             const criticalImages = [
-                '/images/opengraph-image.png',
                 '/favicon.ico'
             ];
 

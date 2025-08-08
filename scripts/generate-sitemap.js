@@ -39,7 +39,7 @@ function generateMainSitemap() {
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <image:image>
-      <image:loc>${BASE_URL}/images/opengraph-image.png</image:loc>
+      <image:loc>${BASE_URL}/opengraph-image.png</image:loc>
       <image:title>Animesh Pandey Portfolio</image:title>
     </image:image>
   </url>

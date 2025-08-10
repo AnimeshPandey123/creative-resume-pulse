@@ -35,14 +35,18 @@ const About: React.FC = () => {
   }, []);
 
   return (
-    <section id="about" className="py-20 bg-white dark:bg-gray-900">
+    <section id="about" className="py-20 bg-white dark:bg-gray-900" role="region" aria-labelledby="about-heading">
       <div className="section-container">
-        <h2 className="section-title">{aboutData.title}</h2>
-        <p className="section-subtitle">
-          {aboutData.subtitle}
-        </p>
+        <header className="text-center mb-12">
+          <h2 id="about-heading" className="section-title">
+            {aboutData.title}
+          </h2>
+          <p className="section-subtitle">
+            {aboutData.subtitle}
+          </p>
+        </header>
 
-        <div
+        <article
           ref={aboutContentRef}
           className="max-w-4xl mx-auto glass-card p-8 md:p-10 dark:bg-gray-800/80"
         >
@@ -52,25 +56,28 @@ const About: React.FC = () => {
             </p>
           ))}
 
-          <div className="mt-8 flex flex-wrap gap-4">
-            <div className="flex items-center">
-              <span className="text-primary font-medium mr-3">Location:</span>
-              <span className="text-foreground">{aboutData.contact.location}</span>
-            </div>
-            <div className="flex items-center">
-              <span className="text-primary font-medium mr-3">Email:</span>
-              <a href={`mailto:${aboutData.contact.email}`} className="text-foreground hover:text-primary transition-colors">
-                {aboutData.contact.email}
-              </a>
-            </div>
-            <div className="flex items-center">
-              <span className="text-primary font-medium mr-3">Phone:</span>
-              <a href={`tel:${aboutData.contact.phone}`} className="text-foreground hover:text-primary transition-colors">
-                {aboutData.contact.phone}
-              </a>
-            </div>
-          </div>
-        </div>
+          <footer className="mt-8">
+            <h3 className="sr-only">Contact Information</h3>
+            <address className="flex flex-wrap gap-4 not-italic">
+              <div className="flex items-center">
+                <span className="text-primary font-medium mr-3">Location:</span>
+                <span className="text-foreground">{aboutData.contact.location}</span>
+              </div>
+              <div className="flex items-center">
+                <span className="text-primary font-medium mr-3">Email:</span>
+                <a href={`mailto:${aboutData.contact.email}`} className="text-foreground hover:text-primary transition-colors" aria-label="Send email to Animesh Pandey">
+                  {aboutData.contact.email}
+                </a>
+              </div>
+              <div className="flex items-center">
+                <span className="text-primary font-medium mr-3">Phone:</span>
+                <a href={`tel:${aboutData.contact.phone}`} className="text-foreground hover:text-primary transition-colors" aria-label="Call Animesh Pandey">
+                  {aboutData.contact.phone}
+                </a>
+              </div>
+            </address>
+          </footer>
+        </article>
       </div>
     </section>
   );

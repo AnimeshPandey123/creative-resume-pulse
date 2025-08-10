@@ -85,22 +85,26 @@ const Contact: React.FC = () => {
   }, []);
 
   return (
-    <section id="contact" className="py-20 bg-accent/50">
+    <section id="contact" className="py-20 bg-accent/50" role="region" aria-labelledby="contact-heading">
       <div className="section-container">
-        <h2 className="section-title">{contactData.title}</h2>
-        <p className="section-subtitle">
-          {contactData.subtitle}
-        </p>
+        <header className="text-center mb-12">
+          <h2 id="contact-heading" className="section-title">
+            {contactData.title}
+          </h2>
+          <p className="section-subtitle">
+            {contactData.subtitle}
+          </p>
+        </header>
 
         <div
           ref={contactContentRef}
           className="max-w-5xl mx-auto glass-card p-8 md:p-10"
         >
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-            <div>
+            <aside>
               <h3 className="text-2xl font-bold mb-6">Contact Information</h3>
 
-              <div className="space-y-6">
+              <address className="space-y-6 not-italic">
                 <div className="flex items-start">
                   <MapPin className="text-primary mt-1 mr-4" size={20} />
                   <div>
@@ -116,6 +120,7 @@ const Contact: React.FC = () => {
                     <a
                       href={`mailto:${contactData.info.email.value}`}
                       className="text-muted-foreground hover:text-primary transition-colors"
+                      aria-label="Send email to Animesh Pandey"
                     >
                       {contactData.info.email.value}
                     </a>
@@ -129,16 +134,17 @@ const Contact: React.FC = () => {
                     <a
                       href={`tel:${contactData.info.phone.value}`}
                       className="text-muted-foreground hover:text-primary transition-colors"
+                      aria-label="Call Animesh Pandey"
                     >
                       {contactData.info.phone.value}
                     </a>
                   </div>
                 </div>
-              </div>
+              </address>
 
-              <div className="mt-10">
-                <h3 className="text-xl font-bold mb-4">Connect</h3>
-                <div className="flex space-x-4">
+              <section className="mt-10">
+                <h4 className="text-xl font-bold mb-4">Connect</h4>
+                <nav className="flex space-x-4" aria-label="Social media links">
                   {contactData.social.map((social, index) => (
                     <a
                       key={index}
@@ -146,7 +152,7 @@ const Contact: React.FC = () => {
                       target="_blank"
                       rel="noopener noreferrer"
                       className="p-2 bg-secondary rounded-full hover:bg-primary hover:text-white transition-colors"
-                      aria-label={social.name}
+                      aria-label={`Visit ${social.name} profile`}
                     >
                       {social.icon === 'linkedin' && (
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-linkedin">
@@ -164,14 +170,14 @@ const Contact: React.FC = () => {
                       )}
                     </a>
                   ))}
-                </div>
-              </div>
-            </div>
+                </nav>
+              </section>
+            </aside>
 
-            <div>
+            <main>
               <h3 className="text-2xl font-bold mb-6">Send Me a Message</h3>
 
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-6" aria-label="Contact form">
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium mb-2">
                     Your Name
@@ -185,7 +191,9 @@ const Contact: React.FC = () => {
                     required
                     className="contact-input"
                     placeholder="John Doe"
+                    aria-describedby="name-help"
                   />
+                  <div id="name-help" className="sr-only">Please enter your full name</div>
                 </div>
 
                 <div>
@@ -201,7 +209,9 @@ const Contact: React.FC = () => {
                     required
                     className="contact-input"
                     placeholder="john@example.com"
+                    aria-describedby="email-help"
                   />
+                  <div id="email-help" className="sr-only">Please enter a valid email address</div>
                 </div>
 
                 <div>
@@ -217,18 +227,24 @@ const Contact: React.FC = () => {
                     required
                     className="contact-input resize-none"
                     placeholder="Your message here..."
+                    aria-describedby="message-help"
                   ></textarea>
+                  <div id="message-help" className="sr-only">Please enter your message</div>
                 </div>
 
                 <button
                   type="submit"
                   disabled={submitting}
                   className="w-full px-6 py-3 bg-primary text-primary-foreground rounded-lg font-medium transition-all hover:bg-primary/90 hover:shadow-md disabled:opacity-70 disabled:cursor-not-allowed"
+                  aria-describedby="submit-status"
                 >
                   {submitting ? 'Sending...' : 'Send Message'}
                 </button>
+                <div id="submit-status" className="sr-only" aria-live="polite">
+                  {submitting ? 'Sending your message...' : 'Ready to send message'}
+                </div>
               </form>
-            </div>
+            </main>
           </div>
         </div>
       </div>

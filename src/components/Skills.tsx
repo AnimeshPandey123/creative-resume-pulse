@@ -40,22 +40,28 @@ const Skills: React.FC = () => {
   }, []);
 
   return (
-    <section id="skills" className="py-20 bg-secondary">
+    <section id="skills" className="py-20 bg-secondary" role="region" aria-labelledby="skills-heading">
       <div className="section-container">
-        <h2 className="section-title">{skillsData.title}</h2>
-        <p className="section-subtitle">
-          {skillsData.subtitle}
-        </p>
+        <header className="text-center mb-12">
+          <h2 id="skills-heading" className="section-title">
+            {skillsData.title}
+          </h2>
+          <p className="section-subtitle">
+            {skillsData.subtitle}
+          </p>
+        </header>
 
         <div
           ref={skillsContainerRef}
           className="max-w-4xl mx-auto"
         >
           {skillsData.categories.map((category, categoryIndex) => (
-            <div key={categoryIndex} className="mb-12 last:mb-0">
-              <h3 className="text-xl font-bold mb-6 text-center">{category.title}</h3>
+            <section key={categoryIndex} className="mb-12 last:mb-0">
+              <h3 className="text-xl font-bold mb-6 text-center">
+                {category.title}
+              </h3>
 
-              <div className="flex flex-wrap justify-center gap-3">
+              <div className="flex flex-wrap justify-center gap-3" role="list" aria-label={`${category.title} skills`}>
                 {category.skills.map((skill, skillIndex) => {
                   const globalIndex = categoryIndex * skillsData.categories[0].skills.length + skillIndex;
                   return (
@@ -63,13 +69,15 @@ const Skills: React.FC = () => {
                       key={skillIndex}
                       ref={el => { skillsRefs.current[globalIndex] = el; }}
                       className="skill-pill transition-transform hover:scale-105 cursor-default"
+                      role="listitem"
+                      aria-label={`Skill: ${skill}`}
                     >
                       {skill}
                     </div>
                   );
                 })}
               </div>
-            </div>
+            </section>
           ))}
         </div>
       </div>

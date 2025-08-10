@@ -4,7 +4,7 @@ export const SEO_CONFIG = {
     site: {
         name: 'Animesh Pandey Portfolio',
         url: 'https://animeshpandey.com',
-        description: 'Portfolio of Animesh Pandey, Senior Software Engineer with expertise in backend development using PHP, Javascript, Python, and modern web technologies.',
+        description: 'Senior Software Engineer Animesh Pandey - 6+ years expertise in PHP, Python, Node.js, React, TypeScript, Docker, Kubernetes. Specializing in scalable backend systems, microservices, and AI integration. Based in Wolverhampton, UK.',
         author: 'Animesh Pandey',
         twitterHandle: '@animeshpandey',
         language: 'en',
@@ -13,23 +13,46 @@ export const SEO_CONFIG = {
 
     // Default Meta Tags
     default: {
-        title: 'Animesh Pandey | Senior Software Engineer | Full Stack Developer',
-        description: 'Explore the portfolio of Animesh Pandey, a Senior Software Engineer with 6+ years of expertise in backend development using PHP, Javascript, Python, and modern web technologies.',
+        title: 'Animesh Pandey | Senior Software Engineer | Full Stack Developer | Backend Specialist',
+        description: 'Senior Software Engineer Animesh Pandey - 6+ years expertise in PHP, Python, Node.js, React, TypeScript, Docker, Kubernetes. Specializing in scalable backend systems, microservices, and AI integration. Based in Wolverhampton, UK.',
         keywords: [
             'Animesh Pandey',
-            'Software Engineer',
-            'PHP',
-            'Python',
-            'Backend Developer',
+            'Senior Software Engineer',
             'Full Stack Developer',
-            'Web Engineer',
+            'Backend Developer',
+            'PHP Developer',
+            'Python Developer',
+            'Node.js Developer',
+            'React Developer',
+            'TypeScript Developer',
+            'Microservices Architecture',
+            'Docker Kubernetes',
+            'AWS Cloud',
+            'Database Optimization',
+            'API Development',
+            'CI/CD Pipeline',
+            'Software Architecture',
+            'Web Development',
             'Software Portfolio',
-            'React',
-            'Node.js',
-            'TypeScript',
-            'AWS',
-            'Docker',
-            'Kubernetes'
+            'UK Software Engineer',
+            'Wolverhampton Developer',
+            'Laravel Developer',
+            'Symfony Developer',
+            'Flask Developer',
+            'MySQL PostgreSQL',
+            'MongoDB Elasticsearch',
+            'RESTful APIs',
+            'GraphQL',
+            'AI Integration',
+            'Machine Learning',
+            'DevOps Engineer',
+            'System Architecture',
+            'Code Review',
+            'Technical Leadership',
+            'Mentoring',
+            'Agile Development',
+            'Test-Driven Development',
+            'SOLID Principles'
         ],
         image: 'https://animeshpandey.com/opengraph-image.png',
         type: 'website' as const,
@@ -38,36 +61,69 @@ export const SEO_CONFIG = {
     // Page-specific configurations
     pages: {
         home: {
-            title: 'Animesh Pandey | Senior Software Engineer | Full Stack Developer',
-            description: 'Explore the portfolio of Animesh Pandey, a Senior Software Engineer with 6+ years of expertise in backend development using PHP, Javascript, Python, and modern web technologies.',
+            title: 'Animesh Pandey | Senior Software Engineer | Full Stack Developer | Backend Specialist',
+            description: 'Senior Software Engineer Animesh Pandey - 6+ years expertise in PHP, Python, Node.js, React, TypeScript, Docker, Kubernetes. Specializing in scalable backend systems, microservices, and AI integration. Based in Wolverhampton, UK.',
             keywords: [
                 'Animesh Pandey',
-                'Software Engineer',
-                'PHP',
-                'Python',
-                'Backend Developer',
+                'Senior Software Engineer',
                 'Full Stack Developer',
-                'Web Engineer',
+                'Backend Developer',
+                'PHP Developer',
+                'Python Developer',
+                'Node.js Developer',
+                'React Developer',
+                'TypeScript Developer',
+                'Microservices Architecture',
+                'Docker Kubernetes',
+                'AWS Cloud',
+                'Database Optimization',
+                'API Development',
+                'CI/CD Pipeline',
+                'Software Architecture',
+                'Web Development',
                 'Software Portfolio',
-                'React',
-                'Node.js',
-                'TypeScript',
-                'AWS',
-                'Docker',
-                'Kubernetes'
+                'UK Software Engineer',
+                'Wolverhampton Developer',
+                'Laravel Developer',
+                'Symfony Developer',
+                'Flask Developer',
+                'MySQL PostgreSQL',
+                'MongoDB Elasticsearch',
+                'RESTful APIs',
+                'GraphQL',
+                'AI Integration',
+                'Machine Learning',
+                'DevOps Engineer',
+                'System Architecture',
+                'Code Review',
+                'Technical Leadership',
+                'Mentoring',
+                'Agile Development',
+                'Test-Driven Development',
+                'SOLID Principles'
             ],
             type: 'profile' as const,
         },
         blog: {
-            title: 'Blog | Animesh Pandey',
-            description: 'Explore articles on web development, programming, and technology by Animesh Pandey. Insights, tutorials, and thoughts on modern software development.',
+            title: 'Blog | Animesh Pandey - Software Engineering & Technology Insights',
+            description: 'Explore articles on web development, programming, software architecture, and technology by Animesh Pandey. Insights, tutorials, and thoughts on modern software development, backend systems, and AI integration.',
             keywords: [
                 'Blog',
                 'Web Development',
                 'Programming',
                 'Technology',
                 'Software Engineering',
-                'Animesh Pandey'
+                'Backend Development',
+                'API Development',
+                'Microservices',
+                'DevOps',
+                'AI Integration',
+                'Animesh Pandey',
+                'Software Architecture',
+                'Code Reviews',
+                'Best Practices',
+                'Tutorials',
+                'Technical Insights'
             ],
             type: 'website' as const,
         },
@@ -90,18 +146,35 @@ export const SEO_CONFIG = {
             url: 'https://animeshpandey.com',
             image: 'https://animeshpandey.com/opengraph-image.png',
             sameAs: [
-                'https://github.com/animeshpandey',
-                'https://linkedin.com/in/animeshpandey',
-                'https://twitter.com/animeshpandey'
+                'https://www.linkedin.com/in/animesh-pandey-26546213a',
+                'https://animeshpandey.com'
             ],
             knowsAbout: [
-                'PHP', 'Python', 'JavaScript', 'React', 'Node.js', 'TypeScript',
+                'PHP', 'Python', 'JavaScript', 'TypeScript', 'React', 'Node.js',
                 'Backend Development', 'Full Stack Development', 'Web Development',
-                'AWS', 'Docker', 'Kubernetes', 'MySQL', 'PostgreSQL', 'MongoDB'
+                'AWS', 'Docker', 'Kubernetes', 'MySQL', 'PostgreSQL', 'MongoDB',
+                'Microservices Architecture', 'API Development', 'CI/CD',
+                'Laravel', 'Symfony', 'Flask', 'RESTful APIs', 'GraphQL',
+                'Elasticsearch', 'Redis', 'RabbitMQ', 'DevOps', 'System Architecture',
+                'AI Integration', 'Machine Learning', 'LangChain', 'LLMs'
             ],
             worksFor: {
                 '@type': 'Organization',
                 name: 'Software Engineering'
+            },
+            address: {
+                '@type': 'PostalAddress',
+                addressLocality: 'Wolverhampton',
+                addressCountry: 'UK'
+            },
+            alumniOf: {
+                '@type': 'CollegeOrUniversity',
+                name: 'University of Wolverhampton'
+            },
+            hasOccupation: {
+                '@type': 'Occupation',
+                name: 'Senior Software Engineer',
+                description: 'Backend development specialist with expertise in scalable systems'
             }
         },
         website: {
@@ -115,6 +188,23 @@ export const SEO_CONFIG = {
                 name: 'Animesh Pandey'
             },
             publisher: {
+                '@type': 'Person',
+                name: 'Animesh Pandey'
+            },
+            potentialAction: {
+                '@type': 'SearchAction',
+                target: 'https://animeshpandey.com/search?q={search_term_string}',
+                'query-input': 'required name=search_term_string'
+            }
+        },
+        organization: {
+            '@context': 'https://schema.org',
+            '@type': 'Organization',
+            name: 'Animesh Pandey Portfolio',
+            url: 'https://animeshpandey.com',
+            logo: 'https://animeshpandey.com/opengraph-image.png',
+            description: 'Professional portfolio showcasing software engineering expertise',
+            founder: {
                 '@type': 'Person',
                 name: 'Animesh Pandey'
             }
@@ -202,6 +292,29 @@ export const generateBlogPostStructuredData = (post: {
     },
     keywords: post.tags.join(', '),
     articleSection: post.tags.length > 0 ? post.tags[0] : 'Technology',
+    wordCount: post.description.split(' ').length,
+    inLanguage: 'en-US',
+    isAccessibleForFree: true
+});
+
+// Helper function to generate comprehensive structured data for the portfolio
+export const generatePortfolioStructuredData = () => ({
+    '@context': 'https://schema.org',
+    '@type': 'CreativeWork',
+    name: 'Animesh Pandey Portfolio',
+    description: 'Professional portfolio showcasing software engineering projects and expertise',
+    author: {
+        '@type': 'Person',
+        name: 'Animesh Pandey',
+        jobTitle: 'Senior Software Engineer',
+        url: 'https://animeshpandey.com'
+    },
+    dateCreated: '2024',
+    dateModified: new Date().toISOString(),
+    inLanguage: 'en-US',
+    isAccessibleForFree: true,
+    genre: 'Portfolio',
+    keywords: SEO_CONFIG.default.keywords.join(', ')
 });
 
 export default SEO_CONFIG; 

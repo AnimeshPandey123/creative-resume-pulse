@@ -5,7 +5,7 @@ import { skillsData } from '@/data/landingData';
 
 const Skills: React.FC = () => {
   const skillsContainerRef = useRef<HTMLDivElement>(null);
-  const skillsRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const skillsRefs = useRef<(HTMLElement | null)[]>([]);
 
   useEffect(() => {
     const options = {

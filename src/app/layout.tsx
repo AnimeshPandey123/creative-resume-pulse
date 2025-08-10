@@ -1,6 +1,8 @@
 import React from 'react';
 import { Inter } from 'next/font/google';
 import { Metadata } from 'next';
+import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import ClientProviders from '@/components/ClientProviders';
 import { generatePortfolioStructuredData } from '@/config/seo';
 import './globals.css';
@@ -9,6 +11,8 @@ const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-inter',
+  preload: true,
+  fallback: ['system-ui', 'arial'],
 });
 
 export const metadata: Metadata = {
@@ -137,14 +141,21 @@ export default function RootLayout({
   return (
     <html lang="en" className={inter.variable}>
       <head>
+        {/* Critical Resource Hints */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://d1iukwsziul56d.cloudfront.net" />
+        <link rel="preconnect" href="https://dev-to-uploads.s3.amazonaws.com" />
 
-        {/* DNS Prefetch and Preconnect */}
+        {/* DNS Prefetch for external domains */}
         <link rel="dns-prefetch" href="//fonts.googleapis.com" />
         <link rel="dns-prefetch" href="//fonts.gstatic.com" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="//d1iukwsziul56d.cloudfront.net" />
+        <link rel="dns-prefetch" href="//dev-to-uploads.s3.amazonaws.com" />
+
+        {/* Preload critical resources */}
+        <link rel="preload" href="/favicon.ico" as="image" type="image/x-icon" />
+        <link rel="preload" href="/opengraph-image.png" as="image" type="image/png" />
 
         {/* Favicon and App Icons */}
         <link rel="icon" type="image/x-icon" href="/favicon.ico" />
@@ -171,6 +182,8 @@ export default function RootLayout({
         <ClientProviders>
           {children}
         </ClientProviders>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

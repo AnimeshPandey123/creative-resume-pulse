@@ -8,18 +8,31 @@ interface PerformanceOptimizerProps {
 
 const PerformanceOptimizer: React.FC<PerformanceOptimizerProps> = ({ children }) => {
     useEffect(() => {
-        // Preload critical resources
-        const preloadCriticalResources = () => {
-            // Preload fonts
-            const fontLink = document.createElement('link');
-            fontLink.rel = 'preload';
-            fontLink.href = 'https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap';
-            fontLink.as = 'style';
-            document.head.appendChild(fontLink);
+        // Defer non-critical optimizations to avoid render blocking
+        const deferOptimizations = () => {
+            // Use requestIdleCallback for non-critical operations
+            if ('requestIdleCallback' in window) {
+                requestIdleCallback(() => {
+                    optimizeImages();
+                    optimizeLinks();
+                    setupIntersectionObserver();
+                });
+            } else {
+                // Fallback for browsers without requestIdleCallback
+                setTimeout(() => {
+                    optimizeImages();
+                    optimizeLinks();
+                    setupIntersectionObserver();
+                }, 100);
+            }
+        };
 
+        // Preload critical resources immediately
+        const preloadCriticalResources = () => {
             // Preload critical images
             const criticalImages = [
-                '/favicon.ico'
+                '/favicon.ico',
+                '/opengraph-image.png'
             ];
 
             criticalImages.forEach(src => {
@@ -31,29 +44,37 @@ const PerformanceOptimizer: React.FC<PerformanceOptimizerProps> = ({ children })
             });
         };
 
-        // Optimize images
+        // Optimize images with better performance
         const optimizeImages = () => {
-            const images = document.querySelectorAll('img');
+            const images = document.querySelectorAll('img:not([data-optimized])');
             images.forEach(img => {
+                const imgElement = img as HTMLImageElement;
+
+                // Mark as optimized to avoid double processing
+                imgElement.setAttribute('data-optimized', 'true');
+
                 // Add loading="lazy" to non-critical images
-                if (!img.classList.contains('critical')) {
-                    img.loading = 'lazy';
+                if (!imgElement.classList.contains('critical')) {
+                    imgElement.loading = 'lazy';
                 }
 
                 // Add decoding="async" for better performance
-                img.decoding = 'async';
+                imgElement.decoding = 'async';
 
                 // Add error handling
-                img.onerror = () => {
-                    img.style.display = 'none';
+                imgElement.onerror = () => {
+                    imgElement.style.display = 'none';
                 };
             });
         };
 
         // Optimize links
         const optimizeLinks = () => {
-            const links = document.querySelectorAll('a[href^="http"]');
+            const links = document.querySelectorAll('a[href^="http"]:not([data-optimized])');
             links.forEach(link => {
+                // Mark as optimized
+                link.setAttribute('data-optimized', 'true');
+
                 // Add rel="noopener noreferrer" for external links
                 if (link.getAttribute('href')?.includes('animeshpandey.com') === false) {
                     link.setAttribute('rel', 'noopener noreferrer');
@@ -86,9 +107,7 @@ const PerformanceOptimizer: React.FC<PerformanceOptimizerProps> = ({ children })
 
         // Initialize optimizations
         preloadCriticalResources();
-        optimizeImages();
-        optimizeLinks();
-        setupIntersectionObserver();
+        deferOptimizations();
 
         // Cleanup function
         return () => {

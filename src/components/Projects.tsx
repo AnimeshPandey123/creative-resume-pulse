@@ -5,7 +5,7 @@ import { ExternalLink } from 'lucide-react';
 import { projectsData } from '@/data/landingData';
 
 const Projects: React.FC = () => {
-  const projectCardsRef = useRef<(HTMLDivElement | null)[]>([]);
+  const projectCardsRef = useRef<(HTMLElement | null)[]>([]);
 
   useEffect(() => {
     const options = {

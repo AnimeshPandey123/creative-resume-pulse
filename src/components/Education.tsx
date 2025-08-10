@@ -4,7 +4,7 @@ import React, { useEffect, useRef } from 'react';
 import { educationData } from '@/data/landingData';
 
 const Education: React.FC = () => {
-  const educationItemsRef = useRef<(HTMLDivElement | null)[]>([]);
+  const educationItemsRef = useRef<(HTMLElement | null)[]>([]);
 
   useEffect(() => {
     const options = {

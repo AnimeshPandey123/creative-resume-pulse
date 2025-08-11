@@ -4,7 +4,7 @@ import Layout from '@/layout/Layout';
 import BlogPostContent from '@/components/blog/BlogPostContent';
 import RelatedPosts from '@/components/blog/RelatedPosts';
 import { fetchBlogPostBySlug, fetchRelatedPosts, blogPosts } from '@/data/mockBlogData';
-import { generateBlogPostStructuredData } from '@/config/seo';
+import { generateBlogPostMetadata, generateBlogPostStructuredData } from '@/config/seo';
 
 export function generateStaticParams() {
     return blogPosts.map(post => ({ slug: post.slug }));
@@ -23,56 +23,14 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
             };
         }
 
-        const keywords = [
-            ...post.tags.map(tag => tag.name),
-            'Animesh Pandey',
-            'Blog',
-            'Technology',
-            'Programming',
-            'Web Development'
-        ];
-
-        const url = `https://animeshpandey.com/blog/${post.slug}`;
-
-        return {
-            title: `${post.title} | Animesh Pandey`,
+        // Use the centralized metadata generation function
+        return generateBlogPostMetadata({
+            title: post.title,
             description: post.excerpt,
-            keywords: keywords,
-            authors: [{ name: post.author.name }],
-            openGraph: {
-                title: post.title,
-                description: post.excerpt,
-                type: 'article',
-                url: url,
-                images: [
-                    {
-                        url: post.coverImage,
-                        width: 1200,
-                        height: 630,
-                        alt: post.title,
-                    },
-                ],
-                authors: [post.author.name],
-                publishedTime: post.publishDate,
-                tags: post.tags.map(tag => tag.name),
-            },
-            twitter: {
-                card: 'summary_large_image',
-                title: post.title,
-                description: post.excerpt,
-                images: [post.coverImage],
-                creator: '@animeshpandey',
-            },
-            alternates: {
-                canonical: url,
-            },
-            other: {
-                'article:published_time': post.publishDate,
-                'article:author': post.author.name,
-                'article:section': post.tags.length > 0 ? post.tags[0].name : 'Technology',
-                'article:tag': post.tags.map(tag => tag.name).join(', '),
-            },
-        };
+            slug: post.slug,
+            publishedAt: post.publishDate,
+            tags: post.tags.map(tag => tag.name),
+        });
     } catch (error) {
         console.error('Error generating metadata for blog post:', error);
         return {
@@ -92,7 +50,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             notFound();
         }
 
-        // Generate structured data for the blog post
+        // Generate structured data for the blog post using centralized function
         const structuredData = generateBlogPostStructuredData({
             title: post.title,
             description: post.excerpt,
@@ -101,6 +59,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             author: post.author.name,
             url: `https://animeshpandey.com/blog/${post.slug}`,
             tags: post.tags.map(tag => tag.name),
+            slug: post.slug,
         });
 
         return (

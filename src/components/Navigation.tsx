@@ -42,63 +42,73 @@ const Navigation: React.FC = () => {
   };
 
   return (
-    <header className={cn(
-      'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
-      isScrolled
-        ? 'bg-white/80 dark:bg-gray-900/90 backdrop-blur-md shadow-sm'
-        : 'bg-transparent'
-    )}>
-      <div className="container mx-auto px-4 flex items-center justify-between h-16 md:h-20">
-        <Link href="/" className="font-display font-bold text-lg md:text-xl">
-          Animesh Pandey
-        </Link>
+    <>
+      <header className={cn(
+        'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
+        isScrolled
+          ? 'bg-white/80 dark:bg-gray-900/90 backdrop-blur-md shadow-sm'
+          : 'bg-transparent'
+      )}>
+        <div className="container mx-auto px-4 flex items-center justify-between h-16 md:h-20">
+          <Link href="/" className="font-display font-bold text-lg md:text-xl">
+            Animesh Pandey
+          </Link>
 
-        {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center space-x-1">
-          {navLinks.map((link) => (
-            link.href.startsWith('#') ? (
-              <a
-                key={link.name}
-                href={isHomePage ? link.href : `/${link.href}`}
-                className="nav-link"
-                onClick={(e) => handleSectionNavigation(e, link.href)}
-              >
-                {link.name}
-              </a>
-            ) : (
-              <Link key={link.name} href={link.href} className="nav-link flex items-center gap-1">
-                {link.icon && <link.icon size={16} />}
-                {link.name}
-              </Link>
-            )
-          ))}
-          <button
-            onClick={toggleTheme}
-            className="ml-4 p-2 rounded-full hover:bg-secondary transition-colors"
-            aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
-          >
-            {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
-          </button>
-        </nav>
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center space-x-1">
+            {navLinks.map((link) => (
+              link.href.startsWith('#') ? (
+                <a
+                  key={link.name}
+                  href={isHomePage ? link.href : `/${link.href}`}
+                  className="nav-link"
+                  onClick={(e) => handleSectionNavigation(e, link.href)}
+                >
+                  {link.name}
+                </a>
+              ) : (
+                <Link key={link.name} href={link.href} className="nav-link flex items-center gap-1">
+                  {link.icon && <link.icon size={16} />}
+                  {link.name}
+                </Link>
+              )
+            ))}
+            <button
+              onClick={toggleTheme}
+              className="ml-4 p-2 rounded-full hover:bg-secondary transition-colors"
+              aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+            >
+              {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
+            </button>
+          </nav>
 
-        {/* Mobile Menu Button */}
-        <div className="md:hidden flex items-center gap-2">
-          <button
-            onClick={toggleTheme}
-            className="p-2 hover:bg-secondary rounded-full transition-colors"
-            aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
-          >
-            {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
-          </button>
-          <button
-            className="p-2 focus:outline-none"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
-          >
-            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+          {/* Mobile Menu Button */}
+          <div className="md:hidden flex items-center gap-2">
+            <button
+              onClick={toggleTheme}
+              className="p-2 hover:bg-secondary rounded-full transition-colors"
+              aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+            >
+              {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
+            </button>
+            <button
+              className="p-2 focus:outline-none"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+            >
+              {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
         </div>
-      </div>
+      </header>
+
+      {/* Mobile Menu Overlay */}
+      {mobileMenuOpen && (
+        <div
+          className="fixed inset-0 bg-black/50 z-40 md:hidden"
+          onClick={() => setMobileMenuOpen(false)}
+        />
+      )}
 
       {/* Mobile Menu */}
       <div className={cn(
@@ -111,7 +121,7 @@ const Navigation: React.FC = () => {
               <a
                 key={link.name}
                 href={isHomePage ? link.href : `/${link.href}`}
-                className="text-xl py-2 px-4 border-b border-border flex items-center gap-2"
+                className="text-xl py-3 px-4 border-b border-border/50 flex items-center gap-2 hover:bg-secondary/50 rounded-lg transition-colors"
                 onClick={(e) => {
                   setMobileMenuOpen(false);
                   handleSectionNavigation(e, link.href);
@@ -124,7 +134,7 @@ const Navigation: React.FC = () => {
               <Link
                 key={link.name}
                 href={link.href}
-                className="text-xl py-2 px-4 border-b border-border flex items-center gap-2"
+                className="text-xl py-3 px-4 border-b border-border/50 flex items-center gap-2 hover:bg-secondary/50 rounded-lg transition-colors"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 {link.icon && <link.icon size={18} />}
@@ -134,7 +144,7 @@ const Navigation: React.FC = () => {
           ))}
         </nav>
       </div>
-    </header>
+    </>
   );
 };
 

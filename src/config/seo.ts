@@ -7,7 +7,7 @@ import { Metadata } from 'next';
 export const SITE_CONFIG = {
     name: 'Animesh Pandey',
     title: 'Animesh Pandey | Senior Software Engineer | Full Stack Developer | Backend Specialist',
-    description: 'Senior Software Engineer Animesh Pandey - 6+ years expertise in PHP, Python, Node.js, React, TypeScript, Docker, Kubernetes. Specializing in scalable backend systems, microservices, and AI integration. Based in Wolverhampton, UK.',
+    description: 'Senior Software Engineer Animesh Pandey - 6+ years expertise in PHP, Python, Node.js, React, TypeScript, Docker, and Kubernetes.',
     url: 'https://animeshpandey.com',
     ogImage: 'https://animeshpandey.com/opengraph-image.png',
     twitterHandle: '@animeshpandey',
@@ -171,14 +171,14 @@ export const pageMetadata = {
 
     about: generatePageMetadata({
         title: 'About',
-        description: 'Learn more about Animesh Pandey, a Senior Software Engineer with 6+ years of experience in full-stack development, specializing in backend systems and microservices architecture.',
+        description: 'Learn more about Animesh Pandey, a Senior Software Engineer with 6+ years of experience in full-stack development and backend systems.',
         path: '/about',
         keywords: ['About Animesh Pandey', 'Software Engineer Background', 'Professional Experience'],
     }),
 
     experience: generatePageMetadata({
         title: 'Experience',
-        description: 'Explore Animesh Pandey\'s professional experience, including roles at leading companies and expertise in PHP, Python, Node.js, React, and modern web technologies.',
+        description: 'Explore Animesh Pandey\'s professional experience, including roles at leading companies and expertise in PHP, Python, Node.js, React, and web technologies.',
         path: '/experience',
         keywords: ['Work Experience', 'Professional Background', 'Career History', 'Job Experience'],
     }),
@@ -213,7 +213,7 @@ export const pageMetadata = {
 
     blog: generatePageMetadata({
         title: 'Blog',
-        description: 'Explore software engineering insights, tutorials, and technical articles by Animesh Pandey. Covering PHP, Python, Node.js, React, TypeScript, and modern web development practices.',
+        description: 'Explore software engineering insights, tutorials, and technical articles by Animesh Pandey. Covering PHP, Python, Node.js, React, and TypeScript.',
         path: '/blog',
         keywords: [
             'Software Engineering Blog',

@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import ClientProviders from '@/components/ClientProviders';
+import HotjarAnalytics from '@/components/Hotjar';
 import { baseMetadata, mainStructuredData } from '@/config/seo';
 import './globals.css';
 
@@ -64,6 +65,7 @@ export default function RootLayout({
         </ClientProviders>
         <Analytics />
         <SpeedInsights />
+        <HotjarAnalytics />
       </body>
     </html>
   );

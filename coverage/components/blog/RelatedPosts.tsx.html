@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/11</span>
+                <span class='fraction'>11/11</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/3</span>
+                <span class='fraction'>3/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/9</span>
+                <span class='fraction'>9/9</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -118,28 +118,26 @@
 <a name='L53'></a><a href='#L53'>53</a>
 <a name='L54'></a><a href='#L54'>54</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -168,29 +166,31 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">"use client";
 &nbsp;
-import React from <span class="cstat-no" title="statement not covered" >'react';</span>
+import React from 'react';
 import { BlogPost } from '@/types/BlogTypes';
-import Link from <span class="cstat-no" title="statement not covered" >'next/link';</span>
-import Image from <span class="cstat-no" title="statement not covered" >'next/image';</span>
-import { Card, CardContent } from <span class="cstat-no" title="statement not covered" >'@/components/ui/card';</span>
-import { Calendar } from <span class="cstat-no" title="statement not covered" >'lucide-react';</span>
+import Link from 'next/link';
+import Image from 'next/image';
+import { Card, CardContent } from '@/components/ui/card';
+import { Calendar } from 'lucide-react';
 &nbsp;
 interface RelatedPostsProps {
   posts: BlogPost[];
 }
 &nbsp;
-const RelatedPosts: React.FC&lt;RelatedPostsProps&gt; = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >({</span> posts }) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >  <span class="missing-if-branch" title="if path not taken" >I</span>if (!posts || posts.length === 0) <span class="cstat-no" title="statement not covered" >return null;</span></span>
+const RelatedPosts: React.FC&lt;RelatedPostsProps&gt; = ({ posts }) =&gt; {
+  if (!posts || posts.length === 0) return null;
 &nbsp;
   return (
     &lt;section className="mt-16"&gt;
       &lt;h2 className="text-2xl font-bold mb-6"&gt;Related Posts&lt;/h2&gt;
       &lt;div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"&gt;
-        {posts.map(<span class="fstat-no" title="function not covered" >post =&gt; (</span>
-<span class="cstat-no" title="statement not covered" >          &lt;Card key={post.id} c</span>lassName="h-full flex flex-col hover:shadow-md transition-shadow duration-300 bg-card dark:bg-gray-800/80 border border-border dark:border-gray-700/20"&gt;
+        {posts.map(post =&gt; (
+          &lt;Card key={post.id} className="h-full flex flex-col hover:shadow-md transition-shadow duration-300 bg-card dark:bg-gray-800/80 border border-border dark:border-gray-700/20"&gt;
             &lt;Link href={`/blog/${post.slug}`} className="block overflow-hidden h-40"&gt;
               &lt;Image
                 src={post.coverImage}
@@ -221,7 +221,7 @@ const RelatedPosts: React.FC&lt;RelatedPostsProps&gt; = <span class="cstat-no" t
   );
 };
 &nbsp;
-<span class="cstat-no" title="statement not covered" >export default <span class="cstat-no" title="statement not covered" >R</span>elatedPosts;</span>
+export default RelatedPosts;
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -229,7 +229,7 @@ const RelatedPosts: React.FC&lt;RelatedPostsProps&gt; = <span class="cstat-no" t
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-08-11T21:15:39.719Z
+                at 2025-08-31T21:25:55.656Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

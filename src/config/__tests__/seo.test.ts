@@ -1,3 +1,44 @@
+import { SITE_CONFIG, baseMetadata, generatePageMetadata, pageMetadata, generateBlogPostMetadata } from '@/config/seo'
+
+describe('SEO config', () => {
+  it('has base metadata with expected fields', () => {
+    expect(baseMetadata.title).toBeTruthy()
+    expect(baseMetadata.description).toBeTruthy()
+    expect(baseMetadata.openGraph?.type).toBe('website')
+    expect(baseMetadata.twitter?.card).toBe('summary_large_image')
+  })
+
+  it('generatePageMetadata builds correct canonical and titles', () => {
+    const meta = generatePageMetadata({
+      title: 'About',
+      description: 'desc',
+      path: '/about',
+      keywords: ['k1'],
+    })
+    expect(meta.alternates?.canonical).toBe(`${SITE_CONFIG.url}/about`)
+    expect(meta.title).toContain('About')
+    expect(meta.keywords).toEqual(expect.arrayContaining(['k1']))
+  })
+
+  it('pageMetadata exports sections and blog metadata', () => {
+    expect(pageMetadata.home).toBeDefined()
+    expect(pageMetadata.blog.title).toBeDefined()
+  })
+
+  it('generateBlogPostMetadata builds OG and Twitter', () => {
+    const meta = generateBlogPostMetadata({
+      title: 'Post',
+      description: 'D',
+      slug: 'post-slug',
+      publishedAt: '2024-01-01',
+      tags: ['tag1'],
+    })
+    expect(meta.openGraph?.type).toBe('article')
+    expect(meta.alternates?.canonical).toBe(`${SITE_CONFIG.url}/blog/post-slug`)
+    expect(meta.keywords).toEqual(expect.arrayContaining(['tag1']))
+  })
+})
+
 import {
     SITE_CONFIG,
     baseMetadata,

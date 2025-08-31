@@ -30,6 +30,17 @@ function restoreFile(backup: Backup) {
 }
 
 function runCli() {
+	const mjsPath = path.join(repoRoot, 'scripts', 'generate-sitemap.mjs');
+	if (fs.existsSync(mjsPath)) {
+		execFileSync(process.execPath, [mjsPath], { stdio: 'inherit' });
+		return;
+	}
+	const cjsPath = path.join(repoRoot, 'scripts-dist', 'generate-sitemap.cjs');
+	if (fs.existsSync(cjsPath)) {
+		execFileSync(process.execPath, [cjsPath], { stdio: 'inherit' });
+		return;
+	}
+	// Fallback for local dev: run ESM variant via node eval with ESM input type
 	const cliPath = path.join(repoRoot, 'scripts', 'generate-sitemap.js');
 	const moduleUrl = pathToFileURL(cliPath).href;
 	const evalScript = `import(${JSON.stringify(moduleUrl)}).then(m => m.main && m.main());`;

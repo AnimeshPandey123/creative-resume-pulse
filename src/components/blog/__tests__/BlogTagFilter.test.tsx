@@ -14,7 +14,7 @@ jest.mock('@/components/ui/command', () => ({
   CommandEmpty: ({ children }: any) => <div>{children}</div>,
   CommandGroup: ({ children }: any) => <div>{children}</div>,
   CommandInput: ({ ...props }: any) => <input {...props} />,
-  CommandItem: ({ children, onSelect, value }: any) => <div role="option" onClick={() => onSelect(value)}>{children}</div>,
+  CommandItem: ({ children, onSelect, value }: any) => <div role="option" aria-selected={false} onClick={() => onSelect(value)}>{children}</div>,
   CommandList: ({ children }: any) => <div>{children}</div>,
 }))
 jest.mock('@/components/ui/popover', () => ({

@@ -1,10 +1,9 @@
-import React from 'react'
 import { renderHook, act } from '@testing-library/react'
 import { useIsMobile } from '@/hooks/use-mobile'
 
 describe('useIsMobile', () => {
   it('returns false on desktop and true on mobile when media query changes', () => {
-    const listeners: Array<(e: any) => void> = []
+    const listeners: Array<() => void> = []
     // @ts-expect-error override in test
     window.matchMedia = jest.fn().mockImplementation(() => ({
       matches: false,

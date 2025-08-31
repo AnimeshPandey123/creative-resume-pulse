@@ -2,9 +2,7 @@ import React from 'react'
 import { render } from '@testing-library/react'
 import PerformanceOptimizer from '@/components/PerformanceOptimizer'
 
-declare global {
-  interface Window { requestIdleCallback?: any }
-}
+// add requestIdleCallback in a typed-safe way without global interface
 
 describe('PerformanceOptimizer', () => {
   beforeEach(() => {

@@ -7,7 +7,7 @@ jest.mock('@/components/ui/toaster', () => ({
 }))
 
 jest.mock('@/components/ui/sonner', () => ({
-  Toaster: ({}) => <div data-testid="sonner" />,
+  Toaster: () => <div data-testid="sonner" />,
 }))
 
 jest.mock('@/components/ui/tooltip', () => ({

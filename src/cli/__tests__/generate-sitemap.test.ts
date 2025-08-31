@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { execFileSync } from 'child_process';
+import { pathToFileURL } from 'url';
 
 const repoRoot = process.cwd();
 const publicDir = path.join(repoRoot, 'public');
@@ -30,7 +31,9 @@ function restoreFile(backup: Backup) {
 
 function runCli() {
 	const cliPath = path.join(repoRoot, 'scripts', 'generate-sitemap.js');
-	execFileSync(process.execPath, [cliPath], { stdio: 'inherit' });
+	const moduleUrl = pathToFileURL(cliPath).href;
+	const evalScript = `import(${JSON.stringify(moduleUrl)}).then(m => m.main && m.main());`;
+	execFileSync(process.execPath, ['--input-type=module', '-e', evalScript], { stdio: 'inherit' });
 }
 
 describe('Sitemap CLI (scripts/generate-sitemap.js)', () => {

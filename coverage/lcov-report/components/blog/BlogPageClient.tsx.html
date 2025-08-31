@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">93.75% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/16</span>
+                <span class='fraction'>15/16</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">53.33% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/15</span>
+                <span class='fraction'>8/15</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">66.66% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/3</span>
+                <span class='fraction'>2/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">93.75% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/16</span>
+                <span class='fraction'>15/16</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -126,24 +126,24 @@
 <a name='L61'></a><a href='#L61'>61</a>
 <a name='L62'></a><a href='#L62'>62</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -172,7 +172,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -187,24 +187,24 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">"use client";
 &nbsp;
-import { useSearchParams } from <span class="cstat-no" title="statement not covered" >'next/navigation';</span>
-import BlogPostCard from <span class="cstat-no" title="statement not covered" >'@/components/blog/BlogPostCard';</span>
-import BlogSearch from <span class="cstat-no" title="statement not covered" >'@/components/blog/BlogSearch';</span>
-import BlogTagFilter from <span class="cstat-no" title="statement not covered" >'@/components/blog/BlogTagFilter';</span>
-import BlogPagination from <span class="cstat-no" title="statement not covered" >'@/components/blog/BlogPagination';</span>
-import { fetchBlogPosts, blogTags } from <span class="cstat-no" title="statement not covered" >'@/data/mockBlogData';</span>
+import { useSearchParams } from 'next/navigation';
+import BlogPostCard from '@/components/blog/BlogPostCard';
+import BlogSearch from '@/components/blog/BlogSearch';
+import BlogTagFilter from '@/components/blog/BlogTagFilter';
+import BlogPagination from '@/components/blog/BlogPagination';
+import { fetchBlogPosts, blogTags } from '@/data/mockBlogData';
 &nbsp;
-export default function <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >BlogPageClient() {</span></span>
-    const searchParams = <span class="cstat-no" title="statement not covered" >useSearchParams();</span>
-    const page = <span class="cstat-no" title="statement not covered" >Number(searchParams?.get('page') ?? 1) || 1;</span>
-    const search = <span class="cstat-no" title="statement not covered" >searchParams?.get('search') ?? '';</span>
-    const tag = <span class="cstat-no" title="statement not covered" >searchParams?.get('tag') ?? '';</span>
+export default function BlogPageClient() {
+    const searchParams = useSearchParams();
+    const page = Number(searchParams?.get('page') ?? <span class="branch-1 cbranch-no" title="branch not covered" >1) || <span class="branch-1 cbranch-no" title="branch not covered" >1</span>;</span>
+    const search = searchParams?.get('search') ?? '';
+    const tag = searchParams?.get('tag') ?? '';
 &nbsp;
-    const postsPerPage = <span class="cstat-no" title="statement not covered" >6;</span>
-    const { posts, totalPages, currentPage } = <span class="cstat-no" title="statement not covered" >fetchBlogPosts(page, postsPerPage, search, tag);</span>
+    const postsPerPage = 6;
+    const { posts, totalPages, currentPage } = fetchBlogPosts(page, postsPerPage, search, tag);
 &nbsp;
-    const currentTagName = <span class="cstat-no" title="statement not covered" >tag ?</span>
-        blogTags.find(<span class="fstat-no" title="function not covered" >t =&gt; <span class="cstat-no" title="statement not covered" >t</span>.slug === tag)?.n</span>ame || tag :
+    const currentTagName = tag ?
+<span class="branch-0 cbranch-no" title="branch not covered" >        blogTags.find(<span class="fstat-no" title="function not covered" >t =&gt; <span class="cstat-no" title="statement not covered" >t</span>.slug === tag)?.n</span>ame || tag :</span>
         '';
 &nbsp;
     return (
@@ -213,7 +213,7 @@ export default function <span class="cstat-no" title="statement not covered" ><s
                 &lt;div className="mb-10"&gt;
                     &lt;h1 className="text-4xl md:text-5xl font-bold mb-4 text-foreground"&gt;Blog&lt;/h1&gt;
                     &lt;p className="text-muted-foreground text-lg max-w-2xl"&gt;
-                        {tag ? `Exploring articles about ${currentTagName}` : 'Thoughts, ideas, and tutorials to inspire and inform'}
+                        {tag ? <span class="branch-0 cbranch-no" title="branch not covered" >`Exploring articles about ${currentTagName}` </span>: 'Thoughts, ideas, and tutorials to inspire and inform'}
                     &lt;/p&gt;
                 &lt;/div&gt;
 &nbsp;
@@ -232,8 +232,8 @@ export default function <span class="cstat-no" title="statement not covered" ><s
                 ) : (
                     &lt;&gt;
                         &lt;div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12"&gt;
-                            {posts.map(<span class="fstat-no" title="function not covered" >post =&gt; (</span>
-<span class="cstat-no" title="statement not covered" >                                &lt;BlogPostCard key={post.id} p</span>ost={post} /&gt;
+                            {posts.map(post =&gt; (
+                                &lt;BlogPostCard key={post.id} post={post} /&gt;
                             ))}
                         &lt;/div&gt;
 &nbsp;
@@ -253,7 +253,7 @@ export default function <span class="cstat-no" title="statement not covered" ><s
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-08-11T21:15:39.676Z
+                at 2025-08-31T21:25:55.639Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

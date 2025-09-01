@@ -1,3 +1,10 @@
+---
+title: "A Comprehensive Guide to Learning Laravel: Mastering the PHP Framework for Web Development"
+excerpt: "Learn Laravel fundamentals: routing, controllers, ORM, validation, migrations, and Blade."
+publishDate: "2024-12-09"
+tags: [laravel, php, web-development]
+---
+
 ## A Comprehensive Guide to Learning Laravel: Mastering the PHP Framework for Web Development
 
 Laravel is a popular PHP framework that has gained widespread adoption in the web development community. As a developer, having knowledge of Laravel can help you build robust, scalable, and maintainable web applications quickly. However, with the vast amount of resources available online, it's easy to get overwhelmed by the sheer number of tutorials, documentation, and examples.

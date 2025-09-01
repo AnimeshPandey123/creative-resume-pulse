@@ -67,3 +67,48 @@ Simply open [Lovable](https://lovable.dev/projects/11f3d025-e4ba-478c-9c28-febd0
 ## I want to use a custom domain - is that possible?
 
 We don't support custom domains (yet). If you want to deploy your project under your own domain then we recommend using Netlify. Visit our docs for more details: [Custom domains](https://docs.lovable.dev/tips-tricks/custom-domain/)
+
+## Blog content workflow
+
+The blog now stores long-form content in Markdown and metadata in JSON:
+
+- Markdown files live under `src/content/blog/<slug>.md`
+- Metadata lives in `src/data/blog-posts.json` (authors, tags, and post metadata)
+
+### Adding a new post
+
+1. Create a Markdown file: `src/content/blog/<your-slug>.md`
+2. Add frontmatter (optional but recommended):
+
+```md
+---
+title: "My Post Title"
+excerpt: "One-liner summary of the post."
+publishDate: "2025-01-01"
+tags: [tag-one, tag-two]
+---
+
+Your Markdown content here...
+```
+
+3. Add a new entry in `src/data/blog-posts.json` under `posts` with metadata and a relative `contentPath`:
+
+```json
+{
+  "id": "uuid-here",
+  "title": "My Post Title",
+  "slug": "my-post-title",
+  "excerpt": "One-liner summary of the post.",
+  "coverImage": "https://.../image.png",
+  "publishDate": "2025-01-01",
+  "readingTime": 7,
+  "authorId": "1",
+  "tagIds": ["9"],
+  "contentPath": "src/content/blog/my-post-title.md"
+}
+```
+
+Notes:
+- Frontmatter values (title, excerpt, publishDate) override JSON if provided; tags/author continue to use JSON for accuracy.
+- Paths are resolved securely and must remain inside `src/content/blog`.
+- Full-text search uses title and excerpt; Markdown is loaded server-side for rendering.

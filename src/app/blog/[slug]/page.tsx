@@ -3,7 +3,8 @@ import { Metadata } from 'next';
 import Layout from '@/layout/Layout';
 import BlogPostContent from '@/components/blog/BlogPostContent';
 import RelatedPosts from '@/components/blog/RelatedPosts';
-import { fetchBlogPostBySlug, fetchRelatedPosts, blogPosts } from '@/data/mockBlogData';
+import { fetchRelatedPosts, blogPosts, fetchBlogPostBySlug } from '@/data/mockBlogData';
+import { fetchBlogPostWithContentBySlug } from '@/data/serverBlogData';
 import { generateBlogPostMetadata, generateBlogPostStructuredData } from '@/config/seo';
 
 export function generateStaticParams() {
@@ -14,7 +15,8 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
     try {
         const { slug } = await params;
-        const post = await fetchBlogPostBySlug(slug);
+        const basePost = await fetchBlogPostBySlug(slug);
+        const post = basePost ? (await fetchBlogPostWithContentBySlug(slug)) ?? basePost : undefined;
 
         if (!post) {
             return {
@@ -43,7 +45,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
     try {
         const { slug } = await params;
-        const post = await fetchBlogPostBySlug(slug);
+        const basePost = await fetchBlogPostBySlug(slug);
+        const post = basePost ? (await fetchBlogPostWithContentBySlug(slug)) ?? basePost : undefined;
         const relatedPosts = post ? await fetchRelatedPosts(post.id, 3) : [];
 
         if (!post) {

@@ -94,7 +94,7 @@
                 "2",
                 "3"
             ],
-            "contentPath": "/src/content/blog/ta-lib-candlestick-pattern-detection-python.md"
+            "contentPath": "src/content/blog/ta-lib-candlestick-pattern-detection-python.md"
         },
         {
             "id": "c36ef801-33fc-454b-b619-85e7debce5e3",
@@ -110,7 +110,7 @@
                 "5",
                 "6"
             ],
-            "contentPath": "/src/content/blog/a-beginners-guide-to-vuejs-practical-implementation-and-real-world-applications.md"
+            "contentPath": "src/content/blog/a-beginners-guide-to-vuejs-practical-implementation-and-real-world-applications.md"
         },
         {
             "id": "c31dc884-cec7-4163-bfff-c26605185275",
@@ -126,7 +126,7 @@
                 "8",
                 "6"
             ],
-            "contentPath": "/src/content/blog/a-comprehensive-guide-to-learning-laravel-mastering-the-php-framework-for-web-development.md"
+            "contentPath": "src/content/blog/a-comprehensive-guide-to-learning-laravel-mastering-the-php-framework-for-web-development.md"
         },
         {
             "id": "4bc9f747-6cfc-4ce1-aa3d-85b6a6288692",
@@ -143,7 +143,7 @@
                 "11",
                 "12"
             ],
-            "contentPath": "/src/content/blog/deploying-a-nextjs-application-with-nginx-and-docker-a-comprehensive-guide.md"
+            "contentPath": "src/content/blog/deploying-a-nextjs-application-with-nginx-and-docker-a-comprehensive-guide.md"
         },
         {
             "id": "8cdda41f-3910-403c-b66d-4d653f0ac33f",
@@ -160,7 +160,7 @@
                 "10",
                 "14"
             ],
-            "contentPath": "/src/content/blog/how-to-easily-dockerize-a-python-flask-application-a-step-by-step-guide.md"
+            "contentPath": "src/content/blog/how-to-easily-dockerize-a-python-flask-application-a-step-by-step-guide.md"
         }
     ]
 }

@@ -4,7 +4,8 @@ declare module "*/blog-posts.json" {
         title: string;
         slug: string;
         excerpt: string;
-        content: string;
+        content?: string;
+        contentPath?: string;
         coverImage: string;
         publishDate: string;
         readingTime: number;

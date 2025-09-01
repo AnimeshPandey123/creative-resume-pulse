@@ -104,7 +104,7 @@ const BlogPostContent: React.FC<BlogPostContentProps> = ({ post }) => {
             }
           }}
         >
-          {post.content}
+          {post.content || ''}
         </ReactMarkdown>
       </div>
     </article>

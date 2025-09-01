@@ -25,8 +25,7 @@ export const fetchBlogPosts = (page = 1, limit = 10, search = '', tag = '') => {
     const searchLower = search.toLowerCase();
     filteredPosts = filteredPosts.filter(post =>
       post.title.toLowerCase().includes(searchLower) ||
-      post.excerpt.toLowerCase().includes(searchLower) ||
-      post.content.toLowerCase().includes(searchLower)
+      post.excerpt.toLowerCase().includes(searchLower)
     );
   }
 

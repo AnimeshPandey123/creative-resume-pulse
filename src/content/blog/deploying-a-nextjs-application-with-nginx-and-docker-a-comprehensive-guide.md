@@ -1,3 +1,10 @@
+---
+title: "Deploying a Next.js Application with Nginx and Docker: A Comprehensive Guide"
+excerpt: "Deploy Next.js in production using Docker and Nginx with best practices."
+publishDate: "2024-11-11"
+tags: [nextjs, docker, nginx, devops]
+---
+
 ## Deploying a Next.js Application with Nginx and Docker: A Comprehensive Guide
 
 Deploying a Next.js application in production is a straightforward process, especially when using Docker and Nginx. This combination streamlines the setup while enhancing scalability and performance.

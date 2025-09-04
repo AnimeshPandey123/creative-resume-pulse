@@ -184,3 +184,4 @@ The tool is built with TypeScript and follows TDD principles:
 
 This tool is part of the creative-resume-pulse project.
 # Test comment
+# Test coverage enforcement

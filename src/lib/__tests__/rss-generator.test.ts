@@ -19,7 +19,7 @@ function generateRSSFeed(posts: typeof blogPosts) {
       <link>${postUrl}</link>
       <guid isPermaLink="true">${postUrl}</guid>
       <pubDate>${pubDate}</pubDate>
-      <author><![CDATA[${SITE_CONFIG.author.name} <${SITE_CONFIG.author.email || 'animesh@animeshpandey.com'}>]]></author>
+      <author><![CDATA[${SITE_CONFIG.author.name} <animeshpandey.pro@gmail.com>]]></author>
       <category><![CDATA[${categories}]]></category>
       ${post.coverImage ? `<enclosure url="${post.coverImage}" type="image/jpeg" />` : ''}
     </item>`;
@@ -36,8 +36,8 @@ function generateRSSFeed(posts: typeof blogPosts) {
     <pubDate>${buildDate}</pubDate>
     <ttl>60</ttl>
     <generator>Next.js RSS Generator</generator>
-    <webMaster>${SITE_CONFIG.author.email || 'animesh@animeshpandey.com'} (${SITE_CONFIG.author.name})</webMaster>
-    <managingEditor>${SITE_CONFIG.author.email || 'animesh@animeshpandey.com'} (${SITE_CONFIG.author.name})</managingEditor>
+    <webMaster>animeshpandey.pro@gmail.com (${SITE_CONFIG.author.name})</webMaster>
+    <managingEditor>animeshpandey.pro@gmail.com (${SITE_CONFIG.author.name})</managingEditor>
     <copyright>Copyright ${new Date().getFullYear()} ${SITE_CONFIG.author.name}</copyright>
     <image>
       <url>${SITE_CONFIG.avatarUrl}</url>
@@ -160,7 +160,7 @@ describe('RSS Feed Generator', () => {
         expect(rssXml).toContain('<pubDate>Tue, 02 Jan 2024 00:00:00 GMT</pubDate>');
 
         // Check for authors
-        expect(rssXml).toContain('<author><![CDATA[Animesh Pandey <animesh@animeshpandey.com>]]></author>');
+        expect(rssXml).toContain('<author><![CDATA[Animesh Pandey <animeshpandey.pro@gmail.com>]]></author>');
 
         // Check for categories
         expect(rssXml).toContain('<category><![CDATA[JavaScript, React]]></category>');
@@ -191,8 +191,8 @@ describe('RSS Feed Generator', () => {
 
         // Check for feed metadata
         expect(rssXml).toContain('<generator>Next.js RSS Generator</generator>');
-        expect(rssXml).toContain('<webMaster>animesh@animeshpandey.com (Animesh Pandey)</webMaster>');
-        expect(rssXml).toContain('<managingEditor>animesh@animeshpandey.com (Animesh Pandey)</managingEditor>');
+        expect(rssXml).toContain('<webMaster>animeshpandey.pro@gmail.com (Animesh Pandey)</webMaster>');
+        expect(rssXml).toContain('<managingEditor>animeshpandey.pro@gmail.com (Animesh Pandey)</managingEditor>');
         expect(rssXml).toContain('<copyright>Copyright 2025 Animesh Pandey</copyright>');
         expect(rssXml).toContain('<ttl>60</ttl>');
     });
@@ -247,12 +247,16 @@ describe('RSS Feed Generator', () => {
                 excerpt: 'This has & "special" characters < > in it',
                 slug: 'test-special-chars',
                 publishDate: '2024-01-03T00:00:00Z',
-                coverImage: null,
+                coverImage: '',
                 author: {
+                    id: 'animesh',
                     name: 'Animesh Pandey',
                     email: 'animesh@example.com',
+                    bio: 'Test author',
+                    avatarUrl: 'https://example.com/avatar.jpg',
                 },
-                tags: [{ name: 'Test' }],
+                tags: [{ id: 'test', name: 'Test', slug: 'test' }],
+                readingTime: 5,
             },
         ];
 

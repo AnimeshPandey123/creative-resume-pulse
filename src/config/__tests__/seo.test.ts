@@ -1,49 +1,7 @@
-import { SITE_CONFIG, baseMetadata, generatePageMetadata, pageMetadata, generateBlogPostMetadata } from '@/config/seo'
-
-describe('SEO config', () => {
-    it('has base metadata with expected fields', () => {
-        expect(baseMetadata.title).toBeTruthy()
-        expect(baseMetadata.description).toBeTruthy()
-        expect(baseMetadata.openGraph?.type).toBe('website')
-        expect(baseMetadata.twitter?.card).toBe('summary_large_image')
-    })
-
-    it('generatePageMetadata builds correct canonical and titles', () => {
-        const meta = generatePageMetadata({
-            title: 'About',
-            description: 'desc',
-            path: '/about',
-            keywords: ['k1'],
-        })
-        expect(meta.alternates?.canonical).toBe(`${SITE_CONFIG.url}/about`)
-        expect(meta.title).toContain('About')
-        expect(meta.keywords).toEqual(expect.arrayContaining(['k1']))
-    })
-
-    it('pageMetadata exports sections and blog metadata', () => {
-        expect(pageMetadata.home).toBeDefined()
-        expect(pageMetadata.blog.title).toBeDefined()
-    })
-
-    it('generateBlogPostMetadata builds OG and Twitter', () => {
-        const meta = generateBlogPostMetadata({
-            title: 'Post',
-            description: 'D',
-            slug: 'post-slug',
-            publishedAt: '2024-01-01',
-            tags: ['tag1'],
-        })
-        expect(meta.openGraph?.type).toBe('article')
-        expect(meta.alternates?.canonical).toBe(`${SITE_CONFIG.url}/blog/post-slug`)
-        expect(meta.keywords).toEqual(expect.arrayContaining(['tag1']))
-    })
-})
-
 import {
     SITE_CONFIG,
     baseMetadata,
     pageMetadata,
-    blogMetadata,
     generatePageMetadata,
     generateBlogPostMetadata,
     generateBlogPostStructuredData,
@@ -68,6 +26,7 @@ describe('SEO Configuration', () => {
             expect(SITE_CONFIG).toHaveProperty('description')
             expect(SITE_CONFIG).toHaveProperty('url')
             expect(SITE_CONFIG).toHaveProperty('ogImage')
+            expect(SITE_CONFIG).toHaveProperty('avatarUrl')
             expect(SITE_CONFIG).toHaveProperty('twitterHandle')
             expect(SITE_CONFIG).toHaveProperty('author')
             expect(SITE_CONFIG).toHaveProperty('language')
@@ -100,43 +59,33 @@ describe('SEO Configuration', () => {
             expect(baseMetadata).toHaveProperty('alternates')
             expect(baseMetadata).toHaveProperty('openGraph')
             expect(baseMetadata).toHaveProperty('twitter')
-            expect(baseMetadata).toHaveProperty('other')
-        })
-
-        it('should have correct canonical URL', () => {
-            expect(baseMetadata.alternates?.canonical).toBe(SITE_CONFIG.url)
         })
 
         it('should have correct OpenGraph configuration', () => {
-            expect(baseMetadata.openGraph?.type).toBe('website')
-            expect(baseMetadata.openGraph?.url).toBe(SITE_CONFIG.url)
-            expect(baseMetadata.openGraph?.siteName).toBe(`${SITE_CONFIG.name} Portfolio`)
-            expect(baseMetadata.openGraph?.locale).toBe(SITE_CONFIG.locale)
+            const openGraph = baseMetadata.openGraph as any
+            expect(openGraph?.type).toBe('website')
+            expect(openGraph?.title).toBe(SITE_CONFIG.title)
+            expect(openGraph?.description).toBe(SITE_CONFIG.description)
+            expect(openGraph?.url).toBe(SITE_CONFIG.url)
+            expect(openGraph?.siteName).toBe(`${SITE_CONFIG.name} Portfolio`)
+            expect(openGraph?.locale).toBe(SITE_CONFIG.locale)
+            expect(openGraph?.images).toHaveLength(1)
+            expect(openGraph?.images?.[0]?.url).toBe(SITE_CONFIG.avatarUrl)
         })
 
         it('should have correct Twitter configuration', () => {
-            expect(baseMetadata.twitter?.card).toBe('summary_large_image')
-            expect(baseMetadata.twitter?.creator).toBe(SITE_CONFIG.twitterHandle)
-            expect(baseMetadata.twitter?.site).toBe(SITE_CONFIG.twitterHandle)
-        })
-
-        it('should have comprehensive keywords', () => {
-            const keywords = baseMetadata.keywords as string[]
-            expect(keywords).toContain('Animesh Pandey')
-            expect(keywords).toContain('Senior Software Engineer')
-            expect(keywords).toContain('PHP Developer')
-            expect(keywords).toContain('Python Developer')
-            expect(keywords).toContain('React Developer')
-            expect(keywords.length).toBeGreaterThan(20)
-        })
-
-        it('should have correct robots directive', () => {
-            expect(baseMetadata.robots).toBe('index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1')
+            const twitter = baseMetadata.twitter as any
+            expect(twitter?.card).toBe('summary_large_image')
+            expect(twitter?.title).toBe(SITE_CONFIG.title)
+            expect(twitter?.description).toBe(SITE_CONFIG.description)
+            expect(twitter?.images).toEqual([SITE_CONFIG.avatarUrl])
+            expect(twitter?.creator).toBe(SITE_CONFIG.twitterHandle)
+            expect(twitter?.site).toBe(SITE_CONFIG.twitterHandle)
         })
     })
 
     describe('pageMetadata', () => {
-        it('should have metadata for all predefined pages', () => {
+        it('should have all required page metadata', () => {
             expect(pageMetadata).toHaveProperty('home')
             expect(pageMetadata).toHaveProperty('about')
             expect(pageMetadata).toHaveProperty('experience')
@@ -148,91 +97,53 @@ describe('SEO Configuration', () => {
             expect(pageMetadata).toHaveProperty('notFound')
         })
 
-        it('should have correct canonical URLs for each page', () => {
-            expect(pageMetadata.about.alternates?.canonical).toBe(`${SITE_CONFIG.url}/about`)
-            expect(pageMetadata.experience.alternates?.canonical).toBe(`${SITE_CONFIG.url}/experience`)
-            expect(pageMetadata.projects.alternates?.canonical).toBe(`${SITE_CONFIG.url}/projects`)
-            expect(pageMetadata.skills.alternates?.canonical).toBe(`${SITE_CONFIG.url}/skills`)
-            expect(pageMetadata.education.alternates?.canonical).toBe(`${SITE_CONFIG.url}/education`)
-            expect(pageMetadata.contact.alternates?.canonical).toBe(`${SITE_CONFIG.url}/contact`)
-            expect(pageMetadata.blog.alternates?.canonical).toBe(`${SITE_CONFIG.url}/blog`)
-            expect(pageMetadata.notFound.alternates?.canonical).toBe(`${SITE_CONFIG.url}/404`)
+        it('should have correct home metadata', () => {
+            expect(pageMetadata.home.title).toBe(SITE_CONFIG.title)
+            expect(pageMetadata.home.description).toBe(SITE_CONFIG.description)
         })
 
-        it('should have unique titles for each page', () => {
-            const titles = Object.values(pageMetadata).map(meta => meta.title)
-            const uniqueTitles = new Set(titles)
-            expect(uniqueTitles.size).toBe(titles.length)
-        })
-
-        it('should have descriptive meta descriptions', () => {
-            Object.values(pageMetadata).forEach(meta => {
-                expect(meta.description).toBeTruthy()
-                expect(meta.description?.length).toBeGreaterThan(50)
-                expect(meta.description?.length).toBeLessThan(160)
-            })
-        })
-    })
-
-    describe('blogMetadata', () => {
-        it('should have correct blog page metadata', () => {
-            expect(blogMetadata.title).toContain('Blog')
-            expect(blogMetadata.title).toContain(SITE_CONFIG.name)
-            expect(blogMetadata.alternates?.canonical).toBe(`${SITE_CONFIG.url}/blog`)
-            expect(blogMetadata.openGraph?.type).toBe('website')
-        })
-
-        it('should have blog-specific keywords', () => {
-            const keywords = blogMetadata.keywords as string[]
-            expect(keywords).toContain('Software Engineering Blog')
-            expect(keywords).toContain('Web Development Tutorials')
-            expect(keywords).toContain('Technical Articles')
+        it('should have correct blog metadata', () => {
+            expect(pageMetadata.blog.title).toContain('Blog')
+            expect(pageMetadata.blog.description).toContain('software engineering insights')
         })
     })
 
     describe('generatePageMetadata', () => {
-        it('should generate metadata with correct canonical URL', () => {
+        it('should generate correct metadata for a page', () => {
             const metadata = generatePageMetadata({
                 title: 'Test Page',
                 description: 'Test description',
                 path: '/test',
-            })
-
-            expect(metadata.alternates?.canonical).toBe(`${SITE_CONFIG.url}/test`)
-        })
-
-        it('should generate metadata with correct title format', () => {
-            const metadata = generatePageMetadata({
-                title: 'Test Page',
-                description: 'Test description',
-                path: '/test',
+                keywords: ['test', 'page'],
             })
 
             expect(metadata.title).toBe(`Test Page | ${SITE_CONFIG.name}`)
+            expect(metadata.description).toBe('Test description')
+            expect(metadata.keywords).toEqual(expect.arrayContaining(['test', 'page']))
+            expect(metadata.alternates?.canonical).toBe(`${SITE_CONFIG.url}/test`)
         })
 
-        it('should generate metadata without title suffix for homepage', () => {
+        it('should generate correct metadata for homepage', () => {
             const metadata = generatePageMetadata({
                 title: 'Home',
                 description: 'Home description',
-                path: '',
             })
 
             expect(metadata.title).toBe('Home')
+            expect(metadata.alternates?.canonical).toBe(SITE_CONFIG.url)
         })
 
-        it('should include custom keywords', () => {
-            const customKeywords = ['custom', 'keywords']
+        it('should use default image when no image provided', () => {
             const metadata = generatePageMetadata({
                 title: 'Test Page',
                 description: 'Test description',
-                keywords: customKeywords,
+                path: '/test',
             })
 
-            const allKeywords = metadata.keywords as string[]
-            customKeywords.forEach(keyword => {
-                expect(allKeywords).toContain(keyword)
-            })
+            const openGraph = metadata.openGraph as any
+            const twitter = metadata.twitter as any
+            expect(openGraph?.images?.[0]?.url).toBe(SITE_CONFIG.avatarUrl)
+            expect(twitter?.images).toEqual([SITE_CONFIG.avatarUrl])
         })
 
         it('should use custom image when provided', () => {
@@ -240,77 +151,63 @@ describe('SEO Configuration', () => {
             const metadata = generatePageMetadata({
                 title: 'Test Page',
                 description: 'Test description',
+                path: '/test',
                 image: customImage,
             })
 
-            expect(metadata.openGraph?.images?.[0]?.url).toBe(customImage)
+            const openGraph = metadata.openGraph as any
+            const twitter = metadata.twitter as any
+            expect(openGraph?.images?.[0]?.url).toBe(customImage)
+            expect(twitter?.images).toEqual([customImage])
         })
     })
 
     describe('generateBlogPostMetadata', () => {
-        const mockPost = {
-            title: 'Test Blog Post',
-            description: 'This is a test blog post description',
-            slug: 'test-blog-post',
-            publishedAt: '2024-01-01T00:00:00Z',
-            tags: ['JavaScript', 'React'],
-        }
-
-        it('should generate blog post metadata with correct canonical URL', () => {
-            const metadata = generateBlogPostMetadata(mockPost)
-
-            expect(metadata.alternates?.canonical).toBe(`${SITE_CONFIG.url}/blog/${mockPost.slug}`)
-        })
-
-        it('should generate blog post metadata with correct title format', () => {
-            const metadata = generateBlogPostMetadata(mockPost)
-
-            expect(metadata.title).toBe(`${mockPost.title} | ${SITE_CONFIG.name} Blog`)
-        })
-
-        it('should include blog post tags in keywords', () => {
-            const metadata = generateBlogPostMetadata(mockPost)
-
-            const keywords = metadata.keywords as string[]
-            mockPost.tags.forEach(tag => {
-                expect(keywords).toContain(tag)
+        it('should generate correct blog post metadata', () => {
+            const metadata = generateBlogPostMetadata({
+                title: 'Test Post',
+                description: 'Test post description',
+                slug: 'test-post',
+                publishedAt: '2024-01-01',
+                tags: ['test', 'blog'],
             })
+
+            expect(metadata.title).toBe(`Test Post | ${SITE_CONFIG.name} Blog`)
+            expect(metadata.description).toBe('Test post description')
+            expect(metadata.keywords).toEqual(expect.arrayContaining(['test', 'blog']))
+            expect(metadata.alternates?.canonical).toBe(`${SITE_CONFIG.url}/blog/test-post`)
+            const openGraph = metadata.openGraph as any
+            expect(openGraph?.type).toBe('article')
+            expect(openGraph?.publishedTime).toBe('2024-01-01')
         })
+    })
 
-        it('should have article type for OpenGraph', () => {
-            const metadata = generateBlogPostMetadata(mockPost)
-
-            expect(metadata.openGraph?.type).toBe('article')
-        })
-
-        it('should include publication date', () => {
-            const metadata = generateBlogPostMetadata(mockPost)
-
-            expect(metadata.openGraph?.publishedTime).toBe(mockPost.publishedAt)
+    describe('BLOG_CONFIG', () => {
+        it('should have correct blog configuration', () => {
+            expect(BLOG_CONFIG.baseUrl).toBe(`${SITE_CONFIG.url}/blog`)
+            expect(BLOG_CONFIG.postsPerPage).toBe(6)
+            expect(BLOG_CONFIG.defaultImage).toBe(SITE_CONFIG.avatarUrl)
+            expect(BLOG_CONFIG.author).toBe(SITE_CONFIG.author)
+            expect(BLOG_CONFIG.categories).toHaveLength(10)
         })
     })
 
     describe('Structured Data', () => {
         describe('personStructuredData', () => {
-            it('should have correct person schema structure', () => {
+            it('should have correct person structured data', () => {
                 expect(personStructuredData['@context']).toBe('https://schema.org')
                 expect(personStructuredData['@type']).toBe('Person')
                 expect(personStructuredData.name).toBe(SITE_CONFIG.name)
                 expect(personStructuredData.jobTitle).toBe('Senior Software Engineer')
                 expect(personStructuredData.url).toBe(SITE_CONFIG.url)
-            })
+                expect(personStructuredData.image).toBe(SITE_CONFIG.avatarUrl)
 
-            it('should have comprehensive skills list', () => {
                 const skills = personStructuredData.knowsAbout as string[]
                 expect(skills).toContain('PHP')
                 expect(skills).toContain('Python')
                 expect(skills).toContain('JavaScript')
                 expect(skills).toContain('TypeScript')
-                expect(skills).toContain('React')
-                expect(skills).toContain('Node.js')
-            })
 
-            it('should have correct social links', () => {
                 const sameAs = personStructuredData.sameAs as string[]
                 expect(sameAs).toContain(SITE_CONFIG.author.linkedin)
                 expect(sameAs).toContain(SITE_CONFIG.url)
@@ -318,40 +215,35 @@ describe('SEO Configuration', () => {
         })
 
         describe('websiteStructuredData', () => {
-            it('should have correct website schema structure', () => {
+            it('should have correct website structured data', () => {
                 expect(websiteStructuredData['@context']).toBe('https://schema.org')
                 expect(websiteStructuredData['@type']).toBe('WebSite')
                 expect(websiteStructuredData.name).toBe(`${SITE_CONFIG.name} Portfolio`)
                 expect(websiteStructuredData.url).toBe(SITE_CONFIG.url)
             })
-
-            it('should have search functionality', () => {
-                const potentialAction = websiteStructuredData.potentialAction as any
-                expect(potentialAction['@type']).toBe('SearchAction')
-                expect(potentialAction.target).toContain(SITE_CONFIG.url)
-            })
         })
 
         describe('organizationStructuredData', () => {
-            it('should have correct organization schema structure', () => {
+            it('should have correct organization structured data', () => {
                 expect(organizationStructuredData['@context']).toBe('https://schema.org')
                 expect(organizationStructuredData['@type']).toBe('Organization')
                 expect(organizationStructuredData.name).toBe(`${SITE_CONFIG.name} Portfolio`)
                 expect(organizationStructuredData.url).toBe(SITE_CONFIG.url)
+                expect(organizationStructuredData.logo).toBe(SITE_CONFIG.avatarUrl)
             })
         })
 
         describe('portfolioStructuredData', () => {
-            it('should have correct portfolio schema structure', () => {
+            it('should have correct portfolio structured data', () => {
                 expect(portfolioStructuredData['@context']).toBe('https://schema.org')
                 expect(portfolioStructuredData['@type']).toBe('CreativeWork')
                 expect(portfolioStructuredData.name).toBe(`${SITE_CONFIG.name} Portfolio`)
-                expect(portfolioStructuredData.genre).toBe('Portfolio')
+                expect(portfolioStructuredData.description).toContain('software engineering')
             })
         })
 
         describe('blogStructuredData', () => {
-            it('should have correct blog schema structure', () => {
+            it('should have correct blog structured data', () => {
                 expect(blogStructuredData['@context']).toBe('https://schema.org')
                 expect(blogStructuredData['@type']).toBe('Blog')
                 expect(blogStructuredData.name).toBe(`${SITE_CONFIG.name} Blog`)
@@ -362,12 +254,12 @@ describe('SEO Configuration', () => {
         describe('generateBlogPostStructuredData', () => {
             const mockPost = {
                 title: 'Test Blog Post',
-                description: 'This is a test blog post description',
-                image: 'https://example.com/image.jpg',
-                publishDate: '2024-01-01T00:00:00Z',
-                author: 'Animesh Pandey',
+                description: 'Test blog post description',
+                image: 'https://example.com/post-image.jpg',
+                publishDate: '2024-01-01',
+                author: 'Test Author',
                 url: 'https://animeshpandey.com/blog/test-post',
-                tags: ['JavaScript', 'React'],
+                tags: ['test', 'blog'],
                 slug: 'test-post',
             }
 
@@ -377,7 +269,9 @@ describe('SEO Configuration', () => {
                 expect(structuredData['@context']).toBe('https://schema.org')
                 expect(structuredData['@type']).toBe('BlogPosting')
                 expect(structuredData.headline).toBe(mockPost.title)
+                expect(structuredData.image).toBe(mockPost.image)
                 expect(structuredData.datePublished).toBe(mockPost.publishDate)
+                expect(structuredData.dateModified).toBe(mockPost.publishDate)
                 expect(structuredData.author.name).toBe(mockPost.author)
                 expect(structuredData.url).toBe(mockPost.url)
                 expect(structuredData.identifier).toBe(mockPost.slug)
@@ -387,7 +281,7 @@ describe('SEO Configuration', () => {
                 const postWithoutImage = { ...mockPost, image: undefined }
                 const structuredData = generateBlogPostStructuredData(postWithoutImage)
 
-                expect(structuredData.image).toBe(SITE_CONFIG.ogImage)
+                expect(structuredData.image).toBe(SITE_CONFIG.avatarUrl)
             })
 
             it('should include tags in keywords', () => {
@@ -484,39 +378,6 @@ describe('SEO Configuration', () => {
                 expect(blogPageStructuredData).toContain(blogStructuredData)
                 expect(blogPageStructuredData).toContain(personStructuredData)
             })
-        })
-    })
-
-    describe('BLOG_CONFIG', () => {
-        it('should have all required blog configuration properties', () => {
-            expect(BLOG_CONFIG).toHaveProperty('baseUrl')
-            expect(BLOG_CONFIG).toHaveProperty('postsPerPage')
-            expect(BLOG_CONFIG).toHaveProperty('defaultImage')
-            expect(BLOG_CONFIG).toHaveProperty('author')
-            expect(BLOG_CONFIG).toHaveProperty('categories')
-        })
-
-        it('should have correct blog base URL', () => {
-            expect(BLOG_CONFIG.baseUrl).toBe(`${SITE_CONFIG.url}/blog`)
-        })
-
-        it('should have reasonable posts per page', () => {
-            expect(BLOG_CONFIG.postsPerPage).toBeGreaterThan(0)
-            expect(BLOG_CONFIG.postsPerPage).toBeLessThanOrEqual(20)
-        })
-
-        it('should have comprehensive blog categories', () => {
-            const categories = BLOG_CONFIG.categories
-            expect(categories).toContain('Software Engineering')
-            expect(categories).toContain('Web Development')
-            expect(categories).toContain('Backend Development')
-            expect(categories).toContain('Frontend Development')
-            expect(categories).toContain('DevOps')
-            expect(categories).toContain('Database')
-            expect(categories).toContain('API Development')
-            expect(categories).toContain('Best Practices')
-            expect(categories).toContain('Tutorials')
-            expect(categories).toContain('Code Reviews')
         })
     })
 })

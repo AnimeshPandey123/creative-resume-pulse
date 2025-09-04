@@ -10,6 +10,7 @@ export const SITE_CONFIG = {
     description: 'Senior Software Engineer Animesh Pandey - 6+ years expertise in PHP, Python, Node.js, React, TypeScript, Docker, and Kubernetes.',
     url: 'https://animeshpandey.com',
     ogImage: 'https://animeshpandey.com/opengraph-image.png',
+    avatarUrl: 'https://d1iukwsziul56d.cloudfront.net/drupal-local/s3fs-public/2025-08/IMG_3793%202.JPG',
     twitterHandle: '@animeshpandey',
     author: {
         name: 'Animesh Pandey',
@@ -80,7 +81,7 @@ export const baseMetadata: Metadata = {
         locale: SITE_CONFIG.locale,
         images: [
             {
-                url: SITE_CONFIG.ogImage,
+                url: SITE_CONFIG.avatarUrl,
                 width: 1200,
                 height: 630,
                 alt: `${SITE_CONFIG.name} - Senior Software Engineer Portfolio`,
@@ -91,7 +92,7 @@ export const baseMetadata: Metadata = {
         card: 'summary_large_image',
         title: SITE_CONFIG.title,
         description: SITE_CONFIG.description,
-        images: [SITE_CONFIG.ogImage],
+        images: [SITE_CONFIG.avatarUrl],
         creator: SITE_CONFIG.twitterHandle,
         site: SITE_CONFIG.twitterHandle,
     },
@@ -143,7 +144,7 @@ export function generatePageMetadata({
             locale: SITE_CONFIG.locale,
             images: [
                 {
-                    url: image || SITE_CONFIG.ogImage,
+                    url: image || SITE_CONFIG.avatarUrl,
                     width: 1200,
                     height: 630,
                     alt: `${fullTitle} - ${SITE_CONFIG.name}`,
@@ -154,7 +155,7 @@ export function generatePageMetadata({
             card: 'summary_large_image',
             title: fullTitle,
             description,
-            images: [image || SITE_CONFIG.ogImage],
+            images: [image || SITE_CONFIG.avatarUrl],
             creator: SITE_CONFIG.twitterHandle,
             site: SITE_CONFIG.twitterHandle,
         },
@@ -316,7 +317,7 @@ export const personStructuredData = {
     jobTitle: 'Senior Software Engineer',
     description: 'Senior Software Engineer with 6+ years of expertise in backend development using PHP, Javascript, Python, and modern web technologies.',
     url: SITE_CONFIG.url,
-    image: SITE_CONFIG.ogImage,
+    image: SITE_CONFIG.avatarUrl,
     sameAs: [
         SITE_CONFIG.author.linkedin,
         SITE_CONFIG.url
@@ -378,7 +379,7 @@ export const organizationStructuredData = {
     '@type': 'Organization',
     name: `${SITE_CONFIG.name} Portfolio`,
     url: SITE_CONFIG.url,
-    logo: SITE_CONFIG.ogImage,
+    logo: SITE_CONFIG.avatarUrl,
     description: 'Professional portfolio showcasing software engineering expertise',
     founder: {
         '@type': 'Person',
@@ -442,7 +443,7 @@ export function generateBlogPostStructuredData(post: {
         '@context': 'https://schema.org',
         '@type': 'BlogPosting',
         headline: post.title,
-        image: post.image || SITE_CONFIG.ogImage,
+        image: post.image || SITE_CONFIG.avatarUrl,
         datePublished: post.publishDate,
         dateModified: post.publishDate,
         author: {
@@ -559,7 +560,7 @@ export const blogPageStructuredData = [
 export const BLOG_CONFIG = {
     baseUrl: `${SITE_CONFIG.url}/blog`,
     postsPerPage: 6,
-    defaultImage: SITE_CONFIG.ogImage,
+    defaultImage: SITE_CONFIG.avatarUrl,
     author: SITE_CONFIG.author,
     categories: [
         'Software Engineering',

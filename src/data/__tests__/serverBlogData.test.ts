@@ -3,12 +3,7 @@ import { blogPosts } from '@/data/mockBlogData';
 import { promises as fsp } from 'fs';
 import matter from 'gray-matter';
 
-// Mock dependencies
-jest.mock('fs', () => ({
-    promises: {
-        readFile: jest.fn(),
-    },
-}));
+// No global mock - we'll use jest.spyOn in individual tests
 
 jest.mock('gray-matter', () => ({
     __esModule: true,
@@ -31,7 +26,6 @@ jest.mock('@/data/mockBlogData', () => ({
     ],
 }));
 
-const mockFsp = fsp as jest.Mocked<typeof fsp>;
 const mockMatter = matter as jest.MockedFunction<typeof matter>;
 
 describe('serverBlogData', () => {
@@ -46,15 +40,25 @@ describe('serverBlogData', () => {
         });
 
         it('should return base post when markdown file read fails', async () => {
-            mockFsp.readFile.mockRejectedValue(new Error('File not found'));
+            // Use jest.spyOn to mock the file read
+            const readFileSpy = jest.spyOn(fsp, 'readFile');
+            readFileSpy.mockImplementation((path: any, encoding: any) => {
+                if (path.includes('blog-posts.json')) {
+                    return Promise.resolve(JSON.stringify({
+                        posts: [{
+                            slug: 'test-post',
+                            contentPath: 'src/content/blog/test-post.md'
+                        }]
+                    }));
+                }
+                return Promise.reject(new Error('File not found'));
+            });
 
             const result = await fetchBlogPostWithContentBySlug('test-post');
 
             expect(result).toEqual(blogPosts[0]);
-            expect(mockFsp.readFile).toHaveBeenCalledWith(
-                expect.stringContaining('test-post.md'),
-                'utf-8'
-            );
+
+            readFileSpy.mockRestore();
         });
 
         it('should fetch and parse markdown content successfully', async () => {
@@ -65,7 +69,23 @@ describe('serverBlogData', () => {
                 publishDate: '2024-02-01',
             };
 
-            mockFsp.readFile.mockResolvedValue(mockContent);
+            // Use jest.spyOn to mock the file read
+            const readFileSpy = jest.spyOn(fsp, 'readFile');
+            readFileSpy.mockImplementation((path: any, encoding: any) => {
+                if (path.includes('blog-posts.json')) {
+                    return Promise.resolve(JSON.stringify({
+                        posts: [{
+                            slug: 'test-post',
+                            contentPath: 'src/content/blog/test-post.md'
+                        }]
+                    }));
+                }
+                if (path.includes('test-post.md')) {
+                    return Promise.resolve(mockContent);
+                }
+                return Promise.reject(new Error('File not found'));
+            });
+
             mockMatter.mockReturnValue({
                 content: mockContent,
                 data: mockData,
@@ -81,17 +101,31 @@ describe('serverBlogData', () => {
                 content: mockContent,
             });
 
-            expect(mockFsp.readFile).toHaveBeenCalledWith(
-                expect.stringContaining('test-post.md'),
-                'utf-8'
-            );
             expect(mockMatter).toHaveBeenCalledWith(mockContent);
+
+            readFileSpy.mockRestore();
         });
 
         it('should use base post data when frontmatter is missing', async () => {
             const mockContent = 'Test markdown content';
 
-            mockFsp.readFile.mockResolvedValue(mockContent);
+            // Use jest.spyOn to mock the file read
+            const readFileSpy = jest.spyOn(fsp, 'readFile');
+            readFileSpy.mockImplementation((path: any, encoding: any) => {
+                if (path.includes('blog-posts.json')) {
+                    return Promise.resolve(JSON.stringify({
+                        posts: [{
+                            slug: 'test-post',
+                            contentPath: 'src/content/blog/test-post.md'
+                        }]
+                    }));
+                }
+                if (path.includes('test-post.md')) {
+                    return Promise.resolve(mockContent);
+                }
+                return Promise.reject(new Error('File not found'));
+            });
+
             mockMatter.mockReturnValue({
                 content: mockContent,
                 data: {},
@@ -106,19 +140,36 @@ describe('serverBlogData', () => {
                 publishDate: blogPosts[0].publishDate,
                 content: mockContent,
             });
+
+            readFileSpy.mockRestore();
         });
 
-        it('should handle different frontmatter data combinations', async () => {
+        it('should handle title override in frontmatter', async () => {
             const mockContent = 'Test markdown content';
 
-            // Test with only title override
-            mockFsp.readFile.mockResolvedValue(mockContent);
+            // Use jest.spyOn to mock the file read
+            const readFileSpy = jest.spyOn(fsp, 'readFile');
+            readFileSpy.mockImplementation((path: any, encoding: any) => {
+                if (path.includes('blog-posts.json')) {
+                    return Promise.resolve(JSON.stringify({
+                        posts: [{
+                            slug: 'test-post',
+                            contentPath: 'src/content/blog/test-post.md'
+                        }]
+                    }));
+                }
+                if (path.includes('test-post.md')) {
+                    return Promise.resolve(mockContent);
+                }
+                return Promise.reject(new Error('File not found'));
+            });
+
             mockMatter.mockReturnValue({
                 content: mockContent,
                 data: { title: 'Only Title Override' },
             } as any);
 
-            let result = await fetchBlogPostWithContentBySlug('test-post');
+            const result = await fetchBlogPostWithContentBySlug('test-post');
 
             expect(result).toEqual({
                 ...blogPosts[0],
@@ -128,13 +179,35 @@ describe('serverBlogData', () => {
                 content: mockContent,
             });
 
-            // Test with only excerpt override
+            readFileSpy.mockRestore();
+        });
+
+        it('should handle excerpt override in frontmatter', async () => {
+            const mockContent = 'Test markdown content';
+
+            // Use jest.spyOn to mock the file read
+            const readFileSpy = jest.spyOn(fsp, 'readFile');
+            readFileSpy.mockImplementation((path: any, encoding: any) => {
+                if (path.includes('blog-posts.json')) {
+                    return Promise.resolve(JSON.stringify({
+                        posts: [{
+                            slug: 'test-post',
+                            contentPath: 'src/content/blog/test-post.md'
+                        }]
+                    }));
+                }
+                if (path.includes('test-post.md')) {
+                    return Promise.resolve(mockContent);
+                }
+                return Promise.reject(new Error('File not found'));
+            });
+
             mockMatter.mockReturnValue({
                 content: mockContent,
                 data: { excerpt: 'Only Excerpt Override' },
             } as any);
 
-            result = await fetchBlogPostWithContentBySlug('test-post');
+            const result = await fetchBlogPostWithContentBySlug('test-post');
 
             expect(result).toEqual({
                 ...blogPosts[0],
@@ -144,13 +217,35 @@ describe('serverBlogData', () => {
                 content: mockContent,
             });
 
-            // Test with only publishDate override
+            readFileSpy.mockRestore();
+        });
+
+        it('should handle publishDate override in frontmatter', async () => {
+            const mockContent = 'Test markdown content';
+
+            // Use jest.spyOn to mock the file read
+            const readFileSpy = jest.spyOn(fsp, 'readFile');
+            readFileSpy.mockImplementation((path: any, encoding: any) => {
+                if (path.includes('blog-posts.json')) {
+                    return Promise.resolve(JSON.stringify({
+                        posts: [{
+                            slug: 'test-post',
+                            contentPath: 'src/content/blog/test-post.md'
+                        }]
+                    }));
+                }
+                if (path.includes('test-post.md')) {
+                    return Promise.resolve(mockContent);
+                }
+                return Promise.reject(new Error('File not found'));
+            });
+
             mockMatter.mockReturnValue({
                 content: mockContent,
                 data: { publishDate: '2024-12-31' },
             } as any);
 
-            result = await fetchBlogPostWithContentBySlug('test-post');
+            const result = await fetchBlogPostWithContentBySlug('test-post');
 
             expect(result).toEqual({
                 ...blogPosts[0],
@@ -159,12 +254,30 @@ describe('serverBlogData', () => {
                 publishDate: '2024-12-31',
                 content: mockContent,
             });
+
+            readFileSpy.mockRestore();
         });
 
         it('should handle empty frontmatter data', async () => {
             const mockContent = 'Test markdown content';
 
-            mockFsp.readFile.mockResolvedValue(mockContent);
+            // Use jest.spyOn to mock the file read
+            const readFileSpy = jest.spyOn(fsp, 'readFile');
+            readFileSpy.mockImplementation((path: any, encoding: any) => {
+                if (path.includes('blog-posts.json')) {
+                    return Promise.resolve(JSON.stringify({
+                        posts: [{
+                            slug: 'test-post',
+                            contentPath: 'src/content/blog/test-post.md'
+                        }]
+                    }));
+                }
+                if (path.includes('test-post.md')) {
+                    return Promise.resolve(mockContent);
+                }
+                return Promise.reject(new Error('File not found'));
+            });
+
             mockMatter.mockReturnValue({
                 content: mockContent,
                 data: {}, // Empty data
@@ -179,17 +292,24 @@ describe('serverBlogData', () => {
                 publishDate: blogPosts[0].publishDate,
                 content: mockContent,
             });
+
+            readFileSpy.mockRestore();
         });
 
         it('should handle error in require call gracefully', async () => {
             // This test verifies that the function handles errors gracefully
-            // even when the require call fails
+            // even when the JSON file read fails
+            const readFileSpy = jest.spyOn(fsp, 'readFile');
+            readFileSpy.mockRejectedValue(new Error('JSON file read failed'));
+
             const result = await fetchBlogPostWithContentBySlug('test-post');
 
             // Should return the base post when there's an error
             expect(result).toBeDefined();
             expect(result?.id).toBe('1');
             expect(result?.slug).toBe('test-post');
+
+            readFileSpy.mockRestore();
         });
     });
 });

@@ -161,6 +161,22 @@
                 "14"
             ],
             "contentPath": "src/content/blog/how-to-easily-dockerize-a-python-flask-application-a-step-by-step-guide.md"
+        },
+        {
+            "id": "wc8nbw515dkjf96s71cxyd",
+            "title": "Getting Started with React Hooks",
+            "slug": "getting-started-with-react-hooks",
+            "excerpt": "Dive into the world of React Hooks and discover how they have transformed component development with their streamlined, functional approach. Whether you're managing state or handling side effects, hooks provide a powerful toolkit for enhancing your React projects. Perfect for both beginners and seasoned developers, this guide will walk you through the essentials of using hooks to elevate your coding game.",
+            "coverImage": "http://d1iukwsziul56d.cloudfront.net/drupal-prodv2/s3fs-public/2024-10/DALL_E_2024-09-26_10-1_2.webp",
+            "publishDate": "2025-09-04",
+            "readingTime": 5,
+            "authorId": "1",
+            "tagIds": [
+                "6",
+                "5",
+                "1"
+            ],
+            "contentPath": "src/content/blog/getting-started-with-react-hooks.md"
         }
     ]
 }

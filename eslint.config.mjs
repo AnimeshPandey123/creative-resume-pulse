@@ -72,23 +72,23 @@ const eslintConfig = [
       '@next/next/no-html-link-for-pages': 'off',
       '@next/next/no-img-element': 'off',
       '@next/next/no-page-custom-font': 'off',
-      
+
       // React rules
       'react/no-unescaped-entities': 'off',
       'react/jsx-uses-react': 'off',
       'react/react-in-jsx-scope': 'off',
-      
+
       // Import rules
       'import/no-anonymous-default-export': 'off',
-      
+
       // TypeScript rules
-      '@typescript-eslint/no-unused-vars': ['error', { 
-        'argsIgnorePattern': '^_', 
-        'varsIgnorePattern': '^_', 
-        'args': 'none' 
+      '@typescript-eslint/no-unused-vars': ['error', {
+        'argsIgnorePattern': '^_',
+        'varsIgnorePattern': '^_',
+        'args': 'none'
       }],
       'no-unused-vars': 'off', // Turn off base rule as it conflicts with TypeScript rule
-      
+
       // General rules
       'prefer-const': 'error',
       'no-var': 'error',

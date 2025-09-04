@@ -45,6 +45,22 @@ jest.mock('next', () => ({
     Metadata: jest.fn(),
 }))
 
+// Mock react-syntax-highlighter
+jest.mock('react-syntax-highlighter', () => ({
+    Prism: ({ children, PreTag, ...props }) => {
+        const Tag = PreTag || 'pre';
+        return (
+            <Tag {...props}>
+                <code>{children}</code>
+            </Tag>
+        );
+    },
+}))
+
+jest.mock('react-syntax-highlighter/dist/esm/styles/prism', () => ({
+    atomDark: {},
+}))
+
 // Global test utilities
 global.ResizeObserver = jest.fn().mockImplementation(() => ({
     observe: jest.fn(),

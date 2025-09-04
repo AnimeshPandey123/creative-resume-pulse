@@ -2,14 +2,13 @@
 
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { Calendar, Clock } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { BlogPost } from '@/types/BlogTypes';
+import CodeBlock from './CodeBlock';
 
 interface BlogPostContentProps {
   post: BlogPost;
@@ -86,16 +85,13 @@ const BlogPostContent: React.FC<BlogPostContentProps> = ({ post }) => {
             code: ({ inline, className, children, ...props }: CodeProps) => {
               const match = /language-(\w+)/.exec(className || '');
               return !inline && match ? (
-                <SyntaxHighlighter
-                  // @ts-ignore - Working around type issues with react-syntax-highlighter
-                  style={atomDark}
+                <CodeBlock
                   language={match[1]}
-                  PreTag="div"
-                  className="rounded-md"
+                  className={className}
                   {...props}
                 >
                   {String(children).replace(/\n$/, '')}
-                </SyntaxHighlighter>
+                </CodeBlock>
               ) : (
                 <code className={className} {...props}>
                   {children}

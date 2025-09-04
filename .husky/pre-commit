@@ -3,7 +3,31 @@ echo "🔍 Running pre-commit checks..."
 echo "📝 Running linter..."
 npm run lint
 
-echo "🧪 Running tests..."
+echo "🧪 Running tests with coverage..."
 npm run test:coverage
+
+echo "📊 Checking coverage threshold..."
+# Run coverage again and capture the output to parse the percentage
+COVERAGE_OUTPUT=$(npm run test:coverage 2>&1)
+COVERAGE_LINE=$(echo "$COVERAGE_OUTPUT" | grep "All files" | tail -1)
+
+# Use the working regex pattern: /All files\s+\|\s+([0-9]+\.[0-9]+)/
+if [[ $COVERAGE_LINE =~ All[[:space:]]+files[[:space:]]*\|[[:space:]]*([0-9]+\.[0-9]+) ]]; then
+    COVERAGE_PERCENT=${BASH_REMATCH[1]}
+    echo "📈 Current coverage: ${COVERAGE_PERCENT}%"
+    
+    if (( $(echo "$COVERAGE_PERCENT < 95" | bc -l) )); then
+        echo "❌ Coverage ${COVERAGE_PERCENT}% is below required 95% threshold!"
+        echo "🚫 Commit blocked. Please add more tests to improve coverage."
+        exit 1
+    else
+        echo "✅ Coverage ${COVERAGE_PERCENT}% meets 95% requirement!"
+    fi
+else
+    echo "❌ Could not parse coverage output!"
+    echo "🚫 Commit blocked. Coverage enforcement is not working properly."
+    echo "Please check your Jest configuration and ensure coverage is being generated."
+    exit 1
+fi
 
 echo "✅ Pre-commit checks passed!"

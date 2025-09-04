@@ -10,6 +10,9 @@ Sitemap: https://animeshpandey.com/sitemap-index.xml
 Sitemap: https://animeshpandey.com/sitemap.xml
 Sitemap: https://animeshpandey.com/sitemap-blog.xml
 
+# RSS Feed
+Sitemap: https://animeshpandey.com/feed.xml
+
 # Crawl-delay for respectful crawling
 Crawl-delay: 1
 

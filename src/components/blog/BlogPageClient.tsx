@@ -24,7 +24,20 @@ export default function BlogPageClient() {
         <section className="pt-24 md:pt-28 pb-12 md:pb-16">
             <div className="container">
                 <div className="mb-10">
-                    <h1 className="text-4xl md:text-5xl font-bold mb-4 text-foreground">Blog</h1>
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
+                        <h1 className="text-4xl md:text-5xl font-bold text-foreground">Blog</h1>
+                        <a
+                            href="/feed.xml"
+                            className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors text-sm font-medium"
+                            title="Subscribe to RSS feed"
+                        >
+                            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M3.5 3.5a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-9a2 2 0 0 1-2-2v-9zM5 5a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H5z" />
+                                <path d="M3.5 15.5a1 1 0 0 1-1-1v-1a1 1 0 0 1 2 0v1a1 1 0 0 1-1 1zM3.5 19.5a1 1 0 0 1-1-1v-1a1 1 0 0 1 2 0v1a1 1 0 0 1-1 1zM7.5 19.5a1 1 0 0 1-1-1v-1a1 1 0 0 1 2 0v1a1 1 0 0 1-1 1zM11.5 19.5a1 1 0 0 1-1-1v-1a1 1 0 0 1 2 0v1a1 1 0 0 1-1 1zM15.5 19.5a1 1 0 0 1-1-1v-1a1 1 0 0 1 2 0v1a1 1 0 0 1-1 1zM19.5 19.5a1 1 0 0 1-1-1v-1a1 1 0 0 1 2 0v1a1 1 0 0 1-1 1z" />
+                            </svg>
+                            RSS Feed
+                        </a>
+                    </div>
                     <p className="text-muted-foreground text-lg max-w-2xl">
                         {tag ? `Exploring articles about ${currentTagName}` : 'Thoughts, ideas, and tutorials to inspire and inform'}
                     </p>

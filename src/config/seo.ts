@@ -562,6 +562,7 @@ export const BLOG_CONFIG = {
     postsPerPage: 6,
     defaultImage: SITE_CONFIG.avatarUrl,
     author: SITE_CONFIG.author,
+    rssFeedUrl: `${SITE_CONFIG.url}/feed.xml`,
     categories: [
         'Software Engineering',
         'Web Development',

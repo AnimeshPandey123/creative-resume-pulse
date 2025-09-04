@@ -21,7 +21,7 @@ function generateRSSFeed(posts: typeof blogPosts) {
       <link>${postUrl}</link>
       <guid isPermaLink="true">${postUrl}</guid>
       <pubDate>${pubDate}</pubDate>
-      <author><![CDATA[${SITE_CONFIG.author.name} <${SITE_CONFIG.author.email || 'animesh@animeshpandey.com'}>]]></author>
+      <author><![CDATA[${SITE_CONFIG.author.name} <animeshpandey.pro@gmail.com>]]></author>
       <category><![CDATA[${categories}]]></category>
       ${post.coverImage ? `<enclosure url="${post.coverImage}" type="image/jpeg" />` : ''}
     </item>`;
@@ -38,8 +38,8 @@ function generateRSSFeed(posts: typeof blogPosts) {
     <pubDate>${buildDate}</pubDate>
     <ttl>60</ttl>
     <generator>Next.js RSS Generator</generator>
-    <webMaster>${SITE_CONFIG.author.email || 'animesh@animeshpandey.com'} (${SITE_CONFIG.author.name})</webMaster>
-    <managingEditor>${SITE_CONFIG.author.email || 'animesh@animeshpandey.com'} (${SITE_CONFIG.author.name})</managingEditor>
+    <webMaster>animeshpandey.pro@gmail.com (${SITE_CONFIG.author.name})</webMaster>
+    <managingEditor>animeshpandey.pro@gmail.com (${SITE_CONFIG.author.name})</managingEditor>
     <copyright>Copyright ${new Date().getFullYear()} ${SITE_CONFIG.author.name}</copyright>
     <image>
       <url>${SITE_CONFIG.avatarUrl}</url>

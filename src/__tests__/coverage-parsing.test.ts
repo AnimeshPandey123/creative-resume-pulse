@@ -1,6 +1,6 @@
 describe('Coverage Parsing Logic', () => {
-  // Mock Jest coverage output format
-  const mockCoverageOutput = `
+    // Mock Jest coverage output format
+    const mockCoverageOutput = `
 Running coverage on untested files...🚀 Generating sitemaps for Next.js...
 ✅ Main sitemap generated successfully
 ✅ Blog sitemap generated successfully with 5 posts
@@ -38,74 +38,74 @@ Time:        4.875 s, estimated 5 s
 Ran all test suites.
 `;
 
-  test('should extract coverage line correctly', () => {
-    const coverageLine = mockCoverageOutput.split('\n').find(line => line.includes('All files'));
-    expect(coverageLine).toBe('All files           |   79.56 |    64.28 |   75.38 |   80.95 |                              ');
-  });
-
-  test('should parse coverage percentage with current regex', () => {
-    const coverageLine = mockCoverageOutput.split('\n').find(line => line.includes('All files'));
-    const currentRegex = /([0-9]+\.[0-9]+)%/;
-    const match = coverageLine?.match(currentRegex);
-    
-    // This should fail because Jest doesn't output % symbol
-    expect(match).toBeNull();
-  });
-
-  test('should parse coverage percentage with corrected regex', () => {
-    const coverageLine = mockCoverageOutput.split('\n').find(line => line.includes('All files'));
-    // Look for the first percentage number (statements coverage)
-    const correctedRegex = /All files\s+\|\s+([0-9]+\.[0-9]+)/;
-    const match = coverageLine?.match(correctedRegex);
-    
-    expect(match).not.toBeNull();
-    expect(match?.[1]).toBe('79.56');
-  });
-
-  test('should handle different coverage formats', () => {
-    const differentFormats = [
-      'All files           |   79.56 |    64.28 |   75.38 |   80.95 |',
-      'All files | 79.56 | 64.28 | 75.38 | 80.95 |',
-      'All files|79.56|64.28|75.38|80.95|',
-      'All files           |   100.00 |      100 |     100 |     100 |'
-    ];
-
-    const regex = /All files\s*\|\s*([0-9]+\.[0-9]+)/;
-    
-    differentFormats.forEach(format => {
-      const match = format.match(regex);
-      expect(match).not.toBeNull();
-      expect(match?.[1]).toBeDefined();
+    test('should extract coverage line correctly', () => {
+        const coverageLine = mockCoverageOutput.split('\n').find(line => line.includes('All files'));
+        expect(coverageLine).toBe('All files           |   79.56 |    64.28 |   75.38 |   80.95 |                              ');
     });
-  });
 
-  test('should extract multiple coverage metrics', () => {
-    const coverageLine = mockCoverageOutput.split('\n').find(line => line.includes('All files'));
-    const regex = /All files\s+\|\s+([0-9]+\.[0-9]+)\s+\|\s+([0-9]+\.[0-9]+)\s+\|\s+([0-9]+\.[0-9]+)\s+\|\s+([0-9]+\.[0-9]+)/;
-    const match = coverageLine?.match(regex);
-    
-    expect(match).not.toBeNull();
-    expect(match?.[1]).toBe('79.56'); // Statements
-    expect(match?.[2]).toBe('64.28'); // Branches
-    expect(match?.[3]).toBe('75.38'); // Functions
-    expect(match?.[4]).toBe('80.95'); // Lines
-  });
+    test('should parse coverage percentage with current regex', () => {
+        const coverageLine = mockCoverageOutput.split('\n').find(line => line.includes('All files'));
+        const currentRegex = /([0-9]+\.[0-9]+)%/;
+        const match = coverageLine?.match(currentRegex);
 
-  test('should handle edge cases', () => {
-    const edgeCases = [
-      'All files           |    0.00 |      0.00 |     0.00 |     0.00 |',
-      'All files           |  100.00 |    100.00 |   100.00 |   100.00 |',
-      'All files           |    1.23 |     45.67 |    89.01 |    23.45 |'
-    ];
-
-    const regex = /All files\s+\|\s+([0-9]+\.[0-9]+)/;
-    
-    edgeCases.forEach(format => {
-      const match = format.match(regex);
-      expect(match).not.toBeNull();
-      const percentage = parseFloat(match![1]);
-      expect(percentage).toBeGreaterThanOrEqual(0);
-      expect(percentage).toBeLessThanOrEqual(100);
+        // This should fail because Jest doesn't output % symbol
+        expect(match).toBeNull();
     });
-  });
+
+    test('should parse coverage percentage with corrected regex', () => {
+        const coverageLine = mockCoverageOutput.split('\n').find(line => line.includes('All files'));
+        // Look for the first percentage number (statements coverage)
+        const correctedRegex = /All files\s+\|\s+([0-9]+\.[0-9]+)/;
+        const match = coverageLine?.match(correctedRegex);
+
+        expect(match).not.toBeNull();
+        expect(match?.[1]).toBe('79.56');
+    });
+
+    test('should handle different coverage formats', () => {
+        const differentFormats = [
+            'All files           |   79.56 |    64.28 |   75.38 |   80.95 |',
+            'All files | 79.56 | 64.28 | 75.38 | 80.95 |',
+            'All files|79.56|64.28|75.38|80.95|',
+            'All files           |   100.00 |      100 |     100 |     100 |'
+        ];
+
+        const regex = /All files\s*\|\s*([0-9]+\.[0-9]+)/;
+
+        differentFormats.forEach(format => {
+            const match = format.match(regex);
+            expect(match).not.toBeNull();
+            expect(match?.[1]).toBeDefined();
+        });
+    });
+
+    test('should extract multiple coverage metrics', () => {
+        const coverageLine = mockCoverageOutput.split('\n').find(line => line.includes('All files'));
+        const regex = /All files\s+\|\s+([0-9]+\.[0-9]+)\s+\|\s+([0-9]+\.[0-9]+)\s+\|\s+([0-9]+\.[0-9]+)\s+\|\s+([0-9]+\.[0-9]+)/;
+        const match = coverageLine?.match(regex);
+
+        expect(match).not.toBeNull();
+        expect(match?.[1]).toBe('79.56'); // Statements
+        expect(match?.[2]).toBe('64.28'); // Branches
+        expect(match?.[3]).toBe('75.38'); // Functions
+        expect(match?.[4]).toBe('80.95'); // Lines
+    });
+
+    test('should handle edge cases', () => {
+        const edgeCases = [
+            'All files           |    0.00 |      0.00 |     0.00 |     0.00 |',
+            'All files           |  100.00 |    100.00 |   100.00 |   100.00 |',
+            'All files           |    1.23 |     45.67 |    89.01 |    23.45 |'
+        ];
+
+        const regex = /All files\s+\|\s+([0-9]+\.[0-9]+)/;
+
+        edgeCases.forEach(format => {
+            const match = format.match(regex);
+            expect(match).not.toBeNull();
+            const percentage = parseFloat(match![1]);
+            expect(percentage).toBeGreaterThanOrEqual(0);
+            expect(percentage).toBeLessThanOrEqual(100);
+        });
+    });
 });

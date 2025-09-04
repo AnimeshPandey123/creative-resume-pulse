@@ -33,7 +33,7 @@ export default async function handler(req: Request) {
     return new Response(JSON.stringify({ success: true, data }), {
       status: 200,
     });
-  } catch (error) {
+  } catch {
     return new Response(JSON.stringify({ error: 'Failed to send email' }), {
       status: 500,
     });

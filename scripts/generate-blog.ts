@@ -80,10 +80,8 @@ class BlogGenerator {
                     excerpt = context || `Learn about ${title.toLowerCase()}`;
                 }
             } else {
-                console.log(chalk.yellow('📝 Using template content (OpenAI not configured)'));
-                content = this.generateFallbackContent(title, context);
-                tags = blogConfig.defaultTags;
-                excerpt = context || `Learn about ${title.toLowerCase()}`;
+                console.log(chalk.yellow('📝 (OpenAI not configured)'));
+                process.exit(1);
             }
 
             // Generate metadata

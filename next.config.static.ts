@@ -9,7 +9,12 @@ const nextConfig: NextConfig = {
   trailingSlash: true,
   images: {
     unoptimized: true,
-    domains: ['animeshpandey.com'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'animeshpandey.com',
+      },
+    ],
     formats: ['image/webp', 'image/avif'],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
@@ -78,10 +83,10 @@ const nextConfig: NextConfig = {
     ignoreBuildErrors: false,
   },
 
-  // ESLint configuration - disable for static export
+  // ESLint configuration - enable for code quality
   eslint: {
-    // Disable ESLint during build
-    ignoreDuringBuilds: true,
+    // Enable ESLint during build for code quality
+    ignoreDuringBuilds: false,
   },
 
   // Disable server-side features

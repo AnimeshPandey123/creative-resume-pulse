@@ -69,12 +69,12 @@ class BlogGenerator {
                     excerpt = await this.openAIService.generateExcerpt(content);
 
                     console.log(chalk.green('✅ AI content generated successfully!'));
-                        } catch {
-            console.log(chalk.yellow('⚠️  AI generation failed, using fallback content...'));
-            content = this.generateFallbackContent(title, context);
-            tags = blogConfig.defaultTags;
-            excerpt = context || `Learn about ${title.toLowerCase()}`;
-        }
+                } catch {
+                    console.log(chalk.yellow('⚠️  AI generation failed, using fallback content...'));
+                    content = this.generateFallbackContent(title, context);
+                    tags = blogConfig.defaultTags;
+                    excerpt = context || `Learn about ${title.toLowerCase()}`;
+                }
             } else {
                 console.log(chalk.yellow('📝 (OpenAI not configured)'));
                 process.exit(1);

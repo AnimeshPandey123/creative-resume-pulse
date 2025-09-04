@@ -228,8 +228,9 @@ describe('Blog Post SEO Functions', () => {
             expect(metadata.title).toBe(`${mockPost.title} | Animesh Pandey Blog`)
             expect(metadata.description).toBe(mockPost.description)
             expect(metadata.alternates?.canonical).toBe(`https://animeshpandey.com/blog/${mockPost.slug}`)
-            expect(metadata.openGraph?.type).toBe('article')
-            expect(metadata.openGraph?.publishedTime).toBe(mockPost.publishedAt)
+            const openGraph = metadata.openGraph as any
+            expect(openGraph?.type).toBe('article')
+            expect(openGraph?.publishedTime).toBe(mockPost.publishedAt)
         })
 
         it('should include tags in keywords', () => {
@@ -244,10 +245,11 @@ describe('Blog Post SEO Functions', () => {
         it('should have correct Twitter configuration', () => {
             const metadata = generateBlogPostMetadata(mockPost)
 
-            expect(metadata.twitter?.card).toBe('summary_large_image')
-            expect(metadata.twitter?.creator).toBe('@animeshpandey')
-            expect(metadata.twitter?.title).toBe(mockPost.title)
-            expect(metadata.twitter?.description).toBe(mockPost.description)
+            const twitter = metadata.twitter as any
+            expect(twitter?.card).toBe('summary_large_image')
+            expect(twitter?.creator).toBe('@animeshpandey')
+            expect(twitter?.title).toBe(mockPost.title)
+            expect(twitter?.description).toBe(mockPost.description)
         })
     })
 
@@ -279,7 +281,7 @@ describe('Blog Post SEO Functions', () => {
             const postWithoutImage = { ...mockStructuredDataPost, image: undefined }
             const structuredData = generateBlogPostStructuredData(postWithoutImage)
 
-            expect(structuredData.image).toBe('https://animeshpandey.com/opengraph-image.png')
+            expect(structuredData.image).toBe('https://d1iukwsziul56d.cloudfront.net/drupal-local/s3fs-public/2025-08/IMG_3793%202.JPG')
         })
 
         it('should include tags in keywords', () => {

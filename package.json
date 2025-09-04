@@ -23,7 +23,8 @@
     "test:ci": "NODE_ENV=test REACT_APP_ENV=test jest --config jest.config.ci.js",
     "generate-blog": "npx tsx scripts/generate-blog.ts",
     "sync-blog": "npx tsx scripts/sync-blog-data.ts",
-    "demo": "npx tsx scripts/demo.ts"
+    "demo": "npx tsx scripts/demo.ts",
+    "test-rss": "npx tsx scripts/test-rss-feed.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",

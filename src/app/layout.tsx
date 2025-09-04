@@ -48,6 +48,9 @@ export default function RootLayout({
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
         <link rel="manifest" href="/site.webmanifest" />
 
+        {/* RSS Feed */}
+        <link rel="alternate" type="application/rss+xml" title="Animesh Pandey Blog RSS Feed" href="/feed.xml" />
+
         {/* Structured Data */}
         {mainStructuredData.map((data, index) => (
           <script

@@ -9,8 +9,8 @@ const CONTENT_ROOT = path.join(process.cwd(), 'src', 'content', 'blog');
 function resolveContentPath(relativeOrAbsolute: string | undefined, slug: string): string {
   const candidate = relativeOrAbsolute
     ? (path.isAbsolute(relativeOrAbsolute)
-        ? relativeOrAbsolute
-        : path.join(process.cwd(), relativeOrAbsolute.replace(/^\/+/, '')))
+      ? relativeOrAbsolute
+      : path.join(process.cwd(), relativeOrAbsolute.replace(/^\/+/, '')))
     : path.join(CONTENT_ROOT, `${slug}.md`);
 
   // Enforce that resolved path stays within CONTENT_ROOT to prevent traversal
@@ -29,7 +29,17 @@ export const fetchBlogPostWithContentBySlug = async (slug: string): Promise<Blog
   const basePost = blogPosts.find(post => post.slug === slug);
   if (!basePost) return undefined;
 
-  const blogData = require('./blog-posts.json');
+  // Read the blog-posts.json file directly using fs instead of import
+  const blogPostsPath = path.join(process.cwd(), 'src', 'data', 'blog-posts.json');
+  let blogData;
+
+  try {
+    const blogDataRaw = await fsp.readFile(blogPostsPath, 'utf-8');
+    blogData = JSON.parse(blogDataRaw);
+  } catch {
+    // If we can't read the JSON file, return the base post
+    return basePost;
+  }
   const mdRelative: string | undefined = blogData.posts.find((p: any) => p.slug === slug)?.contentPath;
 
   const mdPath = resolveContentPath(mdRelative, slug);

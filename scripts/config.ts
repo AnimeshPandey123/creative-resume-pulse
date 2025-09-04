@@ -14,7 +14,7 @@ export interface BlogConfig {
 
 export const openAIConfig: OpenAIConfig = {
     apiKey: process.env.OPENAI_API_KEY || '',
-    model: process.env.OPENAI_MODEL || 'gpt-4',
+    model: process.env.OPENAI_MODEL || 'gpt-4o',
     maxTokens: 2000,
     temperature: 0.7
 };

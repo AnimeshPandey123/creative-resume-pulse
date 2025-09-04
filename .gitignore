@@ -26,3 +26,7 @@ dist-ssr
 .env
 .vercel
 .next
+
+coverage/
+*.lcov
+*.coverage

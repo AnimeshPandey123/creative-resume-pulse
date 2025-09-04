@@ -183,3 +183,4 @@ The tool is built with TypeScript and follows TDD principles:
 ## License
 
 This tool is part of the creative-resume-pulse project.
+# Test comment

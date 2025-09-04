@@ -94,7 +94,7 @@ Tags:`;
             } catch {
                 return ['web-development', 'programming', 'tutorial'];
             }
-        } catch (error) {
+        } catch {
             return ['web-development', 'programming', 'tutorial'];
         }
     }
@@ -134,7 +134,7 @@ Excerpt:`;
             }
 
             return excerpt.trim();
-        } catch (error) {
+        } catch {
             return this.generateFallbackExcerpt(content);
         }
     }

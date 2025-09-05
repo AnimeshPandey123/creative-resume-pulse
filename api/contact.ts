@@ -26,7 +26,7 @@ export default async function handler(req: Request) {
             <p><strong>Name:</strong> ${name}</p>
             <p><strong>Message:</strong></p>
             <p style="margin-left: 1em;">${message}</p>
-          </div>`
+          </div>`,
     });
     console.log(data);
 

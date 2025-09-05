@@ -1,7 +1,7 @@
 ---
-title: "How to Easily Dockerize a Python Flask Application: A Step-by-Step Guide"
-excerpt: "Step-by-step guide to containerizing a Flask app with Docker and best practices."
-publishDate: "2024-10-08"
+title: 'How to Easily Dockerize a Python Flask Application: A Step-by-Step Guide'
+excerpt: 'Step-by-step guide to containerizing a Flask app with Docker and best practices.'
+publishDate: '2024-10-08'
 tags: [python, flask, docker, containerization]
 ---
 
@@ -129,12 +129,12 @@ This tells Docker to use Gunicorn with 4 worker processes.
 If your Flask app depends on other services, such as a database, Docker Compose makes it easy to manage multi-container applications. Here's a basic docker-compose.yml file:
 
 ```yaml
-version: "3.8"
+version: '3.8'
 services:
   flask-app:
     build: .
     ports:
-      - "5000:5000"
+      - '5000:5000'
     environment:
       - FLASK_ENV=production
 ```
@@ -168,4 +168,3 @@ Take the plunge into Docker, and watch your Flask applications scale seamlessly 
 By following these steps, you're ready to Dockerize your Flask app and harness the power of containerization. Whether you're building a small personal project or an enterprise-level web app, Docker provides the tools to simplify your development process and ensure consistent, reliable deployments.
 
 **Ready to get started? Dockerize your Flask app today!**
-

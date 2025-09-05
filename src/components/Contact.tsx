@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
 import { Mail, Phone, MapPin } from 'lucide-react';
@@ -15,13 +15,15 @@ const Contact: React.FC = () => {
   const [formState, setFormState] = useState<FormState>({
     name: '',
     email: '',
-    message: ''
+    message: '',
   });
   const [submitting, setSubmitting] = useState(false);
   const contactContentRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
     setFormState(prev => ({ ...prev, [name]: value }));
   };
@@ -41,17 +43,17 @@ const Contact: React.FC = () => {
       setFormState({
         name: '',
         email: '',
-        message: ''
+        message: '',
       });
 
       toast({
-        title: "Message sent!",
+        title: 'Message sent!',
         description: "Thank you for reaching out. I'll get back to you soon.",
       });
     } else {
       toast({
-        title: "Message not sent!",
-        description: "Something went wrong",
+        title: 'Message not sent!',
+        description: 'Something went wrong',
       });
     }
   };
@@ -60,10 +62,10 @@ const Contact: React.FC = () => {
     const options = {
       root: null,
       rootMargin: '0px',
-      threshold: 0.1
+      threshold: 0.1,
     };
 
-    const observer = new IntersectionObserver((entries) => {
+    const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('animate-slide-in-bottom');
@@ -85,15 +87,18 @@ const Contact: React.FC = () => {
   }, []);
 
   return (
-    <section id="contact" className="py-20 bg-accent/50" role="region" aria-labelledby="contact-heading">
+    <section
+      id="contact"
+      className="py-20 bg-accent/50"
+      role="region"
+      aria-labelledby="contact-heading"
+    >
       <div className="section-container">
         <header className="text-center mb-12">
           <h2 id="contact-heading" className="section-title">
             {contactData.title}
           </h2>
-          <p className="section-subtitle">
-            {contactData.subtitle}
-          </p>
+          <p className="section-subtitle">{contactData.subtitle}</p>
         </header>
 
         <div
@@ -108,15 +113,21 @@ const Contact: React.FC = () => {
                 <div className="flex items-start">
                   <MapPin className="text-primary mt-1 mr-4" size={20} />
                   <div>
-                    <p className="font-medium">{contactData.info.location.label}</p>
-                    <p className="text-muted-foreground">{contactData.info.location.value}</p>
+                    <p className="font-medium">
+                      {contactData.info.location.label}
+                    </p>
+                    <p className="text-muted-foreground">
+                      {contactData.info.location.value}
+                    </p>
                   </div>
                 </div>
 
                 <div className="flex items-start">
                   <Mail className="text-primary mt-1 mr-4" size={20} />
                   <div>
-                    <p className="font-medium">{contactData.info.email.label}</p>
+                    <p className="font-medium">
+                      {contactData.info.email.label}
+                    </p>
                     <a
                       href={`mailto:${contactData.info.email.value}`}
                       className="text-muted-foreground hover:text-primary transition-colors"
@@ -130,7 +141,9 @@ const Contact: React.FC = () => {
                 <div className="flex items-start">
                   <Phone className="text-primary mt-1 mr-4" size={20} />
                   <div>
-                    <p className="font-medium">{contactData.info.phone.label}</p>
+                    <p className="font-medium">
+                      {contactData.info.phone.label}
+                    </p>
                     <a
                       href={`tel:${contactData.info.phone.value}`}
                       className="text-muted-foreground hover:text-primary transition-colors"
@@ -155,14 +168,36 @@ const Contact: React.FC = () => {
                       aria-label={`Visit ${social.name} profile`}
                     >
                       {social.icon === 'linkedin' && (
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-linkedin">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="20"
+                          height="20"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          className="lucide lucide-linkedin"
+                        >
                           <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
                           <rect width="4" height="12" x="2" y="9" />
                           <circle cx="4" cy="4" r="2" />
                         </svg>
                       )}
                       {social.icon === 'globe' && (
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-globe">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="20"
+                          height="20"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          className="lucide lucide-globe"
+                        >
                           <circle cx="12" cy="12" r="10" />
                           <line x1="2" x2="22" y1="12" y2="12" />
                           <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
@@ -177,9 +212,16 @@ const Contact: React.FC = () => {
             <main>
               <h3 className="text-2xl font-bold mb-6">Send Me a Message</h3>
 
-              <form onSubmit={handleSubmit} className="space-y-6" aria-label="Contact form">
+              <form
+                onSubmit={handleSubmit}
+                className="space-y-6"
+                aria-label="Contact form"
+              >
                 <div>
-                  <label htmlFor="name" className="block text-sm font-medium mb-2">
+                  <label
+                    htmlFor="name"
+                    className="block text-sm font-medium mb-2"
+                  >
                     Your Name
                   </label>
                   <input
@@ -193,11 +235,16 @@ const Contact: React.FC = () => {
                     placeholder="John Doe"
                     aria-describedby="name-help"
                   />
-                  <div id="name-help" className="sr-only">Please enter your full name</div>
+                  <div id="name-help" className="sr-only">
+                    Please enter your full name
+                  </div>
                 </div>
 
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium mb-2">
+                  <label
+                    htmlFor="email"
+                    className="block text-sm font-medium mb-2"
+                  >
                     Your Email
                   </label>
                   <input
@@ -211,11 +258,16 @@ const Contact: React.FC = () => {
                     placeholder="john@example.com"
                     aria-describedby="email-help"
                   />
-                  <div id="email-help" className="sr-only">Please enter a valid email address</div>
+                  <div id="email-help" className="sr-only">
+                    Please enter a valid email address
+                  </div>
                 </div>
 
                 <div>
-                  <label htmlFor="message" className="block text-sm font-medium mb-2">
+                  <label
+                    htmlFor="message"
+                    className="block text-sm font-medium mb-2"
+                  >
                     Message
                   </label>
                   <textarea
@@ -229,7 +281,9 @@ const Contact: React.FC = () => {
                     placeholder="Your message here..."
                     aria-describedby="message-help"
                   ></textarea>
-                  <div id="message-help" className="sr-only">Please enter your message</div>
+                  <div id="message-help" className="sr-only">
+                    Please enter your message
+                  </div>
                 </div>
 
                 <button
@@ -241,7 +295,9 @@ const Contact: React.FC = () => {
                   {submitting ? 'Sending...' : 'Send Message'}
                 </button>
                 <div id="submit-status" className="sr-only" aria-live="polite">
-                  {submitting ? 'Sending your message...' : 'Ready to send message'}
+                  {submitting
+                    ? 'Sending your message...'
+                    : 'Ready to send message'}
                 </div>
               </form>
             </main>

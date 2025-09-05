@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import React, { useEffect } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
@@ -34,7 +34,9 @@ const BlogTagFilter: React.FC = () => {
   }, [currentTag]);
 
   const handleTagSelect = (selectedValue: string) => {
-    const newParams = new URLSearchParams(searchParams ? searchParams.toString() : '');
+    const newParams = new URLSearchParams(
+      searchParams ? searchParams.toString() : ''
+    );
 
     if (selectedValue === currentTag) {
       // If selecting the same tag, clear the filter
@@ -53,7 +55,9 @@ const BlogTagFilter: React.FC = () => {
   };
 
   const clearTagFilter = () => {
-    const newParams = new URLSearchParams(searchParams ? searchParams.toString() : '');
+    const newParams = new URLSearchParams(
+      searchParams ? searchParams.toString() : ''
+    );
     newParams.delete('tag');
     router.push(`/blog?${newParams.toString()}`);
     setValue('');
@@ -67,16 +71,18 @@ const BlogTagFilter: React.FC = () => {
         <PopoverTrigger asChild>
           <Button
             className={cn(
-              "justify-between min-w-[150px] h-9 px-3 py-2 text-sm font-medium transition-colors",
-              "bg-white/50 dark:bg-gray-800/50 border border-white/20 dark:border-gray-700/30",
-              "hover:bg-white/70 dark:hover:bg-gray-800/70",
-              "text-foreground hover:text-foreground",
-              selectedTag ? "bg-primary/10 dark:bg-primary/20 border-primary/30 dark:border-primary/30" : ""
+              'justify-between min-w-[150px] h-9 px-3 py-2 text-sm font-medium transition-colors',
+              'bg-white/50 dark:bg-gray-800/50 border border-white/20 dark:border-gray-700/30',
+              'hover:bg-white/70 dark:hover:bg-gray-800/70',
+              'text-foreground hover:text-foreground',
+              selectedTag
+                ? 'bg-primary/10 dark:bg-primary/20 border-primary/30 dark:border-primary/30'
+                : ''
             )}
             role="combobox"
             aria-expanded={open}
           >
-            {selectedTag ? selectedTag.name : "Filter by tag"}
+            {selectedTag ? selectedTag.name : 'Filter by tag'}
             <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
           </Button>
         </PopoverTrigger>
@@ -86,18 +92,17 @@ const BlogTagFilter: React.FC = () => {
             <CommandList>
               <CommandEmpty>No tag found.</CommandEmpty>
               <CommandGroup>
-                {blogTags.map((tag) => (
+                {blogTags.map(tag => (
                   <CommandItem
                     className="!pointer-events-auto"
-
                     key={tag.id}
                     value={tag.slug}
-                    onSelect={(currentValue) => handleTagSelect(currentValue)}
+                    onSelect={currentValue => handleTagSelect(currentValue)}
                   >
                     <Check
                       className={cn(
-                        "mr-2 h-4 w-4",
-                        currentTag === tag.slug ? "opacity-100" : "opacity-0"
+                        'mr-2 h-4 w-4',
+                        currentTag === tag.slug ? 'opacity-100' : 'opacity-0'
                       )}
                     />
                     {tag.name}
@@ -110,11 +115,7 @@ const BlogTagFilter: React.FC = () => {
       </Popover>
 
       {currentTag && (
-        <Button
-          variant="ghost"
-          onClick={clearTagFilter}
-          className="h-9 px-2"
-        >
+        <Button variant="ghost" onClick={clearTagFilter} className="h-9 px-2">
           Clear filter
         </Button>
       )}

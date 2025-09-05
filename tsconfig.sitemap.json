@@ -1,12 +1,11 @@
 {
-    "compilerOptions": {
-      "target": "ES2020",
-      "module": "CommonJS",
-      "outDir": "scripts-dist",
-      "strict": true,
-      "esModuleInterop": true,
-      "resolveJsonModule": true
-    },
-    "include": ["generate-sitemap.ts"]
-  }
-  
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "CommonJS",
+    "outDir": "scripts-dist",
+    "strict": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true
+  },
+  "include": ["generate-sitemap.ts"]
+}

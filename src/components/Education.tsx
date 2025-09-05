@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import React, { useEffect, useRef } from 'react';
 import { educationData } from '@/data/landingData';
@@ -10,10 +10,10 @@ const Education: React.FC = () => {
     const options = {
       root: null,
       rootMargin: '0px',
-      threshold: 0.1
+      threshold: 0.1,
     };
 
-    const observer = new IntersectionObserver((entries) => {
+    const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('animate-fade-in-right');
@@ -35,15 +35,18 @@ const Education: React.FC = () => {
   }, []);
 
   return (
-    <section id="education" className="py-20 bg-white dark:bg-gray-900" role="region" aria-labelledby="education-heading">
+    <section
+      id="education"
+      className="py-20 bg-white dark:bg-gray-900"
+      role="region"
+      aria-labelledby="education-heading"
+    >
       <div className="section-container">
         <header className="text-center mb-12">
           <h2 id="education-heading" className="section-title">
             {educationData.title}
           </h2>
-          <p className="section-subtitle">
-            {educationData.subtitle}
-          </p>
+          <p className="section-subtitle">{educationData.subtitle}</p>
         </header>
 
         <div className="max-w-4xl mx-auto">
@@ -51,7 +54,9 @@ const Education: React.FC = () => {
             {educationData.items.map((education, index) => (
               <article
                 key={index}
-                ref={el => { educationItemsRef.current[index] = el; }}
+                ref={el => {
+                  educationItemsRef.current[index] = el;
+                }}
                 className="glass-card p-6 dark:bg-gray-800/80 dark:border-gray-700/20"
                 style={{ animationDelay: `${index * 100}ms` }}
                 role="listitem"
@@ -61,9 +66,7 @@ const Education: React.FC = () => {
                     <h3 className="text-xl font-bold text-foreground">
                       {education.degree}
                     </h3>
-                    <p className="text-primary">
-                      {education.institution}
-                    </p>
+                    <p className="text-primary">{education.institution}</p>
                     <p className="text-muted-foreground">
                       {education.location}
                     </p>

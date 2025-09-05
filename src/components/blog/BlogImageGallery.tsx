@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import Image from 'next/image';
 import { ChevronLeft, ChevronRight, X } from 'lucide-react';
@@ -25,11 +24,11 @@ const BlogImageGallery: React.FC<BlogImageGalleryProps> = ({ images }) => {
   };
 
   const nextImage = () => {
-    setCurrentImageIndex((prev) => (prev + 1) % images.length);
+    setCurrentImageIndex(prev => (prev + 1) % images.length);
   };
 
   const prevImage = () => {
-    setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length);
+    setCurrentImageIndex(prev => (prev - 1 + images.length) % images.length);
   };
 
   return (
@@ -79,7 +78,7 @@ const BlogImageGallery: React.FC<BlogImageGalleryProps> = ({ images }) => {
             />
 
             <button
-              onClick={(e) => {
+              onClick={e => {
                 e.stopPropagation();
                 prevImage();
               }}
@@ -90,7 +89,7 @@ const BlogImageGallery: React.FC<BlogImageGalleryProps> = ({ images }) => {
             </button>
 
             <button
-              onClick={(e) => {
+              onClick={e => {
                 e.stopPropagation();
                 nextImage();
               }}

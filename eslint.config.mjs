@@ -82,11 +82,14 @@ const eslintConfig = [
       'import/no-anonymous-default-export': 'off',
 
       // TypeScript rules
-      '@typescript-eslint/no-unused-vars': ['error', {
-        'argsIgnorePattern': '^_',
-        'varsIgnorePattern': '^_',
-        'args': 'none'
-      }],
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        {
+          argsIgnorePattern: '^_',
+          varsIgnorePattern: '^_',
+          args: 'none',
+        },
+      ],
       'no-unused-vars': 'off', // Turn off base rule as it conflicts with TypeScript rule
 
       // General rules

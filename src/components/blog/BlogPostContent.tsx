@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
@@ -42,7 +42,9 @@ const BlogPostContent: React.FC<BlogPostContentProps> = ({ post }) => {
 
       {/* Post metadata */}
       <div className="space-y-4 mb-8">
-        <h1 className="text-3xl md:text-4xl font-bold tracking-tight">{post.title}</h1>
+        <h1 className="text-3xl md:text-4xl font-bold tracking-tight">
+          {post.title}
+        </h1>
 
         <div className="flex items-center gap-8 flex-wrap">
           <div className="flex items-center gap-2 text-muted-foreground">
@@ -58,7 +60,10 @@ const BlogPostContent: React.FC<BlogPostContentProps> = ({ post }) => {
         <div className="flex flex-wrap gap-2">
           {post.tags.map(tag => (
             <Link key={tag.id} href={`/blog?tag=${tag.slug}`}>
-              <Badge variant="outline" className="hover:bg-accent transition-colors cursor-pointer">
+              <Badge
+                variant="outline"
+                className="hover:bg-accent transition-colors cursor-pointer"
+              >
                 {tag.name}
               </Badge>
             </Link>
@@ -85,11 +90,7 @@ const BlogPostContent: React.FC<BlogPostContentProps> = ({ post }) => {
             code: ({ inline, className, children, ...props }: CodeProps) => {
               const match = /language-(\w+)/.exec(className || '');
               return !inline && match ? (
-                <CodeBlock
-                  language={match[1]}
-                  className={className}
-                  {...props}
-                >
+                <CodeBlock language={match[1]} className={className} {...props}>
                   {String(children).replace(/\n$/, '')}
                 </CodeBlock>
               ) : (
@@ -97,7 +98,7 @@ const BlogPostContent: React.FC<BlogPostContentProps> = ({ post }) => {
                   {children}
                 </code>
               );
-            }
+            },
           }}
         >
           {post.content || ''}

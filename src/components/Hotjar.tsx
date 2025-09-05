@@ -7,10 +7,10 @@ const siteId = 5163749;
 const hotjarVersion = 6;
 
 export default function HotjarAnalytics() {
-    useEffect(() => {
-        // Initialize Hotjar
-        Hotjar.init(siteId, hotjarVersion);
-    }, []);
+  useEffect(() => {
+    // Initialize Hotjar
+    Hotjar.init(siteId, hotjarVersion);
+  }, []);
 
-    return null; // This component doesn't render anything
+  return null; // This component doesn't render anything
 }

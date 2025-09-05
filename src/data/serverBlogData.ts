@@ -6,11 +6,14 @@ import matter from 'gray-matter';
 
 const CONTENT_ROOT = path.join(process.cwd(), 'src', 'content', 'blog');
 
-function resolveContentPath(relativeOrAbsolute: string | undefined, slug: string): string {
+function resolveContentPath(
+  relativeOrAbsolute: string | undefined,
+  slug: string
+): string {
   const candidate = relativeOrAbsolute
-    ? (path.isAbsolute(relativeOrAbsolute)
+    ? path.isAbsolute(relativeOrAbsolute)
       ? relativeOrAbsolute
-      : path.join(process.cwd(), relativeOrAbsolute.replace(/^\/+/, '')))
+      : path.join(process.cwd(), relativeOrAbsolute.replace(/^\/+/, ''))
     : path.join(CONTENT_ROOT, `${slug}.md`);
 
   // Enforce that resolved path stays within CONTENT_ROOT to prevent traversal
@@ -25,12 +28,19 @@ function resolveContentPath(relativeOrAbsolute: string | undefined, slug: string
 const mdCache = new Map<string, string>();
 
 // Read markdown content for a given slug on the server
-export const fetchBlogPostWithContentBySlug = async (slug: string): Promise<BlogPost | undefined> => {
+export const fetchBlogPostWithContentBySlug = async (
+  slug: string
+): Promise<BlogPost | undefined> => {
   const basePost = blogPosts.find(post => post.slug === slug);
   if (!basePost) return undefined;
 
   // Read the blog-posts.json file directly using fs instead of import
-  const blogPostsPath = path.join(process.cwd(), 'src', 'data', 'blog-posts.json');
+  const blogPostsPath = path.join(
+    process.cwd(),
+    'src',
+    'data',
+    'blog-posts.json'
+  );
   let blogData;
 
   try {
@@ -40,7 +50,9 @@ export const fetchBlogPostWithContentBySlug = async (slug: string): Promise<Blog
     // If we can't read the JSON file, return the base post
     return basePost;
   }
-  const mdRelative: string | undefined = blogData.posts.find((p: any) => p.slug === slug)?.contentPath;
+  const mdRelative: string | undefined = blogData.posts.find(
+    (p: any) => p.slug === slug
+  )?.contentPath;
 
   const mdPath = resolveContentPath(mdRelative, slug);
 
@@ -65,4 +77,3 @@ export const fetchBlogPostWithContentBySlug = async (slug: string): Promise<Blog
     return basePost;
   }
 };
-

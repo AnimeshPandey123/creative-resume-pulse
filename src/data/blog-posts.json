@@ -1,182 +1,156 @@
 {
-    "authors": [
-        {
-            "id": "1",
-            "name": "Animesh Pandey",
-            "bio": "Senior Software Engineer with 6+ years of experience in PHP, Python, and backend development.",
-            "avatarUrl": "https://d1iukwsziul56d.cloudfront.net/drupal-local/s3fs-public/2025-08/IMG_3793%202.JPG"
-        }
-    ],
-    "tags": [
-        {
-            "id": "1",
-            "name": "Technical Analysis",
-            "slug": "technical-analysis"
-        },
-        {
-            "id": "2",
-            "name": "Python",
-            "slug": "python"
-        },
-        {
-            "id": "3",
-            "name": "Trading",
-            "slug": "trading"
-        },
-        {
-            "id": "4",
-            "name": "Vue.js",
-            "slug": "vuejs"
-        },
-        {
-            "id": "5",
-            "name": "JavaScript",
-            "slug": "javascript"
-        },
-        {
-            "id": "6",
-            "name": "Web Development",
-            "slug": "web-development"
-        },
-        {
-            "id": "7",
-            "name": "Laravel",
-            "slug": "laravel"
-        },
-        {
-            "id": "8",
-            "name": "PHP",
-            "slug": "php"
-        },
-        {
-            "id": "9",
-            "name": "Next.js",
-            "slug": "nextjs"
-        },
-        {
-            "id": "10",
-            "name": "Docker",
-            "slug": "docker"
-        },
-        {
-            "id": "11",
-            "name": "Nginx",
-            "slug": "nginx"
-        },
-        {
-            "id": "12",
-            "name": "DevOps",
-            "slug": "devops"
-        },
-        {
-            "id": "13",
-            "name": "Flask",
-            "slug": "flask"
-        },
-        {
-            "id": "14",
-            "name": "Containerization",
-            "slug": "containerization"
-        }
-    ],
-    "posts": [
-        {
-            "id": "272dec05-9626-464f-8d4f-c2b95a5d2671",
-            "title": "Implementing TA-Lib and Matching Candlestick Patterns with Python",
-            "slug": "ta-lib-candlestick-pattern-detection-python",
-            "excerpt": "Technical analysis is an essential part of trading, and candlestick patterns play a crucial role in predicting market movements. Learn how to implement TA-Lib in Python for candlestick pattern recognition.",
-            "coverImage": "http://d1iukwsziul56d.cloudfront.net/drupal-prodv2/s3fs-public/2025-03/DALL%C2%B7E%202025-02-27%2017.27.28%20-%20A%20financial%20trading%20chart%20with%20candlestick%20patterns%20highlighted.%20The%20chart%20includes%20green%20and%20red%20candlesticks%20representing%20bullish%20and%20bearish%20trends_1.webp",
-            "publishDate": "2025-03-13",
-            "readingTime": 8,
-            "authorId": "1",
-            "tagIds": [
-                "1",
-                "2",
-                "3"
-            ],
-            "contentPath": "src/content/blog/ta-lib-candlestick-pattern-detection-python.md"
-        },
-        {
-            "id": "c36ef801-33fc-454b-b619-85e7debce5e3",
-            "title": "A Beginner's Guide to Vue.js: Practical Implementation and Real-World Applications",
-            "slug": "a-beginners-guide-to-vuejs-practical-implementation-and-real-world-applications",
-            "excerpt": "As web development continues to evolve, JavaScript frameworks like Vue.js have become increasingly popular. With its ease of use, flexibility, and scalability, Vue.js is an ideal choice for developers looking to build efficient and robust web applications.",
-            "coverImage": "http://d1iukwsziul56d.cloudfront.net/drupal-prodv2/s3fs-public/2024-12/https___dev-to-uploads.s3.amazonaws.com_i_s7ccbilncopcaign1ayw.jpeg",
-            "publishDate": "2024-12-25",
-            "readingTime": 12,
-            "authorId": "1",
-            "tagIds": [
-                "4",
-                "5",
-                "6"
-            ],
-            "contentPath": "src/content/blog/a-beginners-guide-to-vuejs-practical-implementation-and-real-world-applications.md"
-        },
-        {
-            "id": "c31dc884-cec7-4163-bfff-c26605185275",
-            "title": "A Comprehensive Guide to Learning Laravel: Mastering the PHP Framework for Web Development",
-            "slug": "a-comprehensive-guide-to-learning-laravel-mastering-the-php-framework-for-web-development",
-            "excerpt": "Laravel is a popular PHP framework that has gained widespread adoption in the web development community. As a developer, having knowledge of Laravel can help you build robust, scalable, and maintainable web applications quickly.",
-            "coverImage": "http://d1iukwsziul56d.cloudfront.net/drupal-prodv2/s3fs-public/2024-12/educational%20and%20eye-catching%20featured%20image%20for%20a%20blog%20about%20Laravel%20application_0.png",
-            "publishDate": "2024-12-09",
-            "readingTime": 10,
-            "authorId": "1",
-            "tagIds": [
-                "7",
-                "8",
-                "6"
-            ],
-            "contentPath": "src/content/blog/a-comprehensive-guide-to-learning-laravel-mastering-the-php-framework-for-web-development.md"
-        },
-        {
-            "id": "4bc9f747-6cfc-4ce1-aa3d-85b6a6288692",
-            "title": "Deploying a Next.js Application with Nginx and Docker: A Comprehensive Guide",
-            "slug": "deploying-a-nextjs-application-with-nginx-and-docker-a-comprehensive-guide",
-            "excerpt": "Deploying a Next.js application in production is a straightforward process, especially when using Docker and Nginx. This combination streamlines the setup while enhancing scalability and performance.",
-            "coverImage": "http://d1iukwsziul56d.cloudfront.net/drupal-prodv2/s3fs-public/2024-11/docker-nginx_1.png",
-            "publishDate": "2024-11-11",
-            "readingTime": 15,
-            "authorId": "1",
-            "tagIds": [
-                "9",
-                "10",
-                "11",
-                "12"
-            ],
-            "contentPath": "src/content/blog/deploying-a-nextjs-application-with-nginx-and-docker-a-comprehensive-guide.md"
-        },
-        {
-            "id": "8cdda41f-3910-403c-b66d-4d653f0ac33f",
-            "title": "How to Easily Dockerize a Python Flask Application: A Step-by-Step Guide",
-            "slug": "how-to-easily-dockerize-a-python-flask-application-a-step-by-step-guide",
-            "excerpt": "Containerization has transformed the way developers build, ship, and run applications. Docker allows you to package your application with all its dependencies, ensuring consistent performance across different environments.",
-            "coverImage": "http://d1iukwsziul56d.cloudfront.net/drupal-prodv2/s3fs-public/2024-10/DALL_E_2024-09-26_10-1_2.webp",
-            "publishDate": "2024-10-08",
-            "readingTime": 8,
-            "authorId": "1",
-            "tagIds": [
-                "2",
-                "13",
-                "10",
-                "14"
-            ],
-            "contentPath": "src/content/blog/how-to-easily-dockerize-a-python-flask-application-a-step-by-step-guide.md"
-        },
-        {
-            "id": "wc8nbw515dkjf96s71cxyd",
-            "title": "Getting Started with React Hooks",
-            "slug": "getting-started-with-react-hooks",
-            "excerpt": "Dive into the world of React Hooks and discover how they have transformed component development with their streamlined, functional approach. Whether you're managing state or handling side effects, hooks provide a powerful toolkit for enhancing your React projects. Perfect for both beginners and seasoned developers, this guide will walk you through the essentials of using hooks to elevate your coding game.",
-            "coverImage": "https://d1iukwsziul56d.cloudfront.net/drupal-local/s3fs-public/2025-09/ChatGPT%20Image%20Sep%205,%202025,%2012_00_46%20AM.png",
-            "publishDate": "2025-09-04",
-            "readingTime": 5,
-            "authorId": "1",
-            "tagIds": [
-                "6",
-                "5",
-                "1"
-            ],
-            "contentPath": "src/content/blog/getting-started-with-react-hooks.md"
-        }
-    ]
+  "authors": [
+    {
+      "id": "1",
+      "name": "Animesh Pandey",
+      "bio": "Senior Software Engineer with 6+ years of experience in PHP, Python, and backend development.",
+      "avatarUrl": "https://d1iukwsziul56d.cloudfront.net/drupal-local/s3fs-public/2025-08/IMG_3793%202.JPG"
+    }
+  ],
+  "tags": [
+    {
+      "id": "1",
+      "name": "Technical Analysis",
+      "slug": "technical-analysis"
+    },
+    {
+      "id": "2",
+      "name": "Python",
+      "slug": "python"
+    },
+    {
+      "id": "3",
+      "name": "Trading",
+      "slug": "trading"
+    },
+    {
+      "id": "4",
+      "name": "Vue.js",
+      "slug": "vuejs"
+    },
+    {
+      "id": "5",
+      "name": "JavaScript",
+      "slug": "javascript"
+    },
+    {
+      "id": "6",
+      "name": "Web Development",
+      "slug": "web-development"
+    },
+    {
+      "id": "7",
+      "name": "Laravel",
+      "slug": "laravel"
+    },
+    {
+      "id": "8",
+      "name": "PHP",
+      "slug": "php"
+    },
+    {
+      "id": "9",
+      "name": "Next.js",
+      "slug": "nextjs"
+    },
+    {
+      "id": "10",
+      "name": "Docker",
+      "slug": "docker"
+    },
+    {
+      "id": "11",
+      "name": "Nginx",
+      "slug": "nginx"
+    },
+    {
+      "id": "12",
+      "name": "DevOps",
+      "slug": "devops"
+    },
+    {
+      "id": "13",
+      "name": "Flask",
+      "slug": "flask"
+    },
+    {
+      "id": "14",
+      "name": "Containerization",
+      "slug": "containerization"
+    }
+  ],
+  "posts": [
+    {
+      "id": "272dec05-9626-464f-8d4f-c2b95a5d2671",
+      "title": "Implementing TA-Lib and Matching Candlestick Patterns with Python",
+      "slug": "ta-lib-candlestick-pattern-detection-python",
+      "excerpt": "Technical analysis is an essential part of trading, and candlestick patterns play a crucial role in predicting market movements. Learn how to implement TA-Lib in Python for candlestick pattern recognition.",
+      "coverImage": "http://d1iukwsziul56d.cloudfront.net/drupal-prodv2/s3fs-public/2025-03/DALL%C2%B7E%202025-02-27%2017.27.28%20-%20A%20financial%20trading%20chart%20with%20candlestick%20patterns%20highlighted.%20The%20chart%20includes%20green%20and%20red%20candlesticks%20representing%20bullish%20and%20bearish%20trends_1.webp",
+      "publishDate": "2025-03-13",
+      "readingTime": 8,
+      "authorId": "1",
+      "tagIds": ["1", "2", "3"],
+      "contentPath": "src/content/blog/ta-lib-candlestick-pattern-detection-python.md"
+    },
+    {
+      "id": "c36ef801-33fc-454b-b619-85e7debce5e3",
+      "title": "A Beginner's Guide to Vue.js: Practical Implementation and Real-World Applications",
+      "slug": "a-beginners-guide-to-vuejs-practical-implementation-and-real-world-applications",
+      "excerpt": "As web development continues to evolve, JavaScript frameworks like Vue.js have become increasingly popular. With its ease of use, flexibility, and scalability, Vue.js is an ideal choice for developers looking to build efficient and robust web applications.",
+      "coverImage": "http://d1iukwsziul56d.cloudfront.net/drupal-prodv2/s3fs-public/2024-12/https___dev-to-uploads.s3.amazonaws.com_i_s7ccbilncopcaign1ayw.jpeg",
+      "publishDate": "2024-12-25",
+      "readingTime": 12,
+      "authorId": "1",
+      "tagIds": ["4", "5", "6"],
+      "contentPath": "src/content/blog/a-beginners-guide-to-vuejs-practical-implementation-and-real-world-applications.md"
+    },
+    {
+      "id": "c31dc884-cec7-4163-bfff-c26605185275",
+      "title": "A Comprehensive Guide to Learning Laravel: Mastering the PHP Framework for Web Development",
+      "slug": "a-comprehensive-guide-to-learning-laravel-mastering-the-php-framework-for-web-development",
+      "excerpt": "Laravel is a popular PHP framework that has gained widespread adoption in the web development community. As a developer, having knowledge of Laravel can help you build robust, scalable, and maintainable web applications quickly.",
+      "coverImage": "http://d1iukwsziul56d.cloudfront.net/drupal-prodv2/s3fs-public/2024-12/educational%20and%20eye-catching%20featured%20image%20for%20a%20blog%20about%20Laravel%20application_0.png",
+      "publishDate": "2024-12-09",
+      "readingTime": 10,
+      "authorId": "1",
+      "tagIds": ["7", "8", "6"],
+      "contentPath": "src/content/blog/a-comprehensive-guide-to-learning-laravel-mastering-the-php-framework-for-web-development.md"
+    },
+    {
+      "id": "4bc9f747-6cfc-4ce1-aa3d-85b6a6288692",
+      "title": "Deploying a Next.js Application with Nginx and Docker: A Comprehensive Guide",
+      "slug": "deploying-a-nextjs-application-with-nginx-and-docker-a-comprehensive-guide",
+      "excerpt": "Deploying a Next.js application in production is a straightforward process, especially when using Docker and Nginx. This combination streamlines the setup while enhancing scalability and performance.",
+      "coverImage": "http://d1iukwsziul56d.cloudfront.net/drupal-prodv2/s3fs-public/2024-11/docker-nginx_1.png",
+      "publishDate": "2024-11-11",
+      "readingTime": 15,
+      "authorId": "1",
+      "tagIds": ["9", "10", "11", "12"],
+      "contentPath": "src/content/blog/deploying-a-nextjs-application-with-nginx-and-docker-a-comprehensive-guide.md"
+    },
+    {
+      "id": "8cdda41f-3910-403c-b66d-4d653f0ac33f",
+      "title": "How to Easily Dockerize a Python Flask Application: A Step-by-Step Guide",
+      "slug": "how-to-easily-dockerize-a-python-flask-application-a-step-by-step-guide",
+      "excerpt": "Containerization has transformed the way developers build, ship, and run applications. Docker allows you to package your application with all its dependencies, ensuring consistent performance across different environments.",
+      "coverImage": "http://d1iukwsziul56d.cloudfront.net/drupal-prodv2/s3fs-public/2024-10/DALL_E_2024-09-26_10-1_2.webp",
+      "publishDate": "2024-10-08",
+      "readingTime": 8,
+      "authorId": "1",
+      "tagIds": ["2", "13", "10", "14"],
+      "contentPath": "src/content/blog/how-to-easily-dockerize-a-python-flask-application-a-step-by-step-guide.md"
+    },
+    {
+      "id": "wc8nbw515dkjf96s71cxyd",
+      "title": "Getting Started with React Hooks",
+      "slug": "getting-started-with-react-hooks",
+      "excerpt": "Dive into the world of React Hooks and discover how they have transformed component development with their streamlined, functional approach. Whether you're managing state or handling side effects, hooks provide a powerful toolkit for enhancing your React projects. Perfect for both beginners and seasoned developers, this guide will walk you through the essentials of using hooks to elevate your coding game.",
+      "coverImage": "https://d1iukwsziul56d.cloudfront.net/drupal-local/s3fs-public/2025-09/ChatGPT%20Image%20Sep%205,%202025,%2012_00_46%20AM.png",
+      "publishDate": "2025-09-04",
+      "readingTime": 5,
+      "authorId": "1",
+      "tagIds": ["6", "5", "1"],
+      "contentPath": "src/content/blog/getting-started-with-react-hooks.md"
+    }
+  ]
 }

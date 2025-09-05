@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import React, { useEffect, useRef } from 'react';
 import { experienceData } from '@/data/landingData';
@@ -10,10 +10,10 @@ const Experience: React.FC = () => {
     const options = {
       root: null,
       rootMargin: '0px',
-      threshold: 0.1
+      threshold: 0.1,
     };
 
-    const observer = new IntersectionObserver((entries) => {
+    const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('animate-fade-in-left');
@@ -35,15 +35,18 @@ const Experience: React.FC = () => {
   }, []);
 
   return (
-    <section id="experience" className="py-20 bg-accent/50 dark:bg-accent/20" role="region" aria-labelledby="experience-heading">
+    <section
+      id="experience"
+      className="py-20 bg-accent/50 dark:bg-accent/20"
+      role="region"
+      aria-labelledby="experience-heading"
+    >
       <div className="section-container">
         <header className="text-center mb-12">
           <h2 id="experience-heading" className="section-title">
             {experienceData.title}
           </h2>
-          <p className="section-subtitle">
-            {experienceData.subtitle}
-          </p>
+          <p className="section-subtitle">{experienceData.subtitle}</p>
         </header>
 
         <div className="max-w-4xl mx-auto">
@@ -51,7 +54,9 @@ const Experience: React.FC = () => {
             {experienceData.items.map((experience, index) => (
               <li
                 key={index}
-                ref={el => { experienceItemsRef.current[index] = el; }}
+                ref={el => {
+                  experienceItemsRef.current[index] = el;
+                }}
                 className="timeline-item"
                 style={{ animationDelay: `${index * 100}ms` }}
               >
@@ -76,13 +81,20 @@ const Experience: React.FC = () => {
                     </time>
                   </header>
                   <section>
-                    <h4 className="sr-only">Key Responsibilities and Achievements</h4>
+                    <h4 className="sr-only">
+                      Key Responsibilities and Achievements
+                    </h4>
                     <ul className="list-disc list-inside space-y-2" role="list">
-                      {experience.responsibilities.map((responsibility, respIndex) => (
-                        <li key={respIndex} className="text-foreground leading-relaxed">
-                          {responsibility}
-                        </li>
-                      ))}
+                      {experience.responsibilities.map(
+                        (responsibility, respIndex) => (
+                          <li
+                            key={respIndex}
+                            className="text-foreground leading-relaxed"
+                          >
+                            {responsibility}
+                          </li>
+                        )
+                      )}
                     </ul>
                   </section>
                 </article>

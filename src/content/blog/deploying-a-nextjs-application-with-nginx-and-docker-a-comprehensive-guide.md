@@ -1,7 +1,7 @@
 ---
-title: "Deploying a Next.js Application with Nginx and Docker: A Comprehensive Guide"
-excerpt: "Deploy Next.js in production using Docker and Nginx with best practices."
-publishDate: "2024-11-11"
+title: 'Deploying a Next.js Application with Nginx and Docker: A Comprehensive Guide'
+excerpt: 'Deploy Next.js in production using Docker and Nginx with best practices.'
+publishDate: '2024-11-11'
 tags: [nextjs, docker, nginx, devops]
 ---
 
@@ -158,7 +158,7 @@ This configuration directs all traffic from port 80 to your Next.js app running 
 Using Docker Compose simplifies managing multiple Docker containers. Create a docker-compose.yml file as follows:
 
 ```yaml
-version: "3.8"
+version: '3.8'
 
 services:
   # Next.js landing app
@@ -166,7 +166,7 @@ services:
     build: .
     container_name: nextjs-landing
     ports:
-      - "${NEXTJS_PORT:-9000}:3000"
+      - '${NEXTJS_PORT:-9000}:3000'
     environment:
       - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
     depends_on:
@@ -179,8 +179,8 @@ services:
     image: nginx:latest
     container_name: nginx
     ports:
-      - "${NGINX_HTTP_PORT:-80}:80"
-      - "${NGINX_HTTPS_PORT:-443}:443"
+      - '${NGINX_HTTP_PORT:-80}:80'
+      - '${NGINX_HTTPS_PORT:-443}:443'
     volumes:
       - ./nginx:/etc/nginx/conf.d
       - ./ssl:/etc/nginx/ssl
@@ -234,4 +234,3 @@ In this guide, we've covered the essentials of deploying a Next.js application w
 3. Deploy the app using Docker Compose.
 
 This setup provides a scalable, efficient, and flexible approach for deploying and managing a Next.js application in production. Happy coding and deploying!
-

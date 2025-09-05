@@ -27,7 +27,11 @@ export default function RootLayout({
       <head>
         {/* Critical Resource Hints */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
         <link rel="preconnect" href="https://d1iukwsziul56d.cloudfront.net" />
         <link rel="preconnect" href="https://dev-to-uploads.s3.amazonaws.com" />
 
@@ -38,18 +42,47 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="//dev-to-uploads.s3.amazonaws.com" />
 
         {/* Preload critical resources */}
-        <link rel="preload" href="/favicon.ico" as="image" type="image/x-icon" />
-        <link rel="preload" href="/opengraph-image.png" as="image" type="image/png" />
+        <link
+          rel="preload"
+          href="/favicon.ico"
+          as="image"
+          type="image/x-icon"
+        />
+        <link
+          rel="preload"
+          href="/opengraph-image.png"
+          as="image"
+          type="image/png"
+        />
 
         {/* Favicon and App Icons */}
         <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+        <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href="/apple-touch-icon.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="32x32"
+          href="/favicon-32x32.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="16x16"
+          href="/favicon-16x16.png"
+        />
         <link rel="manifest" href="/site.webmanifest" />
 
         {/* RSS Feed */}
-        <link rel="alternate" type="application/rss+xml" title="Animesh Pandey Blog RSS Feed" href="/feed.xml" />
+        <link
+          rel="alternate"
+          type="application/rss+xml"
+          title="Animesh Pandey Blog RSS Feed"
+          href="/feed.xml"
+        />
 
         {/* Structured Data */}
         {mainStructuredData.map((data, index) => (
@@ -63,9 +96,7 @@ export default function RootLayout({
         ))}
       </head>
       <body className={`${inter.variable} font-sans antialiased`}>
-        <ClientProviders>
-          {children}
-        </ClientProviders>
+        <ClientProviders>{children}</ClientProviders>
         <Analytics />
         <SpeedInsights />
         <HotjarAnalytics />

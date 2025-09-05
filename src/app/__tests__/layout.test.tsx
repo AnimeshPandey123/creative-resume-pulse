@@ -43,6 +43,12 @@ jest.mock('@/components/Hotjar', () => {
   };
 });
 
+jest.mock('@next/third-parties/google', () => ({
+  GoogleAnalytics: ({ gaId }: { gaId: string }) => (
+    <div data-testid="google-analytics" data-ga-id={gaId} />
+  ),
+}));
+
 describe('RootLayout', () => {
   it('should render without crashing', () => {
     const { container } = render(
@@ -140,6 +146,24 @@ describe('RootLayout', () => {
 
     expect(getByTestId('analytics')).toBeInTheDocument();
     expect(getByTestId('speed-insights')).toBeInTheDocument();
+    expect(getByTestId('google-analytics')).toBeInTheDocument();
+  });
+
+  it('should pass GA measurement ID to GoogleAnalytics component', () => {
+    const originalEnv = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
+    process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID = 'G-TEST123456';
+
+    const { getByTestId } = render(
+      <RootLayout>
+        <div>Test content</div>
+      </RootLayout>
+    );
+
+    const googleAnalytics = getByTestId('google-analytics');
+    expect(googleAnalytics).toHaveAttribute('data-ga-id', 'G-TEST123456');
+
+    // Restore original env
+    process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID = originalEnv;
   });
 
   it('should wrap content in ClientProviders', () => {

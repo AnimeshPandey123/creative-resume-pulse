@@ -190,6 +190,26 @@ describe('SEO Configuration', () => {
       expect(openGraph?.type).toBe('article');
       expect(openGraph?.publishedTime).toBe('2024-01-01');
     });
+
+    it('should handle blog post without tags', () => {
+      const metadata = generateBlogPostMetadata({
+        title: 'Test Post',
+        description: 'Test post description',
+        slug: 'test-post',
+        publishedAt: '2024-01-01',
+      });
+
+      expect(metadata.keywords).toEqual(
+        expect.arrayContaining([
+          'Software Engineering',
+          'Web Development',
+          'Programming',
+          'Technical Article',
+        ])
+      );
+      expect(metadata.keywords).not.toContain('test');
+      expect(metadata.keywords).not.toContain('blog');
+    });
   });
 
   describe('BLOG_CONFIG', () => {
@@ -308,6 +328,14 @@ describe('SEO Configuration', () => {
         const structuredData = generateBlogPostStructuredData(mockPost);
 
         expect(structuredData.keywords).toBe(mockPost.tags.join(', '));
+      });
+
+      it('should handle empty tags array', () => {
+        const postWithoutTags = { ...mockPost, tags: [] };
+        const structuredData = generateBlogPostStructuredData(postWithoutTags);
+
+        expect(structuredData.articleSection).toBe('Technology');
+        expect(structuredData.keywords).toBe('');
       });
     });
 

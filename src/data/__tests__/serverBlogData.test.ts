@@ -344,5 +344,157 @@ describe('serverBlogData', () => {
 
       readFileSpy.mockRestore();
     });
+
+    it('should handle path traversal protection', async () => {
+      const mockContent = 'Test markdown content';
+
+      // Use jest.spyOn to mock the file read
+      const readFileSpy = jest.spyOn(fsp, 'readFile');
+      readFileSpy.mockImplementation((path: any, encoding: any) => {
+        if (path.includes('blog-posts.json')) {
+          return Promise.resolve(
+            JSON.stringify({
+              posts: [
+                {
+                  slug: 'test-post',
+                  contentPath: '../../../etc/passwd', // Path traversal attempt
+                },
+              ],
+            })
+          );
+        }
+        if (path.includes('test-post.md')) {
+          return Promise.resolve(mockContent);
+        }
+        return Promise.reject(new Error('File not found'));
+      });
+
+      mockMatter.mockReturnValue({
+        content: mockContent,
+        data: {},
+      } as any);
+
+      const result = await fetchBlogPostWithContentBySlug('test-post');
+
+      // Should still return the post with content, but the path should be normalized
+      expect(result).toBeDefined();
+      expect(result?.content).toBe(mockContent);
+
+      readFileSpy.mockRestore();
+    });
+
+    it('should handle absolute path in contentPath', async () => {
+      const mockContent = 'Test markdown content';
+
+      // Use jest.spyOn to mock the file read
+      const readFileSpy = jest.spyOn(fsp, 'readFile');
+      readFileSpy.mockImplementation((path: any, encoding: any) => {
+        if (path.includes('blog-posts.json')) {
+          return Promise.resolve(
+            JSON.stringify({
+              posts: [
+                {
+                  slug: 'test-post',
+                  contentPath: '/absolute/path/to/test-post.md',
+                },
+              ],
+            })
+          );
+        }
+        if (path.includes('test-post.md')) {
+          return Promise.resolve(mockContent);
+        }
+        return Promise.reject(new Error('File not found'));
+      });
+
+      mockMatter.mockReturnValue({
+        content: mockContent,
+        data: {},
+      } as any);
+
+      const result = await fetchBlogPostWithContentBySlug('test-post');
+
+      // Should still return the post with content
+      expect(result).toBeDefined();
+      expect(result?.content).toBe(mockContent);
+
+      readFileSpy.mockRestore();
+    });
+
+    it('should handle relative path in contentPath', async () => {
+      const mockContent = 'Test markdown content';
+
+      // Use jest.spyOn to mock the file read
+      const readFileSpy = jest.spyOn(fsp, 'readFile');
+      readFileSpy.mockImplementation((path: any, encoding: any) => {
+        if (path.includes('blog-posts.json')) {
+          return Promise.resolve(
+            JSON.stringify({
+              posts: [
+                {
+                  slug: 'test-post',
+                  contentPath: 'relative/path/to/test-post.md',
+                },
+              ],
+            })
+          );
+        }
+        if (path.includes('test-post.md')) {
+          return Promise.resolve(mockContent);
+        }
+        return Promise.reject(new Error('File not found'));
+      });
+
+      mockMatter.mockReturnValue({
+        content: mockContent,
+        data: {},
+      } as any);
+
+      const result = await fetchBlogPostWithContentBySlug('test-post');
+
+      // Should still return the post with content
+      expect(result).toBeDefined();
+      expect(result?.content).toBe(mockContent);
+
+      readFileSpy.mockRestore();
+    });
+
+    it('should handle undefined contentPath', async () => {
+      const mockContent = 'Test markdown content';
+
+      // Use jest.spyOn to mock the file read
+      const readFileSpy = jest.spyOn(fsp, 'readFile');
+      readFileSpy.mockImplementation((path: any, encoding: any) => {
+        if (path.includes('blog-posts.json')) {
+          return Promise.resolve(
+            JSON.stringify({
+              posts: [
+                {
+                  slug: 'test-post',
+                  // contentPath is undefined
+                },
+              ],
+            })
+          );
+        }
+        if (path.includes('test-post.md')) {
+          return Promise.resolve(mockContent);
+        }
+        return Promise.reject(new Error('File not found'));
+      });
+
+      mockMatter.mockReturnValue({
+        content: mockContent,
+        data: {},
+      } as any);
+
+      const result = await fetchBlogPostWithContentBySlug('test-post');
+
+      // Should still return the post with content
+      expect(result).toBeDefined();
+      expect(result?.content).toBe(mockContent);
+
+      readFileSpy.mockRestore();
+    });
   });
 });

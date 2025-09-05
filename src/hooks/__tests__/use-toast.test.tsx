@@ -216,5 +216,40 @@ describe('use-toast', () => {
       });
       expect(result.current.toasts[0].open).toBe(false);
     });
+
+    it('covers the early return in addToRemoveQueue when timeout already exists', () => {
+      const { result } = renderHook(() => useToast());
+      let _toastInstance: any;
+      act(() => {
+        _toastInstance = result.current.toast({ title: 'Test Toast' });
+      });
+
+      // First dismiss should set up the timeout
+      act(() => {
+        result.current.dismiss(_toastInstance.id);
+      });
+
+      // Second dismiss should hit the early return path
+      act(() => {
+        result.current.dismiss(_toastInstance.id);
+      });
+
+      expect(result.current.toasts[0].open).toBe(false);
+    });
+
+    it('covers the timeout cleanup in addToRemoveQueue', () => {
+      const { result } = renderHook(() => useToast());
+      let _toastInstance: any;
+      act(() => {
+        _toastInstance = result.current.toast({ title: 'Test Toast' });
+      });
+
+      act(() => {
+        result.current.dismiss(_toastInstance.id);
+      });
+
+      // The timeout should be set up and the toast should be dismissed
+      expect(result.current.toasts[0].open).toBe(false);
+    });
   });
 });

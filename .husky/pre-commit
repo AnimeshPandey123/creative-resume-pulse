@@ -8,3 +8,9 @@ npx tsc --noEmit
 # Run tests to ensure nothing is broken
 echo "🧪 Running tests..."
 npm run test:ci
+
+# CRITICAL: NEVER MODIFY COVERAGE THRESHOLDS IN jest.config.ci.js
+# The coverage thresholds (branches: 80%, functions: 85%, lines: 85%, statements: 85%)
+# are set to maintain code quality standards. If tests fail due to coverage,
+# the solution is to ADD MORE TESTS, not to lower the thresholds.
+# This ensures the codebase maintains high quality and reliability.

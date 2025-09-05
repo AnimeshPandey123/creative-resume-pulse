@@ -32,3 +32,5 @@ coverage/
 *.coverage
 
 out/
+
+.tsbuildinfo

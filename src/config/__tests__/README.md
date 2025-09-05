@@ -5,6 +5,7 @@ This directory contains comprehensive Jest tests for the SEO configuration syste
 ## Test Files
 
 ### `seo.test.ts`
+
 Comprehensive tests for the main SEO configuration file (`src/config/seo.ts`):
 
 - **SITE_CONFIG Tests**: Validates site configuration properties
@@ -16,6 +17,7 @@ Comprehensive tests for the main SEO configuration file (`src/config/seo.ts`):
 - **Blog Configuration Tests**: Tests blog settings
 
 ### `../layout.test.tsx`
+
 Tests for the main layout component (`src/app/layout.tsx`):
 
 - **Component Rendering**: Tests layout renders correctly
@@ -26,6 +28,7 @@ Tests for the main layout component (`src/app/layout.tsx`):
 - **Metadata Export**: Tests metadata configuration
 
 ### `../blog/page.test.tsx`
+
 Tests for the blog page (`src/app/blog/page.tsx`):
 
 - **Component Rendering**: Tests blog page renders correctly
@@ -34,6 +37,7 @@ Tests for the blog page (`src/app/blog/page.tsx`):
 - **Loading State**: Tests loading fallback
 
 ### `../blog/[slug]/page.test.tsx`
+
 Tests for individual blog post pages (`src/app/blog/[slug]/page.tsx`):
 
 - **Component Rendering**: Tests blog post page renders correctly
@@ -45,31 +49,37 @@ Tests for individual blog post pages (`src/app/blog/[slug]/page.tsx`):
 ## Running Tests
 
 ### All Tests
+
 ```bash
 npm test
 ```
 
 ### Watch Mode
+
 ```bash
 npm run test:watch
 ```
 
 ### Coverage Report
+
 ```bash
 npm run test:coverage
 ```
 
 ### SEO Tests Only
+
 ```bash
 npm run test:seo
 ```
 
 ### Page Tests Only
+
 ```bash
 npm run test:pages
 ```
 
 ### All SEO and Page Tests
+
 ```bash
 npm run test:all
 ```
@@ -77,6 +87,7 @@ npm run test:all
 ## Test Coverage
 
 ### SEO Configuration Tests
+
 - ✅ Site configuration validation
 - ✅ Base metadata validation
 - ✅ Page metadata validation
@@ -86,6 +97,7 @@ npm run test:all
 - ✅ Blog configuration validation
 
 ### Page Component Tests
+
 - ✅ Layout component rendering
 - ✅ Blog page rendering
 - ✅ Blog post page rendering
@@ -95,6 +107,7 @@ npm run test:all
 - ✅ Loading states
 
 ### SEO Best Practices Tests
+
 - ✅ Canonical URLs
 - ✅ Meta descriptions (length validation)
 - ✅ OpenGraph tags
@@ -107,26 +120,33 @@ npm run test:all
 ## Test Categories
 
 ### 1. Configuration Validation
+
 Tests ensure all required SEO configuration properties are present and correctly formatted.
 
 ### 2. Metadata Generation
+
 Tests validate that metadata generation functions produce correct output for different scenarios.
 
 ### 3. Structured Data
+
 Tests verify that JSON-LD structured data is properly formatted and contains all required fields.
 
 ### 4. Page-Specific SEO
+
 Tests ensure each page type has appropriate SEO configuration.
 
 ### 5. Error Handling
+
 Tests verify graceful handling of error scenarios and edge cases.
 
 ### 6. Integration Tests
+
 Tests ensure components properly integrate with SEO configuration.
 
 ## Assertions Covered
 
 ### Metadata Assertions
+
 - Title format and content
 - Description length and content
 - Keywords inclusion
@@ -136,6 +156,7 @@ Tests ensure components properly integrate with SEO configuration.
 - Robots directives
 
 ### Structured Data Assertions
+
 - JSON-LD context and type
 - Required properties presence
 - Data format validation
@@ -143,6 +164,7 @@ Tests ensure components properly integrate with SEO configuration.
 - Content accuracy
 
 ### Component Assertions
+
 - Rendering without errors
 - Required elements presence
 - Script inclusion
@@ -165,17 +187,20 @@ These tests can be integrated into CI/CD pipelines to ensure SEO quality:
 ## Maintenance
 
 ### Adding New Tests
+
 1. Create test file in appropriate directory
 2. Follow existing test patterns
 3. Add comprehensive assertions
 4. Update documentation
 
 ### Updating Tests
+
 1. Update tests when SEO configuration changes
 2. Ensure all new features are tested
 3. Maintain test coverage above 90%
 
 ### Test Data
+
 - Use realistic mock data
 - Test edge cases and error scenarios
 - Validate against SEO best practices

@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import Layout from '@/layout/Layout';
 import Hero from '@/components/Hero';
@@ -10,15 +10,15 @@ import Education from '@/components/Education';
 import Contact from '@/components/Contact';
 
 export default function HomePage() {
-    return (
-        <Layout>
-            <Hero />
-            <About />
-            <Experience />
-            <Projects />
-            <Skills />
-            <Education />
-            <Contact />
-        </Layout>
-    );
-} 
+  return (
+    <Layout>
+      <Hero />
+      <About />
+      <Experience />
+      <Projects />
+      <Skills />
+      <Education />
+      <Contact />
+    </Layout>
+  );
+}

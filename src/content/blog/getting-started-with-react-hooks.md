@@ -1,8 +1,8 @@
 ---
-title: "Getting Started with React Hooks"
+title: 'Getting Started with React Hooks'
 excerpt: "Dive into the world of React Hooks and discover how they have transformed component development with their streamlined, functional approach. Whether you're managing state or handling side effects, hooks provide a powerful toolkit for enhancing your React projects. Perfect for both beginners and seasoned developers, this guide will walk you through the essentials of using hooks to elevate your coding game."
-publishDate: "2025-09-04"
-tags: ["web-development", "programming", "tutorial"]
+publishDate: '2025-09-04'
+tags: ['web-development', 'programming', 'tutorial']
 ---
 
 # Getting Started with React Hooks
@@ -36,15 +36,14 @@ function Counter() {
   return (
     <div>
       <p>You clicked {count} times</p>
-      <button onClick={() => setCount(count + 1)}>
-        Click me
-      </button>
+      <button onClick={() => setCount(count + 1)}>Click me</button>
     </div>
   );
 }
 ```
 
 **Explanation:**
+
 - `useState` initializes the state variable `count` with a default value of `0`.
 - `setCount` is the function that updates the state.
 
@@ -71,6 +70,7 @@ function Timer() {
 ```
 
 **Explanation:**
+
 - The `useEffect` hook sets up a timer that updates the `seconds` state every second.
 - The cleanup function `return () => clearInterval(interval);` is called when the component is unmounted.
 
@@ -91,6 +91,7 @@ function ThemedButton() {
 ```
 
 **Explanation:**
+
 - `useContext(ThemeContext)` gets the current value of the `ThemeContext`.
 
 ## Advanced Hooks
@@ -127,6 +128,7 @@ function Counter() {
 ```
 
 **Explanation:**
+
 - `useReducer` takes a reducer function and an initial state.
 - `dispatch` is used to send actions to the reducer to update the state.
 
@@ -163,6 +165,7 @@ function App() {
 ```
 
 **Explanation:**
+
 - `useMemo` caches the result of a computation.
 - `useCallback` returns a memoized version of a callback function.
 

@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import React from 'react';
 import Link from 'next/link';
@@ -13,7 +13,8 @@ interface BlogPostCardProps {
 }
 
 const BlogPostCard: React.FC<BlogPostCardProps> = ({ post }) => {
-  const { title, excerpt, coverImage, slug, publishDate, readingTime, tags } = post;
+  const { title, excerpt, coverImage, slug, publishDate, readingTime, tags } =
+    post;
 
   return (
     <Card className="h-full overflow-hidden flex flex-col hover:shadow-lg transition-shadow duration-300 bg-card dark:bg-gray-800/80 border border-border dark:border-gray-700/20">
@@ -36,17 +37,24 @@ const BlogPostCard: React.FC<BlogPostCardProps> = ({ post }) => {
             <Calendar className="h-4 w-4" />
             <span>{publishDate}</span>
           </div>
-          <span className="text-xs text-muted-foreground">{readingTime} min read</span>
+          <span className="text-xs text-muted-foreground">
+            {readingTime} min read
+          </span>
         </div>
         <Link href={`/blog/${slug}`} className="block">
-          <h3 className="text-xl font-semibold mb-2 leading-tight hover:text-primary transition-colors line-clamp-2">{title}</h3>
+          <h3 className="text-xl font-semibold mb-2 leading-tight hover:text-primary transition-colors line-clamp-2">
+            {title}
+          </h3>
         </Link>
         <p className="text-muted-foreground line-clamp-3">{excerpt}</p>
       </CardContent>
       <CardFooter className="px-5 pb-5 pt-0 flex flex-wrap gap-2">
-        {tags.slice(0, 3).map((tag) => (
+        {tags.slice(0, 3).map(tag => (
           <Link key={tag.id} href={`/blog?tag=${tag.slug}`}>
-            <Badge variant="outline" className="hover:bg-accent transition-colors cursor-pointer">
+            <Badge
+              variant="outline"
+              className="hover:bg-accent transition-colors cursor-pointer"
+            >
               {tag.name}
             </Badge>
           </Link>

@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import React, { useEffect, useState } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
@@ -8,7 +8,9 @@ import { Input } from '@/components/ui/input';
 const BlogSearch: React.FC = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const [searchTerm, setSearchTerm] = useState(searchParams?.get('search') ?? '');
+  const [searchTerm, setSearchTerm] = useState(
+    searchParams?.get('search') ?? ''
+  );
 
   useEffect(() => {
     const search = searchParams?.get('search') ?? '';
@@ -19,7 +21,9 @@ const BlogSearch: React.FC = () => {
     const value = e.target.value;
     setSearchTerm(value);
 
-    const newParams = new URLSearchParams(searchParams ? searchParams.toString() : '');
+    const newParams = new URLSearchParams(
+      searchParams ? searchParams.toString() : ''
+    );
 
     if (value) {
       newParams.set('search', value);

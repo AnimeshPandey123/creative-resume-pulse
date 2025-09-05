@@ -1,93 +1,93 @@
 // Learn more: https://github.com/testing-library/jest-dom
-import '@testing-library/jest-dom'
+import '@testing-library/jest-dom';
 
 // Force React into development mode for testing
-process.env.NODE_ENV = 'test'
-process.env.REACT_APP_ENV = 'test'
+process.env.NODE_ENV = 'test';
+process.env.REACT_APP_ENV = 'test';
 
 // Force React to use development mode
-process.env.__DEV__ = 'true'
-process.env.__PROD__ = 'false'
+process.env.__DEV__ = 'true';
+process.env.__PROD__ = 'false';
 
 // Mock React to ensure development mode
 jest.mock('react', () => {
-    const originalReact = jest.requireActual('react')
-    return {
-        ...originalReact,
-        // Force development mode
-        __DEV__: true,
-    }
-})
+  const originalReact = jest.requireActual('react');
+  return {
+    ...originalReact,
+    // Force development mode
+    __DEV__: true,
+  };
+});
 
 // Mock Next.js router
 jest.mock('next/navigation', () => ({
-    useRouter() {
-        return {
-            push: jest.fn(),
-            replace: jest.fn(),
-            prefetch: jest.fn(),
-            back: jest.fn(),
-            forward: jest.fn(),
-            refresh: jest.fn(),
-        }
-    },
-    useSearchParams() {
-        return new URLSearchParams()
-    },
-    usePathname() {
-        return '/'
-    },
-}))
+  useRouter() {
+    return {
+      push: jest.fn(),
+      replace: jest.fn(),
+      prefetch: jest.fn(),
+      back: jest.fn(),
+      forward: jest.fn(),
+      refresh: jest.fn(),
+    };
+  },
+  useSearchParams() {
+    return new URLSearchParams();
+  },
+  usePathname() {
+    return '/';
+  },
+}));
 
 // Mock Next.js metadata
 jest.mock('next', () => ({
-    ...jest.requireActual('next'),
-    Metadata: jest.fn(),
-}))
+  ...jest.requireActual('next'),
+  Metadata: jest.fn(),
+}));
 
 // Mock react-syntax-highlighter
 jest.mock('react-syntax-highlighter', () => ({
-    Prism: ({ children, PreTag, ...props }) => {
-        const Tag = PreTag || 'pre';
-        return (
-            <Tag {...props}>
-                <code>{children}</code>
-            </Tag>
-        );
-    },
-}))
+  Prism: ({ children, PreTag, ...props }) => {
+    const Tag = PreTag || 'pre';
+    return (
+      <Tag {...props}>
+        <code>{children}</code>
+      </Tag>
+    );
+  },
+}));
 
 jest.mock('react-syntax-highlighter/dist/esm/styles/prism', () => ({
-    atomDark: {},
-}))
+  atomDark: {},
+}));
 
 // Global test utilities
 global.ResizeObserver = jest.fn().mockImplementation(() => ({
-    observe: jest.fn(),
-    unobserve: jest.fn(),
-    disconnect: jest.fn(),
-}))
+  observe: jest.fn(),
+  unobserve: jest.fn(),
+  disconnect: jest.fn(),
+}));
 
 // Mock IntersectionObserver
 global.IntersectionObserver = jest.fn().mockImplementation(() => ({
-    observe: jest.fn(),
-    unobserve: jest.fn(),
-    disconnect: jest.fn(),
-}))
+  observe: jest.fn(),
+  unobserve: jest.fn(),
+  disconnect: jest.fn(),
+}));
 
 // Mock matchMedia used in responsive hooks/components
 if (!window.matchMedia) {
-    Object.defineProperty(window, 'matchMedia', {
-        writable: true,
-        value: jest.fn().mockImplementation((query) => ({
-            matches: false,
-            media: query,
-            onchange: null,
-            addListener: jest.fn(), // deprecated
-            removeListener: jest.fn(), // deprecated
-            addEventListener: jest.fn(),
-            removeEventListener: jest.fn(),
-            dispatchEvent: jest.fn(),
-        })),
-    })
+  Object.defineProperty(window, 'matchMedia', {
+    writable: true,
+    value: jest.fn().mockImplementation(query => ({
+      matches: false,
+      media: query,
+      onchange: null,
+      addListener: jest.fn(), // deprecated
+      removeListener: jest.fn(), // deprecated
+      addEventListener: jest.fn(),
+      removeEventListener: jest.fn(),
+      dispatchEvent: jest.fn(),
+    })),
+  });
 }

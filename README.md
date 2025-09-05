@@ -82,9 +82,9 @@ The blog now stores long-form content in Markdown and metadata in JSON:
 
 ```md
 ---
-title: "My Post Title"
-excerpt: "One-liner summary of the post."
-publishDate: "2025-01-01"
+title: 'My Post Title'
+excerpt: 'One-liner summary of the post.'
+publishDate: '2025-01-01'
 tags: [tag-one, tag-two]
 ---
 
@@ -109,6 +109,7 @@ Your Markdown content here...
 ```
 
 Notes:
+
 - Frontmatter values (title, excerpt, publishDate) override JSON if provided; tags/author continue to use JSON for accuracy.
 - Paths are resolved securely and must remain inside `src/content/blog`.
 - Full-text search uses title and excerpt; Markdown is loaded server-side for rendering.

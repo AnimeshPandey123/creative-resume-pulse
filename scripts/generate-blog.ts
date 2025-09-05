@@ -14,110 +14,122 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 interface BlogOptions {
-    title: string;
-    context?: string;
+  title: string;
+  context?: string;
 }
 
 interface BlogMetadata {
-    title: string;
-    excerpt: string;
-    publishDate: string;
-    tags: string;
+  title: string;
+  excerpt: string;
+  publishDate: string;
+  tags: string;
 }
 
-
-
 class BlogGenerator {
-    private program: Command;
-    private openAIService: OpenAIBlogService;
+  private program: Command;
+  private openAIService: OpenAIBlogService;
 
-    constructor() {
-        this.program = new Command();
-        this.openAIService = new OpenAIBlogService();
-        this.setupCLI();
-    }
+  constructor() {
+    this.program = new Command();
+    this.openAIService = new OpenAIBlogService();
+    this.setupCLI();
+  }
 
-    private setupCLI(): void {
-        this.program
-            .name('generate-blog')
-            .description('Generate a new blog post using AI')
-            .requiredOption('-t, --title <title>', 'Blog post title')
-            .option('-c, --context <context>', 'Optional context or description for the blog post')
-            .action(async (options: BlogOptions) => await this.generateBlog(options));
-    }
+  private setupCLI(): void {
+    this.program
+      .name('generate-blog')
+      .description('Generate a new blog post using AI')
+      .requiredOption('-t, --title <title>', 'Blog post title')
+      .option(
+        '-c, --context <context>',
+        'Optional context or description for the blog post'
+      )
+      .action(async (options: BlogOptions) => await this.generateBlog(options));
+  }
 
-    private async generateBlog(options: BlogOptions): Promise<void> {
+  private async generateBlog(options: BlogOptions): Promise<void> {
+    try {
+      const { title, context } = options;
+
+      console.log(chalk.blue(`🚀 Generating blog post: "${title}"`));
+
+      // Generate slug from title
+      const slug = this.generateSlug(title);
+
+      // Generate content using AI or fallback
+      let content: string;
+      let tags: string[];
+      let excerpt: string;
+
+      if (this.openAIService.isAvailable()) {
+        console.log(chalk.yellow('🤖 Using OpenAI to generate content...'));
+
         try {
-            const { title, context } = options;
+          content = await this.openAIService.generateBlogContent(
+            title,
+            context
+          );
+          tags = await this.openAIService.generateTags(content);
+          excerpt = await this.openAIService.generateExcerpt(content);
 
-            console.log(chalk.blue(`🚀 Generating blog post: "${title}"`));
-
-            // Generate slug from title
-            const slug = this.generateSlug(title);
-
-            // Generate content using AI or fallback
-            let content: string;
-            let tags: string[];
-            let excerpt: string;
-
-            if (this.openAIService.isAvailable()) {
-                console.log(chalk.yellow('🤖 Using OpenAI to generate content...'));
-
-                try {
-                    content = await this.openAIService.generateBlogContent(title, context);
-                    tags = await this.openAIService.generateTags(content);
-                    excerpt = await this.openAIService.generateExcerpt(content);
-
-                    console.log(chalk.green('✅ AI content generated successfully!'));
-                } catch {
-                    console.log(chalk.yellow('⚠️  AI generation failed, using fallback content...'));
-                    content = this.generateFallbackContent(title, context);
-                    tags = blogConfig.defaultTags;
-                    excerpt = context || `Learn about ${title.toLowerCase()}`;
-                }
-            } else {
-                console.log(chalk.yellow('📝 (OpenAI not configured)'));
-                process.exit(1);
-            }
-
-            // Generate metadata
-            const metadata = this.generateMetadata(title, excerpt, tags);
-
-            // Create blog post file
-            this.createBlogPost(slug, metadata, content);
-
-            console.log(chalk.green(`✅ Blog post "${title}" generated successfully!`));
-            console.log(chalk.blue(`📁 File: src/content/blog/${slug}.md`));
-            console.log(chalk.cyan(`🏷️  Tags: [${tags.join(', ')}]`));
-
-        } catch (error) {
-            const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
-            console.error(chalk.red('❌ Error generating blog post:'), errorMessage);
-            process.exit(1);
+          console.log(chalk.green('✅ AI content generated successfully!'));
+        } catch {
+          console.log(
+            chalk.yellow('⚠️  AI generation failed, using fallback content...')
+          );
+          content = this.generateFallbackContent(title, context);
+          tags = blogConfig.defaultTags;
+          excerpt = context || `Learn about ${title.toLowerCase()}`;
         }
+      } else {
+        console.log(chalk.yellow('📝 (OpenAI not configured)'));
+        process.exit(1);
+      }
+
+      // Generate metadata
+      const metadata = this.generateMetadata(title, excerpt, tags);
+
+      // Create blog post file
+      this.createBlogPost(slug, metadata, content);
+
+      console.log(
+        chalk.green(`✅ Blog post "${title}" generated successfully!`)
+      );
+      console.log(chalk.blue(`📁 File: src/content/blog/${slug}.md`));
+      console.log(chalk.cyan(`🏷️  Tags: [${tags.join(', ')}]`));
+    } catch (error) {
+      const errorMessage =
+        error instanceof Error ? error.message : 'Unknown error occurred';
+      console.error(chalk.red('❌ Error generating blog post:'), errorMessage);
+      process.exit(1);
     }
+  }
 
-    private generateSlug(title: string): string {
-        return slugify(title, {
-            lower: true,
-            strict: true,
-            remove: /[*+~.()'"!:@]/g
-        });
-    }
+  private generateSlug(title: string): string {
+    return slugify(title, {
+      lower: true,
+      strict: true,
+      remove: /[*+~.()'"!:@]/g,
+    });
+  }
 
-    private generateMetadata(title: string, excerpt: string, tags: string[]): BlogMetadata {
-        const today = new Date().toISOString().split('T')[0];
+  private generateMetadata(
+    title: string,
+    excerpt: string,
+    tags: string[]
+  ): BlogMetadata {
+    const today = new Date().toISOString().split('T')[0];
 
-        return {
-            title: `"${title}"`,
-            excerpt: `"${excerpt}"`,
-            publishDate: `"${today}"`,
-            tags: `[${tags.map(tag => `"${tag}"`).join(', ')}]`
-        };
-    }
+    return {
+      title: `"${title}"`,
+      excerpt: `"${excerpt}"`,
+      publishDate: `"${today}"`,
+      tags: `[${tags.map(tag => `"${tag}"`).join(', ')}]`,
+    };
+  }
 
-    private generateFallbackContent(title: string, context?: string): string {
-        return `## ${title}
+  private generateFallbackContent(title: string, context?: string): string {
+    return `## ${title}
 
 ${context || 'This is a comprehensive guide about ' + title.toLowerCase() + '.'}
 
@@ -143,19 +155,23 @@ Beyond the basics, we'll also dive into more advanced concepts that will help yo
 ### Conclusion
 
 This concludes our comprehensive discussion about ${title.toLowerCase()}. By following the principles and examples outlined in this guide, you'll be well-equipped to tackle real-world challenges and build robust solutions.`;
+  }
+
+  private createBlogPost(
+    slug: string,
+    metadata: BlogMetadata,
+    content: string
+  ): void {
+    const blogDir = path.join(__dirname, '../src/content/blog');
+    const blogPath = path.join(blogDir, `${slug}.md`);
+
+    // Ensure blog directory exists
+    if (!fs.existsSync(blogDir)) {
+      fs.mkdirSync(blogDir, { recursive: true });
     }
 
-    private createBlogPost(slug: string, metadata: BlogMetadata, content: string): void {
-        const blogDir = path.join(__dirname, '../src/content/blog');
-        const blogPath = path.join(blogDir, `${slug}.md`);
-
-        // Ensure blog directory exists
-        if (!fs.existsSync(blogDir)) {
-            fs.mkdirSync(blogDir, { recursive: true });
-        }
-
-        // Create frontmatter
-        const frontmatter = `---
+    // Create frontmatter
+    const frontmatter = `---
 title: ${metadata.title}
 excerpt: ${metadata.excerpt}
 publishDate: ${metadata.publishDate}
@@ -164,13 +180,13 @@ tags: ${metadata.tags}
 
 `;
 
-        // Write blog post file
-        fs.writeFileSync(blogPath, frontmatter + content);
-    }
+    // Write blog post file
+    fs.writeFileSync(blogPath, frontmatter + content);
+  }
 
-    public run(): void {
-        this.program.parse();
-    }
+  public run(): void {
+    this.program.parse();
+  }
 }
 
 // Run the CLI

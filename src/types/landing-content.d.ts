@@ -1,115 +1,115 @@
-declare module "*/landing-content.json" {
-    interface HeroData {
-        title: string;
-        name: string;
-        subtitle: string;
-        cta: {
-            primary: {
-                text: string;
-                href: string;
-            };
-            secondary: {
-                text: string;
-                href: string;
-            };
-        };
-    }
+declare module '*/landing-content.json' {
+  interface HeroData {
+    title: string;
+    name: string;
+    subtitle: string;
+    cta: {
+      primary: {
+        text: string;
+        href: string;
+      };
+      secondary: {
+        text: string;
+        href: string;
+      };
+    };
+  }
 
-    interface AboutData {
-        title: string;
-        subtitle: string;
-        content: string[];
-        contact: {
-            location: string;
-            email: string;
-            phone: string;
-        };
-    }
+  interface AboutData {
+    title: string;
+    subtitle: string;
+    content: string[];
+    contact: {
+      location: string;
+      email: string;
+      phone: string;
+    };
+  }
 
-    interface ExperienceItem {
-        title: string;
-        company: string;
-        period: string;
-        location: string;
-        responsibilities: string[];
-    }
+  interface ExperienceItem {
+    title: string;
+    company: string;
+    period: string;
+    location: string;
+    responsibilities: string[];
+  }
 
-    interface ExperienceData {
-        title: string;
-        subtitle: string;
-        items: ExperienceItem[];
-    }
+  interface ExperienceData {
+    title: string;
+    subtitle: string;
+    items: ExperienceItem[];
+  }
 
-    interface Project {
-        title: string;
-        role: string;
-        url: string;
-        description: string[];
-        technologies: string[];
-    }
+  interface Project {
+    title: string;
+    role: string;
+    url: string;
+    description: string[];
+    technologies: string[];
+  }
 
-    interface ProjectsData {
-        title: string;
-        subtitle: string;
-        items: Project[];
-    }
+  interface ProjectsData {
+    title: string;
+    subtitle: string;
+    items: Project[];
+  }
 
-    interface SkillCategory {
-        title: string;
-        skills: string[];
-    }
+  interface SkillCategory {
+    title: string;
+    skills: string[];
+  }
 
-    interface SkillsData {
-        title: string;
-        subtitle: string;
-        categories: SkillCategory[];
-    }
+  interface SkillsData {
+    title: string;
+    subtitle: string;
+    categories: SkillCategory[];
+  }
 
-    interface EducationItem {
-        degree: string;
-        institution: string;
-        location: string;
-        period: string;
-    }
+  interface EducationItem {
+    degree: string;
+    institution: string;
+    location: string;
+    period: string;
+  }
 
-    interface EducationData {
-        title: string;
-        subtitle: string;
-        items: EducationItem[];
-    }
+  interface EducationData {
+    title: string;
+    subtitle: string;
+    items: EducationItem[];
+  }
 
-    interface ContactInfo {
-        label: string;
-        value: string;
-    }
+  interface ContactInfo {
+    label: string;
+    value: string;
+  }
 
-    interface SocialLink {
-        name: string;
-        url: string;
-        icon: string;
-    }
+  interface SocialLink {
+    name: string;
+    url: string;
+    icon: string;
+  }
 
-    interface ContactData {
-        title: string;
-        subtitle: string;
-        info: {
-            location: ContactInfo;
-            email: ContactInfo;
-            phone: ContactInfo;
-        };
-        social: SocialLink[];
-    }
+  interface ContactData {
+    title: string;
+    subtitle: string;
+    info: {
+      location: ContactInfo;
+      email: ContactInfo;
+      phone: ContactInfo;
+    };
+    social: SocialLink[];
+  }
 
-    interface LandingContent {
-        hero: HeroData;
-        about: AboutData;
-        experience: ExperienceData;
-        projects: ProjectsData;
-        skills: SkillsData;
-        education: EducationData;
-        contact: ContactData;
-    }
+  interface LandingContent {
+    hero: HeroData;
+    about: AboutData;
+    experience: ExperienceData;
+    projects: ProjectsData;
+    skills: SkillsData;
+    education: EducationData;
+    contact: ContactData;
+  }
 
-    const value: LandingContent;
-    export default value;
-} 
+  const value: LandingContent;
+  export default value;
+}

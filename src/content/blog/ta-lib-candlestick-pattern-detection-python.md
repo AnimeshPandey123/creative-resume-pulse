@@ -1,7 +1,7 @@
 ---
-title: "Implementing TA-Lib and Matching Candlestick Patterns with Python"
-excerpt: "Technical analysis is an essential part of trading, and candlestick patterns play a crucial role in predicting market movements. Learn how to implement TA-Lib in Python for candlestick pattern recognition."
-publishDate: "2025-03-13"
+title: 'Implementing TA-Lib and Matching Candlestick Patterns with Python'
+excerpt: 'Technical analysis is an essential part of trading, and candlestick patterns play a crucial role in predicting market movements. Learn how to implement TA-Lib in Python for candlestick pattern recognition.'
+publishDate: '2025-03-13'
 tags: [technical-analysis, python, trading]
 ---
 
@@ -64,10 +64,10 @@ patterns = get_candlestick_patterns()
 def detect_patterns(df, patterns):
     open_prices, high_prices, low_prices, close_prices = df['Open'], df['High'], df['Low'], df['Close']
     pattern_df = pd.DataFrame(index=df.index)
-    
+
     for pattern_name, pattern_function in patterns.items():
         pattern_df[pattern_name] = pattern_function(open_prices, high_prices, low_prices, close_prices)
-    
+
     return pattern_df
 
 pattern_df = detect_patterns(df, patterns)
@@ -107,4 +107,3 @@ TA-Lib simplifies technical analysis by providing powerful functions for detecti
 You can further enhance this by integrating TA-Lib with machine learning models or trading bots for automated trading strategies.
 
 Let us know in the comments if you have any questions or if you'd like a deeper dive into other TA-Lib indicators!
-

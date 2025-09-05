@@ -73,7 +73,7 @@ describe('BlogPostPage', () => {
     coverImage: 'https://example.com/image.jpg',
     author: {
       name: 'Animesh Pandey',
-      email: 'animesh@example.com',
+      email: 'animeshpandey.pro@gmail.com',
     },
     tags: [{ name: 'JavaScript' }, { name: 'React' }],
   };
@@ -159,7 +159,7 @@ describe('generateMetadata', () => {
     coverImage: 'https://example.com/image.jpg',
     author: {
       name: 'Animesh Pandey',
-      email: 'animesh@example.com',
+      email: 'animeshpandey.pro@gmail.com',
     },
     tags: [{ name: 'JavaScript' }, { name: 'React' }],
   };

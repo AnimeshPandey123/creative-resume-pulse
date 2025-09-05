@@ -8,6 +8,7 @@ export const SITE_CONFIG = {
   name: 'Animesh Pandey',
   title:
     'Animesh Pandey | Senior Software Engineer | Full Stack Developer | Backend Specialist',
+  email: 'animeshpandey.pro@gmail.com',
   description:
     'Senior Software Engineer Animesh Pandey - 6+ years expertise in PHP, Python, Node.js, React, TypeScript, Docker, and Kubernetes.',
   url: 'https://animeshpandey.com',

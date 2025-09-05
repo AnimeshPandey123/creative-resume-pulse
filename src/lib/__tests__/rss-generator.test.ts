@@ -75,7 +75,7 @@ jest.mock('@/data/mockBlogData', () => ({
       coverImage: 'https://example.com/image1.jpg',
       author: {
         name: 'Animesh Pandey',
-        email: 'animesh@example.com',
+        email: 'animeshpandey.pro@gmail.com',
       },
       tags: [{ name: 'JavaScript' }, { name: 'React' }],
     },
@@ -88,7 +88,7 @@ jest.mock('@/data/mockBlogData', () => ({
       coverImage: null,
       author: {
         name: 'Animesh Pandey',
-        email: 'animesh@example.com',
+        email: 'animeshpandey.pro@gmail.com',
       },
       tags: [{ name: 'Python' }, { name: 'Django' }],
     },
@@ -295,7 +295,7 @@ describe('RSS Feed Generator', () => {
         author: {
           id: 'animesh',
           name: 'Animesh Pandey',
-          email: 'animesh@example.com',
+          email: 'animeshpandey.pro@gmail.com',
           bio: 'Test author',
           avatarUrl: 'https://example.com/avatar.jpg',
         },

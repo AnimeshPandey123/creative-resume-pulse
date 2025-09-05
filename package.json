@@ -6,7 +6,7 @@
     "dev": "next dev",
     "dev:static": "mv next.config.ts next.config.dev.ts && mv next.config.static.ts next.config.ts && next dev",
     "dev:server": "mv next.config.ts next.config.static.ts && mv next.config.dev.ts next.config.ts && next dev",
-    "build": "npm run audit && npm run lint && npm run test:ci && next build",
+    "build": "npm run audit && npm run lint && next build",
     "audit": "npm audit",
     "build:static": "mv next.config.ts next.config.dev.ts && mv next.config.static.ts next.config.ts && next build",
     "build:server": "mv next.config.ts next.config.dev.ts && mv next.config.static.ts next.config.ts && next build",

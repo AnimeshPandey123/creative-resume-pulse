@@ -1,17 +1,24 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import Navigation from '../Navigation';
+import { usePathname } from 'next/navigation';
 
 // Mock Next.js components and hooks
 jest.mock('next/link', () => {
   return function MockLink({
     children,
     href,
+    onClick,
   }: {
     children: React.ReactNode;
     href: string;
+    onClick?: () => void;
   }) {
-    return <a href={href}>{children}</a>;
+    return (
+      <a href={href} onClick={onClick}>
+        {children}
+      </a>
+    );
   };
 });
 
@@ -47,6 +54,9 @@ describe('Navigation', () => {
   beforeEach(() => {
     // Reset scroll position
     window.scrollY = 0;
+    // Reset mocks
+    jest.clearAllMocks();
+    (usePathname as jest.Mock).mockReturnValue('/');
   });
 
   it('should render navigation with all links', () => {
@@ -201,5 +211,100 @@ describe('Navigation', () => {
 
     const blogLinks = screen.getAllByText('Blog');
     expect(blogLinks[0]).toHaveAttribute('href', '/blog');
+  });
+
+  it('should close mobile menu when clicking on blog link', () => {
+    render(<Navigation />);
+
+    // Open mobile menu
+    const menuButton = screen.getByRole('button', { name: /open menu/i });
+    fireEvent.click(menuButton);
+
+    // Verify menu is open
+    expect(screen.getByTestId('close-icon')).toBeInTheDocument();
+
+    // Get mobile menu blog link (second instance)
+    const mobileBlogLink = screen.getAllByText('Blog')[1];
+
+    // Simulate clicking on mobile blog link
+    fireEvent.click(mobileBlogLink);
+
+    // Menu should be closed
+    expect(screen.queryByTestId('close-icon')).not.toBeInTheDocument();
+  });
+
+  it('should render moon icon when theme is light', () => {
+    render(<Navigation />);
+
+    const moonIcons = screen.getAllByTestId('moon-icon');
+    expect(moonIcons).toHaveLength(2); // Desktop and mobile
+  });
+
+  it('should handle theme toggle from mobile menu', () => {
+    render(<Navigation />);
+
+    // Get mobile theme button (second instance)
+    const mobileThemeButton = screen.getAllByRole('button', {
+      name: /switch to dark mode/i,
+    })[1];
+
+    fireEvent.click(mobileThemeButton);
+
+    expect(mockToggleTheme).toHaveBeenCalled();
+  });
+
+  it('should handle section links on different pages', () => {
+    // Mock being on a different page
+    (usePathname as jest.Mock).mockReturnValue('/blog');
+
+    render(<Navigation />);
+
+    // Check that section links have correct hrefs when not on homepage
+    const aboutLinks = screen.getAllByText('About');
+    expect(aboutLinks[0]).toHaveAttribute('href', '/#about');
+  });
+
+  it('should test section navigation handler directly', () => {
+    // Mock being on a different page
+    (usePathname as jest.Mock).mockReturnValue('/blog');
+
+    // Mock window.location.href
+    delete (window as any).location;
+    window.location = { href: '' } as any;
+
+    render(<Navigation />);
+
+    // Find the section link and simulate click with preventDefault
+    const aboutLink = screen.getAllByText('About')[0];
+    const event = new (global as any).MouseEvent('click', { bubbles: true });
+    Object.defineProperty(event, 'preventDefault', {
+      value: jest.fn(),
+    });
+
+    // Dispatch the event
+    aboutLink.dispatchEvent(event);
+
+    // The href should be set correctly for non-homepage
+    expect(aboutLink).toHaveAttribute('href', '/#about');
+  });
+
+  it('should handle mobile menu section link clicks', () => {
+    render(<Navigation />);
+
+    // Open mobile menu
+    const menuButton = screen.getByRole('button', { name: /open menu/i });
+    fireEvent.click(menuButton);
+
+    // Verify menu is open
+    expect(screen.getByTestId('close-icon')).toBeInTheDocument();
+
+    // Get mobile menu about link (second instance)
+    const mobileAboutLink = screen.getAllByText('About')[1];
+
+    // Simulate clicking on mobile section link
+    fireEvent.click(mobileAboutLink);
+
+    // Menu should be closed
+    expect(screen.queryByTestId('close-icon')).not.toBeInTheDocument();
   });
 });

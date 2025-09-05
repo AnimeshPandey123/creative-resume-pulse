@@ -53,7 +53,10 @@ const Hero: React.FC = () => {
               {heroData.title}
             </p>
 
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold leading-tight mb-6 animate-fade-in animate-delay-100">
+            <h1
+              className="text-4xl md:text-5xl lg:text-6xl font-display font-bold leading-tight mb-6 animate-fade-in animate-delay-100"
+              style={{ fontSize: '2.25rem' }}
+            >
               Hello, I'm <span className="text-primary">{heroData.name}</span>
             </h1>
 

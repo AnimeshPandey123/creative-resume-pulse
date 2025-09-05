@@ -42,7 +42,10 @@ const BlogPostContent: React.FC<BlogPostContentProps> = ({ post }) => {
 
       {/* Post metadata */}
       <div className="space-y-4 mb-8">
-        <h1 className="text-3xl md:text-4xl font-bold tracking-tight">
+        <h1
+          className="text-3xl md:text-4xl font-bold tracking-tight"
+          style={{ fontSize: '2.25rem' }}
+        >
           {post.title}
         </h1>
 

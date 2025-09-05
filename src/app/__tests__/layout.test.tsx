@@ -37,6 +37,12 @@ jest.mock('@vercel/speed-insights/next', () => ({
   SpeedInsights: () => <div data-testid="speed-insights" />,
 }));
 
+jest.mock('@/components/Hotjar', () => {
+  return function MockHotjar() {
+    return <div data-testid="hotjar" />;
+  };
+});
+
 describe('RootLayout', () => {
   it('should render without crashing', () => {
     const { container } = render(
@@ -155,6 +161,109 @@ describe('RootLayout', () => {
 
     const body = container.querySelector('body');
     expect(body).toHaveClass('font-sans', 'antialiased');
+  });
+
+  it('should include RSS feed link', () => {
+    const { container } = render(
+      <RootLayout>
+        <div>Test content</div>
+      </RootLayout>
+    );
+
+    const rssLink = container.querySelector(
+      'link[rel="alternate"][type="application/rss+xml"]'
+    );
+    expect(rssLink).toBeInTheDocument();
+    expect(rssLink).toHaveAttribute('href', '/feed.xml');
+    expect(rssLink).toHaveAttribute('title', 'Animesh Pandey Blog RSS Feed');
+  });
+
+  it('should include all preconnect links for external domains', () => {
+    const { container } = render(
+      <RootLayout>
+        <div>Test content</div>
+      </RootLayout>
+    );
+
+    // Check CloudFront preconnect
+    expect(
+      container.querySelector(
+        'link[rel="preconnect"][href="https://d1iukwsziul56d.cloudfront.net"]'
+      )
+    ).toBeInTheDocument();
+
+    // Check Dev.to preconnect
+    expect(
+      container.querySelector(
+        'link[rel="preconnect"][href="https://dev-to-uploads.s3.amazonaws.com"]'
+      )
+    ).toBeInTheDocument();
+
+    // Check DNS prefetch for CloudFront
+    expect(
+      container.querySelector(
+        'link[rel="dns-prefetch"][href="//d1iukwsziul56d.cloudfront.net"]'
+      )
+    ).toBeInTheDocument();
+
+    // Check DNS prefetch for Dev.to
+    expect(
+      container.querySelector(
+        'link[rel="dns-prefetch"][href="//dev-to-uploads.s3.amazonaws.com"]'
+      )
+    ).toBeInTheDocument();
+  });
+
+  it('should include all favicon and app icon links', () => {
+    const { container } = render(
+      <RootLayout>
+        <div>Test content</div>
+      </RootLayout>
+    );
+
+    // Check favicon.ico
+    expect(
+      container.querySelector(
+        'link[rel="icon"][type="image/x-icon"][href="/favicon.ico"]'
+      )
+    ).toBeInTheDocument();
+
+    // Check apple-touch-icon
+    expect(
+      container.querySelector('link[rel="apple-touch-icon"][sizes="180x180"]')
+    ).toBeInTheDocument();
+
+    // Check favicon-32x32
+    expect(
+      container.querySelector(
+        'link[rel="icon"][type="image/png"][sizes="32x32"]'
+      )
+    ).toBeInTheDocument();
+
+    // Check favicon-16x16
+    expect(
+      container.querySelector(
+        'link[rel="icon"][type="image/png"][sizes="16x16"]'
+      )
+    ).toBeInTheDocument();
+
+    // Check manifest
+    expect(
+      container.querySelector('link[rel="manifest"][href="/site.webmanifest"]')
+    ).toBeInTheDocument();
+  });
+
+  it('should include Hotjar analytics component', () => {
+    const { container } = render(
+      <RootLayout>
+        <div>Test content</div>
+      </RootLayout>
+    );
+
+    // Hotjar component should be rendered (mocked in the test)
+    expect(
+      container.querySelector('[data-testid="hotjar"]')
+    ).toBeInTheDocument();
   });
 });
 

@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import React, { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
@@ -43,12 +43,14 @@ const Navigation: React.FC = () => {
 
   return (
     <>
-      <header className={cn(
-        'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
-        isScrolled
-          ? 'bg-white/80 dark:bg-gray-900/90 backdrop-blur-md shadow-sm'
-          : 'bg-transparent'
-      )}>
+      <header
+        className={cn(
+          'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
+          isScrolled
+            ? 'bg-white/80 dark:bg-gray-900/90 backdrop-blur-md shadow-sm'
+            : 'bg-transparent'
+        )}
+      >
         <div className="container mx-auto px-4 flex items-center justify-between h-16 md:h-20">
           <Link href="/" className="font-display font-bold text-lg md:text-xl">
             Animesh Pandey
@@ -56,27 +58,35 @@ const Navigation: React.FC = () => {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-1">
-            {navLinks.map((link) => (
+            {navLinks.map(link =>
               link.href.startsWith('#') ? (
                 <a
                   key={link.name}
                   href={isHomePage ? link.href : `/${link.href}`}
                   className="nav-link"
-                  onClick={(e) => handleSectionNavigation(e, link.href)}
+                  onClick={e => handleSectionNavigation(e, link.href)}
                 >
                   {link.name}
                 </a>
               ) : (
-                <Link key={link.name} href={link.href} className="nav-link flex items-center gap-1">
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  className="nav-link flex items-center gap-1"
+                >
                   {link.icon && <link.icon size={16} />}
                   {link.name}
                 </Link>
               )
-            ))}
+            )}
             <button
               onClick={toggleTheme}
               className="ml-4 p-2 rounded-full hover:bg-secondary transition-colors"
-              aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+              aria-label={
+                theme === 'dark'
+                  ? 'Switch to light mode'
+                  : 'Switch to dark mode'
+              }
             >
               {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
             </button>
@@ -87,14 +97,18 @@ const Navigation: React.FC = () => {
             <button
               onClick={toggleTheme}
               className="p-2 hover:bg-secondary rounded-full transition-colors"
-              aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+              aria-label={
+                theme === 'dark'
+                  ? 'Switch to light mode'
+                  : 'Switch to dark mode'
+              }
             >
               {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
             </button>
             <button
               className="p-2 focus:outline-none"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+              aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
             >
               {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
@@ -111,18 +125,20 @@ const Navigation: React.FC = () => {
       )}
 
       {/* Mobile Menu */}
-      <div className={cn(
-        'fixed inset-0 bg-white dark:bg-gray-900 z-40 flex flex-col pt-20 px-4 transition-all duration-300 ease-in-out transform md:hidden',
-        mobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
-      )}>
+      <div
+        className={cn(
+          'fixed inset-0 bg-white dark:bg-gray-900 z-40 flex flex-col pt-20 px-4 transition-all duration-300 ease-in-out transform md:hidden',
+          mobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
+        )}
+      >
         <nav className="flex flex-col space-y-4">
-          {navLinks.map((link) => (
+          {navLinks.map(link =>
             link.href.startsWith('#') ? (
               <a
                 key={link.name}
                 href={isHomePage ? link.href : `/${link.href}`}
                 className="text-xl py-3 px-4 border-b border-border/50 flex items-center gap-2 hover:bg-secondary/50 rounded-lg transition-colors"
-                onClick={(e) => {
+                onClick={e => {
                   setMobileMenuOpen(false);
                   handleSectionNavigation(e, link.href);
                 }}
@@ -141,7 +157,7 @@ const Navigation: React.FC = () => {
                 {link.name}
               </Link>
             )
-          ))}
+          )}
         </nav>
       </div>
     </>

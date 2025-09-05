@@ -1,4 +1,3 @@
-
 import React from 'react';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
@@ -13,9 +12,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     <ThemeProvider>
       <div className="min-h-screen flex flex-col">
         <Navigation />
-        <main className="flex-grow">
-          {children}
-        </main>
+        <main className="flex-grow">{children}</main>
         <Footer />
       </div>
     </ThemeProvider>

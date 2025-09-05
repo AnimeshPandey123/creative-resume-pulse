@@ -137,7 +137,9 @@ function generateBlogSitemap() {
 </urlset>`;
 
   fs.writeFileSync(path.join(__dirname, '../public/sitemap-blog.xml'), sitemap);
-  console.log(`✅ Blog sitemap generated successfully with ${posts.length} posts`);
+  console.log(
+    `✅ Blog sitemap generated successfully with ${posts.length} posts`
+  );
 }
 
 // Generate sitemap index
@@ -154,7 +156,10 @@ function generateSitemapIndex() {
   </sitemap>
 </sitemapindex>`;
 
-  fs.writeFileSync(path.join(__dirname, '../public/sitemap-index.xml'), sitemapIndex);
+  fs.writeFileSync(
+    path.join(__dirname, '../public/sitemap-index.xml'),
+    sitemapIndex
+  );
   console.log('✅ Sitemap index generated successfully');
 }
 
@@ -177,9 +182,4 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   main();
 }
 
-export {
-  generateMainSitemap,
-  generateBlogSitemap,
-  generateSitemapIndex,
-  main
-}; 
+export { generateMainSitemap, generateBlogSitemap, generateSitemapIndex, main };

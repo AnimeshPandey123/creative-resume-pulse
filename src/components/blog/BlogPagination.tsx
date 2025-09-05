@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import React from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
@@ -17,12 +17,17 @@ interface BlogPaginationProps {
   currentPage: number;
 }
 
-const BlogPagination: React.FC<BlogPaginationProps> = ({ totalPages, currentPage }) => {
+const BlogPagination: React.FC<BlogPaginationProps> = ({
+  totalPages,
+  currentPage,
+}) => {
   const searchParams = useSearchParams();
   const router = useRouter();
 
   const handlePageChange = (page: number) => {
-    const newParams = new URLSearchParams(searchParams ? searchParams.toString() : '');
+    const newParams = new URLSearchParams(
+      searchParams ? searchParams.toString() : ''
+    );
     newParams.set('page', page.toString());
     router.push(`/blog?${newParams.toString()}`);
 
@@ -79,7 +84,11 @@ const BlogPagination: React.FC<BlogPaginationProps> = ({ totalPages, currentPage
         <PaginationItem>
           <PaginationPrevious
             onClick={() => currentPage > 1 && handlePageChange(currentPage - 1)}
-            className={currentPage === 1 ? "pointer-events-none opacity-50" : "cursor-pointer"}
+            className={
+              currentPage === 1
+                ? 'pointer-events-none opacity-50'
+                : 'cursor-pointer'
+            }
           />
         </PaginationItem>
 
@@ -108,8 +117,14 @@ const BlogPagination: React.FC<BlogPaginationProps> = ({ totalPages, currentPage
 
         <PaginationItem>
           <PaginationNext
-            onClick={() => currentPage < totalPages && handlePageChange(currentPage + 1)}
-            className={currentPage === totalPages ? "pointer-events-none opacity-50" : "cursor-pointer"}
+            onClick={() =>
+              currentPage < totalPages && handlePageChange(currentPage + 1)
+            }
+            className={
+              currentPage === totalPages
+                ? 'pointer-events-none opacity-50'
+                : 'cursor-pointer'
+            }
           />
         </PaginationItem>
       </PaginationContent>

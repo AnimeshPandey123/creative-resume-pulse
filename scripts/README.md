@@ -90,10 +90,10 @@ Generated blog posts follow this structure:
 
 ```markdown
 ---
-title: "Your Blog Post Title"
-excerpt: "AI-generated excerpt describing the content"
-publishDate: "2024-12-09"
-tags: ["tag1", "tag2", "tag3"]
+title: 'Your Blog Post Title'
+excerpt: 'AI-generated excerpt describing the content'
+publishDate: '2024-12-09'
+tags: ['tag1', 'tag2', 'tag3']
 ---
 
 ## Your Blog Post Title
@@ -101,12 +101,15 @@ tags: ["tag1", "tag2", "tag3"]
 [AI-generated content with proper structure]
 
 ### Introduction
+
 [Content...]
 
 ### Main Content
+
 [Content...]
 
 ### Conclusion
+
 [Content...]
 ```
 
@@ -183,7 +186,11 @@ The tool is built with TypeScript and follows TDD principles:
 ## License
 
 This tool is part of the creative-resume-pulse project.
+
 # Test comment
+
 # Test coverage enforcement
+
 # Test coverage enforcement again
+
 # Test coverage enforcement final

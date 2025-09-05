@@ -1,4 +1,4 @@
-import landingContent from "./landing-content.json";
+import landingContent from './landing-content.json';
 
 // Load data from JSON file
 export const landingData = landingContent;
@@ -10,4 +10,4 @@ export const experienceData = landingData.experience;
 export const projectsData = landingData.projects;
 export const skillsData = landingData.skills;
 export const educationData = landingData.education;
-export const contactData = landingData.contact; 
+export const contactData = landingData.contact;

@@ -1,34 +1,41 @@
 export interface OpenAIConfig {
-    apiKey: string;
-    model: string;
-    maxTokens: number;
-    temperature: number;
+  apiKey: string;
+  model: string;
+  maxTokens: number;
+  temperature: number;
 }
 
 export interface BlogConfig {
-    defaultCoverImage: string;
-    defaultTags: string[];
-    contentStructure: string[];
-    seoKeywords: string[];
+  defaultCoverImage: string;
+  defaultTags: string[];
+  contentStructure: string[];
+  seoKeywords: string[];
 }
 
 export const openAIConfig: OpenAIConfig = {
-    apiKey: process.env.OPENAI_API_KEY || '',
-    model: process.env.OPENAI_MODEL || 'gpt-4o',
-    maxTokens: 2000,
-    temperature: 0.7
+  apiKey: process.env.OPENAI_API_KEY || '',
+  model: process.env.OPENAI_MODEL || 'gpt-4o',
+  maxTokens: 2000,
+  temperature: 0.7,
 };
 
 export const blogConfig: BlogConfig = {
-    defaultCoverImage: 'https://d1iukwsziul56d.cloudfront.net/drupal-prodv2/s3fs-public/2025-03/default-blog-image.webp',
-    defaultTags: ['web-development', 'programming', 'tutorial'],
-    contentStructure: [
-        'Introduction',
-        'Main Content',
-        'Advanced Topics',
-        'Conclusion'
-    ],
-    seoKeywords: ['web development', 'programming', 'tutorial', 'guide', 'best practices']
+  defaultCoverImage:
+    'https://d1iukwsziul56d.cloudfront.net/drupal-prodv2/s3fs-public/2025-03/default-blog-image.webp',
+  defaultTags: ['web-development', 'programming', 'tutorial'],
+  contentStructure: [
+    'Introduction',
+    'Main Content',
+    'Advanced Topics',
+    'Conclusion',
+  ],
+  seoKeywords: [
+    'web development',
+    'programming',
+    'tutorial',
+    'guide',
+    'best practices',
+  ],
 };
 
 export const promptTemplate = (title: string, context?: string): string => `

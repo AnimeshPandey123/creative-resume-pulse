@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import React, { createContext, useContext, useEffect, useState } from 'react';
 
@@ -21,7 +21,10 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
     // Check for system preference if no stored preference
     if (!storedTheme) {
-      const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      const systemTheme = window.matchMedia('(prefers-color-scheme: dark)')
+        .matches
+        ? 'dark'
+        : 'light';
       setTheme(systemTheme);
     } else {
       setTheme(storedTheme);

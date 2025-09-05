@@ -1,7 +1,7 @@
 ---
-title: "A Comprehensive Guide to Learning Laravel: Mastering the PHP Framework for Web Development"
-excerpt: "Learn Laravel fundamentals: routing, controllers, ORM, validation, migrations, and Blade."
-publishDate: "2024-12-09"
+title: 'A Comprehensive Guide to Learning Laravel: Mastering the PHP Framework for Web Development'
+excerpt: 'Learn Laravel fundamentals: routing, controllers, ORM, validation, migrations, and Blade.'
+publishDate: '2024-12-09'
 tags: [laravel, php, web-development]
 ---
 
@@ -170,4 +170,3 @@ class TaskController extends Controller
 ### Conclusion
 
 In this comprehensive guide, we've covered the basics of Laravel, including installation, routing, controllers, validation, form handling, Blade templating, database migrations, and more. We hope you found this guide helpful in getting started with building web applications using Laravel.
-

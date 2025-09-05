@@ -1,8 +1,7 @@
-
-import { BlogAuthor, BlogPost, BlogTag } from "../types/BlogTypes";
+import { BlogAuthor, BlogPost, BlogTag } from '../types/BlogTypes';
 
 // Import JSON data
-const blogData = require("./blog-posts.json");
+const blogData = require('./blog-posts.json');
 
 // Load data from JSON file
 const { authors, tags, posts } = blogData;
@@ -14,7 +13,7 @@ export const blogTags: BlogTag[] = tags;
 export const blogPosts: BlogPost[] = posts.map((post: any) => ({
   ...post,
   author: blogAuthors.find(author => author.id === post.authorId)!,
-  tags: blogTags.filter(tag => post.tagIds.includes(tag.id))
+  tags: blogTags.filter(tag => post.tagIds.includes(tag.id)),
 }));
 
 export const fetchBlogPosts = (page = 1, limit = 10, search = '', tag = '') => {
@@ -23,9 +22,10 @@ export const fetchBlogPosts = (page = 1, limit = 10, search = '', tag = '') => {
   // Filter by search term
   if (search) {
     const searchLower = search.toLowerCase();
-    filteredPosts = filteredPosts.filter(post =>
-      post.title.toLowerCase().includes(searchLower) ||
-      post.excerpt.toLowerCase().includes(searchLower)
+    filteredPosts = filteredPosts.filter(
+      post =>
+        post.title.toLowerCase().includes(searchLower) ||
+        post.excerpt.toLowerCase().includes(searchLower)
     );
   }
 
@@ -48,7 +48,7 @@ export const fetchBlogPosts = (page = 1, limit = 10, search = '', tag = '') => {
     posts: paginatedPosts,
     totalPosts,
     totalPages,
-    currentPage: page
+    currentPage: page,
   };
 };
 
@@ -65,7 +65,9 @@ export const fetchRelatedPosts = async (currentPostId: string, limit = 3) => {
   return blogPosts
     .filter(post => post.id !== currentPostId)
     .map(post => {
-      const commonTags = post.tags.filter(tag => currentPostTagIds.includes(tag.id));
+      const commonTags = post.tags.filter(tag =>
+        currentPostTagIds.includes(tag.id)
+      );
       return { post, relevance: commonTags.length };
     })
     .sort((a, b) => b.relevance - a.relevance)

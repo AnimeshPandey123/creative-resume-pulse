@@ -57,6 +57,45 @@ describe('BlogPage', () => {
     expect(getByText('Blog')).toBeInTheDocument();
     expect(getByText('Loading blog posts...')).toBeInTheDocument();
   });
+
+  it('should render Suspense with proper fallback structure', () => {
+    // Since BlogPageClient is mocked and renders immediately,
+    // we can't test the fallback directly. Instead, we test that
+    // the Suspense component is present and the BlogPageClient renders
+    const { container, getByTestId } = render(<BlogPage />);
+
+    // The BlogPageClient should be rendered (not the fallback)
+    expect(getByTestId('blog-page-client')).toBeInTheDocument();
+
+    // The BlogPageClient mock includes the same content as the fallback
+    expect(container.querySelector('h1')).toHaveTextContent('Blog');
+    expect(container.querySelector('p')).toHaveTextContent(
+      'Loading blog posts...'
+    );
+  });
+
+  it('should render structured data scripts with correct content', () => {
+    const { container } = render(<BlogPage />);
+
+    const structuredDataScripts = container.querySelectorAll(
+      'script[type="application/ld+json"]'
+    );
+    expect(structuredDataScripts).toHaveLength(blogPageStructuredData.length);
+
+    // Verify each script contains valid JSON and has correct structure
+    structuredDataScripts.forEach((script, index) => {
+      const content = script.innerHTML;
+      expect(() => JSON.parse(content)).not.toThrow();
+
+      const parsedData = JSON.parse(content);
+      expect(parsedData).toHaveProperty('@context', 'https://schema.org');
+      expect(parsedData).toHaveProperty('@type');
+
+      // Verify it matches the expected structured data
+      const expectedData = blogPageStructuredData[index];
+      expect(parsedData['@type']).toBe(expectedData['@type']);
+    });
+  });
 });
 
 describe('Blog Page Metadata', () => {

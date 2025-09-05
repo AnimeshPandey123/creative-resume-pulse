@@ -434,4 +434,116 @@ describe('SEO Configuration', () => {
       });
     });
   });
+
+  describe('Legacy exports and default export', () => {
+    it('should export legacy generatePortfolioStructuredData function', () => {
+      const { generatePortfolioStructuredData } = require('../seo');
+      const result = generatePortfolioStructuredData();
+      expect(result).toEqual(portfolioStructuredData);
+    });
+
+    it('should export default object with all required properties', () => {
+      const defaultExport = require('../seo').default;
+      expect(defaultExport).toHaveProperty('SITE_CONFIG');
+      expect(defaultExport).toHaveProperty('baseMetadata');
+      expect(defaultExport).toHaveProperty('pageMetadata');
+      expect(defaultExport).toHaveProperty('blogMetadata');
+      expect(defaultExport).toHaveProperty('mainStructuredData');
+      expect(defaultExport).toHaveProperty('blogPageStructuredData');
+      expect(defaultExport).toHaveProperty('BLOG_CONFIG');
+    });
+  });
+
+  describe('Edge cases and error handling', () => {
+    it('should handle generatePageMetadata with minimal parameters', () => {
+      const metadata = generatePageMetadata({
+        title: 'Minimal',
+        description: 'Minimal description',
+      });
+
+      expect(metadata.title).toBe('Minimal');
+      expect(metadata.description).toBe('Minimal description');
+      expect(metadata.alternates?.canonical).toBe(SITE_CONFIG.url);
+    });
+
+    it('should handle generatePageMetadata with article type', () => {
+      const metadata = generatePageMetadata({
+        title: 'Article',
+        description: 'Article description',
+        path: '/article',
+        type: 'article',
+      });
+
+      const openGraph = metadata.openGraph as any;
+      expect(openGraph?.type).toBe('article');
+    });
+
+    it('should handle generateBlogPostMetadata with minimal parameters', () => {
+      const metadata = generateBlogPostMetadata({
+        title: 'Minimal Post',
+        description: 'Minimal post description',
+        slug: 'minimal-post',
+        publishedAt: '2024-01-01',
+      });
+
+      expect(metadata.title).toBe(`Minimal Post | ${SITE_CONFIG.name} Blog`);
+      expect(metadata.description).toBe('Minimal post description');
+      expect(metadata.keywords).toEqual(
+        expect.arrayContaining([
+          'Software Engineering',
+          'Web Development',
+          'Programming',
+          'Technical Article',
+        ])
+      );
+    });
+
+    it('should handle generateBlogPostStructuredData with minimal parameters', () => {
+      const minimalPost = {
+        title: 'Minimal Post',
+        description: 'Minimal description',
+        publishDate: '2024-01-01',
+        author: 'Test Author',
+        url: 'https://animeshpandey.com/blog/minimal',
+        tags: [],
+        slug: 'minimal',
+      };
+
+      const structuredData = generateBlogPostStructuredData(minimalPost);
+      expect(structuredData.image).toBe(SITE_CONFIG.avatarUrl);
+      expect(structuredData.articleSection).toBe('Technology');
+      expect(structuredData.keywords).toBe('');
+    });
+
+    it('should handle generateProjectStructuredData with minimal parameters', () => {
+      const minimalProject = {
+        name: 'Minimal Project',
+        description: 'Minimal project description',
+        technologies: ['React'],
+      };
+
+      const structuredData = generateProjectStructuredData(minimalProject);
+      expect(structuredData.image).toBe(SITE_CONFIG.ogImage);
+      expect(structuredData.keywords).toBe('React');
+    });
+
+    it('should handle generateBreadcrumbStructuredData with single item', () => {
+      const singleItem = [{ name: 'Home', url: 'https://animeshpandey.com' }];
+      const structuredData = generateBreadcrumbStructuredData(singleItem);
+
+      expect(structuredData.itemListElement).toHaveLength(1);
+      expect(structuredData.itemListElement[0].position).toBe(1);
+      expect(structuredData.itemListElement[0].name).toBe('Home');
+    });
+
+    it('should handle generateFAQStructuredData with single FAQ', () => {
+      const singleFAQ = [
+        { question: 'What is React?', answer: 'A JavaScript library' },
+      ];
+      const structuredData = generateFAQStructuredData(singleFAQ);
+
+      expect(structuredData.mainEntity).toHaveLength(1);
+      expect(structuredData.mainEntity[0].name).toBe('What is React?');
+    });
+  });
 });

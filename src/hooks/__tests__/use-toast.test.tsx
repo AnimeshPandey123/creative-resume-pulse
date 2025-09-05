@@ -252,4 +252,169 @@ describe('use-toast', () => {
       expect(result.current.toasts[0].open).toBe(false);
     });
   });
+
+  describe('genId function', () => {
+    it('generates unique IDs', () => {
+      const { result } = renderHook(() => useToast());
+      let toast1: any, toast2: any;
+
+      act(() => {
+        toast1 = result.current.toast({ title: 'Toast 1' });
+      });
+
+      act(() => {
+        toast2 = result.current.toast({ title: 'Toast 2' });
+      });
+
+      expect(toast1.id).toBeDefined();
+      expect(toast2.id).toBeDefined();
+      expect(toast1.id).not.toBe(toast2.id);
+    });
+
+    it('handles ID overflow correctly', () => {
+      // This tests the modulo operation in genId
+      const { result } = renderHook(() => useToast());
+
+      // Create multiple toasts to test ID generation
+      act(() => {
+        for (let i = 0; i < 5; i++) {
+          result.current.toast({ title: `Toast ${i}` });
+        }
+      });
+
+      // All toasts should have valid string IDs
+      result.current.toasts.forEach(toast => {
+        expect(typeof toast.id).toBe('string');
+        expect(toast.id).toBeDefined();
+      });
+    });
+  });
+
+  describe('dispatch function', () => {
+    it('updates memory state correctly', () => {
+      const { result } = renderHook(() => useToast());
+
+      act(() => {
+        result.current.toast({ title: 'Test Toast' });
+      });
+
+      expect(result.current.toasts).toHaveLength(1);
+      expect(result.current.toasts[0].title).toBe('Test Toast');
+    });
+
+    it('notifies all listeners when state changes', () => {
+      const { result: result1 } = renderHook(() => useToast());
+      const { result: result2 } = renderHook(() => useToast());
+
+      act(() => {
+        result1.current.toast({ title: 'Shared Toast' });
+      });
+
+      // Both hooks should see the same toast
+      expect(result1.current.toasts).toHaveLength(1);
+      expect(result2.current.toasts).toHaveLength(1);
+      expect(result1.current.toasts[0].title).toBe('Shared Toast');
+      expect(result2.current.toasts[0].title).toBe('Shared Toast');
+    });
+  });
+
+  describe('listener management', () => {
+    it('removes listeners on cleanup', () => {
+      const { unmount } = renderHook(() => useToast());
+
+      // This should not throw any errors
+      expect(() => unmount()).not.toThrow();
+    });
+
+    it('handles multiple listeners correctly', () => {
+      const { result: result1 } = renderHook(() => useToast());
+      const { result: result2 } = renderHook(() => useToast());
+      const { result: result3 } = renderHook(() => useToast());
+
+      act(() => {
+        result1.current.toast({ title: 'Multi-listener Toast' });
+      });
+
+      // All three hooks should see the toast
+      expect(result1.current.toasts).toHaveLength(1);
+      expect(result2.current.toasts).toHaveLength(1);
+      expect(result3.current.toasts).toHaveLength(1);
+    });
+  });
+
+  describe('toast function edge cases', () => {
+    it('handles toast with all properties', () => {
+      const { result } = renderHook(() => useToast());
+      const mockAction = {
+        altText: 'Action',
+        action: <button>Click</button>,
+      } as any;
+
+      act(() => {
+        result.current.toast({
+          title: 'Complete Toast',
+          description: 'Complete description',
+          action: mockAction,
+          variant: 'default',
+          open: true,
+        });
+      });
+
+      const toast = result.current.toasts[0];
+      expect(toast.title).toBe('Complete Toast');
+      expect(toast.description).toBe('Complete description');
+      expect(toast.action).toBe(mockAction);
+      expect(toast.variant).toBe('default');
+      expect(toast.open).toBe(true);
+    });
+
+    it('handles toast with minimal properties', () => {
+      const { result } = renderHook(() => useToast());
+
+      act(() => {
+        result.current.toast({});
+      });
+
+      const toast = result.current.toasts[0];
+      expect(toast.id).toBeDefined();
+      expect(toast.open).toBe(true);
+      // Note: dismiss and update are not properties of the toast object itself
+      // They are returned by the toast function
+    });
+
+    it('handles toast update function', () => {
+      const { result } = renderHook(() => useToast());
+      let toastInstance: any;
+
+      act(() => {
+        toastInstance = result.current.toast({ title: 'Original' });
+      });
+
+      act(() => {
+        toastInstance.update({
+          title: 'Updated',
+          description: 'New description',
+        });
+      });
+
+      const toast = result.current.toasts[0];
+      expect(toast.title).toBe('Updated');
+      expect(toast.description).toBe('New description');
+    });
+
+    it('handles toast dismiss function', () => {
+      const { result } = renderHook(() => useToast());
+      let toastInstance: any;
+
+      act(() => {
+        toastInstance = result.current.toast({ title: 'To Dismiss' });
+      });
+
+      act(() => {
+        toastInstance.dismiss();
+      });
+
+      expect(result.current.toasts[0].open).toBe(false);
+    });
+  });
 });

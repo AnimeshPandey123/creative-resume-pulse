@@ -30,7 +30,10 @@ export default function BlogPageClient() {
       <div className="container">
         <div className="mb-10">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
-            <h1 className="text-4xl md:text-5xl font-bold text-foreground">
+            <h1
+              className="text-4xl md:text-5xl font-bold text-foreground"
+              style={{ fontSize: '2.25rem' }}
+            >
               Blog
             </h1>
             <a

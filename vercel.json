@@ -1,7 +1,7 @@
 {
   "buildCommand": "npm run build",
   "env": {
-    "NODE_ENV": "test",
-    "REACT_APP_ENV": "test"
+    "NODE_ENV": "production",
+    "REACT_APP_ENV": "production"
   }
 }

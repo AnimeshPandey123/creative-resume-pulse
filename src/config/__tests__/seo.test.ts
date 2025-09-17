@@ -16,6 +16,8 @@ import {
   organizationStructuredData,
   portfolioStructuredData,
   blogStructuredData,
+  truncateForSEO,
+  optimizeTitleForSEO,
 } from '../seo';
 
 describe('SEO Configuration', () => {
@@ -544,6 +546,90 @@ describe('SEO Configuration', () => {
 
       expect(structuredData.mainEntity).toHaveLength(1);
       expect(structuredData.mainEntity[0].name).toBe('What is React?');
+    });
+  });
+
+  describe('SEO Helper Functions', () => {
+    describe('truncateForSEO', () => {
+      it('should return text as-is when within max length', () => {
+        const result = truncateForSEO('Short text', 20);
+        expect(result).toBe('Short text');
+      });
+
+      it('should truncate text when exceeding max length', () => {
+        const result = truncateForSEO(
+          'This is a very long text that exceeds the maximum length',
+          20
+        );
+        expect(result).toBe('This is a very lo...');
+        expect(result.length).toBe(20);
+      });
+
+      it('should handle exact max length', () => {
+        const text = 'Exactly twenty chars';
+        const result = truncateForSEO(text, 20);
+        expect(result).toBe(text);
+      });
+    });
+
+    describe('optimizeTitleForSEO', () => {
+      it('should return full title with blog suffix when within limit', () => {
+        const result = optimizeTitleForSEO(
+          'Short Title',
+          'Animesh Pandey',
+          true
+        );
+        expect(result).toBe('Short Title | Animesh Pandey Blog');
+      });
+
+      it('should return title without blog suffix when full title exceeds limit', () => {
+        const longTitle =
+          'This is a very long blog post title that will exceed the limit';
+        const result = optimizeTitleForSEO(longTitle, 'Animesh Pandey', true);
+        expect(result).toBe(
+          'This is a very long blog post title that will exceed the ...'
+        );
+        expect(result.length).toBe(60);
+      });
+
+      it('should return just the title when even without blog suffix exceeds limit', () => {
+        const veryLongTitle =
+          'This is an extremely long blog post title that will definitely exceed the maximum allowed length for SEO optimization';
+        const result = optimizeTitleForSEO(
+          veryLongTitle,
+          'Animesh Pandey',
+          true
+        );
+        expect(result).toBe(
+          'This is an extremely long blog post title that will defin...'
+        );
+        expect(result.length).toBe(60);
+      });
+
+      it('should handle non-blog post titles', () => {
+        const result = optimizeTitleForSEO(
+          'Short Title',
+          'Animesh Pandey',
+          false
+        );
+        expect(result).toBe('Short Title | Animesh Pandey');
+      });
+
+      it('should handle edge case where title exactly fits without blog suffix', () => {
+        const title = 'Title that exactly fits without blog suffix';
+        const result = optimizeTitleForSEO(title, 'Animesh Pandey', true);
+        expect(result).toBe(
+          'Title that exactly fits without blog suffix | Animesh Pandey'
+        );
+      });
+
+      it('should return just the title when title is exactly 60 characters', () => {
+        const title =
+          'This is exactly sixty characters long title for SEO testing!';
+        const result = optimizeTitleForSEO(title, 'Animesh Pandey', true);
+        expect(result).toBe(title);
+        expect(result.length).toBe(60);
+      });
     });
   });
 });

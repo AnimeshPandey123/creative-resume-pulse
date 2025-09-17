@@ -20,6 +20,15 @@ const nextConfig: NextConfig = {
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
   },
 
+  // Optimize bundle size and reduce HTTP requests
+  experimental: {
+    optimizeCss: true,
+    optimizePackageImports: ['@/components', '@/lib', '@/hooks'],
+  },
+
+  // Compress responses
+  compress: true,
+
   // Headers for security and performance (will be handled by hosting provider)
   async headers() {
     return [
@@ -45,6 +54,43 @@ const nextConfig: NextConfig = {
           {
             key: 'Permissions-Policy',
             value: 'camera=(), microphone=(), geolocation=()',
+          },
+        ],
+      },
+      // Cache static assets for better performance
+      {
+        source: '/_next/static/(.*)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      {
+        source: '/favicon.ico',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000',
+          },
+        ],
+      },
+      {
+        source: '/(.*\\.(png|jpg|jpeg|gif|webp|svg|ico))',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000',
+          },
+        ],
+      },
+      {
+        source: '/(.*\\.(css|js))',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000',
           },
         ],
       },

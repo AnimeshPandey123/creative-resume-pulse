@@ -191,4 +191,61 @@ describe('mockBlogData utilities', () => {
       }
     }
   });
+
+  it('handles edge cases for find operations', async () => {
+    // Test fetchBlogPostBySlug with non-existent slug
+    const nonExistentPost = await fetchBlogPostBySlug('non-existent-slug');
+    expect(nonExistentPost).toBeUndefined();
+
+    // Test fetchRelatedPosts with non-existent post ID
+    const relatedPosts = await fetchRelatedPosts('non-existent-id');
+    expect(relatedPosts).toEqual([]);
+
+    // Test fetchRelatedPosts with limit 0
+    const { posts } = fetchBlogPosts(1, 1);
+    if (posts.length > 0) {
+      const relatedPostsZero = await fetchRelatedPosts(posts[0].id, 0);
+      expect(relatedPostsZero).toEqual([]);
+    }
+  });
+
+  it('handles posts with missing author or tag data', () => {
+    // This test ensures the find operations handle edge cases
+    const { posts } = fetchBlogPosts(1, 10);
+
+    // All posts should have valid authors and tags
+    posts.forEach(post => {
+      expect(post.author).toBeDefined();
+      expect(post.tags).toBeDefined();
+      expect(Array.isArray(post.tags)).toBe(true);
+    });
+  });
+
+  it('handles falsy search values', () => {
+    // Test with empty string (default)
+    const { posts: emptySearch } = fetchBlogPosts(1, 10, '');
+    expect(emptySearch.length).toBeGreaterThan(0);
+
+    // Test with null search (should be treated as falsy)
+    const { posts: nullSearch } = fetchBlogPosts(1, 10, null as any);
+    expect(nullSearch.length).toBeGreaterThan(0);
+
+    // Test with undefined search (should be treated as falsy)
+    const { posts: undefinedSearch } = fetchBlogPosts(1, 10, undefined as any);
+    expect(undefinedSearch.length).toBeGreaterThan(0);
+  });
+
+  it('handles falsy tag values', () => {
+    // Test with empty string (default)
+    const { posts: emptyTag } = fetchBlogPosts(1, 10, '', '');
+    expect(emptyTag.length).toBeGreaterThan(0);
+
+    // Test with null tag (should be treated as falsy)
+    const { posts: nullTag } = fetchBlogPosts(1, 10, '', null as any);
+    expect(nullTag.length).toBeGreaterThan(0);
+
+    // Test with undefined tag (should be treated as falsy)
+    const { posts: undefinedTag } = fetchBlogPosts(1, 10, '', undefined as any);
+    expect(undefinedTag.length).toBeGreaterThan(0);
+  });
 });

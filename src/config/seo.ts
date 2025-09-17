@@ -294,6 +294,41 @@ export const pageMetadata = {
 
 export const blogMetadata = pageMetadata.blog;
 
+// Helper function to truncate text to optimal SEO length
+export function truncateForSEO(text: string, maxLength: number): string {
+  if (text.length <= maxLength) return text;
+  return text.substring(0, maxLength - 3) + '...';
+}
+
+// Helper function to optimize title for SEO
+export function optimizeTitleForSEO(
+  title: string,
+  siteName: string,
+  isBlogPost: boolean = false
+): string {
+  const maxTitleLength = 60; // Optimal for search results
+  const blogSuffix = isBlogPost ? ' Blog' : '';
+  const fullTitle = `${title} | ${siteName}${blogSuffix}`;
+
+  if (fullTitle.length <= maxTitleLength) {
+    return fullTitle;
+  }
+
+  // If too long, try without blog suffix
+  const titleWithoutBlog = `${title} | ${siteName}`;
+  if (titleWithoutBlog.length <= maxTitleLength) {
+    return titleWithoutBlog;
+  }
+
+  // If still too long, try just the title
+  if (title.length <= maxTitleLength) {
+    return title;
+  }
+
+  // Truncate the main title if still too long
+  return truncateForSEO(title, maxTitleLength);
+}
+
 export function generateBlogPostMetadata(post: {
   title: string;
   description: string;
@@ -302,10 +337,16 @@ export function generateBlogPostMetadata(post: {
   tags?: string[];
 }): Metadata {
   const postUrl = `${SITE_CONFIG.url}/blog/${post.slug}`;
+  const optimizedTitle = optimizeTitleForSEO(
+    post.title,
+    SITE_CONFIG.name,
+    true
+  );
+  const optimizedDescription = truncateForSEO(post.description, 160);
 
   return {
-    title: `${post.title} | ${SITE_CONFIG.name} Blog`,
-    description: post.description,
+    title: optimizedTitle,
+    description: optimizedDescription,
     keywords: [
       ...(post.tags || []),
       'Software Engineering',
@@ -509,6 +550,7 @@ export function generateBlogPostStructuredData(post: {
   url: string;
   tags: string[];
   slug: string;
+  readingTime?: number;
 }) {
   return {
     '@context': 'https://schema.org',
@@ -521,11 +563,17 @@ export function generateBlogPostStructuredData(post: {
       '@type': 'Person',
       name: post.author,
       url: SITE_CONFIG.url,
+      jobTitle: 'Senior Software Engineer',
+      sameAs: [SITE_CONFIG.author.linkedin],
     },
     publisher: {
       '@type': 'Person',
       name: SITE_CONFIG.name,
       url: SITE_CONFIG.url,
+      logo: {
+        '@type': 'ImageObject',
+        url: SITE_CONFIG.avatarUrl,
+      },
     },
     description: post.description,
     mainEntityOfPage: {
@@ -535,10 +583,15 @@ export function generateBlogPostStructuredData(post: {
     keywords: post.tags.join(', '),
     articleSection: post.tags.length > 0 ? post.tags[0] : 'Technology',
     wordCount: post.description.split(' ').length,
+    timeRequired: post.readingTime ? `PT${post.readingTime}M` : undefined,
     inLanguage: 'en-US',
     isAccessibleForFree: true,
     url: post.url,
     identifier: post.slug,
+    about: post.tags.map(tag => ({
+      '@type': 'Thing',
+      name: tag,
+    })),
   };
 }
 

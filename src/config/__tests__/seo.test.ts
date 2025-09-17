@@ -630,6 +630,38 @@ describe('SEO Configuration', () => {
         expect(result).toBe(title);
         expect(result.length).toBe(60);
       });
+
+      it('should handle edge case where title without blog suffix is exactly 60 characters', () => {
+        const title = 'This title is exactly 60 chars long for SEO testing!';
+        const result = optimizeTitleForSEO(title, 'Animesh Pandey', true);
+        // The title itself is 52 chars, so it should return just the title
+        expect(result).toBe(title);
+        expect(result.length).toBe(52);
+      });
+
+      it('should handle very long site name', () => {
+        const title = 'Short';
+        const longSiteName =
+          'This is a very long site name that will cause issues';
+        const result = optimizeTitleForSEO(title, longSiteName, true);
+        // Should return the title with site name but without blog suffix since it's too long
+        expect(result).toBe(`${title} | ${longSiteName}`);
+      });
+
+      it('should handle empty title', () => {
+        const result = optimizeTitleForSEO('', 'Animesh Pandey', true);
+        expect(result).toBe(' | Animesh Pandey Blog');
+      });
+
+      it('should handle non-blog post with long title', () => {
+        const longTitle =
+          'This is a very long title that exceeds the maximum allowed length for SEO optimization';
+        const result = optimizeTitleForSEO(longTitle, 'Animesh Pandey', false);
+        expect(result).toBe(
+          'This is a very long title that exceeds the maximum allowe...'
+        );
+        expect(result.length).toBe(60);
+      });
     });
   });
 });

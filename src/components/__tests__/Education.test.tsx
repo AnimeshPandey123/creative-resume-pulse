@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import Education from '../Education';
+import Education, { createIntersectionObserverHandler } from '../Education';
 
 // Mock IntersectionObserver
 const mockIntersectionObserver = jest.fn();
@@ -97,19 +97,6 @@ describe('Education', () => {
     expect(listItems).toHaveLength(2);
   });
 
-  it('sets up IntersectionObserver on mount', () => {
-    render(<Education />);
-
-    expect(mockIntersectionObserver).toHaveBeenCalledWith(
-      expect.any(Function),
-      {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.1,
-      }
-    );
-  });
-
   it('handles empty education items array', () => {
     // This test would require a more complex setup to mock empty items
     // For now, we'll test that the component renders with the mocked data
@@ -143,94 +130,203 @@ describe('Education', () => {
     expect(timeElements[0]).toHaveAttribute('datetime', '2025 - present');
     expect(timeElements[1]).toHaveAttribute('datetime', '2015 - 2019');
   });
+});
 
-  it('cleans up IntersectionObserver on unmount', () => {
-    const { unmount } = render(<Education />);
-    const mockObserver = mockIntersectionObserver.mock.results[0].value;
+describe('createIntersectionObserverHandler', () => {
+  let mockDependencies: any;
 
-    unmount();
-
-    // The cleanup function should be called, but we can't easily test it
-    // since it's internal to the useEffect. We'll just verify the observer was created.
-    expect(mockObserver).toBeDefined();
+  beforeEach(() => {
+    mockDependencies = {
+      IntersectionObserver: jest
+        .fn()
+        .mockImplementation((callback, options) => ({
+          observe: jest.fn(),
+          unobserve: jest.fn(),
+          disconnect: jest.fn(),
+          callback,
+          options,
+        })),
+    };
   });
 
-  it('triggers IntersectionObserver callback when elements intersect', () => {
-    let observerCallback: ((entries: any[]) => void) | undefined;
+  describe('createObserver', () => {
+    it('creates observer with correct options', () => {
+      const handler = createIntersectionObserverHandler(mockDependencies);
+      const mockCallback = jest.fn();
 
-    // Capture the callback function
-    mockIntersectionObserver.mockImplementation(callback => {
-      observerCallback = callback;
-      return {
-        observe: jest.fn(),
-        unobserve: jest.fn(),
-        disconnect: jest.fn(),
-      };
+      const observer = handler.createObserver(mockCallback);
+
+      expect(mockDependencies.IntersectionObserver).toHaveBeenCalledWith(
+        mockCallback,
+        {
+          root: null,
+          rootMargin: '0px',
+          threshold: 0.1,
+        }
+      );
+      expect(observer).toBeDefined();
     });
-
-    render(<Education />);
-
-    // Create mock entries that simulate intersection
-    const mockEntries = [
-      {
-        isIntersecting: true,
-        target: {
-          classList: {
-            add: jest.fn(),
-          },
-        },
-      },
-    ];
-
-    // Trigger the callback
-    if (observerCallback) {
-      observerCallback(mockEntries);
-    }
-
-    // Verify the callback was called with the correct options
-    expect(mockIntersectionObserver).toHaveBeenCalledWith(
-      expect.any(Function),
-      {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.1,
-      }
-    );
   });
 
-  it('handles non-intersecting elements in observer callback', () => {
-    let observerCallback: ((entries: any[]) => void) | undefined;
-
-    // Capture the callback function
-    mockIntersectionObserver.mockImplementation(callback => {
-      observerCallback = callback;
-      return {
-        observe: jest.fn(),
+  describe('handleIntersection', () => {
+    it('handles intersecting entries correctly', () => {
+      const handler = createIntersectionObserverHandler(mockDependencies);
+      const mockObserver = {
         unobserve: jest.fn(),
-        disconnect: jest.fn(),
       };
+
+      const mockTarget = {
+        classList: {
+          add: jest.fn(),
+        },
+      };
+
+      const entries = [
+        {
+          isIntersecting: true,
+          target: mockTarget,
+        },
+      ];
+
+      handler.handleIntersection(entries, mockObserver);
+
+      expect(mockTarget.classList.add).toHaveBeenCalledWith(
+        'animate-fade-in-right'
+      );
+      expect(mockObserver.unobserve).toHaveBeenCalledWith(mockTarget);
     });
 
-    render(<Education />);
+    it('ignores non-intersecting entries', () => {
+      const handler = createIntersectionObserverHandler(mockDependencies);
+      const mockObserver = {
+        unobserve: jest.fn(),
+      };
 
-    // Create mock entries that simulate non-intersection
-    const mockEntries = [
-      {
-        isIntersecting: false,
-        target: {
-          classList: {
-            add: jest.fn(),
-          },
+      const mockTarget = {
+        classList: {
+          add: jest.fn(),
         },
-      },
-    ];
+      };
 
-    // Trigger the callback
-    if (observerCallback) {
-      observerCallback(mockEntries);
-    }
+      const entries = [
+        {
+          isIntersecting: false,
+          target: mockTarget,
+        },
+      ];
 
-    // Verify the callback was called
-    expect(mockIntersectionObserver).toHaveBeenCalled();
+      handler.handleIntersection(entries, mockObserver);
+
+      expect(mockTarget.classList.add).not.toHaveBeenCalled();
+      expect(mockObserver.unobserve).not.toHaveBeenCalled();
+    });
+
+    it('handles multiple entries', () => {
+      const handler = createIntersectionObserverHandler(mockDependencies);
+      const mockObserver = {
+        unobserve: jest.fn(),
+      };
+
+      const mockTarget1 = { classList: { add: jest.fn() } };
+      const mockTarget2 = { classList: { add: jest.fn() } };
+
+      const entries = [
+        { isIntersecting: true, target: mockTarget1 },
+        { isIntersecting: false, target: mockTarget2 },
+      ];
+
+      handler.handleIntersection(entries, mockObserver);
+
+      expect(mockTarget1.classList.add).toHaveBeenCalledWith(
+        'animate-fade-in-right'
+      );
+      expect(mockObserver.unobserve).toHaveBeenCalledWith(mockTarget1);
+      expect(mockTarget2.classList.add).not.toHaveBeenCalled();
+      expect(mockObserver.unobserve).not.toHaveBeenCalledWith(mockTarget2);
+    });
+  });
+
+  describe('observeElements', () => {
+    it('observes valid elements only', () => {
+      const handler = createIntersectionObserverHandler(mockDependencies);
+      const mockObserver = {
+        observe: jest.fn(),
+      };
+
+      const mockElement1 = document.createElement('div');
+      const mockElement2 = document.createElement('div');
+
+      const elements = [mockElement1, null, mockElement2];
+
+      handler.observeElements(mockObserver, elements);
+
+      expect(mockObserver.observe).toHaveBeenCalledTimes(2);
+      expect(mockObserver.observe).toHaveBeenCalledWith(mockElement1);
+      expect(mockObserver.observe).toHaveBeenCalledWith(mockElement2);
+    });
+
+    it('handles empty elements array', () => {
+      const handler = createIntersectionObserverHandler(mockDependencies);
+      const mockObserver = {
+        observe: jest.fn(),
+      };
+
+      handler.observeElements(mockObserver, []);
+
+      expect(mockObserver.observe).not.toHaveBeenCalled();
+    });
+
+    it('handles all null elements', () => {
+      const handler = createIntersectionObserverHandler(mockDependencies);
+      const mockObserver = {
+        observe: jest.fn(),
+      };
+
+      handler.observeElements(mockObserver, [null, null]);
+
+      expect(mockObserver.observe).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('unobserveElements', () => {
+    it('unobserves valid elements only', () => {
+      const handler = createIntersectionObserverHandler(mockDependencies);
+      const mockObserver = {
+        unobserve: jest.fn(),
+      };
+
+      const mockElement1 = document.createElement('div');
+      const mockElement2 = document.createElement('div');
+
+      const elements = [mockElement1, null, mockElement2];
+
+      handler.unobserveElements(mockObserver, elements);
+
+      expect(mockObserver.unobserve).toHaveBeenCalledTimes(2);
+      expect(mockObserver.unobserve).toHaveBeenCalledWith(mockElement1);
+      expect(mockObserver.unobserve).toHaveBeenCalledWith(mockElement2);
+    });
+
+    it('handles empty elements array', () => {
+      const handler = createIntersectionObserverHandler(mockDependencies);
+      const mockObserver = {
+        unobserve: jest.fn(),
+      };
+
+      handler.unobserveElements(mockObserver, []);
+
+      expect(mockObserver.unobserve).not.toHaveBeenCalled();
+    });
+
+    it('handles all null elements', () => {
+      const handler = createIntersectionObserverHandler(mockDependencies);
+      const mockObserver = {
+        unobserve: jest.fn(),
+      };
+
+      handler.unobserveElements(mockObserver, [null, null]);
+
+      expect(mockObserver.unobserve).not.toHaveBeenCalled();
+    });
   });
 });

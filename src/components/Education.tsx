@@ -3,36 +3,80 @@
 import React, { useEffect, useRef } from 'react';
 import { educationData } from '@/data/landingData';
 
-const Education: React.FC = () => {
-  const educationItemsRef = useRef<(HTMLElement | null)[]>([]);
+// Dependencies interface for better testability
+interface IntersectionObserverDependencies {
+  IntersectionObserver: typeof IntersectionObserver;
+}
 
-  useEffect(() => {
+// Default dependencies (browser environment)
+const defaultDependencies: IntersectionObserverDependencies = {
+  IntersectionObserver: window.IntersectionObserver,
+};
+
+// Extracted intersection observer logic for better testability
+export const createIntersectionObserverHandler = (
+  dependencies: IntersectionObserverDependencies = defaultDependencies
+) => {
+  const createObserver = (callback: (entries: any[]) => void) => {
     const options = {
       root: null,
       rootMargin: '0px',
       threshold: 0.1,
     };
 
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('animate-fade-in-right');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, options);
+    return new dependencies.IntersectionObserver(callback, options);
+  };
 
-    const currentRefs = educationItemsRef.current;
-    currentRefs.forEach(item => {
+  const handleIntersection = (entries: any[], observer: any) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('animate-fade-in-right');
+        observer.unobserve(entry.target);
+      }
+    });
+  };
+
+  const observeElements = (observer: any, elements: (HTMLElement | null)[]) => {
+    elements.forEach(item => {
       if (item) observer.observe(item);
     });
+  };
+
+  const unobserveElements = (
+    observer: any,
+    elements: (HTMLElement | null)[]
+  ) => {
+    elements.forEach(item => {
+      if (item) observer.unobserve(item);
+    });
+  };
+
+  return {
+    createObserver,
+    handleIntersection,
+    observeElements,
+    unobserveElements,
+  };
+};
+
+export const Education: React.FC<{
+  dependencies?: IntersectionObserverDependencies;
+}> = ({ dependencies = defaultDependencies }) => {
+  const educationItemsRef = useRef<(HTMLElement | null)[]>([]);
+  const observerHandler = createIntersectionObserverHandler(dependencies);
+
+  useEffect(() => {
+    const observer = observerHandler.createObserver(entries => {
+      observerHandler.handleIntersection(entries, observer);
+    });
+
+    const currentRefs = educationItemsRef.current;
+    observerHandler.observeElements(observer, currentRefs);
 
     return () => {
-      currentRefs.forEach(item => {
-        if (item) observer.unobserve(item);
-      });
+      observerHandler.unobserveElements(observer, currentRefs);
     };
-  }, []);
+  }, [dependencies]);
 
   return (
     <section
@@ -89,4 +133,6 @@ const Education: React.FC = () => {
   );
 };
 
-export default Education;
+// Default export for backward compatibility
+const DefaultEducation: React.FC = () => <Education />;
+export default DefaultEducation;

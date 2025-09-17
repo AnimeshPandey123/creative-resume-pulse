@@ -339,6 +339,24 @@ describe('SEO Configuration', () => {
         expect(structuredData.articleSection).toBe('Technology');
         expect(structuredData.keywords).toBe('');
       });
+
+      it('should handle missing reading time', () => {
+        const postWithoutReadingTime = { ...mockPost, readingTime: undefined };
+        const structuredData = generateBlogPostStructuredData(
+          postWithoutReadingTime
+        );
+
+        expect(structuredData.timeRequired).toBeUndefined();
+      });
+
+      it('should handle zero reading time', () => {
+        const postWithZeroReadingTime = { ...mockPost, readingTime: 0 };
+        const structuredData = generateBlogPostStructuredData(
+          postWithZeroReadingTime
+        );
+
+        expect(structuredData.timeRequired).toBeUndefined();
+      });
     });
 
     describe('generateBreadcrumbStructuredData', () => {

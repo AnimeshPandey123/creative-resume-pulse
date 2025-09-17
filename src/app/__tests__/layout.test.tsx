@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import RootLayout from '../layout';
 import { baseMetadata, mainStructuredData } from '@/config/seo';
 
@@ -315,5 +315,24 @@ describe('Layout Metadata', () => {
     expect(baseMetadata.twitter).toBeDefined();
     expect((baseMetadata.twitter as any)?.card).toBe('summary_large_image');
     expect(baseMetadata.twitter?.creator).toBe('@animeshpandey');
+  });
+
+  it('should handle missing GA measurement ID', () => {
+    // Store original env var
+    const originalGaId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
+
+    // Remove GA measurement ID
+    delete process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
+
+    const testChildren = <div>Test content</div>;
+    render(<RootLayout>{testChildren}</RootLayout>);
+
+    // Should still render without crashing
+    expect(screen.getByTestId('client-providers')).toBeInTheDocument();
+
+    // Restore original env var
+    if (originalGaId) {
+      process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID = originalGaId;
+    }
   });
 });

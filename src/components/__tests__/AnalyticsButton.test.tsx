@@ -99,4 +99,19 @@ describe('AnalyticsButton', () => {
       'navigation'
     );
   });
+
+  it('should call original onClick handler when provided', () => {
+    const handleClick = jest.fn();
+    const { getByRole } = render(
+      <AnalyticsButton elementName="test-button" onClick={handleClick}>
+        Click me
+      </AnalyticsButton>
+    );
+
+    const button = getByRole('button');
+    fireEvent.click(button);
+
+    expect(handleClick).toHaveBeenCalled();
+    expect(mockTrackClick).toHaveBeenCalledWith('test-button', undefined);
+  });
 });

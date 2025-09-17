@@ -88,6 +88,54 @@ describe('RouteTracker', () => {
     });
   });
 
+  it('should handle projects page', () => {
+    mockUsePathname.mockReturnValue('/projects');
+    mockUseSearchParams.mockReturnValue(new URLSearchParams() as any);
+
+    render(<RouteTracker />);
+
+    expect(mockTrackEvent).toHaveBeenCalledWith('page_view', {
+      page_path: '/projects',
+      page_title: 'Projects',
+    });
+  });
+
+  it('should handle experience page', () => {
+    mockUsePathname.mockReturnValue('/experience');
+    mockUseSearchParams.mockReturnValue(new URLSearchParams() as any);
+
+    render(<RouteTracker />);
+
+    expect(mockTrackEvent).toHaveBeenCalledWith('page_view', {
+      page_path: '/experience',
+      page_title: 'Experience',
+    });
+  });
+
+  it('should handle education page', () => {
+    mockUsePathname.mockReturnValue('/education');
+    mockUseSearchParams.mockReturnValue(new URLSearchParams() as any);
+
+    render(<RouteTracker />);
+
+    expect(mockTrackEvent).toHaveBeenCalledWith('page_view', {
+      page_path: '/education',
+      page_title: 'Education',
+    });
+  });
+
+  it('should handle skills page', () => {
+    mockUsePathname.mockReturnValue('/skills');
+    mockUseSearchParams.mockReturnValue(new URLSearchParams() as any);
+
+    render(<RouteTracker />);
+
+    expect(mockTrackEvent).toHaveBeenCalledWith('page_view', {
+      page_path: '/skills',
+      page_title: 'Skills',
+    });
+  });
+
   it('should handle unknown pages', () => {
     mockUsePathname.mockReturnValue('/unknown-page');
     mockUseSearchParams.mockReturnValue(new URLSearchParams() as any);

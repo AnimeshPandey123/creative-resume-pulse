@@ -22,7 +22,6 @@ const nextConfig: NextConfig = {
 
   // Optimize bundle size and reduce HTTP requests
   experimental: {
-    optimizeCss: true,
     optimizePackageImports: ['@/components', '@/lib', '@/hooks'],
   },
 
@@ -77,7 +76,7 @@ const nextConfig: NextConfig = {
         ],
       },
       {
-        source: '/(.*\\.(png|jpg|jpeg|gif|webp|svg|ico))',
+        source: '/:path*\\.(png|jpg|jpeg|gif|webp|svg|ico)',
         headers: [
           {
             key: 'Cache-Control',
@@ -86,7 +85,7 @@ const nextConfig: NextConfig = {
         ],
       },
       {
-        source: '/(.*\\.(css|js))',
+        source: '/:path*\\.(css|js)',
         headers: [
           {
             key: 'Cache-Control',

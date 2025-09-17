@@ -1,39 +1,86 @@
 'use client';
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useMemo } from 'react';
 import { ExternalLink } from 'lucide-react';
 import { projectsData } from '@/data/landingData';
 
-const Projects: React.FC = () => {
-  const projectCardsRef = useRef<(HTMLElement | null)[]>([]);
+// Dependencies interface for better testability
+interface IntersectionObserverDependencies {
+  IntersectionObserver: typeof IntersectionObserver;
+}
 
-  useEffect(() => {
+// Default dependencies (browser environment)
+const defaultDependencies: IntersectionObserverDependencies = {
+  IntersectionObserver: window.IntersectionObserver,
+};
+
+// Extracted intersection observer logic for better testability
+export const createProjectsIntersectionObserverHandler = (
+  dependencies: IntersectionObserverDependencies = defaultDependencies
+) => {
+  const createObserver = (callback: (entries: any[]) => void) => {
     const options = {
       root: null,
       rootMargin: '0px',
       threshold: 0.1,
     };
 
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('animate-scale-up');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, options);
+    return new dependencies.IntersectionObserver(callback, options);
+  };
 
-    const currentRefs = projectCardsRef.current;
-    currentRefs.forEach(card => {
-      if (card) observer.observe(card);
+  const handleIntersection = (entries: any[], observer: any) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('animate-scale-up');
+        observer.unobserve(entry.target);
+      }
+    });
+  };
+
+  const observeElements = (observer: any, elements: (HTMLElement | null)[]) => {
+    elements.forEach(item => {
+      if (item) observer.observe(item);
+    });
+  };
+
+  const unobserveElements = (
+    observer: any,
+    elements: (HTMLElement | null)[]
+  ) => {
+    elements.forEach(item => {
+      if (item) observer.unobserve(item);
+    });
+  };
+
+  return {
+    createObserver,
+    handleIntersection,
+    observeElements,
+    unobserveElements,
+  };
+};
+
+export const Projects: React.FC<{
+  dependencies?: IntersectionObserverDependencies;
+}> = ({ dependencies = defaultDependencies }) => {
+  const projectCardsRef = useRef<(HTMLElement | null)[]>([]);
+  const observerHandler = useMemo(
+    () => createProjectsIntersectionObserverHandler(dependencies),
+    [dependencies]
+  );
+
+  useEffect(() => {
+    const observer = observerHandler.createObserver(entries => {
+      observerHandler.handleIntersection(entries, observer);
     });
 
+    const currentRefs = projectCardsRef.current;
+    observerHandler.observeElements(observer, currentRefs);
+
     return () => {
-      currentRefs.forEach(card => {
-        if (card) observer.unobserve(card);
-      });
+      observerHandler.unobserveElements(observer, currentRefs);
     };
-  }, []);
+  }, [observerHandler]);
 
   return (
     <section
@@ -126,4 +173,6 @@ const Projects: React.FC = () => {
   );
 };
 
-export default Projects;
+// Default export for backward compatibility
+const DefaultProjects: React.FC = () => <Projects />;
+export default DefaultProjects;

@@ -40,4 +40,56 @@ describe('Projects', () => {
 
     expect(container.firstChild).toHaveClass('py-20', 'bg-white');
   });
+
+  it('should trigger animation when project cards intersect', () => {
+    const mockIntersectionObserver = jest.fn();
+    const mockObserve = jest.fn();
+    const mockUnobserve = jest.fn();
+
+    let savedCallback: any;
+    mockIntersectionObserver.mockImplementation(callback => {
+      // Store the callback for testing
+      savedCallback = callback;
+      return {
+        observe: mockObserve,
+        unobserve: mockUnobserve,
+        disconnect: jest.fn(),
+      };
+    });
+
+    global.IntersectionObserver = mockIntersectionObserver;
+
+    const { container } = render(<Projects />);
+
+    // Verify observer was created and observe was called
+    expect(mockIntersectionObserver).toHaveBeenCalledWith(
+      expect.any(Function),
+      expect.objectContaining({
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.1,
+      })
+    );
+    expect(mockObserve).toHaveBeenCalled();
+
+    // Simulate intersection for project cards
+    const projectCards =
+      container.querySelectorAll('[data-testid="project-card"]') ||
+      container.querySelectorAll('article');
+
+    if (projectCards.length > 0) {
+      const mockEntry = {
+        target: projectCards[0],
+        isIntersecting: true,
+      };
+
+      // Call the intersection observer callback
+      if (savedCallback) {
+        savedCallback([mockEntry]);
+
+        // Verify unobserve was called after intersection
+        expect(mockUnobserve).toHaveBeenCalledWith(mockEntry.target);
+      }
+    }
+  });
 });

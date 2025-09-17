@@ -220,4 +220,52 @@ describe('Contact', () => {
     expect(emailInput).toHaveAttribute('type', 'email');
     expect(messageInput.tagName).toBe('TEXTAREA');
   });
+
+  it('should trigger animation when element intersects', () => {
+    const mockIntersectionObserver = jest.fn();
+    const mockObserve = jest.fn();
+    const mockUnobserve = jest.fn();
+
+    let savedCallback: any;
+    mockIntersectionObserver.mockImplementation(callback => {
+      // Store the callback for testing
+      savedCallback = callback;
+      return {
+        observe: mockObserve,
+        unobserve: mockUnobserve,
+        disconnect: jest.fn(),
+      };
+    });
+
+    global.IntersectionObserver = mockIntersectionObserver;
+
+    const { container } = render(<Contact />);
+
+    // Verify observer was created and observe was called
+    expect(mockIntersectionObserver).toHaveBeenCalledWith(
+      expect.any(Function),
+      expect.objectContaining({
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.1,
+      })
+    );
+    expect(mockObserve).toHaveBeenCalled();
+
+    // Simulate intersection
+    const mockEntry = {
+      target:
+        container.querySelector('[data-testid="contact-content"]') ||
+        container.firstChild,
+      isIntersecting: true,
+    };
+
+    // Call the intersection observer callback
+    if (savedCallback) {
+      savedCallback([mockEntry]);
+
+      // Verify unobserve was called after intersection
+      expect(mockUnobserve).toHaveBeenCalledWith(mockEntry.target);
+    }
+  });
 });

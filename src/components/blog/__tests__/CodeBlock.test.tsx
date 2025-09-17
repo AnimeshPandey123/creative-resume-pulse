@@ -81,4 +81,40 @@ describe('CodeBlock', () => {
 
     jest.useRealTimers();
   });
+
+  it('handles clipboard write errors gracefully', async () => {
+    const consoleSpy = jest
+      .spyOn(console, 'error')
+      .mockImplementation(() => {});
+    const mockWriteText = jest
+      .fn()
+      .mockRejectedValue(new Error('Clipboard access denied'));
+
+    Object.assign(navigator, {
+      clipboard: {
+        writeText: mockWriteText,
+      },
+    });
+
+    render(<CodeBlock language={mockLanguage}>{mockCode}</CodeBlock>);
+
+    const codeBlock = screen.getByText(mockCode).closest('div');
+    if (codeBlock) {
+      fireEvent.mouseEnter(codeBlock);
+      const copyButton = screen.getByText('Copy');
+      fireEvent.click(copyButton);
+
+      await waitFor(() => {
+        expect(mockWriteText).toHaveBeenCalledWith(mockCode);
+        expect(consoleSpy).toHaveBeenCalledWith(
+          'Failed to copy code:',
+          expect.any(Error)
+        );
+        // Should not show "Copied!" state when error occurs
+        expect(screen.queryByText('Copied!')).not.toBeInTheDocument();
+      });
+    }
+
+    consoleSpy.mockRestore();
+  });
 });

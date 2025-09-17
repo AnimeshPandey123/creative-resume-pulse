@@ -2,6 +2,7 @@ import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import Navigation from '../Navigation';
 import { usePathname } from 'next/navigation';
+import { useTheme } from '@/components/ThemeProvider';
 
 // Mock Next.js components and hooks
 jest.mock('next/link', () => {
@@ -306,5 +307,25 @@ describe('Navigation', () => {
 
     // Menu should be closed
     expect(screen.queryByTestId('close-icon')).not.toBeInTheDocument();
+  });
+
+  it('should render mobile theme toggle with correct aria-label when theme is dark', () => {
+    // Mock dark theme
+    (useTheme as jest.Mock).mockReturnValue({
+      theme: 'dark',
+      toggleTheme: mockToggleTheme,
+    });
+
+    render(<Navigation />);
+
+    // Get mobile theme button (second instance)
+    const mobileThemeButton = screen.getAllByRole('button', {
+      name: /switch to light mode/i,
+    })[1];
+
+    expect(mobileThemeButton).toHaveAttribute(
+      'aria-label',
+      'Switch to light mode'
+    );
   });
 });

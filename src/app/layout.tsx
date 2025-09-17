@@ -56,6 +56,12 @@ export default function RootLayout({
           as="image"
           type="image/png"
         />
+        <link
+          rel="preload"
+          href="/apple-touch-icon.png"
+          as="image"
+          type="image/png"
+        />
 
         {/* Favicon and App Icons */}
         <link rel="icon" type="image/x-icon" href="/favicon.ico" />

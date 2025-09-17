@@ -60,9 +60,25 @@ const PerformanceOptimizer: React.FC<PerformanceOptimizerProps> = ({
         // Add decoding="async" for better performance
         imgElement.decoding = 'async';
 
-        // Add error handling
+        // Ensure proper alt attributes for SEO
+        if (!imgElement.alt || imgElement.alt.trim() === '') {
+          // Generate meaningful alt text from image src or context
+          const src = imgElement.src;
+          const filename = src.split('/').pop()?.split('.')[0] || 'image';
+          imgElement.alt = filename
+            .replace(/[-_]/g, ' ')
+            .replace(/\b\w/g, l => l.toUpperCase());
+        }
+
+        // Add error handling with fallback
         imgElement.onerror = () => {
           imgElement.style.display = 'none';
+          console.warn('Failed to load image:', imgElement.src);
+        };
+
+        // Add loading success handler
+        imgElement.onload = () => {
+          imgElement.style.opacity = '1';
         };
       });
     };

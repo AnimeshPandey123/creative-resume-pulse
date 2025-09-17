@@ -82,6 +82,7 @@ export default async function BlogPostPage({
       url: `https://animeshpandey.com/blog/${post.slug}`,
       tags: post.tags.map(tag => tag.name),
       slug: post.slug,
+      readingTime: post.readingTime,
     });
 
     return (

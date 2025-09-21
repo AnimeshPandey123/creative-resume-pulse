@@ -32,7 +32,9 @@ const BlogPagination: React.FC<BlogPaginationProps> = ({
     router.push(`/blog?${newParams.toString()}`);
 
     // Scroll to top when changing pages
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (typeof window !== 'undefined') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   };
 
   // Don't render pagination if only one page

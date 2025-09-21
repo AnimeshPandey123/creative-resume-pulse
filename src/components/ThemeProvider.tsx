@@ -42,17 +42,25 @@ interface ThemeDependencies {
 // Default dependencies (browser environment)
 const defaultDependencies: ThemeDependencies = {
   localStorage: {
-    getItem: (key: string) => localStorage.getItem(key),
-    setItem: (key: string, value: string) => localStorage.setItem(key, value),
+    getItem: (key: string) =>
+      typeof window !== 'undefined' ? localStorage.getItem(key) : null,
+    setItem: (key: string, value: string) =>
+      typeof window !== 'undefined' ? localStorage.setItem(key, value) : undefined,
   },
-  matchMedia: (query: string) => window.matchMedia(query),
+  matchMedia: (query: string) =>
+    typeof window !== 'undefined' ? window.matchMedia(query) : {
+      matches: false,
+      media: query,
+      addEventListener: () => { },
+      removeEventListener: () => { },
+    },
   document: {
     documentElement: {
       classList: {
         remove: (...classes: string[]) =>
-          document.documentElement.classList.remove(...classes),
+          typeof document !== 'undefined' ? document.documentElement.classList.remove(...classes) : undefined,
         add: (className: string) =>
-          document.documentElement.classList.add(className),
+          typeof document !== 'undefined' ? document.documentElement.classList.add(className) : undefined,
       },
     },
   },

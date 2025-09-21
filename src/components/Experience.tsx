@@ -10,7 +10,7 @@ interface IntersectionObserverDependencies {
 
 // Default dependencies (browser environment)
 const defaultDependencies: IntersectionObserverDependencies = {
-  IntersectionObserver: window.IntersectionObserver,
+  IntersectionObserver: typeof window !== 'undefined' ? window.IntersectionObserver : undefined as any,
 };
 
 // Extracted intersection observer logic for better testability

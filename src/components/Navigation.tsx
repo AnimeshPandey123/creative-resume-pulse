@@ -25,6 +25,8 @@ const Navigation: React.FC = () => {
   ];
 
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
     };
@@ -37,7 +39,9 @@ const Navigation: React.FC = () => {
   const handleSectionNavigation = (e: React.MouseEvent, href: string) => {
     if (href.startsWith('#') && !isHomePage) {
       e.preventDefault();
-      window.location.href = `/${href}`;
+      if (typeof window !== 'undefined') {
+        window.location.href = `/${href}`;
+      }
     }
   };
 

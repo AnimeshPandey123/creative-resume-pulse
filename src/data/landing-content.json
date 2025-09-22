@@ -23,7 +23,7 @@
       "Outside of building systems, I mentor junior developers, lead technical interviews, and stay ahead of trends in DevOps, AI tooling, and CMS platforms to continuously deliver value."
     ],
     "contact": {
-      "location": "North Road, Wolverhampton",
+      "location": "Preston, UK",
       "email": "animeshpandey.pro@gmail.com",
       "phone": "+44 7775 658685"
     }
@@ -200,7 +200,6 @@
           "Vue.js",
           "React",
           "Next.js",
-          "Node.js",
           "Selenium",
           "LangChain",
           "LLMs (OpenAI, Gemini, Ollama)",
@@ -264,7 +263,7 @@
     "info": {
       "location": {
         "label": "Location",
-        "value": "North Road, Wolverhampton"
+        "value": "Preston, UK"
       },
       "email": {
         "label": "Email",

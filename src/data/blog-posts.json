@@ -20,8 +20,8 @@
     },
     {
       "id": "3",
-      "name": "Trading",
-      "slug": "trading"
+      "name": "Financial Trading",
+      "slug": "financial-trading"
     },
     {
       "id": "4",
@@ -77,6 +77,71 @@
       "id": "14",
       "name": "Containerization",
       "slug": "containerization"
+    },
+    {
+      "id": "15",
+      "name": "React",
+      "slug": "react"
+    },
+    {
+      "id": "16",
+      "name": "Frontend Development",
+      "slug": "frontend-development"
+    },
+    {
+      "id": "17",
+      "name": "Backend Development",
+      "slug": "backend-development"
+    },
+    {
+      "id": "18",
+      "name": "Full-Stack Development",
+      "slug": "fullstack-development"
+    },
+    {
+      "id": "19",
+      "name": "API Development",
+      "slug": "api-development"
+    },
+    {
+      "id": "20",
+      "name": "Machine Learning & AI",
+      "slug": "machine-learning-ai"
+    },
+    {
+      "id": "21",
+      "name": "Candlestick Patterns",
+      "slug": "candlestick-patterns"
+    },
+    {
+      "id": "22",
+      "name": "Deployment & Scaling",
+      "slug": "deployment-scaling"
+    },
+    {
+      "id": "23",
+      "name": "Cloud & DevOps",
+      "slug": "cloud-devops"
+    },
+    {
+      "id": "24",
+      "name": "Headless CMS",
+      "slug": "headless-cms"
+    },
+    {
+      "id": "25",
+      "name": "JavaScript Frameworks",
+      "slug": "javascript-frameworks"
+    },
+    {
+      "id": "26",
+      "name": "Performance Optimization",
+      "slug": "performance-optimization"
+    },
+    {
+      "id": "27",
+      "name": "Drupal",
+      "slug": "drupal"
     }
   ],
   "posts": [
@@ -85,60 +150,55 @@
       "title": "TA-Lib Python: Candlestick Pattern Detection Guide",
       "slug": "ta-lib-candlestick-pattern-detection-python",
       "excerpt": "Learn to implement TA-Lib in Python for automated candlestick pattern recognition. Complete guide with code examples for trading analysis.",
-      "coverImage": "http://d1iukwsziul56d.cloudfront.net/drupal-prodv2/s3fs-public/2025-03/DALL%C2%B7E%202025-02-27%2017.27.28%20-%20A%20financial%20trading%20chart%20with%20candlestick%20patterns%20highlighted.%20The%20chart%20includes%20green%20and%20red%20candlesticks%20representing%20bullish%20and%20bearish%20trends_1.webp",
+      "coverImage": "https://d1iukwsziul56d.cloudfront.net/drupal-prodv2/s3fs-public/2025-03/DALL%C2%B7E%202025-02-27%2017.27.28%20-%20A%20financial%20trading%20chart%20with%20candlestick%20patterns%20highlighted.%20The%20chart%20includes%20green%20and%20red%20candlesticks%20representing%20bullish%20and%20bearish%20trends_1.webp",
       "publishDate": "2025-03-13",
       "readingTime": 8,
       "authorId": "1",
-      "tagIds": ["1", "2", "3"],
-      "contentPath": "src/content/blog/ta-lib-candlestick-pattern-detection-python.md"
+      "tagIds": ["1", "2", "3", "20", "21"]
     },
     {
       "id": "c36ef801-33fc-454b-b619-85e7debce5e3",
       "title": "Vue.js Beginner Guide: Practical Implementation",
       "slug": "a-beginners-guide-to-vuejs-practical-implementation-and-real-world-applications",
       "excerpt": "Complete Vue.js guide for beginners. Learn practical implementation with real-world examples, components, and best practices.",
-      "coverImage": "http://d1iukwsziul56d.cloudfront.net/drupal-prodv2/s3fs-public/2024-12/https___dev-to-uploads.s3.amazonaws.com_i_s7ccbilncopcaign1ayw.jpeg",
+      "coverImage": "https://d1iukwsziul56d.cloudfront.net/drupal-prodv2/s3fs-public/2024-12/https___dev-to-uploads.s3.amazonaws.com_i_s7ccbilncopcaign1ayw.jpeg",
       "publishDate": "2024-12-25",
       "readingTime": 12,
       "authorId": "1",
-      "tagIds": ["4", "5", "6"],
-      "contentPath": "src/content/blog/a-beginners-guide-to-vuejs-practical-implementation-and-real-world-applications.md"
+      "tagIds": ["4", "5", "6", "16", "25"]
     },
     {
       "id": "c31dc884-cec7-4163-bfff-c26605185275",
       "title": "Laravel Mastery: Complete PHP Framework Guide",
       "slug": "a-comprehensive-guide-to-learning-laravel-mastering-the-php-framework-for-web-development",
       "excerpt": "Master Laravel PHP framework with this comprehensive guide. Learn MVC architecture, Eloquent ORM, and build scalable web apps.",
-      "coverImage": "http://d1iukwsziul56d.cloudfront.net/drupal-prodv2/s3fs-public/2024-12/educational%20and%20eye-catching%20featured%20image%20for%20a%20blog%20about%20Laravel%20application_0.png",
+      "coverImage": "https://d1iukwsziul56d.cloudfront.net/drupal-prodv2/s3fs-public/2024-12/educational%20and%20eye-catching%20featured%20image%20for%20a%20blog%20about%20Laravel%20application_0.png",
       "publishDate": "2024-12-09",
       "readingTime": 10,
       "authorId": "1",
-      "tagIds": ["7", "8", "6"],
-      "contentPath": "src/content/blog/a-comprehensive-guide-to-learning-laravel-mastering-the-php-framework-for-web-development.md"
+      "tagIds": ["7", "8", "6", "17", "19"]
     },
     {
       "id": "4bc9f747-6cfc-4ce1-aa3d-85b6a6288692",
       "title": "Next.js Deployment: Docker + Nginx Guide",
       "slug": "deploying-a-nextjs-application-with-nginx-and-docker-a-comprehensive-guide",
       "excerpt": "Deploy Next.js apps with Docker and Nginx. Complete production setup guide with performance optimization and best practices.",
-      "coverImage": "http://d1iukwsziul56d.cloudfront.net/drupal-prodv2/s3fs-public/2024-11/docker-nginx_1.png",
+      "coverImage": "https://d1iukwsziul56d.cloudfront.net/drupal-prodv2/s3fs-public/2024-11/docker-nginx_1.png",
       "publishDate": "2024-11-11",
       "readingTime": 15,
       "authorId": "1",
-      "tagIds": ["9", "10", "11", "12"],
-      "contentPath": "src/content/blog/deploying-a-nextjs-application-with-nginx-and-docker-a-comprehensive-guide.md"
+      "tagIds": ["9", "10", "11", "12", "15", "22", "23", "26"]
     },
     {
       "id": "8cdda41f-3910-403c-b66d-4d653f0ac33f",
       "title": "Dockerize Flask App: Step-by-Step Guide",
       "slug": "how-to-easily-dockerize-a-python-flask-application-a-step-by-step-guide",
       "excerpt": "Learn to containerize Python Flask applications with Docker. Complete step-by-step guide with Dockerfile examples and best practices.",
-      "coverImage": "http://d1iukwsziul56d.cloudfront.net/drupal-prodv2/s3fs-public/2024-10/DALL_E_2024-09-26_10-1_2.webp",
+      "coverImage": "https://d1iukwsziul56d.cloudfront.net/drupal-prodv2/s3fs-public/2024-10/DALL_E_2024-09-26_10-1_2.webp",
       "publishDate": "2024-10-08",
       "readingTime": 8,
       "authorId": "1",
-      "tagIds": ["2", "13", "10", "14"],
-      "contentPath": "src/content/blog/how-to-easily-dockerize-a-python-flask-application-a-step-by-step-guide.md"
+      "tagIds": ["2", "13", "10", "14", "19", "17"]
     },
     {
       "id": "wc8nbw515dkjf96s71cxyd",
@@ -149,20 +209,18 @@
       "publishDate": "2025-09-04",
       "readingTime": 5,
       "authorId": "1",
-      "tagIds": ["6", "5", "1"],
-      "contentPath": "src/content/blog/getting-started-with-react-hooks.md"
+      "tagIds": ["15", "25", "16", "6"]
     },
     {
       "id": "vyutsmqi0hxs9frweoyla",
       "title": "Headless Drupal powering a React frontend",
       "slug": "headless-drupal-powering-a-react-frontend",
       "excerpt": "Unleash the full potential of your web applications by combining the flexibility of React with the robust capabilities of a headless Drupal CMS. Discover how decoupling your frontend from the backend not only streamlines development but also enhances real-time content delivery, offering a seamless and dynamic user experience. Dive into the future of web development and transform the way you build applications today!",
-      "coverImage": "http://d1iukwsziul56d.cloudfront.net/drupal-prodv2/s3fs-public/2024-10/DALL_E_2024-09-26_10-1_2.webp",
+      "coverImage": "https://d1iukwsziul56d.cloudfront.net/drupal-local/s3fs-public/2025-09/ChatGPT%20Image%20Sep%2022,%202025,%2005_43_11%20PM.webp",
       "publishDate": "2025-09-21",
       "readingTime": 4,
       "authorId": "1",
-      "tagIds": ["6", "5", "1"],
-      "contentPath": "src/content/blog/headless-drupal-powering-a-react-frontend.md"
+      "tagIds": ["27", "24", "15", "18", "19", "6"]
     }
   ]
 }

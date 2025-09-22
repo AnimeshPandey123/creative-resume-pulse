@@ -36,6 +36,12 @@ export const fetchBlogPosts = (page = 1, limit = 10, search = '', tag = '') => {
     );
   }
 
+  // Sort by publish date (newest first)
+  filteredPosts.sort(
+    (a, b) =>
+      new Date(b.publishDate).getTime() - new Date(a.publishDate).getTime()
+  );
+
   const totalPosts = filteredPosts.length;
   const totalPages = Math.ceil(totalPosts / limit);
 

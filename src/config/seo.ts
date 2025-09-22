@@ -53,6 +53,7 @@ export const baseMetadata: Metadata = {
     'Software Portfolio',
     'UK Software Engineer',
     'Wolverhampton Developer',
+    'Preston Developer',
     'Laravel Developer',
     'Symfony Developer',
     'Flask Developer',
@@ -444,7 +445,7 @@ export const personStructuredData = {
   },
   address: {
     '@type': 'PostalAddress',
-    addressLocality: 'Wolverhampton',
+    addressLocality: 'Prestib',
     addressCountry: 'UK',
   },
   alumniOf: {

@@ -151,6 +151,18 @@
       "authorId": "1",
       "tagIds": ["6", "5", "1"],
       "contentPath": "src/content/blog/getting-started-with-react-hooks.md"
+    },
+    {
+      "id": "vyutsmqi0hxs9frweoyla",
+      "title": "Headless Drupal powering a React frontend",
+      "slug": "headless-drupal-powering-a-react-frontend",
+      "excerpt": "Unleash the full potential of your web applications by combining the flexibility of React with the robust capabilities of a headless Drupal CMS. Discover how decoupling your frontend from the backend not only streamlines development but also enhances real-time content delivery, offering a seamless and dynamic user experience. Dive into the future of web development and transform the way you build applications today!",
+      "coverImage": "http://d1iukwsziul56d.cloudfront.net/drupal-prodv2/s3fs-public/2024-10/DALL_E_2024-09-26_10-1_2.webp",
+      "publishDate": "2025-09-21",
+      "readingTime": 4,
+      "authorId": "1",
+      "tagIds": ["6", "5", "1"],
+      "contentPath": "src/content/blog/headless-drupal-powering-a-react-frontend.md"
     }
   ]
 }

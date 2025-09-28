@@ -49,7 +49,7 @@ describe('SEO Configuration', () => {
 
     it('should have correct language and locale', () => {
       expect(SITE_CONFIG.language).toBe('en');
-      expect(SITE_CONFIG.locale).toBe('en_US');
+      expect(SITE_CONFIG.locale).toBe('en_GB');
     });
   });
 

@@ -66,7 +66,7 @@ describe('RootLayout', () => {
       </RootLayout>
     );
     const html = container.querySelector('html');
-    expect(html).toHaveAttribute('lang', 'en');
+    expect(html).toHaveAttribute('lang', 'en-GB');
   });
 
   it('should include all required meta tags', () => {

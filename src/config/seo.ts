@@ -22,7 +22,7 @@ export const SITE_CONFIG = {
     linkedin: 'https://www.linkedin.com/in/animesh-pandey-26546213a',
   },
   language: 'en',
-  locale: 'en_US',
+  locale: 'en_GB',
 } as const;
 
 // ============================================================================

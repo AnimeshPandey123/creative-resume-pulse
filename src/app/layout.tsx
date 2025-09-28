@@ -25,7 +25,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={inter.variable}>
+    <html lang="en-GB" className={inter.variable}>
       <head>
         {/* Critical Resource Hints */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />

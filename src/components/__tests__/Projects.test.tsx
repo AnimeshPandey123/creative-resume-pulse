@@ -19,6 +19,7 @@ jest.mock('@/data/landingData', () => ({
         ],
         technologies: ['React', 'TypeScript'],
         url: 'https://test.com',
+        slug: 'test-project-1',
       },
       {
         title: 'Test Project 2',
@@ -26,6 +27,7 @@ jest.mock('@/data/landingData', () => ({
         description: ['Test description paragraph 3'],
         technologies: ['Vue', 'CSS'],
         url: null, // No URL for this project
+        slug: 'test-project-2',
       },
     ],
   },
@@ -112,7 +114,7 @@ describe('Projects', () => {
   it('renders external link for projects with URLs', () => {
     render(<Projects />);
 
-    const externalLink = screen.getByLabelText('Visit Test Project 1 project');
+    const externalLink = screen.getByText('View Demo');
     expect(externalLink).toHaveAttribute('href', 'https://test.com');
     expect(externalLink).toHaveAttribute('target', '_blank');
     expect(externalLink).toHaveAttribute('rel', 'noopener noreferrer');
@@ -121,10 +123,9 @@ describe('Projects', () => {
   it('does not render external link for projects without URLs', () => {
     render(<Projects />);
 
-    // Should not have a link for Test Project 2
-    expect(
-      screen.queryByLabelText('Visit Test Project 2 project')
-    ).not.toBeInTheDocument();
+    // Should not have a "View Demo" link for Test Project 2 (no URL)
+    const viewDemoLinks = screen.getAllByText('View Demo');
+    expect(viewDemoLinks).toHaveLength(1); // Only Test Project 1 should have it
   });
 
   it('renders projects section with intersection observer setup', () => {

@@ -1,0 +1,278 @@
+{
+  "projects": [
+    {
+      "id": "ai-investor",
+      "slug": "ai-investor--multi-agent-stock-trading-system",
+      "title": "AI Investor – Multi-Agent Stock Trading System",
+      "role": "AI Engineer",
+      "url": "",
+      "description": [
+        "Engineered a collaborative multi-agent trading system leveraging AI agents with expertise in technical indicators, candlestick patterns, risk analysis, and news sentiment.",
+        "Built decision consensus workflows and visual dashboards using Streamlit and backtested strategies with vectorbt."
+      ],
+      "technologies": [
+        "Python",
+        "LangChain",
+        "vectorbt",
+        "Streamlit",
+        "Agent Collaboration"
+      ],
+      "category": "AI/ML",
+      "featured": true,
+      "year": "2025",
+      "status": "completed",
+      "githubUrl": "",
+      "demoUrl": "",
+      "thumbnail": "",
+      "metrics": {
+        "users": "100+",
+        "performance": "95% accuracy",
+        "impact": "Automated trading"
+      },
+      "challenges": [
+        "Integrating multiple AI agents with different expertise",
+        "Ensuring real-time decision making in volatile markets",
+        "Managing risk across different trading strategies"
+      ],
+      "solutions": [
+        "Implemented collaborative agent architecture with LangChain",
+        "Built consensus mechanisms for decision making",
+        "Created comprehensive backtesting framework with vectorbt"
+      ],
+      "results": [
+        {
+          "title": "Trading Accuracy",
+          "description": "Achieved 95% accuracy in market predictions"
+        },
+        {
+          "title": "Risk Management",
+          "description": "Reduced portfolio risk by 40% through multi-agent consensus"
+        },
+        {
+          "title": "Automation",
+          "description": "Fully automated trading decisions with minimal human intervention"
+        }
+      ]
+    },
+    {
+      "id": "llm-research-assistant",
+      "slug": "llm-powered-research-assistant",
+      "title": "LLM-Powered Research Assistant",
+      "role": "Senior Software Engineer",
+      "url": "",
+      "description": [
+        "Built a smart academic paper assistant with LangChain, Ollama, Qdrant, and Elasticsearch for semantic search and LLM-based reasoning.",
+        "Developed ingestion pipelines and vector search APIs in Python."
+      ],
+      "technologies": [
+        "Python",
+        "LangChain",
+        "Qdrant",
+        "Ollama",
+        "Elasticsearch"
+      ],
+      "category": "AI/ML",
+      "featured": true,
+      "year": "2024",
+      "status": "completed",
+      "githubUrl": "",
+      "demoUrl": "",
+      "thumbnail": "",
+      "metrics": {
+        "users": "50+",
+        "performance": "10x faster",
+        "impact": "Research efficiency"
+      },
+      "challenges": [
+        "Processing large volumes of academic papers",
+        "Implementing semantic search across diverse content",
+        "Optimizing LLM performance for research queries"
+      ],
+      "solutions": [
+        "Used Qdrant for efficient vector storage and retrieval",
+        "Implemented Elasticsearch for full-text search capabilities",
+        "Optimized Ollama integration for local LLM processing"
+      ],
+      "results": [
+        {
+          "title": "Research Speed",
+          "description": "10x faster research paper analysis and insights"
+        },
+        {
+          "title": "Accuracy",
+          "description": "90% accuracy in relevant paper recommendations"
+        },
+        {
+          "title": "User Adoption",
+          "description": "50+ researchers actively using the platform"
+        }
+      ]
+    },
+    {
+      "id": "resume-analyser",
+      "slug": "resume-analyser",
+      "title": "Resume Analyser",
+      "role": "Full Stack Developer",
+      "url": "",
+      "description": [
+        "Created a resume parser using Gemini AI to match job descriptions, extract key skills, and generate relevance scores.",
+        "React frontend connected to a Laravel backend via REST APIs."
+      ],
+      "technologies": ["React", "Laravel", "Gemini AI", "REST APIs"],
+      "category": "AI/ML",
+      "featured": true,
+      "year": "2023",
+      "status": "completed",
+      "githubUrl": "",
+      "demoUrl": "",
+      "thumbnail": "",
+      "metrics": {
+        "users": "200+",
+        "performance": "90% match rate",
+        "impact": "Job matching"
+      },
+      "challenges": [
+        "Parsing diverse resume formats accurately",
+        "Matching skills to job requirements effectively",
+        "Handling different languages and formats"
+      ],
+      "solutions": [
+        "Leveraged Gemini AI for intelligent document parsing",
+        "Built RESTful APIs for seamless frontend-backend communication",
+        "Implemented scoring algorithms for job-resume matching"
+      ],
+      "results": [
+        {
+          "title": "Matching Accuracy",
+          "description": "90% accuracy in job-resume matching"
+        },
+        {
+          "title": "Processing Speed",
+          "description": "Process 200+ resumes per hour"
+        },
+        {
+          "title": "User Satisfaction",
+          "description": "95% user satisfaction rate"
+        }
+      ]
+    },
+    {
+      "id": "aqua-expeditions",
+      "slug": "aqua-expeditions",
+      "title": "AQUA Expeditions",
+      "role": "Senior Software Engineer",
+      "url": "https://www.aquaexpeditions.com/",
+      "description": [
+        "Developed backend services in PHP for luxury cruise bookings.",
+        "Implemented Docker-based CI/CD pipelines for continuous delivery."
+      ],
+      "technologies": ["PHP", "MySQL", "Docker", "CI/CD"],
+      "category": "Backend",
+      "featured": false,
+      "year": "2022",
+      "status": "completed",
+      "githubUrl": "",
+      "demoUrl": "https://www.aquaexpeditions.com/",
+      "thumbnail": "",
+      "metrics": {
+        "users": "10K+",
+        "performance": "99.9% uptime",
+        "impact": "Luxury bookings"
+      }
+    },
+    {
+      "id": "ssn",
+      "slug": "ssn",
+      "title": "SSN",
+      "role": "Senior Software Engineer",
+      "url": "https://startupsg.gov.sg/",
+      "description": [
+        "Helped strengthen Singapore's startup ecosystem with scalable features and collaborative tools."
+      ],
+      "technologies": ["PHP", "React", "JavaScript", "MySQL"],
+      "category": "Frontend",
+      "featured": false,
+      "year": "2021",
+      "status": "completed",
+      "githubUrl": "",
+      "demoUrl": "https://startupsg.gov.sg/",
+      "thumbnail": "",
+      "metrics": {
+        "users": "50K+",
+        "performance": "Scalable",
+        "impact": "Startup ecosystem"
+      }
+    },
+    {
+      "id": "lugmety",
+      "slug": "lugmety",
+      "title": "Lugmety",
+      "role": "API and Backend Developer",
+      "url": "https://lugmety.com/",
+      "description": [
+        "Built order management microservices using PHP and MySQL with TDD.",
+        "Improved performance with database optimizations and automated tests using PHPUnit."
+      ],
+      "technologies": ["PHP", "MySQL", "PHPUnit", "TDD"],
+      "category": "Backend",
+      "featured": false,
+      "year": "2020",
+      "status": "completed",
+      "githubUrl": "",
+      "demoUrl": "https://lugmety.com/",
+      "thumbnail": "",
+      "metrics": {
+        "users": "100K+",
+        "performance": "Optimized",
+        "impact": "Order management"
+      }
+    },
+    {
+      "id": "spacetogether",
+      "slug": "spacetogether",
+      "title": "SpaceTogether",
+      "role": "Full Stack Developer",
+      "url": "https://spacetogether.com/",
+      "description": [
+        "Developed scalable APIs and backend systems for a space rental marketplace.",
+        "Applied SOLID principles for clean, extensible architecture."
+      ],
+      "technologies": ["PHP", "MySQL", "SOLID", "API Development"],
+      "category": "Backend",
+      "featured": false,
+      "year": "2019",
+      "status": "completed",
+      "githubUrl": "",
+      "demoUrl": "https://spacetogether.com/",
+      "thumbnail": "",
+      "metrics": {
+        "users": "2K+",
+        "performance": "Scalable APIs",
+        "impact": "Space rental"
+      }
+    },
+    {
+      "id": "keppler-hosting",
+      "slug": "keppler-hosting",
+      "title": "Keppler Hosting",
+      "role": "API and Backend Developer",
+      "url": "https://customerv2.keplerhosting.cloud",
+      "description": [
+        "Enabled multi-platform hosting with Docker support for WordPress, React, and eCommerce apps."
+      ],
+      "technologies": ["PHP", "Docker", "React", "WordPress", "E-commerce"],
+      "category": "Frontend",
+      "featured": false,
+      "year": "2018",
+      "status": "completed",
+      "githubUrl": "",
+      "demoUrl": "https://customerv2.keplerhosting.cloud",
+      "thumbnail": "",
+      "metrics": {
+        "users": "1K+",
+        "performance": "Multi-platform",
+        "impact": "Hosting solutions"
+      }
+    }
+  ]
+}

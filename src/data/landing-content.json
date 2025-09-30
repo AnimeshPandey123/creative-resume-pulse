@@ -85,6 +85,7 @@
     "items": [
       {
         "title": "AI Investor – Multi-Agent Stock Trading System",
+        "slug": "ai-investor--multi-agent-stock-trading-system",
         "role": "AI Engineer",
         "url": "",
         "description": [
@@ -101,6 +102,7 @@
       },
       {
         "title": "LLM-Powered Research Assistant",
+        "slug": "llm-powered-research-assistant",
         "role": "Senior Software Engineer",
         "url": "",
         "description": [
@@ -117,6 +119,7 @@
       },
       {
         "title": "Resume Analyser",
+        "slug": "resume-analyser",
         "role": "Full Stack Developer",
         "url": "",
         "description": [
@@ -127,6 +130,7 @@
       },
       {
         "title": "AQUA Expeditions",
+        "slug": "aqua-expeditions",
         "role": "Senior Software Engineer",
         "url": "https://www.aquaexpeditions.com/",
         "description": [
@@ -137,6 +141,7 @@
       },
       {
         "title": "SSN",
+        "slug": "ssn",
         "role": "Senior Software Engineer",
         "url": "https://startupsg.gov.sg/",
         "description": [
@@ -146,6 +151,7 @@
       },
       {
         "title": "Lugmety",
+        "slug": "lugmety",
         "role": "API and Backend Developer",
         "url": "https://lugmety.com/",
         "description": [
@@ -156,6 +162,7 @@
       },
       {
         "title": "SpaceTogether",
+        "slug": "spacetogether",
         "role": "Full Stack Developer",
         "url": "https://spacetogether.com/",
         "description": [
@@ -166,6 +173,7 @@
       },
       {
         "title": "Keppler Hosting",
+        "slug": "keppler-hosting",
         "role": "API and Backend Developer",
         "url": "https://customerv2.keplerhosting.cloud",
         "description": [

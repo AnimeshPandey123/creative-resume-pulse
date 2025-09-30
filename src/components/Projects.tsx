@@ -1,7 +1,8 @@
 'use client';
 
 import React, { useEffect, useRef, useMemo } from 'react';
-import { ExternalLink } from 'lucide-react';
+import { ExternalLink, Eye } from 'lucide-react';
+import Link from 'next/link';
 import { projectsData } from '@/data/landingData';
 
 // Dependencies interface for better testability
@@ -11,7 +12,10 @@ interface IntersectionObserverDependencies {
 
 // Default dependencies (browser environment)
 const defaultDependencies: IntersectionObserverDependencies = {
-  IntersectionObserver: typeof window !== 'undefined' ? window.IntersectionObserver : undefined as any,
+  IntersectionObserver:
+    typeof window !== 'undefined'
+      ? window.IntersectionObserver
+      : (undefined as any),
 };
 
 // Extracted intersection observer logic for better testability
@@ -112,24 +116,11 @@ export const Projects: React.FC<{
                 style={{ animationDelay: `${index * 100}ms` }}
                 role="listitem"
               >
-                <header className="flex justify-between items-start mb-4">
-                  <div>
-                    <h3 className="text-xl font-bold text-foreground mb-2">
-                      {project.title}
-                    </h3>
-                    <p className="text-primary font-medium">{project.role}</p>
-                  </div>
-                  {project.url && (
-                    <a
-                      href={project.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-muted-foreground hover:text-primary transition-colors"
-                      aria-label={`Visit ${project.title} project`}
-                    >
-                      <ExternalLink className="h-5 w-5" />
-                    </a>
-                  )}
+                <header className="mb-4">
+                  <h3 className="text-xl font-bold text-foreground mb-2">
+                    {project.title}
+                  </h3>
+                  <p className="text-primary font-medium">{project.role}</p>
                 </header>
 
                 <section>
@@ -149,7 +140,7 @@ export const Projects: React.FC<{
                 <footer>
                   <h4 className="sr-only">Technologies Used</h4>
                   <div
-                    className="flex flex-wrap gap-2"
+                    className="flex flex-wrap gap-2 mb-4"
                     role="list"
                     aria-label="Technologies used in this project"
                   >
@@ -162,6 +153,28 @@ export const Projects: React.FC<{
                         {tech}
                       </span>
                     ))}
+                  </div>
+
+                  {/* Action Buttons */}
+                  <div className="flex gap-2">
+                    {project.url && (
+                      <a
+                        href={project.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2 px-3 py-2 bg-primary text-white text-sm font-medium rounded-lg hover:bg-primary/90 transition-colors"
+                      >
+                        <ExternalLink className="h-4 w-4" />
+                        View Demo
+                      </a>
+                    )}
+                    <Link
+                      href={`/projects/${project.slug}`}
+                      className="flex items-center gap-2 px-3 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 text-sm font-medium rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+                    >
+                      <Eye className="h-4 w-4" />
+                      Learn More
+                    </Link>
                   </div>
                 </footer>
               </article>

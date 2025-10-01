@@ -2,6 +2,9 @@ import { NextResponse } from 'next/server';
 import { blogPosts } from '@/data/mockBlogData';
 import { SITE_CONFIG } from '@/config/seo';
 
+// Force static generation for static export
+export const dynamic = 'force-static';
+
 export async function GET() {
   try {
     // Get all blog posts sorted by publish date (newest first)

@@ -4,19 +4,20 @@ const nextConfig: NextConfig = {
   // Enable React strict mode for better development
   reactStrictMode: true,
 
-  // Development configuration (no static export)
+  // Static export configuration
+  output: 'export',
+  trailingSlash: true,
   images: {
-    domains: [
-      'animeshpandey.com',
-      'd1iukwsziul56d.cloudfront.net',
-      'dev-to-uploads.s3.amazonaws.com',
+    unoptimized: true,
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'animeshpandey.com',
+      },
     ],
     formats: ['image/webp', 'image/avif'],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
-    minimumCacheTTL: 60 * 60 * 24 * 30, // 30 days
-    dangerouslyAllowSVG: true,
-    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
 
   // Optimize bundle size and reduce HTTP requests
@@ -27,31 +28,7 @@ const nextConfig: NextConfig = {
   // Compress responses
   compress: true,
 
-  // Optimize webpack configuration
-  webpack: (config, { dev, isServer }) => {
-    // Optimize bundle splitting
-    if (!dev && !isServer) {
-      config.optimization.splitChunks = {
-        chunks: 'all',
-        cacheGroups: {
-          vendor: {
-            test: /[/]node_modules[/]/,
-            name: 'vendors',
-            chunks: 'all',
-          },
-          common: {
-            name: 'common',
-            minChunks: 2,
-            chunks: 'all',
-            enforce: true,
-          },
-        },
-      };
-    }
-    return config;
-  },
-
-  // Headers for security and performance
+  // Headers for security and performance (will be handled by hosting provider)
   async headers() {
     return [
       {
@@ -119,7 +96,7 @@ const nextConfig: NextConfig = {
     ];
   },
 
-  // Redirects for SEO
+  // Redirects for SEO (will be handled by hosting provider)
   async redirects() {
     return [
       {
@@ -130,16 +107,31 @@ const nextConfig: NextConfig = {
     ];
   },
 
+  // Webpack configuration for static export
+  webpack: (config, { isServer }) => {
+    // Optimize bundle size
+    if (!isServer) {
+      config.resolve.fallback = {
+        ...config.resolve.fallback,
+        fs: false,
+        net: false,
+        tls: false,
+      };
+    }
+
+    return config;
+  },
+
   // TypeScript configuration
   typescript: {
     // Enable type checking during build
     ignoreBuildErrors: false,
   },
 
-  // ESLint configuration
+  // ESLint configuration - enable for code quality
   eslint: {
-    // Disable ESLint during build
-    ignoreDuringBuilds: true,
+    // Enable ESLint during build for code quality
+    ignoreDuringBuilds: false,
   },
 
   // Disable server-side features

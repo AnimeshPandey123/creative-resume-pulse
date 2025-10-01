@@ -33,4 +33,4 @@ coverage/
 
 out/
 
-.tsbuildinfo
+*.tsbuildinfo

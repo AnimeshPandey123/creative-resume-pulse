@@ -2,22 +2,14 @@ import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
 import BlogTagFilter from '@/components/blog/BlogTagFilter';
 
-const mockPush = jest.fn();
-const mockUseSearchParams = jest.fn();
-
 // Mock the blog tags data
 jest.mock('@/data/mockBlogData', () => ({
   blogTags: [
-    { id: 1, name: 'React', slug: 'react' },
-    { id: 2, name: 'Python', slug: 'python' },
-    { id: 3, name: 'JavaScript', slug: 'javascript' },
-    { id: 4, name: 'TypeScript', slug: 'typescript' },
+    { id: '1', name: 'React', slug: 'react' },
+    { id: '2', name: 'Python', slug: 'python' },
+    { id: '3', name: 'JavaScript', slug: 'javascript' },
+    { id: '4', name: 'TypeScript', slug: 'typescript' },
   ],
-}));
-
-jest.mock('next/navigation', () => ({
-  useRouter: () => ({ push: mockPush }),
-  useSearchParams: () => mockUseSearchParams(),
 }));
 
 jest.mock('@/components/ui/button', () => ({
@@ -50,11 +42,20 @@ jest.mock('@/components/ui/popover', () => ({
 describe('BlogTagFilter', () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    mockUseSearchParams.mockReturnValue(new URLSearchParams(''));
   });
 
   it('renders with default state (no tag selected)', () => {
-    render(<BlogTagFilter />);
+    const mockProps = {
+      tags: [
+        { id: '1', name: 'React', slug: 'react' },
+        { id: '2', name: 'Python', slug: 'python' },
+        { id: '3', name: 'JavaScript', slug: 'javascript' },
+        { id: '4', name: 'TypeScript', slug: 'typescript' },
+      ],
+      selectedTag: '',
+      onTagChange: jest.fn(),
+    };
+    render(<BlogTagFilter {...mockProps} />);
 
     const button = screen.getByRole('combobox');
     expect(button).toHaveTextContent('Filter by tag');
@@ -62,7 +63,17 @@ describe('BlogTagFilter', () => {
   });
 
   it('opens popover when clicked', () => {
-    render(<BlogTagFilter />);
+    const mockProps = {
+      tags: [
+        { id: '1', name: 'React', slug: 'react' },
+        { id: '2', name: 'Python', slug: 'python' },
+        { id: '3', name: 'JavaScript', slug: 'javascript' },
+        { id: '4', name: 'TypeScript', slug: 'typescript' },
+      ],
+      selectedTag: '',
+      onTagChange: jest.fn(),
+    };
+    render(<BlogTagFilter {...mockProps} />);
 
     const button = screen.getByRole('combobox');
     fireEvent.click(button);
@@ -71,7 +82,17 @@ describe('BlogTagFilter', () => {
   });
 
   it('displays all available tags in the dropdown', () => {
-    render(<BlogTagFilter />);
+    const mockProps = {
+      tags: [
+        { id: '1', name: 'React', slug: 'react' },
+        { id: '2', name: 'Python', slug: 'python' },
+        { id: '3', name: 'JavaScript', slug: 'javascript' },
+        { id: '4', name: 'TypeScript', slug: 'typescript' },
+      ],
+      selectedTag: '',
+      onTagChange: jest.fn(),
+    };
+    render(<BlogTagFilter {...mockProps} />);
 
     const button = screen.getByRole('combobox');
     fireEvent.click(button);
@@ -82,8 +103,19 @@ describe('BlogTagFilter', () => {
     expect(screen.getByText('TypeScript')).toBeInTheDocument();
   });
 
-  it('selects a tag and updates URL', () => {
-    render(<BlogTagFilter />);
+  it('selects a tag and calls onTagChange', () => {
+    const mockOnTagChange = jest.fn();
+    const mockProps = {
+      tags: [
+        { id: '1', name: 'React', slug: 'react' },
+        { id: '2', name: 'Python', slug: 'python' },
+        { id: '3', name: 'JavaScript', slug: 'javascript' },
+        { id: '4', name: 'TypeScript', slug: 'typescript' },
+      ],
+      selectedTag: '',
+      onTagChange: mockOnTagChange,
+    };
+    render(<BlogTagFilter {...mockProps} />);
 
     const button = screen.getByRole('combobox');
     fireEvent.click(button);
@@ -91,13 +123,22 @@ describe('BlogTagFilter', () => {
     const reactOption = screen.getByText('React');
     fireEvent.click(reactOption);
 
-    expect(mockPush).toHaveBeenCalledWith('/blog?tag=react&page=1');
+    expect(mockOnTagChange).toHaveBeenCalledWith('react');
   });
 
   it('clears tag filter when same tag is selected again', () => {
-    mockUseSearchParams.mockReturnValue(new URLSearchParams('tag=react'));
-
-    render(<BlogTagFilter />);
+    const mockOnTagChange = jest.fn();
+    const mockProps = {
+      tags: [
+        { id: '1', name: 'React', slug: 'react' },
+        { id: '2', name: 'Python', slug: 'python' },
+        { id: '3', name: 'JavaScript', slug: 'javascript' },
+        { id: '4', name: 'TypeScript', slug: 'typescript' },
+      ],
+      selectedTag: 'react',
+      onTagChange: mockOnTagChange,
+    };
+    render(<BlogTagFilter {...mockProps} />);
 
     const button = screen.getByRole('combobox');
     fireEvent.click(button);
@@ -105,50 +146,92 @@ describe('BlogTagFilter', () => {
     const reactOption = screen.getAllByText('React')[1]; // Get the option, not the button
     fireEvent.click(reactOption);
 
-    expect(mockPush).toHaveBeenCalledWith('/blog?page=1');
+    expect(mockOnTagChange).toHaveBeenCalledWith('');
   });
 
   it('shows selected tag in button text', () => {
-    mockUseSearchParams.mockReturnValue(new URLSearchParams('tag=python'));
-
-    render(<BlogTagFilter />);
+    const mockProps = {
+      tags: [
+        { id: '1', name: 'React', slug: 'react' },
+        { id: '2', name: 'Python', slug: 'python' },
+        { id: '3', name: 'JavaScript', slug: 'javascript' },
+        { id: '4', name: 'TypeScript', slug: 'typescript' },
+      ],
+      selectedTag: 'python',
+      onTagChange: jest.fn(),
+    };
+    render(<BlogTagFilter {...mockProps} />);
 
     const button = screen.getByRole('combobox');
     expect(button).toHaveTextContent('Python');
   });
 
   it('shows clear filter button when tag is selected', () => {
-    mockUseSearchParams.mockReturnValue(new URLSearchParams('tag=javascript'));
-
-    render(<BlogTagFilter />);
+    const mockProps = {
+      tags: [
+        { id: '1', name: 'React', slug: 'react' },
+        { id: '2', name: 'Python', slug: 'python' },
+        { id: '3', name: 'JavaScript', slug: 'javascript' },
+        { id: '4', name: 'TypeScript', slug: 'typescript' },
+      ],
+      selectedTag: 'javascript',
+      onTagChange: jest.fn(),
+    };
+    render(<BlogTagFilter {...mockProps} />);
 
     const clearButton = screen.getByText('Clear filter');
     expect(clearButton).toBeInTheDocument();
   });
 
   it('does not show clear filter button when no tag is selected', () => {
-    render(<BlogTagFilter />);
+    const mockProps = {
+      tags: [
+        { id: '1', name: 'React', slug: 'react' },
+        { id: '2', name: 'Python', slug: 'python' },
+        { id: '3', name: 'JavaScript', slug: 'javascript' },
+        { id: '4', name: 'TypeScript', slug: 'typescript' },
+      ],
+      selectedTag: '',
+      onTagChange: jest.fn(),
+    };
+    render(<BlogTagFilter {...mockProps} />);
 
     expect(screen.queryByText('Clear filter')).not.toBeInTheDocument();
   });
 
   it('clears filter when clear button is clicked', () => {
-    mockUseSearchParams.mockReturnValue(new URLSearchParams('tag=typescript'));
-
-    render(<BlogTagFilter />);
+    const mockOnTagChange = jest.fn();
+    const mockProps = {
+      tags: [
+        { id: '1', name: 'React', slug: 'react' },
+        { id: '2', name: 'Python', slug: 'python' },
+        { id: '3', name: 'JavaScript', slug: 'javascript' },
+        { id: '4', name: 'TypeScript', slug: 'typescript' },
+      ],
+      selectedTag: 'typescript',
+      onTagChange: mockOnTagChange,
+    };
+    render(<BlogTagFilter {...mockProps} />);
 
     const clearButton = screen.getByText('Clear filter');
     fireEvent.click(clearButton);
 
-    expect(mockPush).toHaveBeenCalledWith('/blog?');
+    expect(mockOnTagChange).toHaveBeenCalledWith('');
   });
 
-  it('preserves existing search params when selecting tag', () => {
-    mockUseSearchParams.mockReturnValue(
-      new URLSearchParams('page=2&search=test')
-    );
-
-    render(<BlogTagFilter />);
+  it('calls onTagChange when selecting tag', () => {
+    const mockOnTagChange = jest.fn();
+    const mockProps = {
+      tags: [
+        { id: '1', name: 'React', slug: 'react' },
+        { id: '2', name: 'Python', slug: 'python' },
+        { id: '3', name: 'JavaScript', slug: 'javascript' },
+        { id: '4', name: 'TypeScript', slug: 'typescript' },
+      ],
+      selectedTag: '',
+      onTagChange: mockOnTagChange,
+    };
+    render(<BlogTagFilter {...mockProps} />);
 
     const button = screen.getByRole('combobox');
     fireEvent.click(button);
@@ -156,17 +239,22 @@ describe('BlogTagFilter', () => {
     const pythonOption = screen.getByText('Python');
     fireEvent.click(pythonOption);
 
-    expect(mockPush).toHaveBeenCalledWith(
-      '/blog?page=1&search=test&tag=python'
-    );
+    expect(mockOnTagChange).toHaveBeenCalledWith('python');
   });
 
-  it('resets to page 1 when changing tags', () => {
-    mockUseSearchParams.mockReturnValue(
-      new URLSearchParams('page=3&tag=react')
-    );
-
-    render(<BlogTagFilter />);
+  it('calls onTagChange when changing tags', () => {
+    const mockOnTagChange = jest.fn();
+    const mockProps = {
+      tags: [
+        { id: '1', name: 'React', slug: 'react' },
+        { id: '2', name: 'Python', slug: 'python' },
+        { id: '3', name: 'JavaScript', slug: 'javascript' },
+        { id: '4', name: 'TypeScript', slug: 'typescript' },
+      ],
+      selectedTag: 'react',
+      onTagChange: mockOnTagChange,
+    };
+    render(<BlogTagFilter {...mockProps} />);
 
     const button = screen.getByRole('combobox');
     fireEvent.click(button);
@@ -174,13 +262,22 @@ describe('BlogTagFilter', () => {
     const pythonOption = screen.getByText('Python');
     fireEvent.click(pythonOption);
 
-    expect(mockPush).toHaveBeenCalledWith('/blog?page=1&tag=python');
+    expect(mockOnTagChange).toHaveBeenCalledWith('python');
   });
 
-  it('handles empty search params', () => {
-    mockUseSearchParams.mockReturnValue(null);
-
-    render(<BlogTagFilter />);
+  it('calls onTagChange when selecting tag with empty search params', () => {
+    const mockOnTagChange = jest.fn();
+    const mockProps = {
+      tags: [
+        { id: '1', name: 'React', slug: 'react' },
+        { id: '2', name: 'Python', slug: 'python' },
+        { id: '3', name: 'JavaScript', slug: 'javascript' },
+        { id: '4', name: 'TypeScript', slug: 'typescript' },
+      ],
+      selectedTag: '',
+      onTagChange: mockOnTagChange,
+    };
+    render(<BlogTagFilter {...mockProps} />);
 
     const button = screen.getByRole('combobox');
     fireEvent.click(button);
@@ -188,11 +285,21 @@ describe('BlogTagFilter', () => {
     const reactOption = screen.getByText('React');
     fireEvent.click(reactOption);
 
-    expect(mockPush).toHaveBeenCalledWith('/blog?tag=react&page=1');
+    expect(mockOnTagChange).toHaveBeenCalledWith('react');
   });
 
   it('closes popover after selecting a tag', () => {
-    render(<BlogTagFilter />);
+    const mockProps = {
+      tags: [
+        { id: '1', name: 'React', slug: 'react' },
+        { id: '2', name: 'Python', slug: 'python' },
+        { id: '3', name: 'JavaScript', slug: 'javascript' },
+        { id: '4', name: 'TypeScript', slug: 'typescript' },
+      ],
+      selectedTag: '',
+      onTagChange: jest.fn(),
+    };
+    render(<BlogTagFilter {...mockProps} />);
 
     const button = screen.getByRole('combobox');
     fireEvent.click(button);
@@ -204,9 +311,17 @@ describe('BlogTagFilter', () => {
   });
 
   it('has correct CSS classes for selected tag', () => {
-    mockUseSearchParams.mockReturnValue(new URLSearchParams('tag=react'));
-
-    render(<BlogTagFilter />);
+    const mockProps = {
+      tags: [
+        { id: '1', name: 'React', slug: 'react' },
+        { id: '2', name: 'Python', slug: 'python' },
+        { id: '3', name: 'JavaScript', slug: 'javascript' },
+        { id: '4', name: 'TypeScript', slug: 'typescript' },
+      ],
+      selectedTag: 'react',
+      onTagChange: jest.fn(),
+    };
+    render(<BlogTagFilter {...mockProps} />);
 
     const button = screen.getByRole('combobox');
     expect(button).toHaveClass(
@@ -218,7 +333,17 @@ describe('BlogTagFilter', () => {
   });
 
   it('has correct CSS classes for unselected state', () => {
-    render(<BlogTagFilter />);
+    const mockProps = {
+      tags: [
+        { id: '1', name: 'React', slug: 'react' },
+        { id: '2', name: 'Python', slug: 'python' },
+        { id: '3', name: 'JavaScript', slug: 'javascript' },
+        { id: '4', name: 'TypeScript', slug: 'typescript' },
+      ],
+      selectedTag: '',
+      onTagChange: jest.fn(),
+    };
+    render(<BlogTagFilter {...mockProps} />);
 
     const button = screen.getByRole('combobox');
     expect(button).toHaveClass(
@@ -230,7 +355,17 @@ describe('BlogTagFilter', () => {
   });
 
   it('shows search input in dropdown', () => {
-    render(<BlogTagFilter />);
+    const mockProps = {
+      tags: [
+        { id: '1', name: 'React', slug: 'react' },
+        { id: '2', name: 'Python', slug: 'python' },
+        { id: '3', name: 'JavaScript', slug: 'javascript' },
+        { id: '4', name: 'TypeScript', slug: 'typescript' },
+      ],
+      selectedTag: '',
+      onTagChange: jest.fn(),
+    };
+    render(<BlogTagFilter {...mockProps} />);
 
     const button = screen.getByRole('combobox');
     fireEvent.click(button);
@@ -240,7 +375,17 @@ describe('BlogTagFilter', () => {
   });
 
   it('shows empty state when no tags match search', () => {
-    render(<BlogTagFilter />);
+    const mockProps = {
+      tags: [
+        { id: '1', name: 'React', slug: 'react' },
+        { id: '2', name: 'Python', slug: 'python' },
+        { id: '3', name: 'JavaScript', slug: 'javascript' },
+        { id: '4', name: 'TypeScript', slug: 'typescript' },
+      ],
+      selectedTag: '',
+      onTagChange: jest.fn(),
+    };
+    render(<BlogTagFilter {...mockProps} />);
 
     const button = screen.getByRole('combobox');
     fireEvent.click(button);
@@ -251,17 +396,35 @@ describe('BlogTagFilter', () => {
     expect(screen.getByText('No tag found.')).toBeInTheDocument();
   });
 
-  it('updates value state when URL params change', () => {
-    // Initially no tag selected
-    mockUseSearchParams.mockReturnValue(new URLSearchParams(''));
-    const { rerender } = render(<BlogTagFilter />);
+  it('updates value state when selectedTag prop changes', () => {
+    const mockOnTagChange = jest.fn();
+    const mockProps = {
+      tags: [
+        { id: '1', name: 'React', slug: 'react' },
+        { id: '2', name: 'Python', slug: 'python' },
+        { id: '3', name: 'JavaScript', slug: 'javascript' },
+        { id: '4', name: 'TypeScript', slug: 'typescript' },
+      ],
+      selectedTag: '',
+      onTagChange: mockOnTagChange,
+    };
+    const { rerender } = render(<BlogTagFilter {...mockProps} />);
 
     let button = screen.getByRole('combobox');
     expect(button).toHaveTextContent('Filter by tag');
 
-    // Mock URL change to include tag
-    mockUseSearchParams.mockReturnValue(new URLSearchParams('tag=python'));
-    rerender(<BlogTagFilter />);
+    // Update props to include selected tag
+    const updatedProps = {
+      tags: [
+        { id: '1', name: 'React', slug: 'react' },
+        { id: '2', name: 'Python', slug: 'python' },
+        { id: '3', name: 'JavaScript', slug: 'javascript' },
+        { id: '4', name: 'TypeScript', slug: 'typescript' },
+      ],
+      selectedTag: 'python',
+      onTagChange: mockOnTagChange,
+    };
+    rerender(<BlogTagFilter {...updatedProps} />);
 
     button = screen.getByRole('combobox');
     expect(button).toHaveTextContent('Python');

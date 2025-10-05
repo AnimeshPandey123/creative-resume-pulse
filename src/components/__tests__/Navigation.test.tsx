@@ -199,7 +199,7 @@ describe('Navigation', () => {
     expect(experienceLinks[0]).toHaveAttribute('href', '#experience');
 
     const projectsLinks = screen.getAllByText('Projects');
-    expect(projectsLinks[0]).toHaveAttribute('href', '/projects');
+    expect(projectsLinks[0]).toHaveAttribute('href', '#projects');
 
     const skillsLinks = screen.getAllByText('Skills');
     expect(skillsLinks[0]).toHaveAttribute('href', '#skills');

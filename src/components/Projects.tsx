@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef, useMemo } from 'react';
-import { ExternalLink, Eye } from 'lucide-react';
+import { ExternalLink, Eye, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import { projectsData } from '@/data/landingData';
 
@@ -179,6 +179,17 @@ export const Projects: React.FC<{
                 </footer>
               </article>
             ))}
+          </div>
+
+          {/* See More Button */}
+          <div className="text-center mt-12">
+            <Link
+              href="/projects"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white font-medium rounded-lg hover:bg-primary/90 transition-colors shadow-lg hover:shadow-xl"
+            >
+              See More Projects
+              <ArrowRight className="h-4 w-4" />
+            </Link>
           </div>
         </div>
       </div>

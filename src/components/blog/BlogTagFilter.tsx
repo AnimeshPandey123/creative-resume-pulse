@@ -1,7 +1,6 @@
 'use client';
 
-import React, { useEffect } from 'react';
-import { useSearchParams, useRouter } from 'next/navigation';
+import React from 'react';
 import { Check, ChevronsUpDown } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -18,52 +17,36 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
-import { blogTags } from '@/data/mockBlogData';
+import type { BlogTag } from '@/types/BlogTypes';
 
-const BlogTagFilter: React.FC = () => {
-  const searchParams = useSearchParams();
-  const router = useRouter();
+interface BlogTagFilterProps {
+  tags: BlogTag[];
+  selectedTag: string;
+  onTagChange: (tag: string) => void;
+}
+
+const BlogTagFilter: React.FC<BlogTagFilterProps> = ({
+  tags,
+  selectedTag,
+  onTagChange,
+}) => {
   const [open, setOpen] = React.useState(false);
-  const currentTag = searchParams?.get('tag') ?? '';
-  // Initialize value state from URL params
-  const [value, setValue] = React.useState(currentTag);
-
-  // Update value when URL params change
-  useEffect(() => {
-    setValue(currentTag);
-  }, [currentTag]);
 
   const handleTagSelect = (selectedValue: string) => {
-    const newParams = new URLSearchParams(
-      searchParams ? searchParams.toString() : ''
-    );
-
-    if (selectedValue === currentTag) {
+    if (selectedValue === selectedTag) {
       // If selecting the same tag, clear the filter
-      newParams.delete('tag');
-      setValue('');
+      onTagChange('');
     } else {
-      newParams.set('tag', selectedValue);
-      setValue(selectedValue);
+      onTagChange(selectedValue);
     }
-
-    // Reset to page 1 when changing tags
-    newParams.set('page', '1');
-
-    router.push(`/blog?${newParams.toString()}`);
     setOpen(false);
   };
 
   const clearTagFilter = () => {
-    const newParams = new URLSearchParams(
-      searchParams ? searchParams.toString() : ''
-    );
-    newParams.delete('tag');
-    router.push(`/blog?${newParams.toString()}`);
-    setValue('');
+    onTagChange('');
   };
 
-  const selectedTag = blogTags.find(tag => tag.slug === currentTag);
+  const selectedTagObj = tags.find(tag => tag.slug === selectedTag);
 
   return (
     <div className="flex items-center gap-2 flex-wrap">
@@ -82,17 +65,17 @@ const BlogTagFilter: React.FC = () => {
             role="combobox"
             aria-expanded={open}
           >
-            {selectedTag ? selectedTag.name : 'Filter by tag'}
+            {selectedTag ? selectedTagObj?.name : 'Filter by tag'}
             <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
           </Button>
         </PopoverTrigger>
         <PopoverContent className="w-[200px] p-0 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md border border-white/20 dark:border-gray-700/30 shadow-lg">
-          <Command value={value}>
+          <Command value={selectedTag}>
             <CommandInput placeholder="Search tags..." />
             <CommandList>
               <CommandEmpty>No tag found.</CommandEmpty>
               <CommandGroup>
-                {blogTags.map(tag => (
+                {tags.map(tag => (
                   <CommandItem
                     className="!pointer-events-auto"
                     key={tag.id}
@@ -102,7 +85,7 @@ const BlogTagFilter: React.FC = () => {
                     <Check
                       className={cn(
                         'mr-2 h-4 w-4',
-                        currentTag === tag.slug ? 'opacity-100' : 'opacity-0'
+                        selectedTag === tag.slug ? 'opacity-100' : 'opacity-0'
                       )}
                     />
                     {tag.name}
@@ -114,7 +97,7 @@ const BlogTagFilter: React.FC = () => {
         </PopoverContent>
       </Popover>
 
-      {currentTag && (
+      {selectedTag && (
         <Button variant="ghost" onClick={clearTagFilter} className="h-9 px-2">
           Clear filter
         </Button>

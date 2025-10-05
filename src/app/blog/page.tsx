@@ -1,11 +1,23 @@
-import { Suspense } from 'react';
 import Layout from '@/layout/Layout';
 import BlogPageClient from '@/components/blog/BlogPageClient';
 import { blogMetadata, blogPageStructuredData } from '@/config/seo';
+import { blogPosts, blogTags } from '@/data/mockBlogData';
 
 export const metadata = blogMetadata;
 
 export default function BlogPage() {
+  // Get data at build time (server-side) - similar to projects page
+  const allPosts = blogPosts;
+
+  // Calculate stats
+  const blogStats = {
+    totalPosts: allPosts.length,
+    totalTags: blogTags.length,
+  };
+
+  // Get all unique tags
+  const allTags = blogTags;
+
   return (
     <>
       {/* Structured Data for Blog Page */}
@@ -20,24 +32,7 @@ export default function BlogPage() {
       ))}
 
       <Layout>
-        <Suspense
-          fallback={
-            <section className="pt-24 md:pt-28 pb-12 md:pb-16">
-              <div className="container">
-                <div className="mb-10">
-                  <h1 className="text-4xl md:text-5xl font-bold mb-4 text-foreground">
-                    Blog
-                  </h1>
-                  <p className="text-muted-foreground text-lg max-w-2xl">
-                    Loading blog posts...
-                  </p>
-                </div>
-              </div>
-            </section>
-          }
-        >
-          <BlogPageClient />
-        </Suspense>
+        <BlogPageClient posts={allPosts} tags={allTags} stats={blogStats} />
       </Layout>
     </>
   );

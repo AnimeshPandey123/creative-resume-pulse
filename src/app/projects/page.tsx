@@ -29,8 +29,8 @@ export default function Projects() {
     <Layout>
       <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
         {/* Hero Section */}
-        <section className="py-16 bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-800 dark:to-gray-900">
-          <div className="section-container">
+        <section className="py-16 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900">
+          <div className="section-container pb-1">
             <div className="max-w-4xl mx-auto text-center">
               <h1 className="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6">
                 My Projects
@@ -45,8 +45,8 @@ export default function Projects() {
         </section>
 
         {/* Interactive Controls */}
-        <section className="py-8">
-          <div className="section-container">
+        <section className="pt-8 pb-4">
+          <div className="section-container pt-1 pb-1">
             <ProjectsInteractivity
               totalProjects={projectStats.totalProjects}
               totalCategories={projectStats.totalCategories}
@@ -57,8 +57,8 @@ export default function Projects() {
         </section>
 
         {/* Static Projects List */}
-        <section className="py-8">
-          <div className="section-container">
+        <section className="pt-4 pb-8">
+          <div className="section-container ">
             <ProjectsListStatic projects={enhancedProjects} />
           </div>
         </section>

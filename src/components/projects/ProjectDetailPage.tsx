@@ -214,9 +214,9 @@ const ProjectDetailPage: React.FC<ProjectDetailPageProps> = ({ project }) => {
                         ([key, value]) => (
                           <div
                             key={key}
-                            className="flex justify-between items-center"
+                            className="flex justify-between items-center "
                           >
-                            <span className="text-gray-600 dark:text-gray-400 capitalize">
+                            <span className="text-gray-600 dark:text-gray-400 capitalize px-4">
                               {key.replace(/([A-Z])/g, ' $1').trim()}
                             </span>
                             <span className="font-semibold text-gray-900 dark:text-white">

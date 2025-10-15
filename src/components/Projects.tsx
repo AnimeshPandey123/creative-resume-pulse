@@ -165,7 +165,7 @@ export const Projects: React.FC<{
                         className="flex items-center gap-2 px-3 py-2 bg-primary text-white text-sm font-medium rounded-lg hover:bg-primary/90 transition-colors"
                       >
                         <ExternalLink className="h-4 w-4" />
-                        View Demo
+                        View Website
                       </a>
                     )}
                     <Link

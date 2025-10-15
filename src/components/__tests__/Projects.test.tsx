@@ -114,7 +114,7 @@ describe('Projects', () => {
   it('renders external link for projects with URLs', () => {
     render(<Projects />);
 
-    const externalLink = screen.getByText('View Demo');
+    const externalLink = screen.getByText('View Website');
     expect(externalLink).toHaveAttribute('href', 'https://test.com');
     expect(externalLink).toHaveAttribute('target', '_blank');
     expect(externalLink).toHaveAttribute('rel', 'noopener noreferrer');
@@ -124,7 +124,7 @@ describe('Projects', () => {
     render(<Projects />);
 
     // Should not have a "View Demo" link for Test Project 2 (no URL)
-    const viewDemoLinks = screen.getAllByText('View Demo');
+    const viewDemoLinks = screen.getAllByText('View Website');
     expect(viewDemoLinks).toHaveLength(1); // Only Test Project 1 should have it
   });
 

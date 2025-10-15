@@ -10,11 +10,16 @@ export const blogAuthors: BlogAuthor[] = authors;
 export const blogTags: BlogTag[] = tags;
 
 // Transform posts to include author and tags objects
-export const blogPosts: BlogPost[] = posts.map((post: any) => ({
-  ...post,
-  author: blogAuthors.find(author => author.id === post.authorId)!,
-  tags: blogTags.filter(tag => post.tagIds.includes(tag.id)),
-}));
+export const blogPosts: BlogPost[] = posts
+  .map((post: any) => ({
+    ...post,
+    author: blogAuthors.find(author => author.id === post.authorId)!,
+    tags: blogTags.filter(tag => post.tagIds.includes(tag.id)),
+  }))
+  .sort(
+    (a: BlogPost, b: BlogPost) =>
+      new Date(b.publishDate).getTime() - new Date(a.publishDate).getTime()
+  );
 
 export const fetchBlogPosts = (page = 1, limit = 10, search = '', tag = '') => {
   let filteredPosts = [...blogPosts];

@@ -10,7 +10,7 @@
     "audit": "npm audit",
     "build:static": "mv next.config.ts next.config.dev.ts && mv next.config.static.ts next.config.ts && next build",
     "build:server": "mv next.config.ts next.config.dev.ts && mv next.config.static.ts next.config.ts && next build",
-    "start": "next start",
+    "start": "npx serve@latest out",
     "preview": "npm run build && npx serve@latest .next/server/app",
     "export": "npm run build && cp -r .next/server/app out",
     "serve-export": "npm run export && npx serve@latest out",

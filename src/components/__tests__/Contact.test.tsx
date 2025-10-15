@@ -4,6 +4,17 @@ import Contact from '../Contact';
 
 // Mock the toast hook
 const mockToast = jest.fn();
+beforeAll(() => {
+  // Mock the global grecaptcha object
+  Object.defineProperty(window, 'grecaptcha', {
+    value: {
+      execute: jest.fn().mockResolvedValue('fake-recaptcha-token'),
+      ready: jest.fn(cb => cb()),
+    },
+    writable: true,
+  });
+});
+
 jest.mock('@/hooks/use-toast', () => ({
   useToast: () => ({
     toast: mockToast,
@@ -120,6 +131,7 @@ describe('Contact', () => {
           name: 'John Doe',
           email: 'john@example.com',
           message: 'Test message',
+          recaptchaToken: 'fake-recaptcha-token',
         }),
       });
     });

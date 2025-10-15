@@ -2,6 +2,16 @@ import { Resend } from 'resend';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
+const RECAPTCHA_SECRET_KEY = process.env.RECAPTCHA_SECRET_KEY;
+
+const verifyRecaptcha = async (token: string) => {
+  const response = await fetch(
+    `https://www.google.com/recaptcha/api/siteverify?secret=${RECAPTCHA_SECRET_KEY}&response=${token}`
+  );
+  const data = await response.json();
+  return data.success && data.score > 0.5;
+};
+
 export const config = {
   runtime: 'edge',
 };
@@ -14,7 +24,25 @@ export default async function handler(req: Request) {
   }
 
   const body = await req.json();
-  const { name, email, message } = body;
+  const { name, email, message, recaptchaToken } = body;
+
+  if (!recaptchaToken) {
+    return new Response(
+      JSON.stringify({ error: 'Recaptcha token is required' }),
+      {
+        status: 400,
+      }
+    );
+  }
+  const recaptchaSuccess = await verifyRecaptcha(recaptchaToken);
+  if (!recaptchaSuccess) {
+    return new Response(
+      JSON.stringify({ error: 'Recaptcha verification failed' }),
+      {
+        status: 400,
+      }
+    );
+  }
 
   try {
     const data = await resend.emails.send({

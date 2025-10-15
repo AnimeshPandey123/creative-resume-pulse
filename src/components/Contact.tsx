@@ -32,6 +32,13 @@ const Contact: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!window.grecaptcha) {
+      toast({
+        title: 'reCAPTCHA not ready',
+        description: 'Please wait a moment and try again.',
+      });
+      return;
+    }
     setSubmitting(true);
     const token = await window.grecaptcha.execute(
       process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY,

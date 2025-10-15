@@ -9,6 +9,7 @@ interface FormState {
   name: string;
   email: string;
   message: string;
+  recaptchaToken: string;
 }
 
 const Contact: React.FC = () => {
@@ -16,6 +17,7 @@ const Contact: React.FC = () => {
     name: '',
     email: '',
     message: '',
+    recaptchaToken: '',
   });
   const [submitting, setSubmitting] = useState(false);
   const contactContentRef = useRef<HTMLDivElement>(null);
@@ -31,11 +33,18 @@ const Contact: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitting(true);
+    const token = await window.grecaptcha.execute(
+      process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY,
+      { action: 'submit' }
+    );
 
     const res = await fetch('/api/contact', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(formState),
+      body: JSON.stringify({
+        ...formState,
+        recaptchaToken: token,
+      }),
     });
 
     if (res.ok) {
@@ -44,6 +53,7 @@ const Contact: React.FC = () => {
         name: '',
         email: '',
         message: '',
+        recaptchaToken: '',
       });
 
       toast({

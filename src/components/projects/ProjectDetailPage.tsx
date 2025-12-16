@@ -1,5 +1,15 @@
 import React from 'react';
-import { ArrowLeft, Github, Calendar, User, Tag, Eye } from 'lucide-react';
+import {
+  ArrowLeft,
+  Github,
+  Calendar,
+  User,
+  Tag,
+  Eye,
+  Award,
+  BarChart3,
+  CheckCircle2,
+} from 'lucide-react';
 import Link from 'next/link';
 import type { EnhancedProject } from '@/data/projectsData';
 
@@ -27,25 +37,25 @@ const ProjectDetailPage: React.FC<ProjectDetailPageProps> = ({ project }) => {
       </div>
 
       {/* Project Hero */}
-      <section className="py-16 bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-800 dark:to-gray-900">
+      <section className="py-14 md:py-16 bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-800 dark:to-gray-900">
         <div className="section-container">
-          <div className="max-w-4xl mx-auto text-center">
+          <div className="max-w-5xl mx-auto text-center">
             <div className="mb-6">
               <span className="inline-block px-3 py-1 bg-primary/10 text-primary text-sm font-medium rounded-full mb-4">
                 {enhancedProject.category}
               </span>
             </div>
 
-            <h1 className="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6">
+            <h1 className="text-3xl md:text-5xl font-bold tracking-tight text-gray-900 dark:text-white mb-4">
               {project.title}
             </h1>
 
-            <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto">
+            <p className="text-lg md:text-xl text-gray-600 dark:text-gray-300 mb-6 max-w-3xl mx-auto">
               {project.description[0]}
             </p>
 
             {/* Project Meta */}
-            <div className="flex flex-wrap justify-center gap-6 text-sm text-gray-600 dark:text-gray-400">
+            <div className="flex flex-wrap justify-center gap-x-6 gap-y-3 text-sm text-gray-700 dark:text-gray-300">
               <div className="flex items-center gap-2">
                 <User className="h-4 w-4" />
                 <span>{project.role}</span>
@@ -61,13 +71,13 @@ const ProjectDetailPage: React.FC<ProjectDetailPageProps> = ({ project }) => {
             </div>
 
             {/* Action Buttons */}
-            <div className="flex flex-wrap justify-center gap-4 mt-8">
+            <div className="flex flex-wrap justify-center gap-3 md:gap-4 mt-7">
               {enhancedProject.demoUrl && (
                 <a
                   href={enhancedProject.demoUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white font-medium rounded-lg hover:bg-primary/90 transition-colors"
+                  className="inline-flex items-center gap-2 px-5 py-3 bg-primary text-white font-medium rounded-lg hover:bg-primary/90 transition-colors shadow-sm"
                 >
                   <Eye className="h-5 w-5" />
                   View Live Demo
@@ -78,7 +88,7 @@ const ProjectDetailPage: React.FC<ProjectDetailPageProps> = ({ project }) => {
                   href={enhancedProject.githubUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-6 py-3 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 font-medium rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+                  className="inline-flex items-center gap-2 px-5 py-3 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200 font-medium rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
                 >
                   <Github className="h-5 w-5" />
                   View Source Code
@@ -90,22 +100,22 @@ const ProjectDetailPage: React.FC<ProjectDetailPageProps> = ({ project }) => {
       </section>
 
       {/* Project Content */}
-      <section className="py-16">
+      <section className="py-12 md:py-16">
         <div className="section-container">
-          <div className="max-w-4xl mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+          <div className="max-w-6xl mx-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 lg:gap-12">
               {/* Main Content */}
-              <div className="lg:col-span-2 space-y-12">
+              <div className="lg:col-span-2 space-y-10">
                 {/* Project Overview */}
-                <div>
-                  <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">
+                <div className="bg-white dark:bg-gray-900">
+                  <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-4">
                     Project Overview
                   </h2>
                   <div className="prose prose-lg dark:prose-invert max-w-none">
                     {project.description.map((desc, index) => (
                       <p
                         key={index}
-                        className="text-gray-600 dark:text-gray-300 leading-relaxed mb-4"
+                        className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4"
                       >
                         {desc}
                       </p>
@@ -116,12 +126,13 @@ const ProjectDetailPage: React.FC<ProjectDetailPageProps> = ({ project }) => {
                 {/* Challenges & Solutions */}
                 {enhancedProject.challenges && (
                   <div>
-                    <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">
+                    <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-4">
                       Challenges & Solutions
                     </h2>
                     <div className="space-y-6">
                       <div>
-                        <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">
+                        <h3 className="text-lg md:text-xl font-semibold text-gray-900 dark:text-white mb-3 inline-flex items-center gap-2">
+                          <Award className="h-5 w-5 text-amber-500" />
                           Challenges
                         </h3>
                         <ul className="space-y-2">
@@ -132,7 +143,7 @@ const ProjectDetailPage: React.FC<ProjectDetailPageProps> = ({ project }) => {
                                 className="flex items-start gap-3"
                               >
                                 <span className="flex-shrink-0 w-2 h-2 bg-red-500 rounded-full mt-2"></span>
-                                <span className="text-gray-600 dark:text-gray-300">
+                                <span className="text-gray-700 dark:text-gray-300">
                                   {challenge}
                                 </span>
                               </li>
@@ -141,14 +152,15 @@ const ProjectDetailPage: React.FC<ProjectDetailPageProps> = ({ project }) => {
                         </ul>
                       </div>
                       <div>
-                        <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">
+                        <h3 className="text-lg md:text-xl font-semibold text-gray-900 dark:text-white mb-3 inline-flex items-center gap-2">
+                          <CheckCircle2 className="h-5 w-5 text-emerald-500" />
                           Solutions
                         </h3>
                         <ul className="space-y-2">
                           {enhancedProject.solutions?.map((solution, index) => (
                             <li key={index} className="flex items-start gap-3">
                               <span className="flex-shrink-0 w-2 h-2 bg-green-500 rounded-full mt-2"></span>
-                              <span className="text-gray-600 dark:text-gray-300">
+                              <span className="text-gray-700 dark:text-gray-300">
                                 {solution}
                               </span>
                             </li>
@@ -162,14 +174,15 @@ const ProjectDetailPage: React.FC<ProjectDetailPageProps> = ({ project }) => {
                 {/* Results */}
                 {enhancedProject.results && (
                   <div>
-                    <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">
+                    <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-4 inline-flex items-center gap-2">
+                      <BarChart3 className="h-6 w-6 text-blue-600" />
                       Results & Impact
                     </h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       {enhancedProject.results.map((result, index) => (
                         <div
                           key={index}
-                          className="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg"
+                          className="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm"
                         >
                           <h4 className="font-semibold text-gray-900 dark:text-white mb-2">
                             {result.title}
@@ -185,17 +198,17 @@ const ProjectDetailPage: React.FC<ProjectDetailPageProps> = ({ project }) => {
               </div>
 
               {/* Sidebar */}
-              <div className="space-y-8">
+              <div className="space-y-6 lg:space-y-8 lg:sticky lg:top-24 h-max">
                 {/* Technologies */}
-                <div>
-                  <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
+                <div className="rounded-xl border border-gray-200 dark:border-gray-700 p-6 bg-white dark:bg-gray-900 shadow-sm">
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">
                     Technologies Used
                   </h3>
                   <div className="flex flex-wrap gap-2">
                     {project.technologies.map((tech, index) => (
                       <span
                         key={index}
-                        className="px-3 py-2 bg-accent dark:bg-gray-700 text-accent-foreground dark:text-gray-200 text-sm font-medium rounded-lg"
+                        className="px-3 py-1.5 bg-primary/10 text-primary dark:bg-gray-700 dark:text-gray-200 text-sm font-medium rounded-full"
                       >
                         {tech}
                       </span>
@@ -205,18 +218,18 @@ const ProjectDetailPage: React.FC<ProjectDetailPageProps> = ({ project }) => {
 
                 {/* Project Metrics */}
                 {enhancedProject.metrics && (
-                  <div>
-                    <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
+                  <div className="rounded-xl border border-gray-200 dark:border-gray-700 p-6 bg-white dark:bg-gray-900 shadow-sm">
+                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">
                       Key Metrics
                     </h3>
-                    <div className="space-y-4">
+                    <div className="space-y-3">
                       {Object.entries(enhancedProject.metrics).map(
                         ([key, value]) => (
                           <div
                             key={key}
-                            className="flex justify-between items-center "
+                            className="flex justify-between items-start gap-4"
                           >
-                            <span className="text-gray-600 dark:text-gray-400 capitalize px-4">
+                            <span className="text-gray-600 dark:text-gray-400 capitalize">
                               {key.replace(/([A-Z])/g, ' $1').trim()}
                             </span>
                             <span className="font-semibold text-gray-900 dark:text-white">
@@ -230,8 +243,8 @@ const ProjectDetailPage: React.FC<ProjectDetailPageProps> = ({ project }) => {
                 )}
 
                 {/* Project Info */}
-                <div>
-                  <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
+                <div className="rounded-xl border border-gray-200 dark:border-gray-700 p-6 bg-white dark:bg-gray-900 shadow-sm">
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">
                     Project Details
                   </h3>
                   <div className="space-y-3">

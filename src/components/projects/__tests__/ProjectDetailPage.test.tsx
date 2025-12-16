@@ -27,6 +27,9 @@ jest.mock('lucide-react', () => ({
   TrendingUp: () => <div data-testid="trending-up-icon" />,
   Target: () => <div data-testid="target-icon" />,
   CheckCircle: () => <div data-testid="check-circle-icon" />,
+  Award: () => <div data-testid="award-icon" />,
+  BarChart3: () => <div data-testid="bar-chart-3-icon" />,
+  CheckCircle2: () => <div data-testid="check-circle-2-icon" />,
 }));
 
 const mockProject: EnhancedProject = {
@@ -307,11 +310,11 @@ describe('ProjectDetailPage', () => {
     expect(backNav).toBeInTheDocument();
 
     // Check hero section
-    const heroSection = container.querySelector('.py-16.bg-gradient-to-br');
+    const heroSection = container.querySelector('.bg-gradient-to-br');
     expect(heroSection).toBeInTheDocument();
 
     // Check content sections
-    const contentSections = container.querySelectorAll('.py-16');
+    const contentSections = container.querySelectorAll('section');
     expect(contentSections.length).toBeGreaterThan(0);
   });
 

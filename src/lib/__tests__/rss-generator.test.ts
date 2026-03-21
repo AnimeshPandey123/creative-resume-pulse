@@ -225,7 +225,7 @@ describe('RSS Feed Generator', () => {
       '<managingEditor>animeshpandey.pro@gmail.com (Animesh Pandey)</managingEditor>'
     );
     expect(rssXml).toContain(
-      '<copyright>Copyright 2025 Animesh Pandey</copyright>'
+      `<copyright>Copyright ${new Date().getFullYear()} Animesh Pandey</copyright>`
     );
     expect(rssXml).toContain('<ttl>60</ttl>');
   });

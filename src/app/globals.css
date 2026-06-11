@@ -146,6 +146,20 @@ html {
   outline-offset: 2px;
 }
 
+/* Command palette inputs ship their own chrome; suppress the global ring */
+[cmdk-input-wrapper]:focus-within,
+[cmdk-input]:focus,
+[cmdk-input]:focus-visible {
+  outline: none !important;
+  outline-offset: 0 !important;
+  box-shadow: none !important;
+}
+
+[cmdk-input] {
+  border: 0 !important;
+  border-radius: 0 !important;
+}
+
 /* Selection styles */
 ::selection {
   background: hsl(var(--primary));

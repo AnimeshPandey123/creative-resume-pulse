@@ -20,7 +20,7 @@ const BlogPostCard: React.FC<BlogPostCardProps> = ({ post, index = 0 }) => {
 
   return (
     <article
-      className="project-card h-full flex flex-col opacity-0"
+      className="project-card h-full flex flex-col blog-card-pending"
       style={{ animationDelay: `${index * 100}ms` }}
       data-blog-card
     >

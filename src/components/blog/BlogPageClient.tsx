@@ -110,11 +110,26 @@ export default function BlogPageClient({
 
   useEffect(() => {
     const cards = document.querySelectorAll('[data-blog-card]');
+
+    const revealCard = (card: Element) => {
+      if (!(card instanceof HTMLElement)) {
+        return;
+      }
+
+      card.classList.remove('blog-card-pending');
+      card.classList.add('animate-fade-in');
+    };
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      cards.forEach(revealCard);
+      return;
+    }
+
     const observer = new IntersectionObserver(
       entries => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
-            entry.target.classList.add('animate-fade-in');
+            revealCard(entry.target);
             observer.unobserve(entry.target);
           }
         });

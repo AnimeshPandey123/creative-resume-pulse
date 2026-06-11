@@ -163,8 +163,12 @@ html {
   animation: fadeIn 0.5s ease-in-out;
 }
 
+.blog-card-pending {
+  opacity: 0;
+}
+
 .animate-fade-in {
-  animation: fadeIn 0.5s ease-in-out;
+  animation: fadeIn 0.5s ease-in-out forwards;
 }
 
 .animate-fade-in-left {

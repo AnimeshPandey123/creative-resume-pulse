@@ -1,9 +1,10 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import { Mail, Phone, MapPin } from 'lucide-react';
+import { Mail, Phone, MapPin, FileDown } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-import { contactData } from '@/data/landingData';
+import { contactData, resumeData } from '@/data/landingData';
+import { trackDownload } from '@/lib/analytics';
 
 interface FormState {
   name: string;
@@ -167,6 +168,24 @@ const Contact: React.FC = () => {
                       aria-label="Call Animesh Pandey"
                     >
                       {contactData.info.phone.value}
+                    </a>
+                  </div>
+                </div>
+
+                <div className="flex items-start">
+                  <FileDown className="text-primary mt-1 mr-4" size={20} />
+                  <div>
+                    <p className="font-medium">CV</p>
+                    <a
+                      href={resumeData.href}
+                      download={resumeData.downloadName}
+                      onClick={() =>
+                        trackDownload(resumeData.downloadName, 'pdf')
+                      }
+                      className="text-muted-foreground hover:text-primary transition-colors"
+                      aria-label="Download Animesh Pandey's CV as PDF"
+                    >
+                      {resumeData.label}
                     </a>
                   </div>
                 </div>

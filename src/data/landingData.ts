@@ -5,6 +5,7 @@ export const landingData = landingContent;
 
 // Export individual sections for easy access
 export const heroData = landingData.hero;
+export const resumeData = landingData.resume;
 export const aboutData = landingData.about;
 export const experienceData = landingData.experience;
 export const projectsData = landingData.projects;

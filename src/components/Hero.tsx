@@ -1,8 +1,9 @@
 'use client';
 
 import React, { useEffect, useRef } from 'react';
-import { ArrowDown } from 'lucide-react';
-import { heroData } from '@/data/landingData';
+import { ArrowDown, Download } from 'lucide-react';
+import { heroData, resumeData } from '@/data/landingData';
+import { trackDownload } from '@/lib/analytics';
 
 const Hero: React.FC = () => {
   const subtitleRef = useRef<HTMLParagraphElement>(null);
@@ -85,6 +86,16 @@ const Hero: React.FC = () => {
               aria-label="View Animesh Pandey's projects"
             >
               {heroData.cta.secondary.text}
+            </a>
+            <a
+              href={resumeData.href}
+              download={resumeData.downloadName}
+              onClick={() => trackDownload(resumeData.downloadName, 'pdf')}
+              className="inline-flex items-center justify-center gap-2 px-6 py-3 border border-border rounded-lg font-medium transition-all hover:bg-secondary/70 hover:shadow-md text-center"
+              aria-label="Download Animesh Pandey's CV as PDF"
+            >
+              <Download size={18} aria-hidden="true" />
+              {resumeData.label}
             </a>
           </nav>
         </div>

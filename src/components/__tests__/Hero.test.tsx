@@ -18,6 +18,11 @@ jest.mock('@/data/landingData', () => ({
       },
     },
   },
+  resumeData: {
+    href: '/cv/FullStackDeveloperAnimeshResume.pdf',
+    label: 'Download CV',
+    downloadName: 'Animesh-Pandey-CV.pdf',
+  },
 }));
 
 // Mock IntersectionObserver
@@ -47,6 +52,7 @@ describe('Hero', () => {
     expect(screen.getByText('Test Subtitle')).toBeInTheDocument();
     expect(screen.getByText('Primary CTA')).toBeInTheDocument();
     expect(screen.getByText('Secondary CTA')).toBeInTheDocument();
+    expect(screen.getByText('Download CV')).toBeInTheDocument();
   });
 
   it('has correct accessibility attributes', () => {
@@ -64,6 +70,15 @@ describe('Hero', () => {
       "View Animesh Pandey's projects"
     );
     expect(secondaryCTA).toBeInTheDocument();
+
+    const resumeLink = screen.getByLabelText(
+      "Download Animesh Pandey's CV as PDF"
+    );
+    expect(resumeLink).toHaveAttribute(
+      'href',
+      '/cv/FullStackDeveloperAnimeshResume.pdf'
+    );
+    expect(resumeLink).toHaveAttribute('download', 'Animesh-Pandey-CV.pdf');
 
     const scrollDownLink = screen.getByLabelText(
       'Scroll down to About section'

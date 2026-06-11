@@ -1,6 +1,7 @@
 import {
   landingData,
   heroData,
+  resumeData,
   aboutData,
   experienceData,
   projectsData,
@@ -19,6 +20,12 @@ describe('landingData', () => {
   it('should export heroData', () => {
     expect(heroData).toBeDefined();
     expect(heroData).toBe(landingData.hero);
+  });
+
+  it('should export resumeData', () => {
+    expect(resumeData).toBeDefined();
+    expect(resumeData).toBe(landingData.resume);
+    expect(resumeData.href).toBe('/cv/FullStackDeveloperAnimeshResume.pdf');
   });
 
   it('should export aboutData', () => {
@@ -58,6 +65,7 @@ describe('landingData', () => {
 
   it('should have all required sections in landingData', () => {
     expect(landingData).toHaveProperty('hero');
+    expect(landingData).toHaveProperty('resume');
     expect(landingData).toHaveProperty('about');
     expect(landingData).toHaveProperty('experience');
     expect(landingData).toHaveProperty('projects');

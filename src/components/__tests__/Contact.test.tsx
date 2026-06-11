@@ -53,6 +53,11 @@ jest.mock('@/data/landingData', () => ({
       },
     ],
   },
+  resumeData: {
+    href: '/cv/FullStackDeveloperAnimeshResume.pdf',
+    label: 'Download CV',
+    downloadName: 'Animesh-Pandey-CV.pdf',
+  },
 }));
 
 // Mock Lucide React icons
@@ -60,6 +65,7 @@ jest.mock('lucide-react', () => ({
   Mail: () => <div data-testid="mail-icon">Mail</div>,
   Phone: () => <div data-testid="phone-icon">Phone</div>,
   MapPin: () => <div data-testid="map-icon">Map</div>,
+  FileDown: () => <div data-testid="filedown-icon">FileDown</div>,
 }));
 
 // Mock fetch
@@ -91,6 +97,9 @@ describe('Contact', () => {
     expect(screen.getByText('test@example.com')).toBeInTheDocument();
     expect(screen.getByText('+1234567890')).toBeInTheDocument();
     expect(screen.getByText('Test City, Test Country')).toBeInTheDocument();
+    expect(
+      screen.getByLabelText("Download Animesh Pandey's CV as PDF")
+    ).toHaveAttribute('href', '/cv/FullStackDeveloperAnimeshResume.pdf');
   });
 
   it('should update form fields when user types', () => {

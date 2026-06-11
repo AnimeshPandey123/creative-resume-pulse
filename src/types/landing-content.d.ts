@@ -116,8 +116,15 @@ declare module '*/landing-content.json' {
     viewAllText: string;
   }
 
+  interface ResumeData {
+    href: string;
+    label: string;
+    downloadName: string;
+  }
+
   interface LandingContent {
     hero: HeroData;
+    resume: ResumeData;
     about: AboutData;
     experience: ExperienceData;
     projects: ProjectsData;

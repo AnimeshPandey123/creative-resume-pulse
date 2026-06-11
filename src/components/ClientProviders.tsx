@@ -12,14 +12,13 @@ export default function ClientProviders({
 }: {
   children: React.ReactNode;
 }) {
-  // Memoize QueryClient to prevent recreation on every render
   const queryClient = useMemo(
     () =>
       new QueryClient({
         defaultOptions: {
           queries: {
-            staleTime: 60 * 1000, // 1 minute
-            gcTime: 10 * 60 * 1000, // 10 minutes
+            staleTime: 60 * 1000,
+            gcTime: 10 * 60 * 1000,
             retry: 1,
             refetchOnWindowFocus: false,
           },
@@ -33,7 +32,6 @@ export default function ClientProviders({
       <TooltipProvider>
         <PerformanceOptimizer>
           {children}
-          {/* Lazy load toasters to reduce initial bundle */}
           <Toaster />
           <Sonner />
         </PerformanceOptimizer>

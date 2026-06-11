@@ -4,8 +4,8 @@ import React, {
   createContext,
   useContext,
   useEffect,
-  useState,
   useMemo,
+  useState,
 } from 'react';
 
 type Theme = 'light' | 'dark';
@@ -45,22 +45,30 @@ const defaultDependencies: ThemeDependencies = {
     getItem: (key: string) =>
       typeof window !== 'undefined' ? localStorage.getItem(key) : null,
     setItem: (key: string, value: string) =>
-      typeof window !== 'undefined' ? localStorage.setItem(key, value) : undefined,
+      typeof window !== 'undefined'
+        ? localStorage.setItem(key, value)
+        : undefined,
   },
   matchMedia: (query: string) =>
-    typeof window !== 'undefined' ? window.matchMedia(query) : {
-      matches: false,
-      media: query,
-      addEventListener: () => { },
-      removeEventListener: () => { },
-    },
+    typeof window !== 'undefined'
+      ? window.matchMedia(query)
+      : {
+          matches: false,
+          media: query,
+          addEventListener: () => {},
+          removeEventListener: () => {},
+        },
   document: {
     documentElement: {
       classList: {
         remove: (...classes: string[]) =>
-          typeof document !== 'undefined' ? document.documentElement.classList.remove(...classes) : undefined,
+          typeof document !== 'undefined'
+            ? document.documentElement.classList.remove(...classes)
+            : undefined,
         add: (className: string) =>
-          typeof document !== 'undefined' ? document.documentElement.classList.add(className) : undefined,
+          typeof document !== 'undefined'
+            ? document.documentElement.classList.add(className)
+            : undefined,
       },
     },
   },
@@ -126,38 +134,46 @@ export function ThemeProvider({
   children: React.ReactNode;
   dependencies?: ThemeDependencies;
 }) {
-  const [theme, setTheme] = useState<Theme>('light'); // Safe default for SSR
   const themeHandler = useMemo(
     () => createThemeHandler(dependencies),
     [dependencies]
   );
+  const [theme, setTheme] = useState<Theme>(() => {
+    if (typeof window === 'undefined') {
+      return 'light';
+    }
 
-  // Initialize theme from localStorage and system preference
+    return createThemeHandler(dependencies).initializeTheme();
+  });
+
   useEffect(() => {
     const initialTheme = themeHandler.initializeTheme();
     setTheme(initialTheme);
+    themeHandler.applyThemeToDocument(initialTheme);
   }, [themeHandler]);
-
-  // Update the document class when the theme changes
-  useEffect(() => {
-    themeHandler.applyThemeToDocument(theme);
-    themeHandler.storeTheme(theme);
-  }, [theme, themeHandler]);
 
   // Monitor system theme changes
   useEffect(() => {
     const mediaQuery = dependencies.matchMedia('(prefers-color-scheme: dark)');
-    const handleChange = themeHandler.createSystemThemeChangeHandler(
-      mediaQuery,
-      setTheme
-    );
+    const handleChange = () => {
+      if (!dependencies.localStorage.getItem('theme')) {
+        const nextTheme = mediaQuery.matches ? 'dark' : 'light';
+        setTheme(nextTheme);
+        themeHandler.applyThemeToDocument(nextTheme);
+      }
+    };
 
     mediaQuery.addEventListener('change', handleChange);
     return () => mediaQuery.removeEventListener('change', handleChange);
   }, [dependencies, themeHandler]);
 
   const toggleTheme = () => {
-    setTheme(prevTheme => (prevTheme === 'light' ? 'dark' : 'light'));
+    setTheme(prevTheme => {
+      const nextTheme = prevTheme === 'light' ? 'dark' : 'light';
+      themeHandler.applyThemeToDocument(nextTheme);
+      themeHandler.storeTheme(nextTheme);
+      return nextTheme;
+    });
   };
 
   return (

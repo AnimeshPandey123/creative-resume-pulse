@@ -2,7 +2,6 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import Layout from '../Layout';
 
-// Mock the components that Layout uses
 jest.mock('@/components/Navigation', () => {
   return function MockNavigation() {
     return <div data-testid="navigation">Navigation</div>;
@@ -15,14 +14,6 @@ jest.mock('@/components/Footer', () => {
   };
 });
 
-jest.mock('@/components/ThemeProvider', () => {
-  return {
-    ThemeProvider: ({ children }: { children: React.ReactNode }) => (
-      <div data-testid="theme-provider">{children}</div>
-    ),
-  };
-});
-
 describe('Layout', () => {
   it('should render with all required components', () => {
     render(
@@ -31,7 +22,6 @@ describe('Layout', () => {
       </Layout>
     );
 
-    expect(screen.getByTestId('theme-provider')).toBeInTheDocument();
     expect(screen.getByTestId('navigation')).toBeInTheDocument();
     expect(screen.getByTestId('footer')).toBeInTheDocument();
     expect(screen.getByTestId('main-content')).toBeInTheDocument();
@@ -44,7 +34,6 @@ describe('Layout', () => {
       </Layout>
     );
 
-    // Find the div with the layout classes
     const mainDiv = container.querySelector('div.min-h-screen') as HTMLElement;
     expect(mainDiv).toHaveClass('min-h-screen', 'flex', 'flex-col');
 

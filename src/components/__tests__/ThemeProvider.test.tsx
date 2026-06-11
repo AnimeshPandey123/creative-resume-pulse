@@ -86,6 +86,28 @@ describe('ThemeProvider', () => {
     expect(document.documentElement.classList.contains('dark')).toBe(true);
   });
 
+  it('preserves stored dark theme after remount', () => {
+    localStorage.setItem('theme', 'dark');
+
+    const first = render(
+      <ThemeProvider>
+        <TestConsumer />
+      </ThemeProvider>
+    );
+    expect(first.getByTestId('theme').textContent).toBe('dark');
+
+    first.unmount();
+
+    const second = render(
+      <ThemeProvider>
+        <TestConsumer />
+      </ThemeProvider>
+    );
+    expect(second.getByTestId('theme').textContent).toBe('dark');
+    expect(localStorage.getItem('theme')).toBe('dark');
+    expect(document.documentElement.classList.contains('dark')).toBe(true);
+  });
+
   it('toggles theme and persists to localStorage', () => {
     const { getByText, getByTestId } = render(
       <ThemeProvider>

@@ -35,6 +35,11 @@ export default function RootLayout({
   return (
     <html lang="en-GB" className={`${inter.variable} ${sourceSerif.variable}`}>
       <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var stored=localStorage.getItem('theme');var prefersDark=window.matchMedia('(prefers-color-scheme: dark)').matches;var theme=stored==='dark'||stored==='light'?stored:(prefersDark?'dark':'light');document.documentElement.classList.remove('light','dark');document.documentElement.classList.add(theme);}catch(e){}})();`,
+          }}
+        />
         {/* Critical Resource Hints */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link

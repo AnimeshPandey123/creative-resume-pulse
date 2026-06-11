@@ -2,7 +2,7 @@
   "hero": {
     "title": "SENIOR SOFTWARE ENGINEER",
     "name": "Animesh Pandey",
-    "subtitle": "I cut production deploys from 60 minutes to 5 minutes and build the APIs, mobile apps, and CI/CD pipelines behind products like Aqua Expeditions.",
+    "subtitle": "Seven years building scalable backends in Python, PHP, and Node. I've cut deploy times from an hour to five minutes and API responses from 10 seconds to 500ms across travel, healthcare, and mobile products.",
     "cta": {
       "primary": {
         "text": "Get in touch",
@@ -24,7 +24,7 @@
     "subtitle": "Backend engineer who ships production systems, from APIs through to CI/CD.",
     "personalLine": "I've spent seven years on the unglamorous part of the stack: APIs, data models, tests, and getting code out the door without drama.",
     "content": [
-      "Senior Software Engineer based in Preston, UK. I specialise in PHP, Python, and Node.js backends, with full-stack delivery in React, Next.js, and React Native. I've led teams across Singapore, the US, and the UK — from microservices and TDD to hiring and code reviews."
+      "Senior Software Engineer based in Preston, UK. I specialise in Python, PHP, and Node.js backends, with full-stack delivery in React, Next.js, and React Native. I've led teams across Singapore, the US, and the UK — from microservices and TDD to hiring and code reviews."
     ],
     "contact": {
       "location": "Preston, UK",
@@ -223,14 +223,14 @@
   },
   "skills": {
     "title": "What I Deliver",
-    "subtitle": "Four capability areas — not a keyword dump.",
+    "subtitle": "Production skills across backend engineering, full-stack delivery, DevOps, and AI integration.",
     "categories": [
       {
         "title": "Backend & APIs",
         "skills": [
+          "Python",
           "FastAPI",
           "PHP",
-          "Python",
           "PostgreSQL",
           "REST & GraphQL",
           "Microservices"

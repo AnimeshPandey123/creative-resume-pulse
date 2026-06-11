@@ -1,236 +1,215 @@
 ---
 title: 'Deploying a Next.js Application with Nginx and Docker: A Comprehensive Guide'
-excerpt: 'Deploy Next.js in production using Docker and Nginx with best practices.'
+excerpt: "Deploy a static Next.js export with Docker and nginx. Covers next.config.ts output: 'export', multi-stage builds, and serving HTML from nginx instead of a Node server."
 publishDate: '2024-11-11'
-tags: [nextjs, docker, nginx, devops]
+tags: [nextjs, docker, nginx, devops, deployment-scaling]
 ---
 
-## Deploying a Next.js Application with Nginx and Docker: A Comprehensive Guide
+# Deploying a Next.js application with nginx and Docker
 
-Deploying a Next.js application in production is a straightforward process, especially when using Docker and Nginx. This combination streamlines the setup while enhancing scalability and performance.
+This site uses Next.js static export (`output: 'export'` in `next.config.ts`). That means `next build` produces plain HTML, CSS, and JS in an `out/` directory—no Node.js process required at runtime. nginx serves those files directly, which is simpler and cheaper than running a Node server behind a reverse proxy.
 
-This guide will cover the following steps:
+If your app uses server features (API routes, SSR, ISR), you need a Node runtime instead. This guide focuses on the static export path because it's what I run in production for portfolio and marketing sites.
 
-- Setting up the Next.js app for production
-- Building a Docker image for the app
-- Configuring Nginx as a reverse proxy for Next.js
-- Deploying Docker containers for production
+## 1. Configure Next.js for static export
 
-Let's dive in!
+In `next.config.ts`:
 
-## 1. Preparing the Next.js Application for Production
+```typescript
+import type { NextConfig } from 'next';
 
-Before deploying your Next.js app, ensure it's optimized for production.
+const nextConfig: NextConfig = {
+  output: 'export',
+  trailingSlash: true,
+  images: {
+    unoptimized: true, // required for static export
+  },
+};
 
-- Environment Variables: Define necessary environment variables, such as **NEXT_PUBLIC_API_URL**, in your **.env** file. Ensure these are referenced correctly within your app.
-- **Build the Application**: In the root of your Next.js project, run the following commands:
+export default nextConfig;
+```
+
+Build locally to verify:
 
 ```bash
-npm install
+npm ci
 npm run build
 ```
 
-This will generate a production-ready version of your Next.js application in the **.next** directory.
+The `out/` directory contains your deployable site. With `trailingSlash: true`, routes like `/blog/` map to `out/blog/index.html`.
 
-- **Static Optimization**: If your Next.js app has pages that don't require server-side rendering, consider static generation. This will make your app faster by delivering pre-rendered HTML files to the client.
+**Limitations of static export**: no `getServerSideProps`, no API routes, no middleware, no incremental static regeneration. Plan accordingly before choosing this path.
 
-## 2. Building a Docker Image for Next.js
+## 2. Multi-stage Dockerfile (static export)
 
-Docker is a powerful tool for packaging and deploying your application across any environment. Here's how to create a Docker image for your Next.js app.
-
-### Dockerfile Setup
-
-In the root of your Next.js project, create a Dockerfile with the following content:
+This Dockerfile builds the app and copies static files into an nginx image—no Node at runtime.
 
 ```dockerfile
-# Stage 1: Build the application
-FROM node:18-alpine AS builder
-
-# Set the working directory
+# Stage 1: Build
+FROM node:20-alpine AS builder
 WORKDIR /app
 
-# Install dependencies based on the lock file
-COPY package.json package-lock.json .//
+COPY package.json package-lock.json ./
 RUN npm ci
 
-# Copy all files to the working directory
 COPY . .
-
-# Build the Next.js app
 RUN npm run build
 
-# Stage 2: Serve the application using a smaller base image
-FROM node:18-alpine AS runner
+# Stage 2: Serve with nginx
+FROM nginx:1.27-alpine AS runner
 
-# Set the working directory
-WORKDIR /app
+COPY --from=builder /app/out /usr/share/nginx/html
+COPY nginx/default.conf /etc/nginx/conf.d/default.conf
 
-# Only copy the built app and necessary files from the builder stage
-COPY --from=builder /app/package.json /app/package-lock.json .//
-COPY --from=builder /app/.next ./.next
-COPY --from=builder /app/public ./public
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/next.config.js ./next.config.js
-
-# Expose the port the app will run on
-EXPOSE 3000
-
-# Start the Next.js server in production mode
-CMD ["npm", "run", "start"]
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
 ```
 
-### Building the Docker Image
-
-With the Dockerfile ready, build the Docker image by running:
+Build the image:
 
 ```bash
-docker build -t nextjs-app .
+docker build -t nextjs-static .
 ```
 
-This command will create a Docker image named nextjs-app with all the necessary dependencies and a built version of your Next.js application.
+## 3. nginx configuration for static files
 
-## 3. Configuring Nginx as a Reverse Proxy for Next.js
-
-Using Nginx as a reverse proxy offers security and scalability benefits. We'll configure Nginx to serve the Next.js app on port 80.
-
-### Setting up the Nginx Configuration File
-
-Create a file named nginx.conf with the following content:
+Create `nginx/default.conf`:
 
 ```nginx
-# HTTP redirect to HTTPS
+server {
+    listen 80;
+    server_name yourdomain.com;
+    root /usr/share/nginx/html;
+    index index.html;
+
+    # Gzip compression
+    gzip on;
+    gzip_types text/plain text/css application/javascript application/json image/svg+xml;
+
+    # Immutable cache for Next.js hashed assets
+    location /_next/static/ {
+        expires 1y;
+        add_header Cache-Control "public, immutable";
+    }
+
+    # Static assets in /public
+    location ~* \.(png|jpg|jpeg|gif|webp|svg|ico|woff2?)$ {
+        expires 30d;
+        add_header Cache-Control "public";
+    }
+
+    # SPA-style fallback for client-side routes
+    location / {
+        try_files $uri $uri/ $uri.html /index.html;
+    }
+}
+```
+
+With `trailingSlash: true`, nginx resolves `/blog/` to `blog/index.html` via `try_files $uri/`. The fallback to `/index.html` covers any client-side-only routes.
+
+For HTTPS, terminate TLS at nginx or at a load balancer (ALB, Cloudflare). A typical TLS block:
+
+```nginx
+server {
+    listen 443 ssl http2;
+    server_name yourdomain.com;
+
+    ssl_certificate     /etc/nginx/ssl/fullchain.pem;
+    ssl_certificate_key /etc/nginx/ssl/privkey.pem;
+
+    # ... same location blocks as above
+}
+
 server {
     listen 80;
     server_name yourdomain.com;
     return 301 https://$host$request_uri;
 }
-
-# Next.js landing page configuration
-server {
-    listen 443 ssl;
-    server_name yourdomain.com;
-    ssl_certificate /etc/nginx/ssl/cert.pem;
-    ssl_certificate_key /etc/nginx/ssl/key.pem;
-    ssl_protocols TLSv1.2 TLSv1.3;
-    ssl_prefer_server_ciphers on;
-    ssl_ciphers HIGH:!aNULL:!MD5;
-
-    # Caching settings
-    location / {
-        proxy_pass http://landing:3000;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
-        proxy_cache landing_cache;
-        proxy_cache_valid 200 1h;  # Cache successful responses for 1 hour
-        proxy_cache_use_stale error timeout updating;  # Serve stale cache on error
-        add_header X-Cache-Status $upstream_cache_status;  # Debugging header
-    }
-
-    # Handle Next.js optimized images
-    location /_next/image {
-        proxy_pass http://landing:3000;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
-    }
-
-    # Handle other Next.js static assets
-    location /_next/static {
-        proxy_pass http://landing:3000;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
-        expires 1y;
-        add_header Cache-Control "public";
-        add_header 'Access-Control-Allow-Origin' '*';
-    }
-}
 ```
 
-This configuration directs all traffic from port 80 to your Next.js app running on port 3000.
+## 4. Docker Compose
 
-### Docker Compose Setup for Nginx and Next.js
-
-Using Docker Compose simplifies managing multiple Docker containers. Create a docker-compose.yml file as follows:
+A minimal compose file—no Node service, no unrelated backends:
 
 ```yaml
-version: '3.8'
-
 services:
-  # Next.js landing app
-  landing:
+  web:
     build: .
-    container_name: nextjs-landing
+    container_name: nextjs-static
     ports:
-      - '${NEXTJS_PORT:-9000}:3000'
-    environment:
-      - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
-    depends_on:
-      - drupal
-    networks:
-      - portfolio-network
+      - '${HTTP_PORT:-8080}:80'
+    restart: unless-stopped
 
-  # Nginx reverse proxy
-  nginx:
-    image: nginx:latest
-    container_name: nginx
+  # Optional: nginx reverse proxy in front of multiple services
+  proxy:
+    image: nginx:1.27-alpine
+    container_name: nginx-proxy
     ports:
       - '${NGINX_HTTP_PORT:-80}:80'
       - '${NGINX_HTTPS_PORT:-443}:443'
     volumes:
-      - ./nginx:/etc/nginx/conf.d
-      - ./ssl:/etc/nginx/ssl
+      - ./nginx/proxy.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./ssl:/etc/nginx/ssl:ro
     depends_on:
-      - drupal
-      - landing
-    networks:
-      - portfolio-network
-
-volumes:
-  db_datav2:
-
-networks:
-  portfolio-network:
-    driver: bridge
+      - web
+    restart: unless-stopped
 ```
 
-This setup:
-
-- Builds the Next.js app in a container
-- Configures Nginx as a reverse proxy on port 80
-- Maps port 80 on the host to port 80 in the Nginx container
-
-### Running Docker Compose
-
-To start the containers, run:
+Start the stack:
 
 ```bash
-docker-compose up -d
+docker compose up -d --build
 ```
 
-This command will start both the **nextjs_app** and nginx_proxy containers in detached mode. You should be able to access your application by visiting https://yourdomain.com.
+Visit `http://localhost:8080` (or port 80 if using the proxy service).
 
-## 4. Deploying Docker Containers for Production
+## 5. When you need a Node server instead
 
-Once you have verified that the Dockerized Next.js application works as expected, it's time to prepare it for production.
+If your Next.js app cannot use static export—because it relies on `getServerSideProps`, Route Handlers, or middleware—use a Node-based runner:
 
-### Steps to Harden the Deployment
+```dockerfile
+FROM node:20-alpine AS builder
+WORKDIR /app
+COPY package.json package-lock.json ./
+RUN npm ci
+COPY . .
+RUN npm run build
 
-1. **Use Docker Secrets for Sensitive Information**: For production, avoid storing sensitive information in plain text files. Use Docker secrets or environment variables management solutions.
-2. **Configure Nginx Caching and Compression**: Nginx can significantly improve response times by caching assets and compressing files.
-3. **SSL/TLS Configuration**: Set up an SSL certificate using Let's Encrypt for HTTPS. Update the **nginx.conf** file to listen on port 443 and use the certificate files.
-4. **Docker Compose Production Deployment**: Use separate Compose files for development and production. For instance, **docker-compose.prod.yml** might include specific settings, such as mounting log directories or including load balancer configurations.
+FROM node:20-alpine AS runner
+WORKDIR /app
+ENV NODE_ENV=production
 
-## Wrapping Up
+COPY --from=builder /app/package.json /app/package-lock.json ./
+COPY --from=builder /app/.next ./.next
+COPY --from=builder /app/public ./public
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/next.config.ts ./next.config.ts
 
-In this guide, we've covered the essentials of deploying a Next.js application with Docker and Nginx. Here's a recap of the steps:
+EXPOSE 3000
+CMD ["npm", "run", "start"]
+```
 
-1. Prepare your Next.js app for production with a Dockerfile.
-2. Set up an Nginx reverse proxy to serve your app.
-3. Deploy the app using Docker Compose.
+Then configure nginx as a reverse proxy:
 
-This setup provides a scalable, efficient, and flexible approach for deploying and managing a Next.js application in production. Happy coding and deploying!
+```nginx
+location / {
+    proxy_pass http://nextjs-app:3000;
+    proxy_http_version 1.1;
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+}
+```
+
+## 6. Production checklist
+
+- **Environment variables**: only `NEXT_PUBLIC_*` vars are inlined at build time for static export. Bake them into the build stage with `ARG`/`ENV` in Docker, or use a build-time `.env.production`.
+- **Secrets**: never commit API keys. Pass build args via CI secrets.
+- **Health checks**: for static nginx, `curl -f http://localhost/` is sufficient.
+- **Logs**: mount `/var/log/nginx` or ship logs to your observability stack.
+- **Image size**: the nginx-only final image is typically under 50 MB.
+
+## Summary
+
+For static Next.js sites, skip the Node runtime in production. Build to `out/`, copy into an nginx image, and serve files directly. Use Docker multi-stage builds to keep images small, and reserve the Node + reverse-proxy pattern for apps that genuinely need server-side rendering.

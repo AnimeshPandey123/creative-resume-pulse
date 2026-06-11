@@ -1,107 +1,81 @@
 ---
 title: 'Getting Started with React Hooks'
-excerpt: "Dive into the world of React Hooks and discover how they have transformed component development with their streamlined, functional approach. Whether you're managing state or handling side effects, hooks provide a powerful toolkit for enhancing your React projects. Perfect for both beginners and seasoned developers, this guide will walk you through the essentials of using hooks to elevate your coding game."
+excerpt: 'React Hooks basics—useState, useEffect, useMemo, useCallback, and a custom hook—with corrected examples from day-to-day component work.'
 publishDate: '2025-09-04'
-tags: ['web-development', 'programming', 'tutorial']
+tags: ['react', 'javascript', 'frontend-development', 'web-development']
 ---
 
-# Getting Started with React Hooks
+# Getting started with React Hooks
 
-React Hooks have revolutionized the way developers build components in React, offering a cleaner and more functional approach to managing state and side effects in functional components. Introduced in React 16.8, hooks allow you to use state and other React features without writing a class. In this blog post, we will explore the basics of React Hooks and provide practical examples to get you started.
+Hooks landed in React 16.8 and changed how I write components. I rarely create class components anymore—`useState` and `useEffect` cover most cases, and custom hooks let me extract logic I used to duplicate across files.
 
-## What Are React Hooks?
+This post covers the hooks I reach for daily, with examples that reflect how they actually work.
 
-React Hooks are functions that let you "hook into" React state and lifecycle features from function components. They provide a more intuitive and declarative way to manage state, handle side effects, and perform other component lifecycle tasks.
+## useState
 
-### Why Use Hooks?
-
-- **Simplification**: Hooks simplify the code by eliminating the need for lifecycle methods.
-- **Reusable Logic**: Hooks enable you to reuse stateful logic without changing component hierarchy.
-- **Functional Components**: They allow you to use state and other React features without writing classes.
-
-## Key React Hooks
-
-Let's dive into some of the most commonly used Hooks and see how they work.
-
-### 1. `useState`
-
-The `useState` hook lets you add state to your functional components.
+Adds local state to function components:
 
 ```jsx
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 function Counter() {
   const [count, setCount] = useState(0);
 
   return (
     <div>
-      <p>You clicked {count} times</p>
-      <button onClick={() => setCount(count + 1)}>Click me</button>
+      <p>Clicked {count} times</p>
+      <button onClick={() => setCount(c => c + 1)}>Increment</button>
     </div>
   );
 }
 ```
 
-**Explanation:**
+Use the functional updater (`setCount(c => c + 1)`) when the new state depends on the previous value—especially inside callbacks that close over stale state.
 
-- `useState` initializes the state variable `count` with a default value of `0`.
-- `setCount` is the function that updates the state.
+## useEffect
 
-### 2. `useEffect`
-
-The `useEffect` hook lets you perform side effects in function components, replacing lifecycle methods like `componentDidMount`, `componentDidUpdate`, and `componentWillUnmount`.
+Runs side effects after render—data fetching, subscriptions, DOM sync:
 
 ```jsx
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 function Timer() {
   const [seconds, setSeconds] = useState(0);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setSeconds(prevSeconds => prevSeconds + 1);
-    }, 1000);
+    const id = setInterval(() => setSeconds(s => s + 1), 1000);
+    return () => clearInterval(id); // cleanup on unmount
+  }, []); // empty deps = run once on mount
 
-    return () => clearInterval(interval);
-  }, []);
-
-  return <h1>{seconds} seconds have passed.</h1>;
+  return <p>{seconds}s elapsed</p>;
 }
 ```
 
-**Explanation:**
+The dependency array controls when the effect re-runs. Omit it and the effect runs after every render; include values the effect reads so ESLint's `exhaustive-deps` rule can catch stale closures.
 
-- The `useEffect` hook sets up a timer that updates the `seconds` state every second.
-- The cleanup function `return () => clearInterval(interval);` is called when the component is unmounted.
+## useContext
 
-### 3. `useContext`
-
-The `useContext` hook allows you to consume context without the need for a `Context.Consumer` wrapper.
+Reads a context value without wrapping components in `<Consumer>`:
 
 ```jsx
-import React, { useContext } from 'react';
+import { createContext, useContext } from 'react';
 
-const ThemeContext = React.createContext('light');
+const ThemeContext = createContext('light');
 
 function ThemedButton() {
   const theme = useContext(ThemeContext);
-
-  return <button className={theme}>I am a {theme} themed button</button>;
+  return <button className={`btn-${theme}`}>Themed button</button>;
 }
 ```
 
-**Explanation:**
+For app-wide state that changes often, Context alone can cause broad re-renders. Pair it with `useReducer`, or reach for a dedicated state library when complexity grows.
 
-- `useContext(ThemeContext)` gets the current value of the `ThemeContext`.
+## useReducer
 
-## Advanced Hooks
-
-### 4. `useReducer`
-
-The `useReducer` hook is usually preferable to `useState` when you have complex state logic.
+Better when state transitions are multi-field or event-driven:
 
 ```jsx
-import React, { useReducer } from 'react';
+import { useReducer } from 'react';
 
 function reducer(state, action) {
   switch (action.type) {
@@ -110,7 +84,7 @@ function reducer(state, action) {
     case 'decrement':
       return { count: state.count - 1 };
     default:
-      throw new Error();
+      return state;
   }
 }
 
@@ -119,7 +93,7 @@ function Counter() {
 
   return (
     <div>
-      <p>Count: {state.count}</p>
+      <p>{state.count}</p>
       <button onClick={() => dispatch({ type: 'increment' })}>+</button>
       <button onClick={() => dispatch({ type: 'decrement' })}>-</button>
     </div>
@@ -127,50 +101,110 @@ function Counter() {
 }
 ```
 
-**Explanation:**
+## useMemo and useCallback
 
-- `useReducer` takes a reducer function and an initial state.
-- `dispatch` is used to send actions to the reducer to update the state.
+These optimize referential stability—not magic performance fixes.
 
-### 5. `useMemo` and `useCallback`
+- **`useMemo`** caches a **computed value** between renders.
+- **`useCallback`** caches a **function reference** between renders.
 
-These hooks optimize performance by memoizing expensive functions and preventing unnecessary re-renders.
+Use them when passing values to memoized children (`React.memo`) or as dependencies of other hooks—not on every computation.
 
 ```jsx
-import React, { useState, useMemo, useCallback } from 'react';
+import { useState, useMemo, useCallback, memo } from 'react';
 
-function ExpensiveComponent({ compute }) {
-  return <div>{compute()}</div>;
-}
+const ExpensiveDisplay = memo(function ExpensiveDisplay({ value }) {
+  return <p>Result: {value}</p>;
+});
 
 function App() {
   const [count, setCount] = useState(0);
+  const [text, setText] = useState('');
 
-  const compute = useMemo(() => {
-    return () => {
-      console.log('Computing...');
-      return count * 2;
-    };
-  }, [count]);
+  // Recompute only when count changes
+  const doubled = useMemo(() => count * 2, [count]);
 
+  // Stable function reference for memoized children
   const increment = useCallback(() => setCount(c => c + 1), []);
 
   return (
     <div>
-      <ExpensiveComponent compute={compute} />
-      <button onClick={increment}>Increment</button>
+      <input value={text} onChange={e => setText(e.target.value)} />
+      <ExpensiveDisplay value={doubled} />
+      <button onClick={increment}>Increment ({count})</button>
     </div>
   );
 }
 ```
 
-**Explanation:**
+The common mistake is wrapping a function in `useMemo` (returns a function, but `useCallback` is the right tool) or memoizing cheap operations that cost more to cache than to recompute.
 
-- `useMemo` caches the result of a computation.
-- `useCallback` returns a memoized version of a callback function.
+## Custom hooks
 
-## Conclusion
+Extract reusable stateful logic into functions that call hooks. By convention, names start with `use`.
 
-React Hooks have dramatically changed the way we write React components, providing a more functional and declarative approach. By using hooks like `useState`, `useEffect`, and `useContext`, you can manage state and side effects more effectively in functional components. For more complex state management, `useReducer` can be a powerful alternative. As you become more comfortable with hooks, you can leverage `useMemo` and `useCallback` to optimize performance further.
+A `useFetch` hook I reuse across projects:
 
-React Hooks encourage a cleaner, more readable code style and enable you to reuse logic more effectively. As you continue to explore hooks, you'll find them to be an indispensable part of your React development toolkit. Happy coding!
+```jsx
+import { useState, useEffect } from 'react';
+
+function useFetch(url) {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    setLoading(true);
+
+    fetch(url)
+      .then(res => {
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        return res.json();
+      })
+      .then(json => {
+        if (!cancelled) setData(json);
+      })
+      .catch(err => {
+        if (!cancelled) setError(err.message);
+      })
+      .finally(() => {
+        if (!cancelled) setLoading(false);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [url]);
+
+  return { data, loading, error };
+}
+
+// Usage
+function UserList() {
+  const { data, loading, error } = useFetch('/api/users');
+
+  if (loading) return <p>Loading…</p>;
+  if (error) return <p>Error: {error}</p>;
+  return (
+    <ul>
+      {data.map(u => (
+        <li key={u.id}>{u.name}</li>
+      ))}
+    </ul>
+  );
+}
+```
+
+Custom hooks share logic without changing the component tree—unlike render props or HOCs. Rules of Hooks still apply: only call hooks at the top level of a React function or another custom hook.
+
+## Rules of Hooks (quick reference)
+
+1. Call hooks only at the top level—no loops, conditions, or nested functions.
+2. Call hooks only from React function components or custom hooks.
+
+The ESLint plugin `eslint-plugin-react-hooks` enforces these in most setups.
+
+## Summary
+
+`useState` and `useEffect` handle the majority of component logic. Reach for `useReducer` when transitions get complex, `useMemo`/`useCallback` when referential stability matters for memoized children, and custom hooks when you spot duplicated effect or state patterns across files.

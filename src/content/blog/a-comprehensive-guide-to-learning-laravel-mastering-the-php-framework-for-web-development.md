@@ -1,61 +1,93 @@
 ---
 title: 'A Comprehensive Guide to Learning Laravel: Mastering the PHP Framework for Web Development'
-excerpt: 'Learn Laravel fundamentals: routing, controllers, ORM, validation, migrations, and Blade.'
+excerpt: 'Start a Laravel project with Composer and Artisan. Covers routing, controllers, Eloquent, Form Requests, migrations, and Blade—with accurate API references.'
 publishDate: '2024-12-09'
-tags: [laravel, php, web-development]
+tags: [laravel, php, web-development, backend-development]
 ---
 
-## A Comprehensive Guide to Learning Laravel: Mastering the PHP Framework for Web Development
+# Getting started with Laravel
 
-Laravel is a popular PHP framework that has gained widespread adoption in the web development community. As a developer, having knowledge of Laravel can help you build robust, scalable, and maintainable web applications quickly. However, with the vast amount of resources available online, it's easy to get overwhelmed by the sheer number of tutorials, documentation, and examples.
+Laravel is the PHP framework I reach for when I need CRUD APIs, admin panels, or full-stack apps with sane defaults. This guide covers the fundamentals—enough to build a small task manager—not every Laravel feature.
 
-In this comprehensive guide, we'll cover the core technical concepts, tools, and hands-on projects to get you started with learning Laravel. By the end of this article, you'll have a solid understanding of how to build web applications using Laravel.
+**Scope note**: Laravel 11+ simplifies the default file structure (fewer boilerplate files). The concepts below apply across recent versions; command output may vary slightly.
 
-### Core Technical Concepts
+## Project setup
 
-Laravel is built on top of the PHP framework and provides a robust set of features for building web applications. Here are some key concepts to understand:
+Create a new project with Composer:
 
-#### Routing
-
-Routing defines the URL structure of your application. In Laravel, you can define routes using the `Route` facade or by creating a route file in the `routes/web.php` directory.
-
-```php
-// Route file (routes/web.php)
-Route::get('/tasks', function () {
-    return view('tasks.index');
-});
+```bash
+composer create-project laravel/laravel task-manager
+cd task-manager
+php artisan serve
 ```
 
-#### Controllers
+Visit `http://localhost:8000`. Laravel ships with SQLite by default in recent versions; configure MySQL or PostgreSQL in `.env` for production.
 
-Controllers handle incoming requests and return responses. In Laravel, you can create controllers using the `Controller` facade or by creating a controller class that extends the `App\\Http\\Controllers\\Controller` class.
+Useful Artisan commands:
+
+```bash
+php artisan make:model Task -m          # model + migration
+php artisan make:controller TaskController --resource
+php artisan make:request StoreTaskRequest
+php artisan migrate
+```
+
+## Routing
+
+Routes live in `routes/web.php`. The `Route` facade registers URL-to-handler mappings:
 
 ```php
-// TaskController.php
-namespace App\\Http\\Controllers;
+// routes/web.php
+use App\Http\Controllers\TaskController;
 
-use Illuminate\\Http\\Request;
-use App\\Models\\Task;
+Route::get('/tasks', [TaskController::class, 'index'])->name('tasks.index');
+Route::post('/tasks', [TaskController::class, 'store'])->name('tasks.store');
+```
+
+Run `php artisan route:list` to inspect registered routes.
+
+## Controllers
+
+Generate controllers with Artisan—there is no "Controller facade":
+
+```bash
+php artisan make:controller TaskController
+```
+
+```php
+// app/Http/Controllers/TaskController.php
+namespace App\Http\Controllers;
+
+use App\Models\Task;
+use App\Http\Requests\StoreTaskRequest;
 
 class TaskController extends Controller
 {
     public function index()
     {
-        $tasks = Task::all();
+        $tasks = Task::latest()->get();
         return view('tasks.index', compact('tasks'));
+    }
+
+    public function store(StoreTaskRequest $request)
+    {
+        Task::create($request->validated());
+        return redirect()->route('tasks.index');
     }
 }
 ```
 
-#### Eloquent ORM
+Controllers extend `App\Http\Controllers\Controller` and return views, JSON, or redirects.
 
-Eloquent is Laravel's Object-Relational Mapping (ORM) system, which simplifies interactions with your database using PHP classes. To use Eloquent, you need to define a model class that extends the `App\\Models\\Model` class.
+## Eloquent ORM
+
+Models map to database tables. Generate one with a migration:
 
 ```php
-// Task.php
-namespace App\\Models;
+// app/Models/Task.php
+namespace App\Models;
 
-use Illuminate\\Database\\Eloquent\\Model;
+use Illuminate\Database\Eloquent\Model;
 
 class Task extends Model
 {
@@ -63,45 +95,60 @@ class Task extends Model
 }
 ```
 
-#### Validation
-
-Laravel provides a robust validation system to ensure data integrity. You can create form requests using the `FormRequest` facade or by creating a class that extends the `Illuminate\\Foundation\\Http\\FormRequest` class.
+Query examples:
 
 ```php
-// TaskFormRequest.php
-namespace App\\Http\\Requests;
+Task::all();
+Task::where('name', 'like', '%deploy%')->get();
+Task::findOrFail($id);
+```
 
-use Illuminate\\Foundation\\Http\\FormRequest;
+## Validation with Form Requests
 
-class TaskFormRequest extends FormRequest
+Form Requests are classes—not facades. Generate one with Artisan:
+
+```bash
+php artisan make:request StoreTaskRequest
+```
+
+```php
+// app/Http/Requests/StoreTaskRequest.php
+namespace App\Http\Requests;
+
+use Illuminate\Foundation\Http\FormRequest;
+
+class StoreTaskRequest extends FormRequest
 {
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
 
-    public function rules()
+    public function rules(): array
     {
         return [
-            'name' => 'required|string',
-            'description' => 'required|string',
+            'name' => ['required', 'string', 'max:255'],
+            'description' => ['required', 'string'],
         ];
     }
 }
 ```
 
-### Database Migrations
+Type-hint the request in your controller (`store(StoreTaskRequest $request)`). Laravel validates automatically and returns 422 on failure.
 
-Laravel provides a migration system to manage changes to your database schema. To create a new migration, you can use the `php artisan make:migration` command.
+## Database migrations
+
+Migrations version-control your schema:
 
 ```php
-// database/migrations/2022_01_01_000000_create_tasks_table.php
-use Illuminate\\Database\\Migrations\\Migration;
-use Illuminate\\Database\\Schema\\Blueprint;
+// database/migrations/xxxx_create_tasks_table.php
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
-class CreateTasksTable extends Migration
+return new class extends Migration
 {
-    public function up()
+    public function up(): void
     {
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
@@ -111,62 +158,54 @@ class CreateTasksTable extends Migration
         });
     }
 
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('tasks');
     }
-}
+};
 ```
 
-### Blade Templating
+Apply migrations:
 
-Blade is Laravel's templating engine, which allows you to write PHP code in your views. You can use Blade directives and syntax to render dynamic content.
+```bash
+php artisan migrate
+```
+
+## Blade templates
+
+Blade is Laravel's templating engine. A simple task list view:
 
 ```blade
-{{-- tasks.blade.php --}}
+{{-- resources/views/tasks/index.blade.php --}}
 <h1>Tasks</h1>
 
 <ul>
-    @foreach($tasks as $task)
-        <li>{{ $task->name }} ({{ $task->description }})</li>
+    @foreach ($tasks as $task)
+        <li>{{ $task->name }} — {{ $task->description }}</li>
     @endforeach
-  </ul>
+</ul>
 
 <form method="POST" action="{{ route('tasks.store') }}">
     @csrf
+    <label for="name">Name</label>
+    <input type="text" id="name" name="name" value="{{ old('name') }}">
+    @error('name') <span>{{ $message }}</span> @enderror
 
-    <label for="name">Name:</label>
-    <input type="text" id="name" name="name"><br><br>
-
-    <label for="description">Description:</label>
-    <textarea id="description" name="description"></textarea><br><br>
+    <label for="description">Description</label>
+    <textarea id="description" name="description">{{ old('description') }}</textarea>
+    @error('description') <span>{{ $message }}</span> @enderror
 
     <button type="submit">Create Task</button>
 </form>
 ```
 
-### Form Handling
+## What to learn next
 
-Laravel provides a robust form handling system that allows you to handle form submissions and validation. You can use the `FormRequest` facade or by creating a class that extends the `Illuminate\\Foundation\\Http\\FormRequest` class.
+Once the basics click, explore:
 
-```php
-// TaskController.php
-namespace App\\Http\\Controllers;
+- **API routes** (`routes/api.php`) with Laravel Sanctum for token auth
+- **Eloquent relationships** (`hasMany`, `belongsTo`)
+- **Queues and jobs** for background work
+- **Pest or PHPUnit** for testing (`php artisan make:test TaskTest`)
 
-use Illuminate\\Http\\Request;
-use App\\Models\\Task;
-use App\\Http\\Requests\\TaskFormRequest;
-
-class TaskController extends Controller
-{
-    public function store(TaskFormRequest $request)
-    {
-        Task::create($request->validated());
-        return redirect()->route('tasks.index');
-    }
-}
-```
-
-### Conclusion
-
-In this comprehensive guide, we've covered the basics of Laravel, including installation, routing, controllers, validation, form handling, Blade templating, database migrations, and more. We hope you found this guide helpful in getting started with building web applications using Laravel.
+Laravel's documentation at [laravel.com/docs](https://laravel.com/docs) is excellent—this guide is a starting point, not a replacement.

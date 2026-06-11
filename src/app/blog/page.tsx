@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import Layout from '@/layout/Layout';
 import BlogPageClient from '@/components/blog/BlogPageClient';
 import { blogMetadata, blogPageStructuredData } from '@/config/seo';
@@ -32,7 +33,15 @@ export default function BlogPage() {
       ))}
 
       <Layout>
-        <BlogPageClient posts={allPosts} tags={allTags} stats={blogStats} />
+        <Suspense
+          fallback={
+            <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
+              <p className="text-muted-foreground">Loading blog...</p>
+            </div>
+          }
+        >
+          <BlogPageClient posts={allPosts} tags={allTags} stats={blogStats} />
+        </Suspense>
       </Layout>
     </>
   );

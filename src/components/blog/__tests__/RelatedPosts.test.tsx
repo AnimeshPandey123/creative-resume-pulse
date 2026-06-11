@@ -43,10 +43,8 @@ describe('RelatedPosts', () => {
   });
 
   it('renders cards for posts', () => {
-    const { getByText, getAllByTestId } = render(
-      <RelatedPosts posts={[post as any]} />
-    );
+    const { getByText } = render(<RelatedPosts posts={[post as any]} />);
     expect(getByText('Related Posts')).toBeInTheDocument();
-    expect(getAllByTestId('card').length).toBe(1);
+    expect(getByText('Rel Post')).toBeInTheDocument();
   });
 });

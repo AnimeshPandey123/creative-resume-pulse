@@ -38,8 +38,10 @@ jest.mock('@/components/blog/BlogPagination', () => ({
 
 // Mock next/navigation
 const mockUseSearchParams = jest.fn();
+const mockPush = jest.fn();
 jest.mock('next/navigation', () => ({
   useSearchParams: () => mockUseSearchParams(),
+  useRouter: () => ({ push: mockPush }),
 }));
 
 describe('BlogPageClient', () => {
@@ -101,9 +103,11 @@ describe('BlogPageClient', () => {
 
     render(<BlogPageClient {...mockProps} />);
 
-    expect(screen.getByText('Blog')).toBeInTheDocument();
+    expect(screen.getByText('Engineering Blog')).toBeInTheDocument();
     expect(
-      screen.getByText('Thoughts, ideas, and tutorials to inspire and inform')
+      screen.getByText(
+        'Practical notes on backend systems, full-stack development, DevOps, and AI integration.'
+      )
     ).toBeInTheDocument();
     expect(screen.getAllByTestId('blog-post-card')).toHaveLength(2);
   });
@@ -125,7 +129,9 @@ describe('BlogPageClient', () => {
 
     expect(screen.getByText('No posts found')).toBeInTheDocument();
     expect(
-      screen.getByText('Try adjusting your search term or removing filters.')
+      screen.getByText(
+        'Try adjusting your search term or removing filters to browse all articles.'
+      )
     ).toBeInTheDocument();
     expect(screen.queryByTestId('blog-post-card')).not.toBeInTheDocument();
     expect(screen.queryByTestId('pagination')).not.toBeInTheDocument();
@@ -159,9 +165,7 @@ describe('BlogPageClient', () => {
 
     render(<BlogPageClient {...mockProps} />);
 
-    expect(
-      screen.getByText('Thoughts, ideas, and tutorials to inspire and inform')
-    ).toBeInTheDocument();
+    expect(screen.getByText('Articles about React')).toBeInTheDocument();
   });
 
   it('displays tag slug as fallback when tag is not found in blogTags', () => {
@@ -192,9 +196,7 @@ describe('BlogPageClient', () => {
 
     render(<BlogPageClient {...mockProps} />);
 
-    expect(
-      screen.getByText('Thoughts, ideas, and tutorials to inspire and inform')
-    ).toBeInTheDocument();
+    expect(screen.getByText('Articles about unknown-tag')).toBeInTheDocument();
   });
 
   it('displays default description when no tag is provided', () => {
@@ -226,7 +228,9 @@ describe('BlogPageClient', () => {
     render(<BlogPageClient {...mockProps} />);
 
     expect(
-      screen.getByText('Thoughts, ideas, and tutorials to inspire and inform')
+      screen.getByText(
+        'Practical notes on backend systems, full-stack development, DevOps, and AI integration.'
+      )
     ).toBeInTheDocument();
   });
 
@@ -260,9 +264,7 @@ describe('BlogPageClient', () => {
 
     render(<BlogPageClient {...mockProps} />);
 
-    expect(
-      screen.getByText('Thoughts, ideas, and tutorials to inspire and inform')
-    ).toBeInTheDocument();
+    expect(screen.getByText('Articles about Python')).toBeInTheDocument();
   });
 
   it('handles invalid page parameter gracefully', () => {

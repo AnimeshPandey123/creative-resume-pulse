@@ -45,6 +45,7 @@ export async function generateMetadata({
       slug: post.slug,
       publishedAt: post.publishDate,
       tags: post.tags.map(tag => tag.name),
+      image: post.coverImage,
     });
   } catch (error) {
     console.error('Error generating metadata for blog post:', error);
@@ -87,8 +88,8 @@ export default async function BlogPostPage({
 
     return (
       <Layout>
-        <section className="py-12 md:py-16">
-          <div className="container">
+        <section className="py-16 md:py-20 bg-gray-50 dark:bg-gray-900">
+          <div className="section-container">
             <BlogPostContent post={post} />
             <RelatedPosts posts={relatedPosts} />
           </div>

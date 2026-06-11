@@ -115,6 +115,7 @@ jest.mock('@/components/ui/badge', () => ({
 
 // Mock Lucide React icons
 jest.mock('lucide-react', () => ({
+  ArrowLeft: () => <div data-testid="arrow-left-icon">ArrowLeft</div>,
   Calendar: () => <div data-testid="calendar-icon">Calendar</div>,
   Clock: () => <div data-testid="clock-icon">Clock</div>,
 }));
@@ -187,7 +188,7 @@ describe('BlogPostContent', () => {
   it('should render publish date and read time', () => {
     render(<BlogPostContent post={mockBlogPost} />);
 
-    expect(screen.getByText('2024-01-01')).toBeInTheDocument();
+    expect(screen.getByText('1 January 2024')).toBeInTheDocument();
     expect(screen.getByText('5 min read')).toBeInTheDocument();
   });
 

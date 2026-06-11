@@ -105,7 +105,7 @@ describe('BlogPagination', () => {
     const page3Button = screen.getByText('3');
     fireEvent.click(page3Button);
 
-    expect(mockPush).toHaveBeenCalledWith('/blog?page=3&tag=react');
+    expect(mockPush).toHaveBeenCalledWith('/blog/?page=3&tag=react');
     expect(mockScrollTo).toHaveBeenCalledWith({ top: 0, behavior: 'smooth' });
   });
 
@@ -115,7 +115,7 @@ describe('BlogPagination', () => {
     const prevButton = screen.getByLabelText('Prev');
     fireEvent.click(prevButton);
 
-    expect(mockPush).toHaveBeenCalledWith('/blog?page=2&tag=react');
+    expect(mockPush).toHaveBeenCalledWith('/blog/?page=2&tag=react');
     expect(mockScrollTo).toHaveBeenCalledWith({ top: 0, behavior: 'smooth' });
   });
 
@@ -125,7 +125,7 @@ describe('BlogPagination', () => {
     const nextButton = screen.getByLabelText('Next');
     fireEvent.click(nextButton);
 
-    expect(mockPush).toHaveBeenCalledWith('/blog?page=4&tag=react');
+    expect(mockPush).toHaveBeenCalledWith('/blog/?page=4&tag=react');
     expect(mockScrollTo).toHaveBeenCalledWith({ top: 0, behavior: 'smooth' });
   });
 
@@ -163,7 +163,7 @@ describe('BlogPagination', () => {
     const page3Button = screen.getByText('3');
     fireEvent.click(page3Button);
 
-    expect(mockPush).toHaveBeenCalledWith('/blog?page=3&tag=react');
+    expect(mockPush).toHaveBeenCalledWith('/blog/?page=3&tag=react');
   });
 
   it('preserves existing search params when navigating', () => {
@@ -173,7 +173,7 @@ describe('BlogPagination', () => {
     const page4Button = screen.getByText('4');
     fireEvent.click(page4Button);
 
-    expect(mockPush).toHaveBeenCalledWith('/blog?page=4&tag=react');
+    expect(mockPush).toHaveBeenCalledWith('/blog/?page=4&tag=react');
   });
 
   it('renders with correct CSS classes', () => {

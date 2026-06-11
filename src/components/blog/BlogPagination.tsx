@@ -29,7 +29,7 @@ const BlogPagination: React.FC<BlogPaginationProps> = ({
       searchParams ? searchParams.toString() : ''
     );
     newParams.set('page', page.toString());
-    router.push(`/blog?${newParams.toString()}`);
+    router.push(`/blog/?${newParams.toString()}`);
 
     // Scroll to top when changing pages
     if (typeof window !== 'undefined') {

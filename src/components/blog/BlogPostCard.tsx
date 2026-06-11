@@ -4,21 +4,27 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { BlogPost } from '@/types/BlogTypes';
-import { Card, CardContent, CardFooter } from '@/components/ui/card';
+import { CardContent, CardFooter } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Calendar } from 'lucide-react';
+import { formatPublishDate, getReadingTimeLabel } from '@/lib/blog';
 
 interface BlogPostCardProps {
   post: BlogPost;
+  index?: number;
 }
 
-const BlogPostCard: React.FC<BlogPostCardProps> = ({ post }) => {
+const BlogPostCard: React.FC<BlogPostCardProps> = ({ post, index = 0 }) => {
   const { title, excerpt, coverImage, slug, publishDate, readingTime, tags } =
     post;
 
   return (
-    <Card className="h-full overflow-hidden flex flex-col hover:shadow-lg transition-shadow duration-300 bg-card dark:bg-gray-800/80 border border-border dark:border-gray-700/20">
-      <Link href={`/blog/${slug}`} className="block overflow-hidden h-48">
+    <article
+      className="project-card h-full flex flex-col opacity-0"
+      style={{ animationDelay: `${index * 100}ms` }}
+      data-blog-card
+    >
+      <Link href={`/blog/${slug}/`} className="block overflow-hidden h-48">
         <Image
           src={coverImage}
           alt={title}
@@ -35,13 +41,13 @@ const BlogPostCard: React.FC<BlogPostCardProps> = ({ post }) => {
         <div className="flex justify-between items-start mb-2">
           <div className="text-sm text-muted-foreground flex items-center gap-1.5">
             <Calendar className="h-4 w-4" />
-            <span>{publishDate}</span>
+            <time dateTime={publishDate}>{formatPublishDate(publishDate)}</time>
           </div>
           <span className="text-xs text-muted-foreground">
-            {readingTime} min read
+            {getReadingTimeLabel(readingTime)}
           </span>
         </div>
-        <Link href={`/blog/${slug}`} className="block">
+        <Link href={`/blog/${slug}/`} className="block">
           <h3 className="text-xl font-semibold mb-2 leading-tight hover:text-primary transition-colors line-clamp-2">
             {title}
           </h3>
@@ -50,7 +56,7 @@ const BlogPostCard: React.FC<BlogPostCardProps> = ({ post }) => {
       </CardContent>
       <CardFooter className="px-5 pb-5 pt-0 flex flex-wrap gap-2">
         {tags.slice(0, 3).map(tag => (
-          <Link key={tag.id} href={`/blog?tag=${tag.slug}`}>
+          <Link key={tag.id} href={`/blog/?tag=${tag.slug}`}>
             <Badge
               variant="outline"
               className="hover:bg-accent transition-colors cursor-pointer"
@@ -60,7 +66,7 @@ const BlogPostCard: React.FC<BlogPostCardProps> = ({ post }) => {
           </Link>
         ))}
       </CardFooter>
-    </Card>
+    </article>
   );
 };
 

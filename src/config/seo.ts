@@ -336,8 +336,10 @@ export function generateBlogPostMetadata(post: {
   slug: string;
   publishedAt: string;
   tags?: string[];
+  image?: string;
 }): Metadata {
   const postUrl = `${SITE_CONFIG.url}/blog/${post.slug}`;
+  const socialImage = post.image || SITE_CONFIG.ogImage;
   const optimizedTitle = optimizeTitleForSEO(
     post.title,
     SITE_CONFIG.name,
@@ -372,7 +374,7 @@ export function generateBlogPostMetadata(post: {
       publishedTime: post.publishedAt,
       images: [
         {
-          url: SITE_CONFIG.ogImage,
+          url: socialImage,
           width: 1200,
           height: 630,
           alt: `${post.title} - ${SITE_CONFIG.name} Blog`,
@@ -383,7 +385,7 @@ export function generateBlogPostMetadata(post: {
       card: 'summary_large_image',
       title: post.title,
       description: post.description,
-      images: [SITE_CONFIG.ogImage],
+      images: [socialImage],
       creator: SITE_CONFIG.twitterHandle,
       site: SITE_CONFIG.twitterHandle,
     },

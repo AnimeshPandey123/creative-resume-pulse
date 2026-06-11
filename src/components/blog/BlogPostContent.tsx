@@ -2,31 +2,40 @@
 
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
-import { Calendar, Clock } from 'lucide-react';
+import { ArrowLeft, Calendar, Clock } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { BlogPost } from '@/types/BlogTypes';
+import { formatPublishDate, getReadingTimeLabel } from '@/lib/blog';
 import CodeBlock from './CodeBlock';
 
 interface BlogPostContentProps {
   post: BlogPost;
 }
 
-// Define the type for code block props
 interface CodeProps {
   inline?: boolean;
   className?: string;
   children: React.ReactNode;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 const BlogPostContent: React.FC<BlogPostContentProps> = ({ post }) => {
   return (
     <article className="max-w-3xl mx-auto">
-      {/* Cover image */}
-      <div className="mb-8 rounded-lg overflow-hidden">
+      <nav aria-label="Breadcrumb" className="mb-8">
+        <Link
+          href="/blog/"
+          className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
+        >
+          <ArrowLeft className="h-4 w-4" />
+          Back to Blog
+        </Link>
+      </nav>
+
+      <div className="mb-8 rounded-xl overflow-hidden">
         <Image
           src={post.coverImage}
           alt={`Cover image for ${post.title}`}
@@ -40,29 +49,27 @@ const BlogPostContent: React.FC<BlogPostContentProps> = ({ post }) => {
         />
       </div>
 
-      {/* Post metadata */}
       <div className="space-y-4 mb-8">
-        <h1
-          className="text-3xl md:text-4xl font-bold tracking-tight"
-          style={{ fontSize: '2.25rem' }}
-        >
+        <h1 className="text-3xl md:text-5xl font-display font-bold tracking-tight text-foreground">
           {post.title}
         </h1>
 
         <div className="flex items-center gap-8 flex-wrap">
           <div className="flex items-center gap-2 text-muted-foreground">
             <Calendar className="h-4 w-4" />
-            <span>{post.publishDate}</span>
+            <time dateTime={post.publishDate}>
+              {formatPublishDate(post.publishDate)}
+            </time>
           </div>
           <div className="flex items-center gap-2 text-muted-foreground">
             <Clock className="h-4 w-4" />
-            <span>{post.readingTime} min read</span>
+            <span>{getReadingTimeLabel(post.readingTime)}</span>
           </div>
         </div>
 
         <div className="flex flex-wrap gap-2">
           {post.tags.map(tag => (
-            <Link key={tag.id} href={`/blog?tag=${tag.slug}`}>
+            <Link key={tag.id} href={`/blog/?tag=${tag.slug}`}>
               <Badge
                 variant="outline"
                 className="hover:bg-accent transition-colors cursor-pointer"
@@ -74,8 +81,7 @@ const BlogPostContent: React.FC<BlogPostContentProps> = ({ post }) => {
         </div>
       </div>
 
-      {/* Author info */}
-      <div className="flex items-center gap-4 p-4 rounded-lg bg-card dark:bg-gray-800/50 border border-border mb-8">
+      <div className="flex items-center gap-4 p-4 rounded-xl glass-card mb-8">
         <Avatar className="h-12 w-12">
           <AvatarImage src={post.author.avatarUrl} alt={post.author.name} />
           <AvatarFallback>{post.author.name.charAt(0)}</AvatarFallback>
@@ -86,7 +92,6 @@ const BlogPostContent: React.FC<BlogPostContentProps> = ({ post }) => {
         </div>
       </div>
 
-      {/* Post content */}
       <div className="prose prose-lg dark:prose-invert max-w-none">
         <ReactMarkdown
           components={{
@@ -102,6 +107,22 @@ const BlogPostContent: React.FC<BlogPostContentProps> = ({ post }) => {
                 </code>
               );
             },
+            a: ({
+              href,
+              children,
+              ...props
+            }: React.AnchorHTMLAttributes<HTMLAnchorElement>) => (
+              <a
+                href={href}
+                target={href?.startsWith('http') ? '_blank' : undefined}
+                rel={
+                  href?.startsWith('http') ? 'noopener noreferrer' : undefined
+                }
+                {...props}
+              >
+                {children}
+              </a>
+            ),
           }}
         >
           {post.content || ''}

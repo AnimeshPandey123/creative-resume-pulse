@@ -2,7 +2,7 @@
   "hero": {
     "title": "SENIOR SOFTWARE ENGINEER",
     "name": "Animesh Pandey",
-    "subtitle": "Experienced in PHP, Python, Node.js, React, TypeScript, Docker, and Kubernetes. With 6+ years of hands-on expertise, I architect scalable, high-performance systems with a focus on clean code, robust APIs, and CI/CD excellence.",
+    "subtitle": "Specialising in PHP, Python, and Node.js with 7+ years building scalable, high-performance applications. I design testable systems, optimise APIs, and ship production-ready full-stack solutions with React, Next.js, FastAPI, and modern DevOps practices.",
     "cta": {
       "primary": {
         "text": "Get in touch",
@@ -18,9 +18,9 @@
     "title": "About Me",
     "subtitle": "Backend specialist, lifelong learner, and mentor dedicated to clean code and scalable architecture.",
     "content": [
-      "I’m a Senior Software Engineer with 6 years of experience specializing in PHP, Python, and Node.js. My core strength lies in backend development—designing performant, testable, and extensible systems.",
-      "I bring deep expertise in CI/CD pipelines, Docker/Kubernetes infrastructure, SOLID principles, and TDD. I’ve worked on building microservices, optimizing APIs, integrating third-party services, and reducing technical debt through rigorous code reviews.",
-      "Outside of building systems, I mentor junior developers, lead technical interviews, and stay ahead of trends in DevOps, AI tooling, and CMS platforms to continuously deliver value."
+      "I'm a Senior Software Engineer with 7 years of experience specialising in PHP, Python, and Node.js, with a strong focus on backend development and building scalable, high-performance applications.",
+      "I have a solid background in designing testable, extensible systems, optimising APIs, and applying SOLID principles and TDD methodologies. With expertise in MySQL, PostgreSQL, and Docker, I excel at creating robust CI/CD pipelines and maintaining high development standards through code reviews and best practices.",
+      "I'm passionate about mentoring junior developers and solving complex technical challenges. I also explore emerging technologies through personal projects, including LLM integration with LangChain and vector databases, to build AI-powered applications."
     ],
     "contact": {
       "location": "Preston, UK",
@@ -33,14 +33,30 @@
     "subtitle": "A track record of impactful roles, technical leadership, and shipping production-ready code.",
     "items": [
       {
-        "title": "Sr. Python Software Engineer",
+        "title": "Sr. Full Stack Developer",
+        "company": "ASquared | B Corp™ | Digital Product Agency",
+        "period": "Nov 2025 - Present",
+        "location": "UK",
+        "responsibilities": [
+          "Architect and deliver full-stack solutions using React/Next.js, TypeScript, FastAPI, PostgreSQL/Supabase, and React Native (Expo) for cross-platform web and mobile applications.",
+          "Design scalable backend architectures, APIs, and data models with a focus on reliability, maintainability, and performance.",
+          "Develop mobile applications using React Native for tablet and mobile devices, with emphasis on usability, performance, and production readiness.",
+          "Build secure authentication systems, role-based access controls, and production-grade REST APIs.",
+          "Establish engineering standards including Git workflows, testing strategies, code quality practices, and CI/CD pipelines.",
+          "Containerise applications with Docker and manage cloud deployments using modern DevOps practices.",
+          "Collaborate directly with clients and stakeholders to translate requirements into technical designs, roadmaps, and deliverables."
+        ]
+      },
+      {
+        "title": "Sr. Full Stack Developer (Contract)",
         "company": "Mercor",
-        "period": "May 2025 - July 2025",
+        "period": "May 2025 - Sep 2025",
         "location": "USA",
         "responsibilities": [
-          "Managed Docker environments across multiple repositories to streamline development and deployment.",
-          "Achieved 100% test coverage with pytest, validating AI pipelines for edge cases and integrations.",
-          "Wrote technical documentation and evaluated AI agents in Cursor for accuracy, usability, and production readiness."
+          "Built and maintained Docker environments across multiple repositories, enabling consistent local development and production parity.",
+          "Achieved 100% test coverage using pytest, covering edge cases, integration flows, and ensuring stability of AI pipelines.",
+          "Authored clean, concise technical documentation for setup, testing, and deployment to enhance team collaboration and onboarding.",
+          "Tested AI agents in Cursor, evaluating code suggestions for correctness, usability, and explanation quality."
         ]
       },
       {
@@ -49,10 +65,12 @@
         "period": "July 2022 - July 2024",
         "location": "Singapore",
         "responsibilities": [
-          "Led backend and frontend development using Python, PHP, React, Vue, and TypeScript.",
-          "Reduced frontend load time by 80% with optimization and lazy loading; implemented CI/CD pipelines cutting deployments from 1 hour to 5 minutes.",
-          "Mentored junior engineers, led code reviews, and played an active role in hiring and onboarding.",
-          "Enhanced system performance with database tuning and microservices design using Docker and Kubernetes."
+          "Led end-to-end delivery across multiple projects, owning architecture decisions, timelines, and code quality while mentoring developers.",
+          "Designed and implemented microservice architectures using Python, PHP, Vue, React, and TypeScript.",
+          "Upgraded dependencies across major frameworks (Next.js, React, Drupal, Vue) to ensure long-term maintainability, security, and compatibility.",
+          "Reduced deployment time from 1 hour to 5 minutes by implementing CI/CD pipelines.",
+          "Managed AWS infrastructure deploying applications on EC2, configuring RDS, using S3 for storage, and leveraging CodeCommit for production deployments.",
+          "Played an active role in hiring by conducting interviews, reviewing technical assessments, and evaluating candidates."
         ]
       },
       {
@@ -61,10 +79,11 @@
         "period": "March 2020 - July 2022",
         "location": "Baneshwor",
         "responsibilities": [
-          "Transitioned systems from monolithic to microservices architecture, significantly improving performance and modularity.",
-          "Reduced API response time from 10s to 500ms using SQL query optimization, Redis, and Elasticsearch.",
-          "Led backend initiatives with PHP, Python, and MySQL, delivering scalable solutions for enterprise clients.",
-          "Conducted developer training sessions, ran code reviews, and led technical interviews."
+          "Led backend development with a focus on PHP, Python, and MySQL, ensuring high scalability and performance.",
+          "Reduced API response time from 10s to 500ms by optimising SQL queries and implementing caching with Redis and Elasticsearch.",
+          "Led the shift from monolithic to microservices architecture using Docker, boosting performance and efficiency.",
+          "Developed RESTful APIs and integrated third-party services for diverse client requirements.",
+          "Conducted technical training sessions for junior developers and participated in hiring and technical interviews."
         ]
       },
       {
@@ -73,8 +92,9 @@
         "period": "December 2017 - March 2020",
         "location": "Gyaneshwor",
         "responsibilities": [
-          "Contributed to both frontend and backend features using PHP, JavaScript, and SQL in a fast-paced environment.",
-          "Built CMS enhancements and collaborated with stakeholders to deliver scalable, user-focused applications."
+          "Contributed to both backend and frontend development using PHP, JavaScript, and SQL, delivering user-friendly applications in a fast-paced environment.",
+          "Implemented robust, data-driven solutions to enhance user interaction and streamline content management systems.",
+          "Worked closely with stakeholders to gather requirements and deliver efficient, scalable web applications."
         ]
       }
     ]
@@ -84,20 +104,22 @@
     "subtitle": "Selected works showcasing engineering, AI innovation, and business impact.",
     "items": [
       {
-        "title": "AI Investor – Multi-Agent Stock Trading System",
-        "slug": "ai-investor-multi-agent-trading-system",
+        "title": "Joey AI",
+        "slug": "joey-ai",
         "role": "AI Engineer",
         "url": "",
         "description": [
-          "Engineered a collaborative multi-agent trading system leveraging AI agents with expertise in technical indicators, candlestick patterns, risk analysis, and news sentiment.",
-          "Built decision consensus workflows and visual dashboards using Streamlit and backtested strategies with vectorbt."
+          "Developed an AI assistant that engages parents in structured conversations to collect symptoms and developmental information prior to clinical consultations.",
+          "Built conversational workflows using LLMs and prompt engineering to guide symptom collection and adaptive questioning.",
+          "Implemented safety guardrails and model armor policies to ensure safe, reliable interactions.",
+          "Generated structured clinical summaries from parent conversations for review by healthcare professionals."
         ],
         "technologies": [
           "Python",
+          "LLMs",
+          "Prompt Engineering",
           "LangChain",
-          "vectorbt",
-          "Streamlit",
-          "Agent Collaboration"
+          "FastAPI"
         ]
       },
       {
@@ -106,8 +128,8 @@
         "role": "Senior Software Engineer",
         "url": "",
         "description": [
-          "Built a smart academic paper assistant with LangChain, Ollama, Qdrant, and Elasticsearch for semantic search and LLM-based reasoning.",
-          "Developed ingestion pipelines and vector search APIs in Python."
+          "Created a vector-search-based academic assistant using LangChain, Ollama, Qdrant, and Elasticsearch, allowing users to query papers intelligently.",
+          "Used Python for ingestion pipeline and API development, orchestrated AI tasks using LangChain."
         ],
         "technologies": [
           "Python",
@@ -118,15 +140,23 @@
         ]
       },
       {
-        "title": "Resume Analyser",
-        "slug": "resume-analyser",
-        "role": "Full Stack Developer",
+        "title": "ReelLife Conversations",
+        "slug": "reellife-conversations",
+        "role": "Lead Developer",
         "url": "",
         "description": [
-          "Created a resume parser using Gemini AI to match job descriptions, extract key skills, and generate relevance scores.",
-          "React frontend connected to a Laravel backend via REST APIs."
+          "Led development of a tablet-first application for dementia care, delivering a cross-platform mobile solution using React Native (Expo).",
+          "Architected a monorepo containing mobile, web, and backend services with shared components and workflows.",
+          "Built scalable backend services in TypeScript, designing APIs, authentication, and data models for secure multi-client use.",
+          "Delivered production-ready system end-to-end, from concept and architecture to deployment."
         ],
-        "technologies": ["React", "Laravel", "Gemini AI", "REST APIs"]
+        "technologies": [
+          "React Native",
+          "Expo",
+          "TypeScript",
+          "Next.js",
+          "FastAPI"
+        ]
       },
       {
         "title": "AQUA Expeditions",
@@ -134,10 +164,10 @@
         "role": "Senior Software Engineer",
         "url": "https://www.aquaexpeditions.com/",
         "description": [
-          "Developed backend services in PHP for luxury cruise bookings.",
-          "Implemented Docker-based CI/CD pipelines for continuous delivery."
+          "Developed backend using PHP, Python, and TypeScript, ensuring seamless functionality for the luxury cruise booking platform.",
+          "Implemented CI/CD pipelines with Docker to ensure continuous integration and testing."
         ],
-        "technologies": ["PHP", "MySQL", "Docker", "CI/CD"]
+        "technologies": ["PHP", "Python", "TypeScript", "Docker", "CI/CD"]
       },
       {
         "title": "SSN",
@@ -145,7 +175,7 @@
         "role": "Senior Software Engineer",
         "url": "https://startupsg.gov.sg/",
         "description": [
-          "Helped strengthen Singapore’s startup ecosystem with scalable features and collaborative tools."
+          "Built a platform strengthening Singapore's startup ecosystem and fostering tech collaborations."
         ],
         "technologies": ["PHP", "React", "JavaScript", "MySQL"]
       },
@@ -155,68 +185,44 @@
         "role": "API and Backend Developer",
         "url": "https://lugmety.com/",
         "description": [
-          "Built order management microservices using PHP and MySQL with TDD.",
-          "Improved performance with database optimizations and automated tests using PHPUnit."
+          "Built PHP and Python-based microservices for order management, optimising database interactions with MySQL.",
+          "Used TDD to ensure high code quality, utilising PHPUnit and Pytest for continuous testing."
         ],
-        "technologies": ["PHP", "MySQL", "PHPUnit", "TDD"]
-      },
-      {
-        "title": "SpaceTogether",
-        "slug": "spacetogether",
-        "role": "Full Stack Developer",
-        "url": "https://spacetogether.com/",
-        "description": [
-          "Developed scalable APIs and backend systems for a space rental marketplace.",
-          "Applied SOLID principles for clean, extensible architecture."
-        ],
-        "technologies": ["PHP", "MySQL", "SOLID", "API Development"]
-      },
-      {
-        "title": "Keppler Hosting",
-        "slug": "keppler-hosting",
-        "role": "API and Backend Developer",
-        "url": "https://customerv2.keplerhosting.cloud",
-        "description": [
-          "Enabled multi-platform hosting with Docker support for WordPress, React, and eCommerce apps."
-        ],
-        "technologies": ["PHP", "Docker", "React", "WordPress", "E-commerce"]
+        "technologies": ["PHP", "Python", "MySQL", "PHPUnit", "Pytest", "TDD"]
       }
     ]
   },
   "skills": {
     "title": "Technical Skills",
-    "subtitle": "My engineering toolbox—from backend mastery to modern devops and AI integration.",
+    "subtitle": "My engineering toolbox—from backend mastery to modern DevOps and AI integration.",
     "categories": [
       {
         "title": "Programming Languages & Frameworks",
         "skills": [
-          "JavaScript",
           "TypeScript",
-          "Node.js",
-          "PHP",
           "Python",
+          "JavaScript",
+          "PHP",
           "SQL",
-          "Golang",
-          "Java",
+          "FastAPI",
+          "Vue.js",
+          "React",
+          "Next.js",
+          "React Native",
           "Laravel",
           "Lumen",
           "Symfony",
           "Drupal",
-          "WordPress",
-          "Magento",
           "Flask",
-          "Vue.js",
-          "React",
-          "Next.js",
-          "Selenium",
-          "LangChain",
-          "LLMs (OpenAI, Gemini, Ollama)",
           "RESTful APIs",
           "GraphQL",
+          "3rd-Party Integrations",
+          "LLM Integration (OpenAI, Gemini, Ollama)",
+          "LangChain",
+          "Vector Databases (FAISS, Qdrant)",
           "Prompt Engineering",
-          "Object-Oriented Programming",
-          "Data Structures & Algorithms",
-          "Microservices Architecture"
+          "Vertex AI",
+          "Monolith and Microservices Architecture"
         ]
       },
       {
@@ -226,23 +232,18 @@
           "PostgreSQL",
           "MongoDB",
           "ElasticSearch",
-          "Qdrant",
           "Docker",
           "Kubernetes",
           "AWS",
           "RabbitMQ",
           "Digital Ocean",
-          "LAMP stack",
           "Git",
           "PHPUnit",
           "CI/CD Pipelines",
           "Unit Testing",
           "Integration Testing",
-          "Load Balancing",
           "SCRUM",
-          "Code Reviews",
-          "DNS",
-          "Firewalls"
+          "Code Reviews"
         ]
       }
     ]
@@ -255,19 +256,19 @@
         "degree": "Master's degree in Computer Science",
         "institution": "University of Wolverhampton",
         "location": "Wolverhampton, UK",
-        "period": "2025 - present"
+        "period": "2025"
       },
       {
         "degree": "Bachelor's degree in Computer Science and Information Technology",
         "institution": "St. Xavier's College",
         "location": "Maitighar, Kathmandu",
-        "period": "2015 - 2019"
+        "period": "2019"
       }
     ]
   },
   "contact": {
     "title": "Get In Touch",
-    "subtitle": "Have a project or opportunity in mind? Let’s connect.",
+    "subtitle": "Have a project or opportunity in mind? Let's connect.",
     "info": {
       "location": {
         "label": "Location",
@@ -287,6 +288,11 @@
         "name": "LinkedIn",
         "url": "https://www.linkedin.com/in/animesh-pandey-26546213a",
         "icon": "linkedin"
+      },
+      {
+        "name": "GitHub",
+        "url": "https://github.com/AnimeshPandey123",
+        "icon": "github"
       },
       {
         "name": "Website",

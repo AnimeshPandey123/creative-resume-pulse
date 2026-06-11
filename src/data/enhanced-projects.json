@@ -1,57 +1,56 @@
 {
   "projects": [
     {
-      "id": "ai-investor",
-      "slug": "ai-investor-multi-agent-trading-system",
-      "title": "AI Investor – Multi-Agent Trading System",
-      "role": "AI Engineer / Researcher",
+      "id": "joey-ai",
+      "slug": "joey-ai",
+      "title": "Joey AI",
+      "role": "AI Engineer",
       "url": "",
       "description": [
-        "Developed a multi-agent trading system as part of MSc Computer Science thesis, integrating LLM-driven agents specialized in market sentiment, technical indicators, and risk management.",
-        "Each agent collaborated to generate and validate trading signals, forming consensus before execution.",
-        "Tested on simulated and historical stock market data to evaluate profitability, risk, and decision efficiency."
+        "Developed an AI assistant that engages parents in structured conversations to collect symptoms and developmental information prior to clinical consultations.",
+        "Built conversational workflows using LLMs and prompt engineering to guide symptom collection and adaptive questioning.",
+        "Implemented safety guardrails and model armor policies to ensure safe, reliable interactions.",
+        "Generated structured clinical summaries from parent conversations for review by healthcare professionals."
       ],
       "technologies": [
         "Python",
+        "LLMs",
+        "Prompt Engineering",
         "LangChain",
-        "Qdrant",
-        "Ollama",
-        "vectorbt",
-        "Streamlit"
+        "FastAPI"
       ],
       "category": "AI/ML",
       "featured": true,
-      "year": "2025",
+      "year": "2026",
       "status": "completed",
       "githubUrl": "",
       "demoUrl": "",
       "thumbnail": "",
       "metrics": {
-        "performance": "Outperformed baseline strategies in Sharpe ratio and drawdown",
-        "impact": "Demonstrated viability of LLM-based multi-agent trading"
+        "impact": "Streamlined pre-consultation symptom collection for healthcare professionals"
       },
       "challenges": [
-        "Coordinating reasoning across multiple autonomous agents",
-        "Managing inconsistent LLM outputs in volatile data conditions",
-        "Designing effective evaluation metrics for trading strategies"
+        "Designing safe, reliable conversational flows for sensitive health information",
+        "Balancing adaptive questioning with structured clinical data requirements",
+        "Ensuring LLM outputs meet healthcare safety standards"
       ],
       "solutions": [
-        "Implemented collaborative agent architecture using LangChain’s multi-agent framework",
-        "Introduced consensus-based decision logic for reliable trade signals",
-        "Used vectorbt for efficient backtesting and performance visualization"
+        "Implemented safety guardrails and model armor policies for controlled interactions",
+        "Built prompt-engineered workflows for guided symptom collection",
+        "Generated structured clinical summaries from unstructured parent conversations"
       ],
       "results": [
         {
-          "title": "Signal Quality",
-          "description": "Agents produced more consistent buy/sell signals compared to single-model baselines"
+          "title": "Clinical Workflow",
+          "description": "Enabled structured pre-consultation data collection through natural conversation"
         },
         {
-          "title": "Risk Reduction",
-          "description": "Reduced simulated portfolio drawdown through consensus filtering"
+          "title": "Safety & Reliability",
+          "description": "Applied guardrails ensuring safe, consistent AI interactions with parents"
         },
         {
-          "title": "Research Outcome",
-          "description": "Validated potential of multi-agent LLM frameworks in algorithmic trading environments"
+          "title": "Healthcare Integration",
+          "description": "Produced structured summaries ready for professional clinical review"
         }
       ]
     },
@@ -62,9 +61,8 @@
       "role": "Senior Software Engineer",
       "url": "",
       "description": [
-        "Created a research assistant capable of reading and reasoning over academic papers using LangChain, Ollama, Qdrant, and Elasticsearch.",
-        "Implemented ingestion pipelines for paper datasets and vector search APIs for contextual retrieval.",
-        "Enabled users to query, summarize, and compare research insights through natural language."
+        "Created a vector-search-based academic assistant using LangChain, Ollama, Qdrant, and Elasticsearch, allowing users to query papers intelligently.",
+        "Used Python for ingestion pipeline and API development, orchestrated AI tasks using LangChain."
       ],
       "technologies": [
         "Python",
@@ -75,84 +73,91 @@
       ],
       "category": "AI/ML",
       "featured": true,
-      "year": "2024",
+      "year": "2025",
       "status": "completed",
       "githubUrl": "",
       "demoUrl": "",
       "thumbnail": "",
       "metrics": {
-        "performance": "Improved retrieval relevance by combining vector and keyword search",
-        "impact": "Enhanced academic research productivity"
+        "performance": "Combined vector and keyword search for improved retrieval relevance",
+        "impact": "Enabled intelligent querying of academic papers"
       },
       "challenges": [
-        "Handling large-scale PDF datasets efficiently",
+        "Handling large-scale academic paper datasets efficiently",
         "Balancing semantic and keyword-based search precision",
         "Running local LLMs with low-latency responses"
       ],
       "solutions": [
         "Used Qdrant for high-performance vector storage and similarity search",
         "Integrated Elasticsearch for full-text indexing and hybrid retrieval",
-        "Optimized Ollama inference pipelines for responsive local reasoning"
+        "Built Python ingestion pipelines and LangChain-orchestrated AI tasks"
       ],
       "results": [
         {
-          "title": "Research Efficiency",
-          "description": "Enabled users to find and summarize relevant papers up to 10x faster"
+          "title": "Intelligent Search",
+          "description": "Enabled natural language querying of academic paper collections"
         },
         {
-          "title": "System Architecture",
-          "description": "Deployed modular RAG system supporting scalable dataset ingestion"
+          "title": "Hybrid Retrieval",
+          "description": "Combined vector and keyword search for improved result relevance"
         },
         {
-          "title": "Practical Utility",
-          "description": "Used by peers to prepare literature reviews and research comparisons"
+          "title": "Modular Architecture",
+          "description": "Deployed scalable RAG system supporting dataset ingestion and API access"
         }
       ]
     },
     {
-      "id": "resume-analyser",
-      "slug": "resume-analyser",
-      "title": "Resume Analyser and Job Tracker",
-      "role": "Full Stack Developer",
+      "id": "reellife-conversations",
+      "slug": "reellife-conversations",
+      "title": "ReelLife Conversations",
+      "role": "Lead Developer",
       "url": "",
       "description": [
-        "Developed an intelligent resume management platform where users upload resumes, track job applications, and receive ATS compatibility scores.",
-        "Integrated Google Gemini API for semantic analysis and skill extraction to match job descriptions.",
-        "Built modular React frontend with a Laravel backend and REST APIs."
+        "Led development of a tablet-first application for dementia care, delivering a cross-platform mobile solution using React Native (Expo).",
+        "Architected a monorepo containing mobile, web, and backend services with shared components and workflows.",
+        "Built scalable backend services in TypeScript, designing APIs, authentication, and data models for secure multi-client use.",
+        "Delivered production-ready system end-to-end, from concept and architecture to deployment."
       ],
-      "technologies": ["React", "Laravel", "Google Gemini API", "REST APIs"],
-      "category": "AI/ML",
+      "technologies": [
+        "React Native",
+        "Expo",
+        "TypeScript",
+        "Next.js",
+        "FastAPI"
+      ],
+      "category": "Full Stack",
       "featured": true,
-      "year": "2023",
+      "year": "2025",
       "status": "completed",
       "githubUrl": "",
       "demoUrl": "",
       "thumbnail": "",
       "metrics": {
-        "impact": "Improved job matching and applicant tracking experience"
+        "impact": "Delivered tablet-first dementia care application from concept to production"
       },
       "challenges": [
-        "Parsing unstructured resumes in multiple formats",
-        "Accurately mapping extracted skills to diverse job requirements",
-        "Providing meaningful ATS score explanations to users"
+        "Building a tablet-optimised experience for dementia care users",
+        "Coordinating mobile, web, and backend services in a unified monorepo",
+        "Designing secure multi-client authentication and data models"
       ],
       "solutions": [
-        "Used Google Gemini API for document understanding and relevance scoring",
-        "Implemented scalable REST API for resume analysis and job tracking",
-        "Built ATS scoring model combining keyword match and semantic similarity"
+        "Used React Native (Expo) for cross-platform tablet and mobile delivery",
+        "Architected a monorepo with shared components across mobile, web, and backend",
+        "Built TypeScript backend services with production-grade APIs and authentication"
       ],
       "results": [
         {
-          "title": "Automation",
-          "description": "Reduced manual resume screening time significantly"
+          "title": "End-to-End Delivery",
+          "description": "Shipped production-ready system from concept through deployment"
         },
         {
-          "title": "Accuracy",
-          "description": "Achieved over 90% alignment between resumes and job descriptions"
+          "title": "Cross-Platform",
+          "description": "Delivered tablet-first mobile solution with shared web and backend infrastructure"
         },
         {
-          "title": "User Experience",
-          "description": "Enhanced candidate visibility and tracking workflow"
+          "title": "Scalable Architecture",
+          "description": "Designed secure APIs and data models supporting multiple client applications"
         }
       ]
     },
@@ -163,24 +168,17 @@
       "role": "Senior Software Engineer",
       "url": "https://www.aquaexpeditions.com/",
       "description": [
-        "Developed backend services and APIs for luxury cruise booking management.",
-        "Implemented Docker-based CI/CD pipelines and optimized MySQL queries for high-traffic operations."
+        "Developed backend using PHP, Python, and TypeScript, ensuring seamless functionality for the luxury cruise booking platform.",
+        "Implemented CI/CD pipelines with Docker to ensure continuous integration and testing."
       ],
-      "technologies": [
-        "PHP",
-        "MySQL",
-        "Docker",
-        "CI/CD",
-        "React",
-        "TypeScript"
-      ],
+      "technologies": ["PHP", "Python", "TypeScript", "Docker", "CI/CD"],
       "category": "Backend",
       "featured": false,
-      "year": "2022",
+      "year": "2023",
       "status": "completed",
       "demoUrl": "https://www.aquaexpeditions.com/",
       "metrics": {
-        "impact": "Enabled seamless cruise booking experiences worldwide"
+        "impact": "Enabled seamless luxury cruise booking experiences worldwide"
       }
     },
     {
@@ -190,24 +188,16 @@
       "role": "Senior Software Engineer",
       "url": "https://startupsg.gov.sg/",
       "description": [
-        "Built scalable backend and frontend features to strengthen Singapore’s startup ecosystem.",
-        "Implemented caching, load balancing, and monitoring strategies to support high user traffic."
+        "Built a platform strengthening Singapore's startup ecosystem and fostering tech collaborations."
       ],
-      "technologies": [
-        "PHP",
-        "React",
-        "JavaScript",
-        "MySQL",
-        "Docker",
-        "TypeScript"
-      ],
+      "technologies": ["PHP", "React", "JavaScript", "MySQL"],
       "category": "Full Stack",
       "featured": false,
-      "year": "2021",
+      "year": "2022",
       "status": "completed",
       "demoUrl": "https://startupsg.gov.sg/",
       "metrics": {
-        "impact": "Supported 50K+ users in the national startup community"
+        "impact": "Strengthened Singapore's startup ecosystem through scalable platform features"
       }
     },
     {
@@ -217,72 +207,17 @@
       "role": "API and Backend Developer",
       "url": "https://lugmety.com/",
       "description": [
-        "Developed and optimized backend APIs for a high-traffic food delivery app handling thousands of daily orders.",
-        "Improved database performance and scalability using caching and query optimization."
+        "Built PHP and Python-based microservices for order management, optimising database interactions with MySQL.",
+        "Used TDD to ensure high code quality, utilising PHPUnit and Pytest for continuous testing."
       ],
-      "technologies": [
-        "PHP",
-        "MySQL",
-        "Redis",
-        "PHPUnit",
-        "Docker",
-        "React",
-        "TypeScript"
-      ],
+      "technologies": ["PHP", "Python", "MySQL", "PHPUnit", "Pytest", "TDD"],
       "category": "Backend",
       "featured": false,
-      "year": "2020",
+      "year": "2021",
       "status": "completed",
       "demoUrl": "https://lugmety.com/",
       "metrics": {
-        "impact": "Handled over 10K peak daily orders efficiently"
-      }
-    },
-    {
-      "id": "spacetogether",
-      "slug": "spacetogether",
-      "title": "SpaceTogether – Space Rental Platform",
-      "role": "Full Stack Developer",
-      "url": "https://spacetogether.com/",
-      "description": [
-        "Developed backend APIs and user-facing features for a platform enabling flexible space rentals.",
-        "Implemented SOLID design principles for maintainable and scalable codebase."
-      ],
-      "technologies": [
-        "PHP",
-        "MySQL",
-        "JavaScript",
-        "Docker",
-        "React",
-        "TypeScript"
-      ],
-      "category": "Full Stack",
-      "featured": false,
-      "year": "2019",
-      "status": "completed",
-      "demoUrl": "https://spacetogether.com/",
-      "metrics": {
-        "impact": "Streamlined booking and management for small business spaces"
-      }
-    },
-    {
-      "id": "keppler-hosting",
-      "slug": "keppler-hosting",
-      "title": "Keppler Hosting",
-      "role": "API and Backend Developer",
-      "url": "https://customerv2.keplerhosting.cloud",
-      "description": [
-        "Developed hosting management solutions supporting Dockerized WordPress, React, and eCommerce apps.",
-        "Enhanced deployment automation and multi-environment configuration."
-      ],
-      "technologies": ["PHP", "Docker", "React", "WordPress", "TypeScript"],
-      "category": "Backend",
-      "featured": false,
-      "year": "2018",
-      "status": "completed",
-      "demoUrl": "https://customerv2.keplerhosting.cloud",
-      "metrics": {
-        "impact": "Enabled multi-platform hosting with streamlined deployment"
+        "impact": "Delivered scalable order management microservices for high-traffic food delivery"
       }
     }
   ]

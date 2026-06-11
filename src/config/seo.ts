@@ -10,7 +10,7 @@ export const SITE_CONFIG = {
     'Animesh Pandey | Senior Software Engineer | Full Stack Developer | Backend Specialist',
   email: 'animeshpandey.pro@gmail.com',
   description:
-    'Senior Software Engineer Animesh Pandey - 6+ years expertise in PHP, Python, Node.js, React, TypeScript, Docker, and Kubernetes.',
+    'Senior Software Engineer Animesh Pandey - 7+ years expertise in PHP, Python, Node.js, React, TypeScript, FastAPI, and Docker.',
   url: 'https://animeshpandey.com',
   ogImage: 'https://animeshpandey.com/opengraph-image.png',
   avatarUrl:
@@ -179,7 +179,7 @@ export const pageMetadata = {
   about: generatePageMetadata({
     title: 'About',
     description:
-      'Learn more about Animesh Pandey, a Senior Software Engineer with 6+ years of experience in full-stack development and backend systems.',
+      'Learn more about Animesh Pandey, a Senior Software Engineer with 7+ years of experience in full-stack development and backend systems.',
     path: '/about',
     keywords: [
       'About Animesh Pandey',
@@ -401,10 +401,14 @@ export const personStructuredData = {
   name: SITE_CONFIG.name,
   jobTitle: 'Senior Software Engineer',
   description:
-    'Senior Software Engineer with 6+ years of expertise in backend development using PHP, Javascript, Python, and modern web technologies.',
+    'Senior Software Engineer with 7+ years of expertise in backend development using PHP, JavaScript, Python, and modern web technologies.',
   url: SITE_CONFIG.url,
   image: SITE_CONFIG.avatarUrl,
-  sameAs: [SITE_CONFIG.author.linkedin, SITE_CONFIG.url],
+  sameAs: [
+    SITE_CONFIG.author.linkedin,
+    'https://github.com/AnimeshPandey123',
+    SITE_CONFIG.url,
+  ],
   knowsAbout: [
     'PHP',
     'Python',
@@ -438,14 +442,18 @@ export const personStructuredData = {
     'Machine Learning',
     'LangChain',
     'LLMs',
+    'FastAPI',
+    'React Native',
+    'Supabase',
+    'Qdrant',
   ],
   worksFor: {
     '@type': 'Organization',
-    name: 'Software Engineering',
+    name: 'ASquared',
   },
   address: {
     '@type': 'PostalAddress',
-    addressLocality: 'Prestib',
+    addressLocality: 'Preston',
     addressCountry: 'UK',
   },
   alumniOf: {

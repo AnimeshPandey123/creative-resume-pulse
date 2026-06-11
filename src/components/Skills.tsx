@@ -54,36 +54,38 @@ const Skills: React.FC = () => {
           <p className="section-subtitle">{skillsData.subtitle}</p>
         </header>
 
-        <div ref={skillsContainerRef} className="max-w-4xl mx-auto">
+        <div
+          ref={skillsContainerRef}
+          data-testid="skills-container"
+          className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6"
+        >
           {skillsData.categories.map((category, categoryIndex) => (
-            <section key={categoryIndex} className="mb-12 last:mb-0">
-              <h3 className="text-xl font-bold mb-6 text-center">
+            <section
+              key={categoryIndex}
+              ref={el => {
+                skillsRefs.current[categoryIndex] = el;
+              }}
+              className="glass-card p-6 dark:bg-gray-800/80 opacity-0"
+            >
+              <h3 className="text-lg font-bold mb-4 text-foreground">
                 {category.title}
               </h3>
 
               <div
-                className="flex flex-wrap justify-center gap-3"
+                className="flex flex-wrap gap-2"
                 role="list"
                 aria-label={`${category.title} skills`}
               >
-                {category.skills.map((skill, skillIndex) => {
-                  const globalIndex =
-                    categoryIndex * skillsData.categories[0].skills.length +
-                    skillIndex;
-                  return (
-                    <div
-                      key={skillIndex}
-                      ref={el => {
-                        skillsRefs.current[globalIndex] = el;
-                      }}
-                      className="skill-pill transition-transform hover:scale-105 cursor-default"
-                      role="listitem"
-                      aria-label={`Skill: ${skill}`}
-                    >
-                      {skill}
-                    </div>
-                  );
-                })}
+                {category.skills.map((skill, skillIndex) => (
+                  <span
+                    key={skillIndex}
+                    className="skill-pill"
+                    role="listitem"
+                    aria-label={`Skill: ${skill}`}
+                  >
+                    {skill}
+                  </span>
+                ))}
               </div>
             </section>
           ))}

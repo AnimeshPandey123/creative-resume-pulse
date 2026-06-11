@@ -18,6 +18,7 @@ declare module '*/landing-content.json' {
   interface AboutData {
     title: string;
     subtitle: string;
+    personalLine?: string;
     content: string[];
     contact: {
       location: string;
@@ -40,10 +41,17 @@ declare module '*/landing-content.json' {
     items: ExperienceItem[];
   }
 
+  interface ProjectOutcome {
+    problem: string;
+    result: string;
+  }
+
   interface Project {
     title: string;
+    slug: string;
     role: string;
     url: string;
+    outcome?: ProjectOutcome;
     description: string[];
     technologies: string[];
   }

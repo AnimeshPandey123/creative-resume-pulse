@@ -2,25 +2,24 @@
   "hero": {
     "title": "SENIOR SOFTWARE ENGINEER",
     "name": "Animesh Pandey",
-    "subtitle": "Specialising in PHP, Python, and Node.js with 7+ years building scalable, high-performance applications. I design testable systems, optimise APIs, and ship production-ready full-stack solutions with React, Next.js, FastAPI, and modern DevOps practices.",
+    "subtitle": "I cut production deploys from 60 minutes to 5 minutes and build the APIs, mobile apps, and CI/CD pipelines behind products like Aqua Expeditions.",
     "cta": {
       "primary": {
         "text": "Get in touch",
         "href": "#contact"
       },
       "secondary": {
-        "text": "Learn more",
-        "href": "#about"
+        "text": "View my work",
+        "href": "#projects"
       }
     }
   },
   "about": {
     "title": "About Me",
-    "subtitle": "Backend specialist, lifelong learner, and mentor dedicated to clean code and scalable architecture.",
+    "subtitle": "Backend engineer who ships production systems, from APIs through to CI/CD.",
+    "personalLine": "I've spent seven years on the unglamorous part of the stack: APIs, data models, tests, and getting code out the door without drama.",
     "content": [
-      "I'm a Senior Software Engineer with 7 years of experience specialising in PHP, Python, and Node.js, with a strong focus on backend development and building scalable, high-performance applications.",
-      "I have a solid background in designing testable, extensible systems, optimising APIs, and applying SOLID principles and TDD methodologies. With expertise in MySQL, PostgreSQL, and Docker, I excel at creating robust CI/CD pipelines and maintaining high development standards through code reviews and best practices.",
-      "I'm passionate about mentoring junior developers and solving complex technical challenges. I also explore emerging technologies through personal projects, including LLM integration with LangChain and vector databases, to build AI-powered applications."
+      "Senior Software Engineer based in Preston, UK. I specialise in PHP, Python, and Node.js backends, with full-stack delivery in React, Next.js, and React Native. I've led teams across Singapore, the US, and the UK — from microservices and TDD to hiring and code reviews."
     ],
     "contact": {
       "location": "Preston, UK",
@@ -101,13 +100,17 @@
   },
   "projects": {
     "title": "Notable Projects",
-    "subtitle": "Selected works showcasing engineering, AI innovation, and business impact.",
+    "subtitle": "Real problems solved — with measurable outcomes.",
     "items": [
       {
         "title": "Joey AI",
         "slug": "joey-ai",
         "role": "AI Engineer",
         "url": "",
+        "outcome": {
+          "problem": "Clinicians needed structured pre-consultation data from parents.",
+          "result": "Built LLM workflows with safety guardrails that turn parent conversations into clinical summaries."
+        },
         "description": [
           "Developed an AI assistant that engages parents in structured conversations to collect symptoms and developmental information prior to clinical consultations.",
           "Built conversational workflows using LLMs and prompt engineering to guide symptom collection and adaptive questioning.",
@@ -127,6 +130,10 @@
         "slug": "llm-powered-research-assistant",
         "role": "Senior Software Engineer",
         "url": "",
+        "outcome": {
+          "problem": "Researchers needed intelligent search across academic papers.",
+          "result": "Delivered vector-search assistant with LangChain, Qdrant, Ollama, and Elasticsearch."
+        },
         "description": [
           "Created a vector-search-based academic assistant using LangChain, Ollama, Qdrant, and Elasticsearch, allowing users to query papers intelligently.",
           "Used Python for ingestion pipeline and API development, orchestrated AI tasks using LangChain."
@@ -144,6 +151,10 @@
         "slug": "reellife-conversations",
         "role": "Lead Developer",
         "url": "",
+        "outcome": {
+          "problem": "Dementia care teams needed a tablet-first tool for structured conversations.",
+          "result": "Shipped React Native (Expo) monorepo with shared web, mobile, and FastAPI backend."
+        },
         "description": [
           "Led development of a tablet-first application for dementia care, delivering a cross-platform mobile solution using React Native (Expo).",
           "Architected a monorepo containing mobile, web, and backend services with shared components and workflows.",
@@ -163,6 +174,10 @@
         "slug": "aqua-expeditions",
         "role": "Senior Software Engineer",
         "url": "https://www.aquaexpeditions.com/",
+        "outcome": {
+          "problem": "Luxury cruise bookings required reliable backend under production load.",
+          "result": "Built PHP/Python/TypeScript APIs with Docker CI/CD for aquaexpeditions.com."
+        },
         "description": [
           "Developed backend using PHP, Python, and TypeScript, ensuring seamless functionality for the luxury cruise booking platform.",
           "Implemented CI/CD pipelines with Docker to ensure continuous integration and testing."
@@ -174,6 +189,10 @@
         "slug": "ssn",
         "role": "Senior Software Engineer",
         "url": "https://startupsg.gov.sg/",
+        "outcome": {
+          "problem": "Singapore's startup ecosystem needed a unified collaboration platform.",
+          "result": "Delivered full-stack platform at startupsg.gov.sg with PHP, React, and MySQL."
+        },
         "description": [
           "Built a platform strengthening Singapore's startup ecosystem and fostering tech collaborations."
         ],
@@ -184,6 +203,10 @@
         "slug": "lugmety",
         "role": "API and Backend Developer",
         "url": "https://lugmety.com/",
+        "outcome": {
+          "problem": "Food delivery order management needed scalable, testable microservices.",
+          "result": "Built PHP/Python microservices with TDD — PHPUnit and Pytest at lugmety.com."
+        },
         "description": [
           "Built PHP and Python-based microservices for order management, optimising database interactions with MySQL.",
           "Used TDD to ensure high code quality, utilising PHPUnit and Pytest for continuous testing."
@@ -193,57 +216,44 @@
     ]
   },
   "skills": {
-    "title": "Technical Skills",
-    "subtitle": "My engineering toolbox—from backend mastery to modern DevOps and AI integration.",
+    "title": "What I Deliver",
+    "subtitle": "Four capability areas — not a keyword dump.",
     "categories": [
       {
-        "title": "Programming Languages & Frameworks",
+        "title": "Backend & APIs",
         "skills": [
-          "TypeScript",
-          "Python",
-          "JavaScript",
-          "PHP",
-          "SQL",
           "FastAPI",
-          "Vue.js",
-          "React",
-          "Next.js",
-          "React Native",
-          "Laravel",
-          "Lumen",
-          "Symfony",
-          "Drupal",
-          "Flask",
-          "RESTful APIs",
-          "GraphQL",
-          "3rd-Party Integrations",
-          "LLM Integration (OpenAI, Gemini, Ollama)",
-          "LangChain",
-          "Vector Databases (FAISS, Qdrant)",
-          "Prompt Engineering",
-          "Vertex AI",
-          "Monolith and Microservices Architecture"
+          "PHP",
+          "Python",
+          "PostgreSQL",
+          "REST & GraphQL",
+          "Microservices"
         ]
       },
       {
-        "title": "Tools & Technologies",
+        "title": "Full-Stack Delivery",
         "skills": [
-          "MySQL",
-          "PostgreSQL",
-          "MongoDB",
-          "ElasticSearch",
-          "Docker",
-          "Kubernetes",
-          "AWS",
-          "RabbitMQ",
-          "Digital Ocean",
-          "Git",
-          "PHPUnit",
-          "CI/CD Pipelines",
-          "Unit Testing",
-          "Integration Testing",
-          "SCRUM",
-          "Code Reviews"
+          "Next.js",
+          "React",
+          "React Native",
+          "TypeScript",
+          "Auth & RBAC",
+          "Supabase"
+        ]
+      },
+      {
+        "title": "DevOps & Quality",
+        "skills": ["Docker", "CI/CD", "pytest", "TDD", "AWS", "Code Reviews"]
+      },
+      {
+        "title": "AI Integration",
+        "skills": [
+          "LangChain",
+          "LLM APIs",
+          "Vector DBs",
+          "Prompt Engineering",
+          "Agent Pipelines",
+          "RAG"
         ]
       }
     ]

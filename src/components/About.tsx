@@ -1,7 +1,9 @@
 'use client';
 
 import React, { useEffect, useRef } from 'react';
+import Image from 'next/image';
 import { aboutData } from '@/data/landingData';
+import { SITE_CONFIG } from '@/config/seo';
 
 const About: React.FC = () => {
   const aboutContentRef = useRef<HTMLDivElement>(null);
@@ -53,16 +55,37 @@ const About: React.FC = () => {
           ref={aboutContentRef}
           className="max-w-4xl mx-auto glass-card p-8 md:p-10 dark:bg-gray-800/80"
         >
-          {aboutData.content.map((paragraph, index) => (
-            <p
-              key={index}
-              className="text-lg leading-relaxed mb-6 text-foreground"
-            >
-              {paragraph}
-            </p>
-          ))}
+          <div className="flex flex-col md:flex-row gap-8 items-start">
+            <div className="flex-shrink-0 mx-auto md:mx-0">
+              <Image
+                src={SITE_CONFIG.avatarUrl}
+                alt="Portrait of Animesh Pandey"
+                width={160}
+                height={160}
+                className="rounded-2xl object-cover ring-2 ring-primary/20 shadow-md"
+                priority
+              />
+            </div>
 
-          <footer className="mt-8">
+            <div className="flex-1">
+              {aboutData.personalLine && (
+                <p className="text-lg font-medium text-foreground mb-6 border-l-4 border-primary pl-4 italic">
+                  {aboutData.personalLine}
+                </p>
+              )}
+
+              {aboutData.content.map((paragraph, index) => (
+                <p
+                  key={index}
+                  className="text-lg leading-relaxed mb-6 last:mb-0 text-foreground"
+                >
+                  {paragraph}
+                </p>
+              ))}
+            </div>
+          </div>
+
+          <footer className="mt-8 pt-8 border-t border-border/50">
             <h3 className="sr-only">Contact Information</h3>
             <address className="flex flex-wrap gap-4 not-italic">
               <div className="flex items-center">

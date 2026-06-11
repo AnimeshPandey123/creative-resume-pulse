@@ -2,6 +2,13 @@ import React from 'react';
 import { render, screen, cleanup } from '@testing-library/react';
 import About from '../About';
 
+jest.mock('next/image', () => ({
+  __esModule: true,
+  default: ({ src, alt }: { src: string; alt: string }) => (
+    <img src={src} alt={alt} data-testid="about-photo" />
+  ),
+}));
+
 // Mock IntersectionObserver
 const mockIntersectionObserver = jest.fn();
 mockIntersectionObserver.mockReturnValue({
@@ -16,7 +23,8 @@ jest.mock('@/data/landingData', () => ({
   aboutData: {
     title: 'About Me',
     subtitle: 'Test subtitle',
-    content: ['Test content paragraph 1', 'Test content paragraph 2'],
+    personalLine: 'Test personal line',
+    content: ['Test content paragraph 1'],
     contact: {
       location: 'Test Location',
       phone: '+1234567890',
@@ -39,8 +47,17 @@ describe('About', () => {
 
     expect(screen.getByText('About Me')).toBeInTheDocument();
     expect(screen.getByText('Test subtitle')).toBeInTheDocument();
+    expect(screen.getByText('Test personal line')).toBeInTheDocument();
     expect(screen.getByText('Test content paragraph 1')).toBeInTheDocument();
-    expect(screen.getByText('Test content paragraph 2')).toBeInTheDocument();
+  });
+
+  it('renders profile photo', () => {
+    render(<About />);
+
+    expect(screen.getByTestId('about-photo')).toHaveAttribute(
+      'alt',
+      'Portrait of Animesh Pandey'
+    );
   });
 
   it('has correct CSS classes', () => {
@@ -112,10 +129,8 @@ describe('About', () => {
 
     render(<About />);
 
-    // Get the callback function passed to IntersectionObserver
     const observerCallback = mockIntersectionObserver.mock.calls[0][0];
 
-    // Create a mock entry that is intersecting
     const mockEntry = {
       isIntersecting: true,
       target: {
@@ -125,10 +140,8 @@ describe('About', () => {
       },
     };
 
-    // Call the observer callback
     observerCallback([mockEntry]);
 
-    // Verify that the animation class is added and element is unobserved
     expect(mockEntry.target.classList.add).toHaveBeenCalledWith(
       'animate-fade-in'
     );
@@ -147,10 +160,8 @@ describe('About', () => {
 
     render(<About />);
 
-    // Get the callback function passed to IntersectionObserver
     const observerCallback = mockIntersectionObserver.mock.calls[0][0];
 
-    // Create a mock entry that is not intersecting
     const mockEntry = {
       isIntersecting: false,
       target: {
@@ -160,10 +171,8 @@ describe('About', () => {
       },
     };
 
-    // Call the observer callback
     observerCallback([mockEntry]);
 
-    // Verify that the animation class is not added and element is not unobserved
     expect(mockEntry.target.classList.add).not.toHaveBeenCalled();
     expect(mockUnobserve).not.toHaveBeenCalled();
   });
@@ -181,10 +190,8 @@ describe('About', () => {
 
     const { unmount } = render(<About />);
 
-    // Simulate unmounting
     unmount();
 
-    // Verify cleanup is called
     expect(mockUnobserve).toHaveBeenCalled();
   });
 
@@ -200,10 +207,8 @@ describe('About', () => {
 
     render(<About />);
 
-    // Get the callback function passed to IntersectionObserver
     const observerCallback = mockIntersectionObserver.mock.calls[0][0];
 
-    // Create multiple mock entries
     const mockEntries = [
       {
         isIntersecting: true,
@@ -223,10 +228,8 @@ describe('About', () => {
       },
     ];
 
-    // Call the observer callback with multiple entries
     observerCallback(mockEntries);
 
-    // Verify that only the intersecting entry gets the animation class
     expect(mockEntries[0].target.classList.add).toHaveBeenCalledWith(
       'animate-fade-in'
     );
@@ -234,29 +237,21 @@ describe('About', () => {
     expect(mockUnobserve).toHaveBeenCalledWith(mockEntries[0].target);
   });
 
-  it('renders all content paragraphs with correct structure', () => {
+  it('renders content paragraph with correct structure', () => {
     render(<About />);
 
-    const paragraphs = screen.getAllByText(/Test content paragraph/);
-    expect(paragraphs).toHaveLength(2);
-
-    paragraphs.forEach((paragraph, index) => {
-      expect(paragraph).toHaveClass(
-        'text-lg',
-        'leading-relaxed',
-        'mb-6',
-        'text-foreground'
-      );
-      expect(paragraph).toHaveTextContent(
-        `Test content paragraph ${index + 1}`
-      );
-    });
+    const paragraph = screen.getByText('Test content paragraph 1');
+    expect(paragraph).toHaveClass(
+      'text-lg',
+      'leading-relaxed',
+      'mb-6',
+      'text-foreground'
+    );
   });
 
   it('renders contact information in address element', () => {
     render(<About />);
 
-    // The address element should have the contact information classes
     const address = document.querySelector('address');
     expect(address).toHaveClass('flex', 'flex-wrap', 'gap-4', 'not-italic');
   });

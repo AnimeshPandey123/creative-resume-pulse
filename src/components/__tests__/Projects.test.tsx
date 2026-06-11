@@ -13,6 +13,10 @@ jest.mock('@/data/landingData', () => ({
       {
         title: 'Test Project 1',
         role: 'Developer',
+        outcome: {
+          problem: 'Test problem 1',
+          result: 'Test result 1',
+        },
         description: [
           'Test description paragraph 1',
           'Test description paragraph 2',
@@ -24,9 +28,13 @@ jest.mock('@/data/landingData', () => ({
       {
         title: 'Test Project 2',
         role: 'Designer',
+        outcome: {
+          problem: 'Test problem 2',
+          result: 'Test result 2',
+        },
         description: ['Test description paragraph 3'],
         technologies: ['Vue', 'CSS'],
-        url: null, // No URL for this project
+        url: null,
         slug: 'test-project-2',
       },
     ],
@@ -60,12 +68,9 @@ describe('Projects', () => {
     expect(screen.getByText('Test Project 2')).toBeInTheDocument();
     expect(screen.getByText('Developer')).toBeInTheDocument();
     expect(screen.getByText('Designer')).toBeInTheDocument();
-    expect(
-      screen.getByText('Test description paragraph 1')
-    ).toBeInTheDocument();
-    expect(
-      screen.getByText('Test description paragraph 3')
-    ).toBeInTheDocument();
+    expect(screen.getByText('Test problem 1')).toBeInTheDocument();
+    expect(screen.getByText('Test result 1')).toBeInTheDocument();
+    expect(screen.getByText('Test result 2')).toBeInTheDocument();
     expect(screen.getByText('React')).toBeInTheDocument();
     expect(screen.getByText('TypeScript')).toBeInTheDocument();
     expect(screen.getByText('Vue')).toBeInTheDocument();

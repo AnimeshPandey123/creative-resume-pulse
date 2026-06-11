@@ -2,7 +2,6 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import Hero from '@/components/Hero';
 
-// Mock the landing data
 jest.mock('@/data/landingData', () => ({
   heroData: {
     title: 'Test Title',
@@ -15,7 +14,7 @@ jest.mock('@/data/landingData', () => ({
       },
       secondary: {
         text: 'Secondary CTA',
-        href: '#about',
+        href: '#projects',
       },
     },
   },
@@ -62,7 +61,7 @@ describe('Hero', () => {
     expect(primaryCTA).toBeInTheDocument();
 
     const secondaryCTA = screen.getByLabelText(
-      "Learn more about Animesh Pandey's background and experience"
+      "View Animesh Pandey's projects"
     );
     expect(secondaryCTA).toBeInTheDocument();
 
@@ -79,19 +78,18 @@ describe('Hero', () => {
     expect(heroSection).toHaveClass(
       'relative',
       'min-h-screen',
-      'flex',
-      'items-center',
-      'justify-center',
       'overflow-hidden',
-      'pt-16',
-      'md:pt-0'
+      'pt-24',
+      'md:pt-28',
+      'pb-24'
     );
 
     const title = screen.getByText('Test Title');
     expect(title).toHaveClass(
       'text-primary',
       'font-medium',
-      'tracking-wider',
+      'tracking-widest',
+      'uppercase',
       'mb-4',
       'animate-fade-in'
     );
@@ -128,15 +126,12 @@ describe('Hero', () => {
   it('handles intersection observer callback correctly', () => {
     render(<Hero />);
 
-    // Get the observer callback
     const observerCallback = mockIntersectionObserver.mock.calls[0][0];
     const mockObserver = { unobserve: jest.fn() };
 
-    // Create a mock target element
     const mockTarget = document.createElement('p');
     mockTarget.className = 'test-subtitle';
 
-    // Simulate intersection
     observerCallback(
       [
         {
@@ -148,22 +143,17 @@ describe('Hero', () => {
     );
 
     expect(mockTarget.classList.contains('animate-fade-in')).toBe(true);
-    // The observer callback doesn't actually call unobserve in our mock
-    // This is expected behavior since we're testing the callback logic
   });
 
   it('does not add animation class when not intersecting', () => {
     render(<Hero />);
 
-    // Get the observer callback
     const observerCallback = mockIntersectionObserver.mock.calls[0][0];
     const mockObserver = { unobserve: jest.fn() };
 
-    // Create a mock target element
     const mockTarget = document.createElement('p');
     mockTarget.className = 'test-subtitle';
 
-    // Simulate non-intersection
     observerCallback(
       [
         {
@@ -187,16 +177,13 @@ describe('Hero', () => {
   });
 
   it('handles missing subtitle ref gracefully', () => {
-    // Mock useRef to return null
     const originalUseRef = React.useRef;
     jest.spyOn(React, 'useRef').mockImplementation(() => ({ current: null }));
 
     render(<Hero />);
 
-    // Should not throw error
     expect(() => render(<Hero />)).not.toThrow();
 
-    // Restore original useRef
     React.useRef = originalUseRef;
   });
 
@@ -211,11 +198,10 @@ describe('Hero', () => {
       'flex',
       'flex-col',
       'sm:flex-row',
-      'items-center',
       'justify-center',
-      'gap-4',
+      'gap-3',
       'animate-fade-in',
-      'animate-delay-300'
+      'animate-delay-200'
     );
   });
 
@@ -224,13 +210,11 @@ describe('Hero', () => {
 
     const scrollButton = screen.getByLabelText('Scroll down to About section');
     expect(scrollButton).toHaveAttribute('href', '#about');
-    // The scroll button is inside a div with those classes
     const scrollContainer = scrollButton.parentElement;
     expect(scrollContainer).toHaveClass(
       'absolute',
-      'bottom-10',
+      'bottom-8',
       'left-1/2',
-      'transform',
       '-translate-x-1/2',
       'animate-bounce'
     );

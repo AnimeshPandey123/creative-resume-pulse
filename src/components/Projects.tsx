@@ -124,17 +124,34 @@ export const Projects: React.FC<{
                 </header>
 
                 <section>
-                  <h4 className="sr-only">Project Description</h4>
-                  <div className="space-y-3 mb-4">
-                    {project.description.map((desc, descIndex) => (
-                      <p
-                        key={descIndex}
-                        className="text-foreground text-sm leading-relaxed"
-                      >
-                        {desc}
+                  <h4 className="sr-only">Project Outcome</h4>
+                  {project.outcome ? (
+                    <div className="space-y-2 mb-4">
+                      <p className="text-foreground text-sm leading-relaxed">
+                        <span className="font-semibold text-primary">
+                          Problem:{' '}
+                        </span>
+                        {project.outcome.problem}
                       </p>
-                    ))}
-                  </div>
+                      <p className="text-foreground text-sm leading-relaxed">
+                        <span className="font-semibold text-primary">
+                          Result:{' '}
+                        </span>
+                        {project.outcome.result}
+                      </p>
+                    </div>
+                  ) : (
+                    <div className="space-y-3 mb-4">
+                      {project.description.map((desc, descIndex) => (
+                        <p
+                          key={descIndex}
+                          className="text-foreground text-sm leading-relaxed"
+                        >
+                          {desc}
+                        </p>
+                      ))}
+                    </div>
+                  )}
                 </section>
 
                 <footer>

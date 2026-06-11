@@ -29,7 +29,9 @@ describe('Sections smoke tests', () => {
 
   it('renders Skills section', () => {
     const { getByRole } = render(<Skills />);
-    expect(getByRole('region', { name: /skills/i })).toBeInTheDocument();
+    expect(
+      getByRole('region', { name: /what i deliver/i })
+    ).toBeInTheDocument();
   });
 
   it('renders Education section', () => {

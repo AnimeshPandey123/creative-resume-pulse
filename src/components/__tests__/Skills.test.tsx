@@ -6,13 +6,14 @@ import Skills from '../Skills';
 jest.mock('@/data/landingData', () => ({
   skillsData: {
     title: 'Skills',
+    subtitle: 'Test skills subtitle',
     categories: [
       {
-        name: 'Frontend',
+        title: 'Frontend',
         skills: ['React', 'TypeScript', 'Next.js'],
       },
       {
-        name: 'Backend',
+        title: 'Backend',
         skills: ['Node.js', 'Python', 'PostgreSQL'],
       },
     ],

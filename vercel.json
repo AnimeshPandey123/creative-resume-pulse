@@ -1,5 +1,5 @@
 {
-  "buildCommand": "npm run build",
+  "buildCommand": "npx next build",
   "env": {
     "NODE_ENV": "production",
     "REACT_APP_ENV": "production"

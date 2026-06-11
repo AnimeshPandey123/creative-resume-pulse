@@ -227,9 +227,10 @@ describe('Hero', () => {
       '.absolute.inset-0.bg-gradient-to-b'
     );
     expect(gradientDiv).toHaveClass(
-      'from-accent/30',
+      'from-primary/8',
+      'via-accent/20',
       'to-transparent',
-      'opacity-70',
+      'opacity-90',
       'z-0'
     );
   });

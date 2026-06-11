@@ -27,15 +27,15 @@ export default function Projects() {
 
   return (
     <Layout>
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+      <div className="min-h-screen bg-background">
         {/* Hero Section */}
-        <section className="py-16 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900">
+        <section className="py-16 page-hero-gradient">
           <div className="section-container pb-1">
             <div className="max-w-4xl mx-auto text-center">
-              <h1 className="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6">
+              <h1 className="text-4xl md:text-6xl font-display font-bold text-foreground mb-6 tracking-tight">
                 My Projects
               </h1>
-              <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto">
+              <p className="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto">
                 A collection of my work showcasing engineering expertise, AI
                 innovation, and business impact across various technologies and
                 domains.

@@ -6,6 +6,7 @@ import {
   projectsData,
   skillsData,
   educationData,
+  blogSectionData,
   contactData,
 } from '../landingData';
 
@@ -45,6 +46,11 @@ describe('landingData', () => {
     expect(educationData).toBe(landingData.education);
   });
 
+  it('should export blogSectionData', () => {
+    expect(blogSectionData).toBeDefined();
+    expect(blogSectionData).toBe(landingData.blog);
+  });
+
   it('should export contactData', () => {
     expect(contactData).toBeDefined();
     expect(contactData).toBe(landingData.contact);
@@ -57,6 +63,7 @@ describe('landingData', () => {
     expect(landingData).toHaveProperty('projects');
     expect(landingData).toHaveProperty('skills');
     expect(landingData).toHaveProperty('education');
+    expect(landingData).toHaveProperty('blog');
     expect(landingData).toHaveProperty('contact');
   });
 
@@ -68,6 +75,7 @@ describe('landingData', () => {
       projectsData,
       skillsData,
       educationData,
+      blogSectionData,
       contactData,
     ];
 

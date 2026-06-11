@@ -310,7 +310,7 @@ describe('ProjectDetailPage', () => {
     expect(backNav).toBeInTheDocument();
 
     // Check hero section
-    const heroSection = container.querySelector('.bg-gradient-to-br');
+    const heroSection = container.querySelector('.page-hero-gradient');
     expect(heroSection).toBeInTheDocument();
 
     // Check content sections

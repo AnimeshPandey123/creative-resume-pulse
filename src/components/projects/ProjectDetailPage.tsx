@@ -37,7 +37,7 @@ const ProjectDetailPage: React.FC<ProjectDetailPageProps> = ({ project }) => {
       </div>
 
       {/* Project Hero */}
-      <section className="py-14 md:py-16 bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-800 dark:to-gray-900">
+      <section className="py-14 md:py-16 page-hero-gradient">
         <div className="section-container">
           <div className="max-w-5xl mx-auto text-center">
             <div className="mb-6">
@@ -46,7 +46,7 @@ const ProjectDetailPage: React.FC<ProjectDetailPageProps> = ({ project }) => {
               </span>
             </div>
 
-            <h1 className="text-3xl md:text-5xl font-bold tracking-tight text-gray-900 dark:text-white mb-4">
+            <h1 className="text-4xl md:text-5xl font-display font-bold tracking-tight text-foreground mb-4">
               {project.title}
             </h1>
 

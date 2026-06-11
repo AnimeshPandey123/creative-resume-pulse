@@ -84,38 +84,6 @@ const About: React.FC = () => {
               ))}
             </div>
           </div>
-
-          <footer className="mt-8 pt-8 border-t border-border/50">
-            <h3 className="sr-only">Contact Information</h3>
-            <address className="flex flex-wrap gap-4 not-italic">
-              <div className="flex items-center">
-                <span className="text-primary font-medium mr-3">Location:</span>
-                <span className="text-foreground">
-                  {aboutData.contact.location}
-                </span>
-              </div>
-              <div className="flex items-center">
-                <span className="text-primary font-medium mr-3">Email:</span>
-                <a
-                  href={`mailto:${aboutData.contact.email}`}
-                  className="text-foreground hover:text-primary transition-colors"
-                  aria-label="Send email to Animesh Pandey"
-                >
-                  {aboutData.contact.email}
-                </a>
-              </div>
-              <div className="flex items-center">
-                <span className="text-primary font-medium mr-3">Phone:</span>
-                <a
-                  href={`tel:${aboutData.contact.phone}`}
-                  className="text-foreground hover:text-primary transition-colors"
-                  aria-label="Call Animesh Pandey"
-                >
-                  {aboutData.contact.phone}
-                </a>
-              </div>
-            </address>
-          </footer>
         </article>
       </div>
     </section>

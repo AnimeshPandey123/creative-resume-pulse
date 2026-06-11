@@ -30,6 +30,7 @@
   "experience": {
     "title": "Professional Experience",
     "subtitle": "A track record of impactful roles, technical leadership, and shipping production-ready code.",
+    "earlierRolesLabel": "Earlier roles",
     "items": [
       {
         "title": "Sr. Full Stack Developer",
@@ -275,6 +276,12 @@
         "period": "2019"
       }
     ]
+  },
+  "blog": {
+    "title": "Latest Writing",
+    "subtitle": "Notes on backend work, tooling, and things I've shipped.",
+    "limit": 3,
+    "viewAllText": "Read all posts"
   },
   "contact": {
     "title": "Get In Touch",

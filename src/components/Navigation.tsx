@@ -16,8 +16,8 @@ const Navigation: React.FC = () => {
 
   const navLinks = [
     { name: 'About', href: '#about' },
-    { name: 'Experience', href: '#experience' },
     { name: 'Projects', href: '#projects' },
+    { name: 'Experience', href: '#experience' },
     { name: 'Skills', href: '#skills' },
     { name: 'Education', href: '#education' },
     { name: 'Contact', href: '#contact' },
@@ -51,7 +51,7 @@ const Navigation: React.FC = () => {
         className={cn(
           'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
           isScrolled
-            ? 'bg-white/80 dark:bg-gray-900/90 backdrop-blur-md shadow-sm'
+            ? 'bg-background/85 dark:bg-background/90 backdrop-blur-md shadow-sm border-b border-border/60'
             : 'bg-transparent'
         )}
       >

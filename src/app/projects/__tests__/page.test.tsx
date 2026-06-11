@@ -160,12 +160,12 @@ describe('Projects Page', () => {
 
     // Check main container
     const mainContainer = container.querySelector(
-      '.min-h-screen.bg-gray-50.dark\\:bg-gray-900'
+      '.min-h-screen.bg-background'
     );
     expect(mainContainer).toBeInTheDocument();
 
     // Check hero section
-    const heroSection = container.querySelector('.py-16.bg-gradient-to-br');
+    const heroSection = container.querySelector('.py-16.page-hero-gradient');
     expect(heroSection).toBeInTheDocument();
 
     // Check interactive controls section (accept either combined py-8 or separate pt/pb)
@@ -185,14 +185,10 @@ describe('Projects Page', () => {
     const { container } = render(<Projects />);
 
     // Check hero section classes
-    const heroSection = container.querySelector('.py-16.bg-gradient-to-br');
+    const heroSection = container.querySelector('.py-16.page-hero-gradient');
     expect(heroSection).toBeInTheDocument();
     const heroClass = heroSection?.getAttribute('class') || '';
-    // Accept either the newer blue/indigo gradient or the previous gray gradient
-    expect(
-      heroClass.includes('from-blue-50 to-indigo-100') ||
-        heroClass.includes('from-gray-50 to-gray-100')
-    ).toBe(true);
+    expect(heroClass.includes('page-hero-gradient')).toBe(true);
 
     // Check section container
     const sectionContainers = container.querySelectorAll('.section-container');

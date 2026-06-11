@@ -121,8 +121,8 @@ describe('Navigation', () => {
     await waitFor(() => {
       const header = document.querySelector('header');
       expect(header).toHaveClass(
-        'bg-white/80',
-        'dark:bg-gray-900/90',
+        'bg-background/85',
+        'dark:bg-background/90',
         'backdrop-blur-md',
         'shadow-sm'
       );
@@ -157,7 +157,7 @@ describe('Navigation', () => {
 
     // The header should have scrolled class
     const header = document.querySelector('header');
-    expect(header).toHaveClass('backdrop-blur-md', 'bg-white/80');
+    expect(header).toHaveClass('backdrop-blur-md', 'bg-background/85');
   });
 
   it('should handle theme toggle', () => {

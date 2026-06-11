@@ -41,7 +41,7 @@ const Hero: React.FC = () => {
       role="banner"
       aria-label="Hero section"
     >
-      <div className="absolute inset-0 bg-gradient-to-b from-accent/30 to-transparent opacity-70 z-0" />
+      <div className="absolute inset-0 bg-gradient-to-b from-primary/8 via-accent/20 to-transparent opacity-90 z-0" />
 
       <div className="container mx-auto px-4 sm:px-6 relative z-10 flex flex-col justify-center min-h-[calc(100vh-6rem)]">
         <div className="max-w-3xl mx-auto text-center">

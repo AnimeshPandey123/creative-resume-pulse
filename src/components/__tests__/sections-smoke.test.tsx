@@ -3,12 +3,12 @@ import { render } from '@testing-library/react';
 import About from '@/components/About';
 import Experience from '@/components/Experience';
 import Projects from '@/components/Projects';
+import LatestWriting from '@/components/LatestWriting';
 import Skills from '@/components/Skills';
 import Education from '@/components/Education';
 
 describe('Sections smoke tests', () => {
   beforeEach(() => {
-    // IntersectionObserver is mocked in jest.setup
     document.body.innerHTML = '';
   });
 
@@ -25,6 +25,13 @@ describe('Sections smoke tests', () => {
   it('renders Projects section', () => {
     const { getByRole } = render(<Projects />);
     expect(getByRole('region', { name: /projects/i })).toBeInTheDocument();
+  });
+
+  it('renders Latest Writing section', () => {
+    const { getByRole } = render(<LatestWriting />);
+    expect(
+      getByRole('region', { name: /latest writing/i })
+    ).toBeInTheDocument();
   });
 
   it('renders Skills section', () => {

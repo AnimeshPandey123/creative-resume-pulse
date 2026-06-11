@@ -10,4 +10,5 @@ export const experienceData = landingData.experience;
 export const projectsData = landingData.projects;
 export const skillsData = landingData.skills;
 export const educationData = landingData.education;
+export const blogSectionData = landingData.blog;
 export const contactData = landingData.contact;

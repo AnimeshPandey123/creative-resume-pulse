@@ -23,6 +23,10 @@ jest.mock('@/components/Projects', () => ({
   __esModule: true,
   default: () => <div data-testid="projects" />,
 }));
+jest.mock('@/components/LatestWriting', () => ({
+  __esModule: true,
+  default: () => <div data-testid="writing" />,
+}));
 jest.mock('@/components/Skills', () => ({
   __esModule: true,
   default: () => <div data-testid="skills" />,
@@ -42,8 +46,9 @@ describe('HomePage', () => {
     expect(getByTestId('layout')).toBeInTheDocument();
     expect(getByTestId('hero')).toBeInTheDocument();
     expect(getByTestId('about')).toBeInTheDocument();
-    expect(getByTestId('experience')).toBeInTheDocument();
     expect(getByTestId('projects')).toBeInTheDocument();
+    expect(getByTestId('experience')).toBeInTheDocument();
+    expect(getByTestId('writing')).toBeInTheDocument();
     expect(getByTestId('skills')).toBeInTheDocument();
     expect(getByTestId('education')).toBeInTheDocument();
     expect(getByTestId('contact')).toBeInTheDocument();

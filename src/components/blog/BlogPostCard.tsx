@@ -12,15 +12,20 @@ import { formatPublishDate, getReadingTimeLabel } from '@/lib/blog';
 interface BlogPostCardProps {
   post: BlogPost;
   index?: number;
+  showImmediately?: boolean;
 }
 
-const BlogPostCard: React.FC<BlogPostCardProps> = ({ post, index = 0 }) => {
+const BlogPostCard: React.FC<BlogPostCardProps> = ({
+  post,
+  index = 0,
+  showImmediately = false,
+}) => {
   const { title, excerpt, coverImage, slug, publishDate, readingTime, tags } =
     post;
 
   return (
     <article
-      className="project-card h-full flex flex-col blog-card-pending"
+      className={`project-card h-full flex flex-col${showImmediately ? '' : ' blog-card-pending'}`}
       style={{ animationDelay: `${index * 100}ms` }}
       data-blog-card
     >

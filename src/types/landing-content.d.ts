@@ -38,6 +38,7 @@ declare module '*/landing-content.json' {
   interface ExperienceData {
     title: string;
     subtitle: string;
+    earlierRolesLabel: string;
     items: ExperienceItem[];
   }
 
@@ -108,6 +109,13 @@ declare module '*/landing-content.json' {
     social: SocialLink[];
   }
 
+  interface BlogSectionData {
+    title: string;
+    subtitle: string;
+    limit: number;
+    viewAllText: string;
+  }
+
   interface LandingContent {
     hero: HeroData;
     about: AboutData;
@@ -115,6 +123,7 @@ declare module '*/landing-content.json' {
     projects: ProjectsData;
     skills: SkillsData;
     education: EducationData;
+    blog: BlogSectionData;
     contact: ContactData;
   }
 

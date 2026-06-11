@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "hooks": {
+    "afterFileEdit": [
+      {
+        "command": "node .cursor/hooks/mark-source-edited.mjs"
+      }
+    ],
+    "stop": [
+      {
+        "command": "node .cursor/hooks/verify-lint-tsc.mjs",
+        "loop_limit": 5
+      }
+    ]
+  }
+}

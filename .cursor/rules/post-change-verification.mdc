@@ -1,0 +1,34 @@
+---
+description: Run lint and TypeScript checks after every code change
+alwaysApply: true
+---
+
+# Post-Change Verification
+
+After making any code changes, run these checks before finishing the task:
+
+```bash
+npm run lint
+npx tsc --noEmit
+```
+
+## Requirements
+
+- Run both commands after edits to source files, config, or tests.
+- If either command fails, fix the reported issues before considering the task complete.
+- Re-run the failing command after each fix until both pass.
+- Skip only when the task was read-only (no files were modified).
+
+## Automated Hook
+
+Project hooks in `.cursor/hooks.json` also enforce this workflow:
+
+- `afterFileEdit` marks when source files are edited.
+- `stop` runs `npm run lint` and `npx tsc --noEmit` when edits were made.
+- If checks fail, the agent receives a follow-up message to fix the issues (up to 5 loops).
+
+## Notes
+
+- `npm run lint` runs ESLint with zero warnings allowed (`eslint . --max-warnings=0`).
+- `npx tsc --noEmit` performs a full-project TypeScript check without emitting files.
+- These match the pre-commit hook checks in `.husky/pre-commit`.

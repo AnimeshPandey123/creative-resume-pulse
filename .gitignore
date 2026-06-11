@@ -34,3 +34,6 @@ coverage/
 out/
 
 *.tsbuildinfo
+
+# Cursor hook runtime marker
+.cursor/hooks/.source-edited

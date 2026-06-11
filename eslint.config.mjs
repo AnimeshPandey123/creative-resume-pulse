@@ -33,6 +33,7 @@ const eslintConfig = [
         IntersectionObserver: 'readonly',
         requestIdleCallback: 'readonly',
         // HTML element types
+        Element: 'readonly',
         HTMLElement: 'readonly',
         HTMLDivElement: 'readonly',
         HTMLInputElement: 'readonly',
@@ -148,6 +149,7 @@ const eslintConfig = [
       'dist/**',
       'coverage/**',
       'scripts-dist/**',
+      '.cursor/hooks/**',
     ],
   },
 ];

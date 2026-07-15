@@ -62,7 +62,7 @@ const About: React.FC = () => {
                 alt="Portrait of Animesh Pandey"
                 width={160}
                 height={160}
-                className="rounded-2xl object-cover ring-2 ring-primary/20 shadow-md"
+                className="h-40 w-40 rounded-2xl object-cover ring-2 ring-primary/20 shadow-md"
                 priority
               />
             </div>

@@ -138,13 +138,9 @@ export function ThemeProvider({
     () => createThemeHandler(dependencies),
     [dependencies]
   );
-  const [theme, setTheme] = useState<Theme>(() => {
-    if (typeof window === 'undefined') {
-      return 'light';
-    }
-
-    return createThemeHandler(dependencies).initializeTheme();
-  });
+  // Keep the server and first client render identical. The pre-hydration script
+  // applies the correct class immediately; this state catches up after mount.
+  const [theme, setTheme] = useState<Theme>('light');
 
   useEffect(() => {
     const initialTheme = themeHandler.initializeTheme();

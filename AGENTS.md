@@ -19,6 +19,8 @@ All standard commands are documented in `README.md` under "Available Scripts".
 
 ### Non-obvious caveats
 
+- **Never bypass failing gates**: Do not remove, skip, weaken, relocate, or replace an existing test, lint, typecheck, build, audit, security, or CI command merely to make a failure pass. Fix the underlying code or dependency problem while preserving the original enforcement path. Any intentional change to the project's validation or security policy requires the user's explicit approval before implementation.
+
 - **Static export mode**: `next.config.ts` sets `output: 'export'`, so the app builds as a fully static site. The `headers()` and `redirects()` in the config emit warnings during build but are harmless (they only apply when deployed behind a server like Vercel).
 - **ESLint version**: The project uses ESLint 8 (not the flat-config-only ESLint 9). The config is in `eslint.config.mjs`. During `next build`, ESLint is intentionally skipped (`ignoreDuringBuilds: true`); run `npm run lint` separately.
 - **Year-sensitive tests**: Two RSS/copyright tests use `new Date().getFullYear()` to match the dynamically generated copyright year. If a new copyright test is added, use the same pattern instead of hardcoding a year.

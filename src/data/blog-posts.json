@@ -218,7 +218,7 @@
       "excerpt": "Use Drupal 10/11 as a headless CMS with JSON:API, then fetch content in React. Covers CORS, auth, images, and real entity queries—not hardcoded arrays.",
       "coverImage": "https://d1iukwsziul56d.cloudfront.net/drupal-local/s3fs-public/2025-10/drupal-react.webp",
       "publishDate": "2025-09-21",
-      "readingTime": 4,
+      "readingTime": 10,
       "authorId": "1",
       "tagIds": ["27", "24", "15", "18", "19", "6"]
     }

@@ -64,9 +64,14 @@ jest.mock('react-markdown', () => {
         children: 'const test = "hello";',
       });
 
+      const markdownHeading = components.h1
+        ? components.h1({ children: 'Duplicate title' })
+        : 'Duplicate title';
+
       return (
         <div data-testid="markdown-content">
           {children}
+          <div data-testid="markdown-h1">{markdownHeading}</div>
           <div data-testid="inline-code-test">{inlineCode}</div>
           <div data-testid="block-code-lang-test">{blockCodeWithLang}</div>
           <div data-testid="block-code-no-lang-test">{blockCodeNoLang}</div>
@@ -384,6 +389,13 @@ describe('BlogPostContent', () => {
 
     const titleElement = screen.getByRole('heading', { level: 1 });
     expect(titleElement).toHaveTextContent('');
+  });
+
+  it('should keep a single h1 when markdown repeats the title', () => {
+    render(<BlogPostContent post={mockBlogPost} />);
+
+    expect(screen.getAllByRole('heading', { level: 1 })).toHaveLength(1);
+    expect(screen.getByTestId('markdown-h1')).toBeEmptyDOMElement();
   });
 
   // Tests for code block branch coverage

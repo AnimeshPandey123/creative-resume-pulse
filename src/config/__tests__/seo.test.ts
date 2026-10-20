@@ -54,6 +54,19 @@ describe('SEO Configuration', () => {
   });
 
   describe('baseMetadata', () => {
+    it('omits Google site verification until a token is configured', () => {
+      expect(baseMetadata.other).not.toHaveProperty('google-site-verification');
+    });
+
+    it('emits Google site verification when the token is set', () => {
+      jest.isolateModules(() => {
+        process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION = 'test-token';
+        const { baseMetadata: withToken } = require('../seo');
+        expect(withToken.other['google-site-verification']).toBe('test-token');
+        delete process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION;
+      });
+    });
+
     it('should have all required metadata properties', () => {
       expect(baseMetadata).toHaveProperty('title');
       expect(baseMetadata).toHaveProperty('description');

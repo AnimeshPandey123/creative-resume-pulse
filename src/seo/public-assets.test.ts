@@ -42,15 +42,15 @@ describe('SEO public assets', () => {
       );
     });
 
-    it('sitemap.xml includes homepage and anchors', () => {
+    it('sitemap.xml includes real pages and not homepage fragments', () => {
       const xml = readPublicFile('sitemap.xml');
       expect(xml).toContain('<loc>https://animeshpandey.com/</loc>');
-      expect(xml).toContain('<loc>https://animeshpandey.com/blog</loc>');
-      expect(xml).toContain('<loc>https://animeshpandey.com/#about</loc>');
-      expect(xml).toContain('<loc>https://animeshpandey.com/#projects</loc>');
-      expect(xml).toContain('<loc>https://animeshpandey.com/#experience</loc>');
-      expect(xml).toContain('<loc>https://animeshpandey.com/#skills</loc>');
-      expect(xml).toContain('<loc>https://animeshpandey.com/#contact</loc>');
+      expect(xml).toContain('<loc>https://animeshpandey.com/blog/</loc>');
+      expect(xml).toContain('<loc>https://animeshpandey.com/projects/</loc>');
+      expect(xml).toContain(
+        '<loc>https://animeshpandey.com/projects/joey-ai/</loc>'
+      );
+      expect(xml).not.toContain('https://animeshpandey.com/#');
     });
 
     it('sitemap-blog.xml includes known blog URLs', () => {

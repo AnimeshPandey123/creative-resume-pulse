@@ -229,7 +229,7 @@ describe('ProjectPage - generateMetadata', () => {
     const metadata = await generateMetadata({ params });
 
     expect(generatePageMetadata).toHaveBeenCalledWith({
-      title: 'Test Project 1 - Project Details',
+      title: 'Test Project 1',
       description:
         'This is a comprehensive test project that demonstrates various technologies.',
       path: '/projects/test-project-1',
@@ -247,7 +247,7 @@ describe('ProjectPage - generateMetadata', () => {
     });
 
     expect(metadata).toEqual({
-      title: 'Test Project 1 - Project Details',
+      title: 'Test Project 1',
       description:
         'This is a comprehensive test project that demonstrates various technologies.',
       path: '/projects/test-project-1',
@@ -269,7 +269,7 @@ describe('ProjectPage - generateMetadata', () => {
       },
       openGraph: {
         type: 'website',
-        title: 'Test Project 1 - Project Details',
+        title: 'Test Project 1',
         description:
           'This is a comprehensive test project that demonstrates various technologies.',
         url: 'https://animeshpandey.com/projects/test-project-1',
@@ -277,7 +277,7 @@ describe('ProjectPage - generateMetadata', () => {
       },
       twitter: {
         card: 'summary_large_image',
-        title: 'Test Project 1 - Project Details',
+        title: 'Test Project 1',
         description:
           'This is a comprehensive test project that demonstrates various technologies.',
       },
@@ -289,7 +289,7 @@ describe('ProjectPage - generateMetadata', () => {
     const metadata = await generateMetadata({ params });
 
     expect(generatePageMetadata).toHaveBeenCalledWith({
-      title: 'Test Project 2 - Project Details',
+      title: 'Test Project 2',
       description: 'A backend API project with microservices architecture.',
       path: '/projects/test-project-2',
       keywords: [
@@ -305,7 +305,7 @@ describe('ProjectPage - generateMetadata', () => {
       type: 'website',
     });
 
-    expect(metadata.title).toBe('Test Project 2 - Project Details');
+    expect(metadata.title).toBe('Test Project 2');
     expect(metadata.description).toBe(
       'A backend API project with microservices architecture.'
     );
@@ -327,7 +327,7 @@ describe('ProjectPage - generateMetadata', () => {
     const metadata = await generateMetadata({ params });
 
     expect(generatePageMetadata).toHaveBeenCalledWith({
-      title: 'Test Project 3 - Project Details',
+      title: 'Test Project 3',
       description: 'A frontend-only project with minimal description.',
       path: '/projects/test-project-3',
       keywords: [
@@ -341,7 +341,7 @@ describe('ProjectPage - generateMetadata', () => {
       type: 'website',
     });
 
-    expect(metadata.title).toBe('Test Project 3 - Project Details');
+    expect(metadata.title).toBe('Test Project 3');
     expect(metadata.description).toBe(
       'A frontend-only project with minimal description.'
     );
@@ -353,7 +353,7 @@ describe('ProjectPage - generateMetadata', () => {
     // Test that the function properly awaits the params
     const metadata = await generateMetadata({ params });
 
-    expect(metadata.title).toBe('Test Project 1 - Project Details');
+    expect(metadata.title).toBe('Test Project 1');
   });
 
   it('should use fallback description when project description is empty', async () => {
@@ -361,7 +361,7 @@ describe('ProjectPage - generateMetadata', () => {
     const metadata = await generateMetadata({ params });
 
     expect(generatePageMetadata).toHaveBeenCalledWith({
-      title: 'Test Project 4 - Project Details',
+      title: 'Test Project 4',
       description:
         'Learn more about Test Project 4, a project by Animesh Pandey.',
       path: '/projects/test-project-4',
@@ -375,7 +375,7 @@ describe('ProjectPage - generateMetadata', () => {
       type: 'website',
     });
 
-    expect(metadata.title).toBe('Test Project 4 - Project Details');
+    expect(metadata.title).toBe('Test Project 4');
     expect(metadata.description).toBe(
       'Learn more about Test Project 4, a project by Animesh Pandey.'
     );
@@ -558,7 +558,7 @@ describe('ProjectPage - Edge Cases', () => {
     const metadata = await generateMetadata({ params });
 
     // Should handle the title correctly
-    expect(metadata.title).toBe('Test Project 1 - Project Details');
+    expect(metadata.title).toBe('Test Project 1');
     expect(metadata.title).toContain('Test Project 1');
   });
 
@@ -579,7 +579,7 @@ describe('ProjectPage - Integration Tests', () => {
 
     // Test metadata generation
     const metadata = await generateMetadata({ params });
-    expect(metadata.title).toBe('Test Project 1 - Project Details');
+    expect(metadata.title).toBe('Test Project 1');
 
     // Test component rendering
     render(await ProjectPage({ params }));
@@ -602,7 +602,7 @@ describe('ProjectPage - Integration Tests', () => {
 
       // Test metadata
       const metadata = await generateMetadata({ params });
-      expect(metadata.title).toContain('Project Details');
+      expect(metadata.title).toContain('Test Project');
 
       // Test component
       const { unmount } = render(await ProjectPage({ params }));

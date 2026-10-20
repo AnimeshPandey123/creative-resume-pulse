@@ -37,12 +37,15 @@ jest.mock('@/components/blog/BlogPagination', () => ({
 }));
 
 // Mock next/navigation
-const mockUseSearchParams = jest.fn();
 const mockPush = jest.fn();
 jest.mock('next/navigation', () => ({
-  useSearchParams: () => mockUseSearchParams(),
   useRouter: () => ({ push: mockPush }),
 }));
+
+function setQuery(search: string) {
+  const href = search ? `/blog/?${search}` : '/blog/';
+  window.history.pushState({}, '', href);
+}
 
 describe('BlogPageClient', () => {
   const mockFetchBlogPosts = require('@/data/mockBlogData').fetchBlogPosts;
@@ -56,7 +59,7 @@ describe('BlogPageClient', () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
-    mockUseSearchParams.mockReturnValue(new URLSearchParams('page=1'));
+    setQuery('page=1');
   });
 
   it('renders blog page with posts', () => {
@@ -138,7 +141,7 @@ describe('BlogPageClient', () => {
   });
 
   it('displays tag-specific description when valid tag is provided', () => {
-    mockUseSearchParams.mockReturnValue(new URLSearchParams('tag=react'));
+    setQuery('tag=react');
     mockFetchBlogPosts.mockReturnValue({
       posts: [{ id: '1', title: 'React Post' }],
       totalPages: 1,
@@ -169,7 +172,7 @@ describe('BlogPageClient', () => {
   });
 
   it('displays tag slug as fallback when tag is not found in blogTags', () => {
-    mockUseSearchParams.mockReturnValue(new URLSearchParams('tag=unknown-tag'));
+    setQuery('tag=unknown-tag');
     mockFetchBlogPosts.mockReturnValue({
       posts: [{ id: '1', title: 'Unknown Tag Post' }],
       totalPages: 1,
@@ -200,7 +203,7 @@ describe('BlogPageClient', () => {
   });
 
   it('displays default description when no tag is provided', () => {
-    mockUseSearchParams.mockReturnValue(new URLSearchParams(''));
+    setQuery('');
     mockFetchBlogPosts.mockReturnValue({
       posts: [{ id: '1', title: 'Default Post' }],
       totalPages: 1,
@@ -235,9 +238,7 @@ describe('BlogPageClient', () => {
   });
 
   it('handles different search parameters correctly', () => {
-    mockUseSearchParams.mockReturnValue(
-      new URLSearchParams('page=2&search=test&tag=python')
-    );
+    setQuery('page=2&search=test&tag=python');
     mockFetchBlogPosts.mockReturnValue({
       posts: [{ id: '1', title: 'Python Test Post' }],
       totalPages: 3,
@@ -268,7 +269,7 @@ describe('BlogPageClient', () => {
   });
 
   it('handles invalid page parameter gracefully', () => {
-    mockUseSearchParams.mockReturnValue(new URLSearchParams('page=invalid'));
+    setQuery('page=invalid');
     mockFetchBlogPosts.mockReturnValue({
       posts: [{ id: '1', title: 'Default Post' }],
       totalPages: 1,

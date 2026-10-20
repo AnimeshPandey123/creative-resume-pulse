@@ -97,7 +97,7 @@ const ProjectsListStatic: React.FC<ProjectsListStaticProps> = ({
                   href={`/projects/${project.slug}`}
                   className="flex items-center justify-center gap-2 px-3 py-2 text-primary text-sm font-medium rounded-lg hover:bg-primary/10 transition-colors"
                 >
-                  Learn More
+                  {project.title} project
                 </a>
               </div>
             </footer>

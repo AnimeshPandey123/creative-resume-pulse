@@ -254,6 +254,7 @@ describe('SEO Configuration', () => {
           `${SITE_CONFIG.name} Portfolio`
         );
         expect(websiteStructuredData.url).toBe(SITE_CONFIG.url);
+        expect(websiteStructuredData).not.toHaveProperty('potentialAction');
       });
     });
 

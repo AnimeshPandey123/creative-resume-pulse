@@ -11,16 +11,34 @@ const BASE_URL = 'https://animeshpandey.com';
 // Current date in ISO format
 const currentDate = new Date().toISOString().split('T')[0];
 
-// Load blog data
-function loadBlogData() {
+function loadJson(relativePath, fallback) {
   try {
-    const blogDataPath = path.join(__dirname, '../src/data/blog-posts.json');
-    const blogData = JSON.parse(fs.readFileSync(blogDataPath, 'utf8'));
-    return blogData;
+    const filePath = path.join(__dirname, relativePath);
+    return JSON.parse(fs.readFileSync(filePath, 'utf8'));
   } catch (error) {
-    console.error('❌ Error loading blog data:', error);
-    return { posts: [] };
+    console.error(`❌ Error loading ${relativePath}:`, error);
+    return fallback;
   }
+}
+
+function loadBlogData() {
+  return loadJson('../src/data/blog-posts.json', { posts: [] });
+}
+
+function loadProjects() {
+  const data = loadJson('../src/data/enhanced-projects.json', { projects: [] });
+  return data.projects || [];
+}
+
+function withSlash(urlPath) {
+  if (urlPath === '/') return `${BASE_URL}/`;
+  const normalized = urlPath.endsWith('/') ? urlPath : `${urlPath}/`;
+  return `${BASE_URL}${normalized}`;
+}
+
+function httpsImage(url) {
+  if (!url) return url;
+  return url.replace(/^http:\/\//i, 'https://');
 }
 
 // Generate main sitemap
@@ -46,52 +64,30 @@ function generateMainSitemap() {
   
   <!-- Blog -->
   <url>
-    <loc>${BASE_URL}/blog</loc>
+    <loc>${withSlash('/blog')}</loc>
     <lastmod>${currentDate}</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
-  
-  <!-- About section -->
+
+  <!-- Projects index -->
   <url>
-    <loc>${BASE_URL}/#about</loc>
+    <loc>${withSlash('/projects')}</loc>
     <lastmod>${currentDate}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
-  
-  <!-- Projects section -->
+${loadProjects()
+  .map(
+    project => `
   <url>
-    <loc>${BASE_URL}/#projects</loc>
-    <lastmod>${currentDate}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  
-  <!-- Experience section -->
-  <url>
-    <loc>${BASE_URL}/#experience</loc>
-    <lastmod>${currentDate}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  
-  <!-- Skills section -->
-  <url>
-    <loc>${BASE_URL}/#skills</loc>
+    <loc>${withSlash(`/projects/${project.slug}`)}</loc>
     <lastmod>${currentDate}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
-  </url>
-  
-  <!-- Contact section -->
-  <url>
-    <loc>${BASE_URL}/#contact</loc>
-    <lastmod>${currentDate}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
+  </url>`
+  )
+  .join('')}
 </urlset>`;
 
   fs.writeFileSync(path.join(__dirname, '../public/sitemap.xml'), sitemap);
@@ -110,16 +106,15 @@ function generateBlogSitemap() {
     const postDate = post.publishDate || currentDate;
     blogEntries += `
   <url>
-    <loc>${BASE_URL}/blog/${post.slug}</loc>
+    <loc>${withSlash(`/blog/${post.slug}`)}</loc>
     <lastmod>${postDate}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>`;
 
-    // Add image if coverImage exists
     if (post.coverImage) {
       blogEntries += `
     <image:image>
-      <image:loc>${post.coverImage}</image:loc>
+      <image:loc>${httpsImage(post.coverImage)}</image:loc>
       <image:title>${post.title}</image:title>
     </image:image>`;
     }

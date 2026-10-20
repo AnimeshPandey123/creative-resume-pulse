@@ -79,7 +79,9 @@ describe('Sitemap CLI (scripts/generate-sitemap.js)', () => {
     const xml = fs.readFileSync(files.sitemap, 'utf-8');
     expect(xml.startsWith('<?xml')).toBe(true);
     expect(xml).toContain('<loc>https://animeshpandey.com/</loc>');
-    expect(xml).toContain('<loc>https://animeshpandey.com/blog</loc>');
+    expect(xml).toContain('<loc>https://animeshpandey.com/blog/</loc>');
+    expect(xml).toContain('<loc>https://animeshpandey.com/projects/</loc>');
+    expect(xml).not.toContain('https://animeshpandey.com/#');
   });
 
   it('includes blog post URLs in sitemap-blog.xml when data exists', () => {

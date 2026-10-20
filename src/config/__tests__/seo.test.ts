@@ -74,7 +74,9 @@ describe('SEO Configuration', () => {
       expect(openGraph?.siteName).toBe(`${SITE_CONFIG.name} Portfolio`);
       expect(openGraph?.locale).toBe(SITE_CONFIG.locale);
       expect(openGraph?.images).toHaveLength(1);
-      expect(openGraph?.images?.[0]?.url).toBe(SITE_CONFIG.avatarUrl);
+      expect(openGraph?.images?.[0]?.url).toBe(SITE_CONFIG.ogImage);
+      expect(openGraph?.images?.[0]?.width).toBe(1200);
+      expect(openGraph?.images?.[0]?.height).toBe(630);
     });
 
     it('should have correct Twitter configuration', () => {
@@ -82,7 +84,7 @@ describe('SEO Configuration', () => {
       expect(twitter?.card).toBe('summary_large_image');
       expect(twitter?.title).toBe(SITE_CONFIG.title);
       expect(twitter?.description).toBe(SITE_CONFIG.description);
-      expect(twitter?.images).toEqual([SITE_CONFIG.avatarUrl]);
+      expect(twitter?.images).toEqual([SITE_CONFIG.ogImage]);
       expect(twitter?.creator).toBe(SITE_CONFIG.twitterHandle);
       expect(twitter?.site).toBe(SITE_CONFIG.twitterHandle);
     });
@@ -150,8 +152,8 @@ describe('SEO Configuration', () => {
 
       const openGraph = metadata.openGraph as any;
       const twitter = metadata.twitter as any;
-      expect(openGraph?.images?.[0]?.url).toBe(SITE_CONFIG.avatarUrl);
-      expect(twitter?.images).toEqual([SITE_CONFIG.avatarUrl]);
+      expect(openGraph?.images?.[0]?.url).toBe(SITE_CONFIG.ogImage);
+      expect(twitter?.images).toEqual([SITE_CONFIG.ogImage]);
     });
 
     it('should use custom image when provided', () => {

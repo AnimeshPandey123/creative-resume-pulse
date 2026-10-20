@@ -61,6 +61,11 @@ jest.mock('react-syntax-highlighter/dist/esm/styles/prism', () => ({
   atomDark: {},
 }));
 
+jest.mock('remark-gfm', () => ({
+  __esModule: true,
+  default: () => {},
+}));
+
 // Global test utilities
 global.ResizeObserver = jest.fn().mockImplementation(() => ({
   observe: jest.fn(),

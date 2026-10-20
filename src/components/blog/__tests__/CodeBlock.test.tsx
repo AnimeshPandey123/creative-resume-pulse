@@ -23,14 +23,11 @@ describe('CodeBlock', () => {
     expect(screen.getByText(mockCode)).toBeInTheDocument();
   });
 
-  it('shows copy button on hover', () => {
+  it('shows copy button in toolbar', () => {
     render(<CodeBlock language={mockLanguage}>{mockCode}</CodeBlock>);
 
-    const codeBlock = screen.getByText(mockCode).closest('div');
-    if (codeBlock) {
-      fireEvent.mouseEnter(codeBlock);
-      expect(screen.getByText('Copy')).toBeInTheDocument();
-    }
+    expect(screen.getByText('Copy')).toBeInTheDocument();
+    expect(screen.getByText('javascript')).toBeInTheDocument();
   });
 
   it('copies code to clipboard when copy button is clicked', async () => {
@@ -43,17 +40,12 @@ describe('CodeBlock', () => {
 
     render(<CodeBlock language={mockLanguage}>{mockCode}</CodeBlock>);
 
-    const codeBlock = screen.getByText(mockCode).closest('div');
-    if (codeBlock) {
-      fireEvent.mouseEnter(codeBlock);
-      const copyButton = screen.getByText('Copy');
-      fireEvent.click(copyButton);
+    fireEvent.click(screen.getByText('Copy'));
 
-      await waitFor(() => {
-        expect(mockWriteText).toHaveBeenCalledWith(mockCode);
-        expect(screen.getByText('Copied!')).toBeInTheDocument();
-      });
-    }
+    await waitFor(() => {
+      expect(mockWriteText).toHaveBeenCalledWith(mockCode);
+      expect(screen.getByText('Copied!')).toBeInTheDocument();
+    });
   });
 
   it('shows copied state for 2 seconds', async () => {
@@ -61,23 +53,17 @@ describe('CodeBlock', () => {
 
     render(<CodeBlock language={mockLanguage}>{mockCode}</CodeBlock>);
 
-    const codeBlock = screen.getByText(mockCode).closest('div');
-    if (codeBlock) {
-      fireEvent.mouseEnter(codeBlock);
-      const copyButton = screen.getByText('Copy');
-      fireEvent.click(copyButton);
+    fireEvent.click(screen.getByText('Copy'));
 
-      await waitFor(() => {
-        expect(screen.getByText('Copied!')).toBeInTheDocument();
-      });
+    await waitFor(() => {
+      expect(screen.getByText('Copied!')).toBeInTheDocument();
+    });
 
-      // Fast-forward time
-      jest.advanceTimersByTime(2000);
+    jest.advanceTimersByTime(2000);
 
-      await waitFor(() => {
-        expect(screen.getByText('Copy')).toBeInTheDocument();
-      });
-    }
+    await waitFor(() => {
+      expect(screen.getByText('Copy')).toBeInTheDocument();
+    });
 
     jest.useRealTimers();
   });
@@ -98,22 +84,16 @@ describe('CodeBlock', () => {
 
     render(<CodeBlock language={mockLanguage}>{mockCode}</CodeBlock>);
 
-    const codeBlock = screen.getByText(mockCode).closest('div');
-    if (codeBlock) {
-      fireEvent.mouseEnter(codeBlock);
-      const copyButton = screen.getByText('Copy');
-      fireEvent.click(copyButton);
+    fireEvent.click(screen.getByText('Copy'));
 
-      await waitFor(() => {
-        expect(mockWriteText).toHaveBeenCalledWith(mockCode);
-        expect(consoleSpy).toHaveBeenCalledWith(
-          'Failed to copy code:',
-          expect.any(Error)
-        );
-        // Should not show "Copied!" state when error occurs
-        expect(screen.queryByText('Copied!')).not.toBeInTheDocument();
-      });
-    }
+    await waitFor(() => {
+      expect(mockWriteText).toHaveBeenCalledWith(mockCode);
+      expect(consoleSpy).toHaveBeenCalledWith(
+        'Failed to copy code:',
+        expect.any(Error)
+      );
+      expect(screen.queryByText('Copied!')).not.toBeInTheDocument();
+    });
 
     consoleSpy.mockRestore();
   });

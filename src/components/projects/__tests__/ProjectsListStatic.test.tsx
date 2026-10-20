@@ -171,12 +171,8 @@ describe('ProjectsListStatic', () => {
       'noopener noreferrer'
     );
 
-    // Check Learn More buttons
-    const learnMoreButtons = screen.getAllByText('Learn More');
-    expect(learnMoreButtons).toHaveLength(2);
-
-    // Check Learn More links
-    const learnMoreLinks = screen.getAllByRole('link', { name: /Learn More/ });
+    const learnMoreLinks = screen.getAllByRole('link', { name: /project$/ });
+    expect(learnMoreLinks).toHaveLength(2);
     expect(learnMoreLinks[0]).toHaveAttribute(
       'href',
       '/projects/test-project-1'
@@ -221,9 +217,12 @@ describe('ProjectsListStatic', () => {
     // Should not render View Demo buttons
     expect(screen.queryByText('View Demo')).not.toBeInTheDocument();
 
-    // Should still render Learn More buttons
-    const learnMoreButtons = screen.getAllByText('Learn More');
-    expect(learnMoreButtons).toHaveLength(2);
+    expect(
+      screen.getByRole('link', { name: 'Test Project 1 project' })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('link', { name: 'Test Project 2 project' })
+    ).toBeInTheDocument();
   });
 
   it('handles empty projects array', () => {

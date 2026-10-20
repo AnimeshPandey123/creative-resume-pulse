@@ -1,7 +1,7 @@
 # Robots.txt for Animesh Pandey Portfolio
 # https://animeshpandey.com
 
-# Allow all crawlers
+# Allow all crawlers, including CSS and JavaScript under /_next/
 User-agent: *
 Allow: /
 
@@ -13,35 +13,24 @@ Sitemap: https://animeshpandey.com/sitemap-blog.xml
 # RSS Feed
 Sitemap: https://animeshpandey.com/feed.xml
 
-# Crawl-delay for respectful crawling
-Crawl-delay: 1
-
-# Disallow specific paths (if any)
+# Disallow paths that are not pages
 Disallow: /api/
-Disallow: /_next/
 Disallow: /admin/
 Disallow: /private/
 
 # Allow important pages
 Allow: /blog/
-Allow: /about
 Allow: /projects
-Allow: /experience
-Allow: /skills
-Allow: /contact
 
 # Specific rules for different bots
 User-agent: Googlebot
 Allow: /
-Crawl-delay: 1
 
 User-agent: Bingbot
 Allow: /
-Crawl-delay: 1
 
 User-agent: Slurp
 Allow: /
-Crawl-delay: 2
 
 # Block bad bots
 User-agent: AhrefsBot

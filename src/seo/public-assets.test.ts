@@ -24,10 +24,11 @@ describe('SEO public assets', () => {
       );
     });
 
-    it('disallows internal and bad bots', () => {
+    it('disallows private paths and allows static assets', () => {
       const content = readPublicFile('robots.txt');
       expect(content).toContain('Disallow: /api/');
-      expect(content).toContain('Disallow: /_next/');
+      expect(content).not.toContain('Disallow: /_next/');
+      expect(content).not.toContain('Crawl-delay');
       expect(content).toContain('User-agent: AhrefsBot');
       expect(content).toContain('User-agent: SemrushBot');
     });

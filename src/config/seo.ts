@@ -485,11 +485,6 @@ export const websiteStructuredData = {
     '@type': 'Person',
     name: SITE_CONFIG.name,
   },
-  potentialAction: {
-    '@type': 'SearchAction',
-    target: `${SITE_CONFIG.url}/search?q={search_term_string}`,
-    'query-input': 'required name=search_term_string',
-  },
 };
 
 // Organization structured data

@@ -1,6 +1,17 @@
-'use client';
-
+import type { Metadata } from 'next';
 import Layout from '@/layout/Layout';
+
+export const metadata: Metadata = {
+  title: 'Page not found | Animesh Pandey',
+  description: 'The page you requested does not exist.',
+  robots: {
+    index: false,
+    follow: false,
+  },
+  alternates: {
+    canonical: null,
+  },
+};
 
 export default function NotFound() {
   return (

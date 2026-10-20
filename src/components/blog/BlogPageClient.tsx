@@ -1,7 +1,7 @@
 'use client';
 
-import { useEffect, useMemo } from 'react';
-import { useSearchParams, useRouter } from 'next/navigation';
+import { useEffect, useMemo, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { BookOpen, Rss, Tag } from 'lucide-react';
 import BlogPostCard from '@/components/blog/BlogPostCard';
 import BlogSearch from '@/components/blog/BlogSearch';
@@ -27,14 +27,22 @@ function parsePageParam(value: string | null): number {
   return Number.isFinite(page) && page > 0 ? page : 1;
 }
 
+function readLocationParams(): URLSearchParams {
+  if (typeof window === 'undefined') {
+    return new URLSearchParams();
+  }
+  return new URLSearchParams(window.location.search);
+}
+
 export default function BlogPageClient({
   posts,
   tags,
   stats,
 }: BlogPageClientProps) {
-  const searchParams = useSearchParams();
   const router = useRouter();
-  const params = searchParams ?? new URLSearchParams();
+  // Start empty so the static HTML contains every post. `useSearchParams`
+  // would suspend this page and the export would ship only "Loading blog...".
+  const [params, setParams] = useState(() => new URLSearchParams());
 
   const searchTerm = params.get('search') ?? '';
   const selectedTag = params.get('tag') ?? '';
@@ -83,6 +91,13 @@ export default function BlogPageClient({
   const selectedTagName =
     tags.find(tag => tag.slug === selectedTag)?.name ?? selectedTag;
 
+  useEffect(() => {
+    const sync = () => setParams(readLocationParams());
+    sync();
+    window.addEventListener('popstate', sync);
+    return () => window.removeEventListener('popstate', sync);
+  }, []);
+
   const updateQuery = (updates: Record<string, string | null>) => {
     const nextParams = new URLSearchParams(params.toString());
 
@@ -98,8 +113,11 @@ export default function BlogPageClient({
       nextParams.delete('page');
     }
 
+    setParams(nextParams);
     const query = nextParams.toString();
-    router.push(query ? `/blog/?${query}` : '/blog/');
+    const href = query ? `/blog/?${query}` : '/blog/';
+    window.history.pushState({}, '', href);
+    router.push(href);
   };
 
   const clearFilters = () => {

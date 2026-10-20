@@ -95,6 +95,7 @@ const BlogPostContent: React.FC<BlogPostContentProps> = ({ post }) => {
       <div className="prose prose-lg dark:prose-invert max-w-none">
         <ReactMarkdown
           components={{
+            h1: () => null,
             code: ({ inline, className, children, ...props }: CodeProps) => {
               const match = /language-(\w+)/.exec(className || '');
               return !inline && match ? (

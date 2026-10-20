@@ -6,8 +6,7 @@ import { Metadata } from 'next';
 
 export const SITE_CONFIG = {
   name: 'Animesh Pandey',
-  title:
-    'Animesh Pandey | Senior Software Engineer | Full Stack Developer | Backend Specialist',
+  title: 'Animesh Pandey | Senior Software Engineer',
   email: 'animeshpandey.pro@gmail.com',
   description:
     'Senior Software Engineer Animesh Pandey - 7+ years expertise in PHP, Python, Node.js, React, TypeScript, FastAPI, and Docker.',
@@ -87,10 +86,10 @@ export const baseMetadata: Metadata = {
     locale: SITE_CONFIG.locale,
     images: [
       {
-        url: SITE_CONFIG.avatarUrl,
+        url: SITE_CONFIG.ogImage,
         width: 1200,
         height: 630,
-        alt: `${SITE_CONFIG.name} - Senior Software Engineer Portfolio`,
+        alt: `${SITE_CONFIG.name} - Senior Software Engineer`,
       },
     ],
   },
@@ -98,7 +97,7 @@ export const baseMetadata: Metadata = {
     card: 'summary_large_image',
     title: SITE_CONFIG.title,
     description: SITE_CONFIG.description,
-    images: [SITE_CONFIG.avatarUrl],
+    images: [SITE_CONFIG.ogImage],
     creator: SITE_CONFIG.twitterHandle,
     site: SITE_CONFIG.twitterHandle,
   },
@@ -150,7 +149,7 @@ export function generatePageMetadata({
       locale: SITE_CONFIG.locale,
       images: [
         {
-          url: image || SITE_CONFIG.avatarUrl,
+          url: image || SITE_CONFIG.ogImage,
           width: 1200,
           height: 630,
           alt: `${fullTitle} - ${SITE_CONFIG.name}`,
@@ -161,7 +160,7 @@ export function generatePageMetadata({
       card: 'summary_large_image',
       title: fullTitle,
       description,
-      images: [image || SITE_CONFIG.avatarUrl],
+      images: [image || SITE_CONFIG.ogImage],
       creator: SITE_CONFIG.twitterHandle,
       site: SITE_CONFIG.twitterHandle,
     },

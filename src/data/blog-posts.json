@@ -221,6 +221,18 @@
       "readingTime": 4,
       "authorId": "1",
       "tagIds": ["27", "24", "15", "18", "19", "6"]
+    },
+    {
+      "id": "ojjlx3jyzwp9w7e2a4nnrm",
+      "title": "Designing a Hybrid RAG Architecture for Academic Research",
+      "slug": "designing-hybrid-rag-architecture-academic-research",
+      "excerpt": "A two-stage architecture for academic QA: Elasticsearch for paper discovery across arXiv, then scoped semantic retrieval and local LLM generation within a single selected paper—fully offline with Qdrant, Sentence Transformers, LangChain, and Ollama.",
+      "coverImage": "https://d1iukwsziul56d.cloudfront.net/drupal-prodv2/s3fs-public/2025-03/default-blog-image.webp",
+      "publishDate": "2026-06-12",
+      "readingTime": 12,
+      "authorId": "1",
+      "tagIds": ["2", "20", "19", "17", "6"],
+      "contentPath": "src/content/blog/designing-hybrid-rag-architecture-academic-research.md"
     }
   ]
 }

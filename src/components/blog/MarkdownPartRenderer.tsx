@@ -21,8 +21,41 @@ interface MarkdownPartRendererProps {
 
 const remarkPlugins = [remarkGfm];
 
+function isHighlightedFence(child: React.ReactNode): boolean {
+  if (!React.isValidElement(child)) {
+    return false;
+  }
+
+  if (child.type === CodeBlock) {
+    return true;
+  }
+
+  // react-markdown passes the <code> element through, not the rendered
+  // CodeBlock. A language class is what that code element turns into.
+  const className = (child.props as { className?: unknown }).className;
+  return typeof className === 'string' && /language-(\w+)/.test(className);
+}
+
 const markdownComponents = {
-  pre: ({ children }: { children?: React.ReactNode }) => <>{children}</>,
+  // Language fences become a CodeBlock, which already has its own chrome.
+  // Any other fenced block keeps <pre> so prose does not collapse its lines.
+  pre: ({
+    children,
+    node: _node,
+    ...props
+  }: React.HTMLAttributes<HTMLElement> & { node?: unknown }) => {
+    const elementChildren = React.Children.toArray(children).filter(child =>
+      React.isValidElement(child)
+    );
+    const onlyHighlightedFences =
+      elementChildren.length > 0 && elementChildren.every(isHighlightedFence);
+
+    if (onlyHighlightedFences) {
+      return <>{children}</>;
+    }
+
+    return <pre {...props}>{children}</pre>;
+  },
   table: ({
     children,
     node: _node,

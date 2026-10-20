@@ -58,6 +58,21 @@ describe('MermaidDiagram', () => {
     ).toBeInTheDocument();
   });
 
+  it('keeps the copy label on one line when it is longer than Copy', async () => {
+    render(<MermaidDiagram chart={chart} />);
+
+    await waitFor(() => {
+      expect(screen.getByTestId('mermaid-svg')).toBeInTheDocument();
+    });
+
+    const button = screen.getByRole('button', { name: /copy mermaid/i });
+    const label = button.querySelector('span');
+
+    expect(label).toHaveTextContent('Copy Mermaid');
+    expect(label).toHaveClass('whitespace-nowrap');
+    expect(label?.className ?? '').not.toContain('w-[5.5rem]');
+  });
+
   it('copies mermaid source to clipboard', async () => {
     const mockWriteText = jest.fn().mockResolvedValue(undefined);
     Object.assign(navigator, {

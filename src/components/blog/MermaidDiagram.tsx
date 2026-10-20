@@ -59,7 +59,7 @@ function CopyButton({
       ) : (
         <Copy className="h-4 w-4 shrink-0" />
       )}
-      <span className="ml-1.5 text-xs w-[5.5rem] text-left">
+      <span className="ml-1.5 whitespace-nowrap text-left text-xs">
         {copied ? copiedLabel : label}
       </span>
     </Button>

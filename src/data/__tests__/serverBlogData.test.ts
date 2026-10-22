@@ -1,13 +1,12 @@
 import { fetchBlogPostWithContentBySlug } from '@/data/serverBlogData';
 import { blogPosts } from '@/data/mockBlogData';
 import { promises as fsp } from 'fs';
-import matter from 'gray-matter';
+import { readFrontmatter } from '@/lib/frontmatter';
 
 // No global mock - we'll use jest.spyOn in individual tests
 
-jest.mock('gray-matter', () => ({
-  __esModule: true,
-  default: jest.fn(),
+jest.mock('@/lib/frontmatter', () => ({
+  readFrontmatter: jest.fn(),
 }));
 
 jest.mock('@/data/mockBlogData', () => ({
@@ -31,7 +30,9 @@ jest.mock('@/data/mockBlogData', () => ({
   ],
 }));
 
-const mockMatter = matter as jest.MockedFunction<typeof matter>;
+const mockMatter = readFrontmatter as jest.MockedFunction<
+  typeof readFrontmatter
+>;
 
 describe('serverBlogData', () => {
   beforeEach(() => {

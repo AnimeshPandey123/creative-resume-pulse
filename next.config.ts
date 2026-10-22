@@ -142,6 +142,7 @@ const nextConfig: NextConfig = {
 
   // Disable server-side features
   serverExternalPackages: [],
+  transpilePackages: ['remark-gfm'],
 };
 
 export default nextConfig;

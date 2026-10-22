@@ -2,7 +2,7 @@
 
 import fs from 'fs';
 import path from 'path';
-import matter from 'gray-matter';
+import { readFrontmatter } from '../src/lib/frontmatter';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import chalk from 'chalk';
@@ -120,7 +120,7 @@ class BlogDataSyncer {
   ): Promise<BlogPost | null> {
     try {
       const content = fs.readFileSync(filePath, 'utf-8');
-      const { data } = matter(content);
+      const { data } = readFrontmatter(content);
 
       // Generate a unique ID
       const id = this.generateId();

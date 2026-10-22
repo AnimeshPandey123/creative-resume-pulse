@@ -2,7 +2,7 @@ import { promises as fsp } from 'fs';
 import path from 'path';
 import { BlogPost } from '@/types/BlogTypes';
 import { blogPosts } from './mockBlogData';
-import matter from 'gray-matter';
+import { readFrontmatter } from '@/lib/frontmatter';
 
 const CONTENT_ROOT = path.join(process.cwd(), 'src', 'content', 'blog');
 
@@ -62,7 +62,7 @@ export const fetchBlogPostWithContentBySlug = async (
       raw = await fsp.readFile(mdPath, 'utf-8');
       mdCache.set(mdPath, raw);
     }
-    const { content, data } = matter(raw);
+    const { content, data } = readFrontmatter(raw);
     // Merge optional frontmatter, preferring JSON metadata when present
     const merged: BlogPost = {
       ...basePost,

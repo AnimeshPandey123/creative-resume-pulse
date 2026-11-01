@@ -106,7 +106,12 @@ export const baseMetadata: Metadata = {
     'theme-color': '#000000',
     'color-scheme': 'light dark',
     'format-detection': 'telephone=no',
-    'google-site-verification': '', // Add your Google Search Console verification code
+    ...(process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION
+      ? {
+          'google-site-verification':
+            process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
+        }
+      : {}),
   },
 };
 

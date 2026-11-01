@@ -1,5 +1,4 @@
 import js from '@eslint/js';
-import nextPlugin from '@next/eslint-plugin-next';
 import tseslint from '@typescript-eslint/eslint-plugin';
 import tsparser from '@typescript-eslint/parser';
 
@@ -65,15 +64,9 @@ const eslintConfig = [
       },
     },
     plugins: {
-      '@next/next': nextPlugin,
       '@typescript-eslint': tseslint,
     },
     rules: {
-      // Next.js specific rules
-      '@next/next/no-html-link-for-pages': 'off',
-      '@next/next/no-img-element': 'off',
-      '@next/next/no-page-custom-font': 'off',
-
       // React rules
       'react/no-unescaped-entities': 'off',
       'react/jsx-uses-react': 'off',
@@ -143,7 +136,6 @@ const eslintConfig = [
   {
     ignores: [
       'node_modules/**',
-      'vendor/**',
       '.next/**',
       'out/**',
       'build/**',

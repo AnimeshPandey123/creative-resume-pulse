@@ -1,7 +1,6 @@
 'use client';
 
-import React from 'react';
-import ReactMarkdown from 'react-markdown';
+import React, { useMemo } from 'react';
 import { ArrowLeft, Calendar, Clock } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -9,20 +8,19 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { BlogPost } from '@/types/BlogTypes';
 import { formatPublishDate, getReadingTimeLabel } from '@/lib/blog';
-import CodeBlock from './CodeBlock';
+import { splitMarkdownParts } from '@/lib/markdownParts';
+import { MarkdownPartRenderer } from './MarkdownPartRenderer';
 
 interface BlogPostContentProps {
   post: BlogPost;
 }
 
-interface CodeProps {
-  inline?: boolean;
-  className?: string;
-  children: React.ReactNode;
-  [key: string]: unknown;
-}
-
 const BlogPostContent: React.FC<BlogPostContentProps> = ({ post }) => {
+  const parts = useMemo(
+    () => splitMarkdownParts(post.content || ''),
+    [post.content]
+  );
+
   return (
     <article className="max-w-3xl mx-auto">
       <nav aria-label="Breadcrumb" className="mb-8">
@@ -92,41 +90,10 @@ const BlogPostContent: React.FC<BlogPostContentProps> = ({ post }) => {
         </div>
       </div>
 
-      <div className="prose prose-lg dark:prose-invert max-w-none">
-        <ReactMarkdown
-          components={{
-            code: ({ inline, className, children, ...props }: CodeProps) => {
-              const match = /language-(\w+)/.exec(className || '');
-              return !inline && match ? (
-                <CodeBlock language={match[1]} className={className} {...props}>
-                  {String(children).replace(/\n$/, '')}
-                </CodeBlock>
-              ) : (
-                <code className={className} {...props}>
-                  {children}
-                </code>
-              );
-            },
-            a: ({
-              href,
-              children,
-              ...props
-            }: React.AnchorHTMLAttributes<HTMLAnchorElement>) => (
-              <a
-                href={href}
-                target={href?.startsWith('http') ? '_blank' : undefined}
-                rel={
-                  href?.startsWith('http') ? 'noopener noreferrer' : undefined
-                }
-                {...props}
-              >
-                {children}
-              </a>
-            ),
-          }}
-        >
-          {post.content || ''}
-        </ReactMarkdown>
+      <div className="prose prose-lg dark:prose-invert max-w-none prose-table:my-6 prose-th:bg-muted/50 prose-th:px-4 prose-th:py-3 prose-td:px-4 prose-td:py-3">
+        {parts.map((part, index) => (
+          <MarkdownPartRenderer key={`${part.type}-${index}`} part={part} />
+        ))}
       </div>
     </article>
   );

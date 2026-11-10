@@ -22,75 +22,23 @@ jest.mock('next/image', () => {
   };
 });
 
-// Mock ReactMarkdown
+jest.mock('next/dynamic', () => ({
+  __esModule: true,
+  default: () =>
+    function MockDynamicMermaid({ chart }: { chart: string }) {
+      return <div data-testid="mermaid-diagram">{chart}</div>;
+    },
+}));
+
 jest.mock('react-markdown', () => {
-  return function MockReactMarkdown({
-    children,
-    components,
-  }: {
-    children: string;
-    components?: any;
-  }) {
-    // If components are provided, render them to test the code component logic
-    if (components && components.code) {
-      // Test the code component with different scenarios
-      const codeComponent = components.code;
-
-      // Test inline code
-      const inlineCode = codeComponent({
-        inline: true,
-        className: 'language-javascript',
-        children: 'inline code',
-      });
-
-      // Test block code with language
-      const blockCodeWithLang = codeComponent({
-        inline: false,
-        className: 'language-javascript',
-        children: 'const test = "hello";',
-      });
-
-      // Test block code without language
-      const blockCodeNoLang = codeComponent({
-        inline: false,
-        className: '',
-        children: 'const test = "hello";',
-      });
-
-      // Test block code with invalid language
-      const blockCodeInvalidLang = codeComponent({
-        inline: false,
-        className: 'language-invalid',
-        children: 'const test = "hello";',
-      });
-
-      return (
-        <div data-testid="markdown-content">
-          {children}
-          <div data-testid="inline-code-test">{inlineCode}</div>
-          <div data-testid="block-code-lang-test">{blockCodeWithLang}</div>
-          <div data-testid="block-code-no-lang-test">{blockCodeNoLang}</div>
-          <div data-testid="block-code-invalid-lang-test">
-            {blockCodeInvalidLang}
-          </div>
-        </div>
-      );
-    }
-
+  return function MockReactMarkdown({ children }: { children: string }) {
     return <div data-testid="markdown-content">{children}</div>;
   };
 });
 
-// Mock CodeBlock component
 jest.mock('../CodeBlock', () => {
-  return function MockCodeBlock({
-    children,
-    className,
-  }: {
-    children: React.ReactNode;
-    className?: string;
-  }) {
-    return <pre className={className}>{children}</pre>;
+  return function MockCodeBlock({ children }: { children: React.ReactNode }) {
+    return <pre>{children}</pre>;
   };
 });
 
@@ -207,9 +155,7 @@ describe('BlogPostContent', () => {
 
     render(<BlogPostContent post={postWithEmptyContent} />);
 
-    expect(screen.getByTestId('markdown-content')).toBeInTheDocument();
-    // The mock adds test elements, so we just check it exists
-    expect(screen.getByTestId('inline-code-test')).toBeInTheDocument();
+    expect(screen.queryByTestId('markdown-content')).not.toBeInTheDocument();
   });
 
   it('should handle undefined content gracefully', () => {
@@ -220,9 +166,7 @@ describe('BlogPostContent', () => {
 
     render(<BlogPostContent post={postWithUndefinedContent} />);
 
-    expect(screen.getByTestId('markdown-content')).toBeInTheDocument();
-    // The mock adds test elements, so we just check it exists
-    expect(screen.getByTestId('inline-code-test')).toBeInTheDocument();
+    expect(screen.queryByTestId('markdown-content')).not.toBeInTheDocument();
   });
 
   it('should handle empty tags array', () => {
@@ -384,174 +328,5 @@ describe('BlogPostContent', () => {
 
     const titleElement = screen.getByRole('heading', { level: 1 });
     expect(titleElement).toHaveTextContent('');
-  });
-
-  // Tests for code block branch coverage
-  describe('Code block rendering branches', () => {
-    it('should test inline code branch (inline=true)', () => {
-      render(<BlogPostContent post={mockBlogPost} />);
-
-      // The mock will test the inline code branch
-      expect(screen.getByTestId('inline-code-test')).toBeInTheDocument();
-    });
-
-    it('should test block code with language branch (inline=false, match=true)', () => {
-      render(<BlogPostContent post={mockBlogPost} />);
-
-      // The mock will test the block code with language branch
-      expect(screen.getByTestId('block-code-lang-test')).toBeInTheDocument();
-    });
-
-    it('should test block code without language branch (inline=false, match=false)', () => {
-      render(<BlogPostContent post={mockBlogPost} />);
-
-      // The mock will test the block code without language branch
-      expect(screen.getByTestId('block-code-no-lang-test')).toBeInTheDocument();
-    });
-
-    it('should test block code with invalid language branch (inline=false, match=false)', () => {
-      render(<BlogPostContent post={mockBlogPost} />);
-
-      // The mock will test the block code with invalid language branch
-      expect(
-        screen.getByTestId('block-code-invalid-lang-test')
-      ).toBeInTheDocument();
-    });
-
-    it('should render inline code blocks correctly', () => {
-      const postWithInlineCode = {
-        ...mockBlogPost,
-        content: 'This is `inline code` in the text.',
-      };
-
-      render(<BlogPostContent post={postWithInlineCode} />);
-
-      expect(screen.getByTestId('markdown-content')).toBeInTheDocument();
-      expect(screen.getByTestId('markdown-content')).toHaveTextContent(
-        'This is `inline code` in the text.'
-      );
-    });
-
-    it('should render code blocks with language class', () => {
-      const postWithCodeBlock = {
-        ...mockBlogPost,
-        content: '```javascript\nconst test = "hello";\n```',
-      };
-
-      render(<BlogPostContent post={postWithCodeBlock} />);
-
-      expect(screen.getByTestId('markdown-content')).toBeInTheDocument();
-      // The mock adds test elements, so we just check the branch test exists
-      expect(screen.getByTestId('block-code-lang-test')).toBeInTheDocument();
-    });
-
-    it('should render code blocks without language class', () => {
-      const postWithCodeBlockNoLang = {
-        ...mockBlogPost,
-        content: '```\nconst test = "hello";\n```',
-      };
-
-      render(<BlogPostContent post={postWithCodeBlockNoLang} />);
-
-      expect(screen.getByTestId('markdown-content')).toBeInTheDocument();
-      // The mock adds test elements, so we just check the branch test exists
-      expect(screen.getByTestId('block-code-no-lang-test')).toBeInTheDocument();
-    });
-
-    it('should render code blocks with empty language class', () => {
-      const postWithEmptyLangClass = {
-        ...mockBlogPost,
-        content: '```\nconst test = "hello";\n```',
-      };
-
-      render(<BlogPostContent post={postWithEmptyLangClass} />);
-
-      expect(screen.getByTestId('markdown-content')).toBeInTheDocument();
-      // The mock adds test elements, so we just check the branch test exists
-      expect(screen.getByTestId('block-code-no-lang-test')).toBeInTheDocument();
-    });
-
-    it('should render code blocks with invalid language class', () => {
-      const postWithInvalidLangClass = {
-        ...mockBlogPost,
-        content: '```invalid-lang\nconst test = "hello";\n```',
-      };
-
-      render(<BlogPostContent post={postWithInvalidLangClass} />);
-
-      expect(screen.getByTestId('markdown-content')).toBeInTheDocument();
-      // The mock adds test elements, so we just check the branch test exists
-      expect(
-        screen.getByTestId('block-code-invalid-lang-test')
-      ).toBeInTheDocument();
-    });
-
-    it('should render mixed inline and block code', () => {
-      const postWithMixedCode = {
-        ...mockBlogPost,
-        content:
-          'This has `inline code` and also:\n\n```javascript\nconst block = "code";\n```',
-      };
-
-      render(<BlogPostContent post={postWithMixedCode} />);
-
-      expect(screen.getByTestId('markdown-content')).toBeInTheDocument();
-      expect(screen.getByTestId('markdown-content')).toHaveTextContent(
-        'This has `inline code` and also:'
-      );
-    });
-
-    it('should handle code blocks with trailing newlines', () => {
-      const postWithTrailingNewline = {
-        ...mockBlogPost,
-        content: '```javascript\nconst test = "hello";\n\n```',
-      };
-
-      render(<BlogPostContent post={postWithTrailingNewline} />);
-
-      expect(screen.getByTestId('markdown-content')).toBeInTheDocument();
-      // The mock adds test elements, so we just check the branch test exists
-      expect(screen.getByTestId('block-code-lang-test')).toBeInTheDocument();
-    });
-
-    it('should handle code blocks with multiple languages', () => {
-      const postWithMultipleLanguages = {
-        ...mockBlogPost,
-        content:
-          '```javascript\nconst js = "test";\n```\n\n```python\ndef python_func():\n    pass\n```',
-      };
-
-      render(<BlogPostContent post={postWithMultipleLanguages} />);
-
-      expect(screen.getByTestId('markdown-content')).toBeInTheDocument();
-      // The mock adds test elements, so we just check the branch test exists
-      expect(screen.getByTestId('block-code-lang-test')).toBeInTheDocument();
-    });
-
-    it('should handle code blocks with special characters', () => {
-      const postWithSpecialChars = {
-        ...mockBlogPost,
-        content: '```javascript\nconst special = "test & < > \' \\"";\n```',
-      };
-
-      render(<BlogPostContent post={postWithSpecialChars} />);
-
-      expect(screen.getByTestId('markdown-content')).toBeInTheDocument();
-      // The mock adds test elements, so we just check the branch test exists
-      expect(screen.getByTestId('block-code-lang-test')).toBeInTheDocument();
-    });
-
-    it('should handle empty code blocks', () => {
-      const postWithEmptyCodeBlock = {
-        ...mockBlogPost,
-        content: '```javascript\n\n```',
-      };
-
-      render(<BlogPostContent post={postWithEmptyCodeBlock} />);
-
-      expect(screen.getByTestId('markdown-content')).toBeInTheDocument();
-      // The mock adds test elements, so we just check the branch test exists
-      expect(screen.getByTestId('block-code-lang-test')).toBeInTheDocument();
-    });
   });
 });

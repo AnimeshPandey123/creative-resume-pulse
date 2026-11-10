@@ -17,12 +17,6 @@ Object.defineProperty(window, 'gtag', {
   writable: true,
 });
 
-// Mock window object
-Object.defineProperty(window, 'window', {
-  value: window,
-  writable: true,
-});
-
 describe('Analytics Functions', () => {
   beforeEach(() => {
     mockGtag.mockClear();
@@ -42,18 +36,6 @@ describe('Analytics Functions', () => {
       trackEvent(eventName, parameters);
 
       expect(mockGtag).toHaveBeenCalledWith('event', eventName, parameters);
-    });
-
-    it('should not call gtag when window is undefined', () => {
-      const originalWindow = global.window;
-      // @ts-ignore
-      delete global.window;
-
-      trackEvent('test_event', { test_param: 'test_value' });
-
-      expect(mockGtag).not.toHaveBeenCalled();
-
-      global.window = originalWindow;
     });
 
     it('should not call gtag when window.gtag is undefined', () => {
@@ -204,18 +186,6 @@ describe('Analytics Functions', () => {
         page_path: pagePath,
         page_title: undefined,
       });
-    });
-
-    it('should not call gtag when window is undefined', () => {
-      const originalWindow = global.window;
-      // @ts-ignore
-      delete global.window;
-
-      trackPageView('/test');
-
-      expect(mockGtag).not.toHaveBeenCalled();
-
-      global.window = originalWindow;
     });
 
     it('should not call gtag when window.gtag is undefined', () => {

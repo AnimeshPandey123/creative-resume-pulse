@@ -54,7 +54,9 @@ export class OpenAIBlogService implements OpenAIService {
     } catch (error) {
       const errorMessage =
         error instanceof Error ? error.message : 'Unknown OpenAI error';
-      throw new Error(`Failed to generate content: ${errorMessage}`);
+      throw new Error(`Failed to generate content: ${errorMessage}`, {
+        cause: error,
+      });
     }
   }
 

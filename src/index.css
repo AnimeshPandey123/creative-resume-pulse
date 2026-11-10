@@ -1,8 +1,7 @@
 /* @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap'); */
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+@config '../tailwind.config.ts';
 
 @layer base {
   :root {
@@ -134,7 +133,7 @@
   }
 
   .project-card {
-    @apply glass-card overflow-hidden transition-all duration-300 hover:shadow-md hover:-translate-y-1;
+    @apply bg-white/70 dark:bg-gray-800/70 backdrop-blur-md border border-white/20 dark:border-gray-700/20 shadow-sm rounded-xl overflow-hidden transition-all duration-300 hover:shadow-md hover:-translate-y-1;
   }
 
   .skill-pill {

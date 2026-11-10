@@ -32,20 +32,25 @@ const CodeBlock: React.FC<CodeBlockProps> = ({
   };
 
   return (
-    <div className="relative group">
-      <div className="absolute top-2 right-2 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+    <div className="relative my-4 not-prose rounded-lg border border-border overflow-hidden">
+      <div className="flex items-center justify-between border-b border-border bg-muted/40 px-3 py-2">
+        <span className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+          {language}
+        </span>
         <Button
           variant="secondary"
           size="sm"
           onClick={handleCopy}
-          className="h-8 px-2 bg-gray-800/80 hover:bg-gray-700/80 text-white border-gray-600"
+          className="h-8 px-2 bg-background hover:bg-muted text-foreground border border-border shadow-sm"
         >
           {copied ? (
-            <Check className="h-4 w-4 text-green-400" />
+            <Check className="h-4 w-4 shrink-0 text-green-500" />
           ) : (
-            <Copy className="h-4 w-4" />
+            <Copy className="h-4 w-4 shrink-0" />
           )}
-          <span className="ml-1 text-xs">{copied ? 'Copied!' : 'Copy'}</span>
+          <span className="ml-1.5 text-xs w-[5.5rem] text-left">
+            {copied ? 'Copied!' : 'Copy'}
+          </span>
         </Button>
       </div>
 
@@ -54,7 +59,7 @@ const CodeBlock: React.FC<CodeBlockProps> = ({
         style={atomDark}
         language={language}
         PreTag="div"
-        className={`rounded-md ${className || ''}`}
+        className={`!mt-0 !mb-0 !rounded-none ${className || ''}`}
         {...props}
       >
         {children}

@@ -9,6 +9,8 @@ const customJestConfig = {
   testEnvironment: 'jsdom',
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
+    // Jest follows the browser export, which is ESM. Tests need the CommonJS build.
+    '^yaml$': '<rootDir>/node_modules/yaml/dist/index.js',
   },
   // Force React into development mode for testing
   setupFiles: ['<rootDir>/jest.env.setup.js'],

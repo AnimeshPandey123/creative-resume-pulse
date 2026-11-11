@@ -34,9 +34,9 @@ const LatestWriting: React.FC = () => {
           </p>
         </header>
 
-        <div role="list">
+        <ul className="list-none">
           {posts.map(post => (
-            <article key={post.id} className="index-row" role="listitem">
+            <li key={post.id} className="index-row">
               <time
                 dateTime={post.publishDate}
                 className="text-xs uppercase tracking-[0.14em] text-muted-foreground md:col-span-3"
@@ -60,9 +60,9 @@ const LatestWriting: React.FC = () => {
                   <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
                 </Link>
               </div>
-            </article>
+            </li>
           ))}
-        </div>
+        </ul>
 
         <div className="mt-10 border-t border-border pt-6">
           <Link href="/blog/" className="text-link">

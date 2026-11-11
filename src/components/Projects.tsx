@@ -107,16 +107,15 @@ export const Projects: React.FC<{
         </header>
 
         <div>
-          <div className="mt-12" role="list">
+          <ul className="mt-12 list-none">
             {projectsData.items.map((project, index) => (
-              <article
+              <li
                 key={index}
                 ref={el => {
                   projectCardsRef.current[index] = el;
                 }}
                 className="index-row"
                 style={{ animationDelay: `${index * 100}ms` }}
-                role="listitem"
               >
                 <p className="text-xs tabular-nums text-muted-foreground md:col-span-1">
                   {String(index + 1).padStart(2, '0')}
@@ -154,21 +153,19 @@ export const Projects: React.FC<{
                     </div>
                   )}
                   <h4 className="sr-only">Technologies Used</h4>
-                  <div
-                    className="mt-3 flex flex-wrap gap-x-3 gap-y-1"
-                    role="list"
+                  <ul
+                    className="mt-3 flex list-none flex-wrap gap-x-3 gap-y-1"
                     aria-label="Technologies used in this project"
                   >
                     {project.technologies.map((tech, techIndex) => (
-                      <span
+                      <li
                         key={techIndex}
                         className="text-xs text-muted-foreground"
-                        role="listitem"
                       >
                         {tech}
-                      </span>
+                      </li>
                     ))}
-                  </div>
+                  </ul>
                 </section>
 
                 <footer className="flex items-start justify-end gap-4 md:col-span-2">
@@ -191,9 +188,9 @@ export const Projects: React.FC<{
                     <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
                   </Link>
                 </footer>
-              </article>
+              </li>
             ))}
-          </div>
+          </ul>
 
           <div className="mt-10 border-t border-border pt-6">
             <Link href="/projects" className="text-link">

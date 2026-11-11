@@ -94,13 +94,12 @@ describe('Projects', () => {
   it('renders project cards with correct structure', () => {
     const { container } = render(<Projects />);
 
-    const projectCards = container.querySelectorAll('article');
+    const projectCards = container.querySelectorAll('ul.mt-12 > li.index-row');
     expect(projectCards).toHaveLength(2);
 
     // Check first project card
     const firstCard = projectCards[0];
     expect(firstCard).toHaveClass('index-row');
-    expect(firstCard).toHaveAttribute('role', 'listitem');
     expect(firstCard).toHaveStyle('animation-delay: 0ms');
 
     // Check second project card
@@ -188,22 +187,21 @@ describe('Projects', () => {
     const { container } = render(<Projects />);
 
     const techTags = container.querySelectorAll(
-      '[role="listitem"].text-xs.text-muted-foreground'
+      'ul[aria-label="Technologies used in this project"] > li'
     );
     expect(techTags).toHaveLength(4); // 2 projects × 2 technologies each
 
     techTags.forEach(tag => {
       expect(tag).toHaveClass('text-xs', 'text-muted-foreground');
-      expect(tag).toHaveAttribute('role', 'listitem');
     });
   });
 
   it('has correct grid layout classes', () => {
     const { container } = render(<Projects />);
 
-    const grid = container.querySelector('.mt-12');
+    const grid = container.querySelector('ul.mt-12');
     expect(grid).toBeInTheDocument();
-    expect(grid).toHaveAttribute('role', 'list');
+    expect(grid).toHaveClass('list-none');
   });
 
   it('renders hidden headings for screen readers', () => {

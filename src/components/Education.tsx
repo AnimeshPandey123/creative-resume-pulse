@@ -102,19 +102,15 @@ export const Education: React.FC<{
         </header>
 
         <div>
-          <div
-            className="grid grid-cols-1 gap-0 md:grid-cols-2 md:gap-x-12"
-            role="list"
-          >
+          <ul className="grid list-none grid-cols-1 gap-0 md:grid-cols-2 md:gap-x-12">
             {educationData.items.map((education, index) => (
-              <article
+              <li
                 key={index}
                 ref={el => {
                   educationItemsRef.current[index] = el;
                 }}
                 className="border-t border-border py-8"
                 style={{ animationDelay: `${index * 100}ms` }}
-                role="listitem"
               >
                 <header>
                   <h3 className="text-2xl font-medium tracking-tight text-foreground">
@@ -131,9 +127,9 @@ export const Education: React.FC<{
                     {education.period}
                   </time>
                 </header>
-              </article>
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
       </div>
     </section>

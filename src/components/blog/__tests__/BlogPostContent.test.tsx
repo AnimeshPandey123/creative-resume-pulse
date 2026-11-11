@@ -31,8 +31,25 @@ jest.mock('next/dynamic', () => ({
 }));
 
 jest.mock('react-markdown', () => {
-  return function MockReactMarkdown({ children }: { children: string }) {
-    return <div data-testid="markdown-content">{children}</div>;
+  return function MockReactMarkdown({
+    children,
+    components,
+  }: {
+    children: string;
+    components?: {
+      h1?: (props: { children?: React.ReactNode }) => React.ReactNode;
+    };
+  }) {
+    const markdownHeading = components?.h1
+      ? components.h1({ children: 'Duplicate title' })
+      : 'Duplicate title';
+
+    return (
+      <div data-testid="markdown-content">
+        {children}
+        <div data-testid="markdown-h1">{markdownHeading}</div>
+      </div>
+    );
   };
 });
 
@@ -328,5 +345,12 @@ describe('BlogPostContent', () => {
 
     const titleElement = screen.getByRole('heading', { level: 1 });
     expect(titleElement).toHaveTextContent('');
+  });
+
+  it('should keep a single h1 when markdown repeats the title', () => {
+    render(<BlogPostContent post={mockBlogPost} />);
+
+    expect(screen.getAllByRole('heading', { level: 1 })).toHaveLength(1);
+    expect(screen.getByTestId('markdown-h1')).toBeEmptyDOMElement();
   });
 });

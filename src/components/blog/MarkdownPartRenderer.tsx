@@ -37,6 +37,8 @@ function isHighlightedFence(child: React.ReactNode): boolean {
 }
 
 const markdownComponents = {
+  // The article template already renders the post title as the only h1.
+  h1: () => null,
   // Language fences become a CodeBlock, which already has its own chrome.
   // Any other fenced block keeps <pre> so prose does not collapse its lines.
   pre: ({

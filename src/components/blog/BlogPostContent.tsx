@@ -16,6 +16,7 @@ interface BlogPostContentProps {
 }
 
 const BlogPostContent: React.FC<BlogPostContentProps> = ({ post }) => {
+  const [coverFailed, setCoverFailed] = React.useState(false);
   const parts = useMemo(
     () => splitMarkdownParts(post.content || ''),
     [post.content]
@@ -33,22 +34,25 @@ const BlogPostContent: React.FC<BlogPostContentProps> = ({ post }) => {
         </Link>
       </nav>
 
-      <div className="mb-8 rounded-xl overflow-hidden">
-        <Image
-          src={post.coverImage}
-          alt={`Cover image for ${post.title}`}
-          width={1200}
-          height={630}
-          className="w-full h-auto object-cover max-h-[500px]"
-          priority
-          placeholder="blur"
-          blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
-        />
-      </div>
+      {!coverFailed && (
+        <div className="mb-8 overflow-hidden">
+          <Image
+            src={post.coverImage}
+            alt={`Cover image for ${post.title}`}
+            width={1200}
+            height={630}
+            className="w-full h-auto object-cover max-h-[500px]"
+            priority
+            onError={() => setCoverFailed(true)}
+            placeholder="blur"
+            blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
+          />
+        </div>
+      )}
 
       <div className="space-y-4 mb-8">
-        <h1 className="text-3xl md:text-5xl font-display font-bold tracking-tight text-foreground">
+        <h1 className="text-3xl md:text-5xl font-display font-medium tracking-tight text-foreground">
           {post.title}
         </h1>
 
@@ -70,7 +74,7 @@ const BlogPostContent: React.FC<BlogPostContentProps> = ({ post }) => {
             <Link key={tag.id} href={`/blog/?tag=${tag.slug}`}>
               <Badge
                 variant="outline"
-                className="hover:bg-accent transition-colors cursor-pointer"
+                className="rounded-none border-0 bg-transparent px-0 py-0 font-normal text-muted-foreground hover:bg-transparent hover:text-primary cursor-pointer"
               >
                 {tag.name}
               </Badge>
@@ -79,7 +83,7 @@ const BlogPostContent: React.FC<BlogPostContentProps> = ({ post }) => {
         </div>
       </div>
 
-      <div className="flex items-center gap-4 p-4 rounded-xl glass-card mb-8">
+      <div className="flex items-center gap-4 border-t border-border py-6 mb-8">
         <Avatar className="h-12 w-12">
           <AvatarImage src={post.author.avatarUrl} alt={post.author.name} />
           <AvatarFallback>{post.author.name.charAt(0)}</AvatarFallback>

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef, useMemo } from 'react';
-import { ExternalLink, Eye, ArrowRight } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 import Link from 'next/link';
 import { projectsData } from '@/data/landingData';
 
@@ -89,124 +89,115 @@ export const Projects: React.FC<{
   return (
     <section
       id="projects"
-      className="py-20 bg-white dark:bg-gray-900"
+      className="py-20 bg-background"
       role="region"
       aria-labelledby="projects-heading"
     >
       <div className="section-container">
-        <header className="text-center mb-12">
-          <h2 id="projects-heading" className="section-title">
-            {projectsData.title}
-          </h2>
-          <p className="section-subtitle">{projectsData.subtitle}</p>
+        <header className="mb-10 grid gap-6 md:grid-cols-12 md:items-end">
+          <div className="md:col-span-7">
+            <p className="section-kicker mb-4">Work / selected systems</p>
+            <h2 id="projects-heading" className="section-title">
+              {projectsData.title}
+            </h2>
+          </div>
+          <p className="section-subtitle md:col-span-5 md:text-right">
+            {projectsData.subtitle}
+          </p>
         </header>
 
-        <div className="max-w-6xl mx-auto">
-          <div
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12"
-            role="list"
-          >
+        <div>
+          <div className="mt-12" role="list">
             {projectsData.items.map((project, index) => (
               <article
                 key={index}
                 ref={el => {
                   projectCardsRef.current[index] = el;
                 }}
-                className="glass-card p-6 dark:bg-gray-800/80 dark:border-gray-700/20 hover:shadow-lg transition-all duration-300"
+                className="index-row"
                 style={{ animationDelay: `${index * 100}ms` }}
                 role="listitem"
               >
-                <header className="mb-4">
-                  <h3 className="text-xl font-bold text-foreground mb-2">
+                <p className="text-xs tabular-nums text-muted-foreground md:col-span-1">
+                  {String(index + 1).padStart(2, '0')}
+                </p>
+                <header className="md:col-span-4">
+                  <h3 className="text-xl font-medium tracking-tight text-foreground">
                     {project.title}
                   </h3>
-                  <p className="text-primary font-medium">{project.role}</p>
+                  <p className="mt-1 text-[11px] uppercase tracking-[0.14em] text-primary">
+                    {project.role}
+                  </p>
                 </header>
 
-                <section>
+                <section className="md:col-span-5">
                   <h4 className="sr-only">Project Outcome</h4>
                   {project.outcome ? (
-                    <div className="space-y-2 mb-4">
-                      <p className="text-foreground text-sm leading-relaxed">
-                        <span className="font-semibold text-primary">
-                          Problem:{' '}
-                        </span>
-                        {project.outcome.problem}
-                      </p>
-                      <p className="text-foreground text-sm leading-relaxed">
-                        <span className="font-semibold text-primary">
-                          Result:{' '}
-                        </span>
+                    <div className="space-y-2">
+                      <p className="text-sm leading-relaxed text-foreground">
                         {project.outcome.result}
+                      </p>
+                      <p className="text-sm leading-relaxed text-muted-foreground">
+                        {project.outcome.problem}
                       </p>
                     </div>
                   ) : (
-                    <div className="space-y-3 mb-4">
+                    <div className="space-y-3">
                       {project.description.map((desc, descIndex) => (
                         <p
                           key={descIndex}
-                          className="text-foreground text-sm leading-relaxed"
+                          className="text-sm leading-relaxed text-foreground"
                         >
                           {desc}
                         </p>
                       ))}
                     </div>
                   )}
-                </section>
-
-                <footer>
                   <h4 className="sr-only">Technologies Used</h4>
                   <div
-                    className="flex flex-wrap gap-2 mb-4"
+                    className="mt-3 flex flex-wrap gap-x-3 gap-y-1"
                     role="list"
                     aria-label="Technologies used in this project"
                   >
                     {project.technologies.map((tech, techIndex) => (
                       <span
                         key={techIndex}
-                        className="px-3 py-1 bg-accent dark:bg-gray-700 rounded-full text-xs font-medium text-accent-foreground dark:text-gray-200"
+                        className="text-xs text-muted-foreground"
                         role="listitem"
                       >
                         {tech}
                       </span>
                     ))}
                   </div>
+                </section>
 
-                  {/* Action Buttons */}
-                  <div className="flex gap-2">
-                    {project.url && (
-                      <a
-                        href={project.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-2 px-3 py-2 bg-primary text-white text-sm font-medium rounded-lg hover:bg-primary/90 transition-colors"
-                      >
-                        <ExternalLink className="h-4 w-4" />
-                        View Website
-                      </a>
-                    )}
-                    <Link
-                      href={`/projects/${project.slug}`}
-                      aria-label={`Learn more about ${project.title}`}
-                      className="flex items-center gap-2 px-3 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 text-sm font-medium rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+                <footer className="flex items-start justify-end gap-4 md:col-span-2">
+                  {project.url && (
+                    <a
+                      href={project.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-link"
                     >
-                      <Eye className="h-4 w-4" />
-                      Learn More
-                    </Link>
-                  </div>
+                      View Website
+                    </a>
+                  )}
+                  <Link
+                    href={`/projects/${project.slug}`}
+                    aria-label={`Learn more about ${project.title}`}
+                    className="text-foreground/70 hover:text-foreground"
+                  >
+                    <span className="sr-only">Learn More</span>
+                    <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+                  </Link>
                 </footer>
               </article>
             ))}
           </div>
 
-          {/* See More Button */}
-          <div className="text-center mt-12">
-            <Link
-              href="/projects"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white font-medium rounded-lg hover:bg-primary/90 transition-colors shadow-lg hover:shadow-xl"
-            >
+          <div className="mt-10 border-t border-border pt-6">
+            <Link href="/projects" className="text-link">
               See More Projects
-              <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
         </div>

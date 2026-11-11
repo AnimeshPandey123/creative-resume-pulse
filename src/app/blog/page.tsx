@@ -35,7 +35,7 @@ export default function BlogPage() {
       <Layout>
         <Suspense
           fallback={
-            <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
+            <div className="min-h-screen bg-background flex items-center justify-center">
               <p className="text-muted-foreground">Loading blog...</p>
             </div>
           }

@@ -5,10 +5,10 @@ import React from 'react';
 const Footer: React.FC = () => {
   return (
     <footer className="bg-background border-t border-border">
-      <div className="container mx-auto px-4 py-8">
-        <div className="flex flex-col md:flex-row justify-between items-center">
-          <div className="text-center md:text-left mb-4 md:mb-0">
-            <p className="text-muted-foreground">
+      <div className="mx-auto max-w-[1080px] px-5 sm:px-8 py-8">
+        <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+          <div className="text-center md:text-left">
+            <p className="text-sm text-muted-foreground">
               © {new Date().getFullYear()} Animesh Pandey. All rights reserved.
             </p>
           </div>

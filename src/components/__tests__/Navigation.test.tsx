@@ -120,12 +120,7 @@ describe('Navigation', () => {
 
     await waitFor(() => {
       const header = document.querySelector('header');
-      expect(header).toHaveClass(
-        'bg-background/85',
-        'dark:bg-background/90',
-        'backdrop-blur-md',
-        'shadow-sm'
-      );
+      expect(header).toHaveClass('bg-background', 'border-b', 'border-border');
     });
   });
 
@@ -157,7 +152,7 @@ describe('Navigation', () => {
 
     // The header should have scrolled class
     const header = document.querySelector('header');
-    expect(header).toHaveClass('backdrop-blur-md', 'bg-background/85');
+    expect(header).toHaveClass('bg-background', 'border-b', 'border-border');
   });
 
   it('should handle theme toggle', () => {

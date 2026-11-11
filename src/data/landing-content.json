@@ -33,7 +33,7 @@
     }
   },
   "experience": {
-    "title": "Professional Experience",
+    "title": "Built with great teams.",
     "subtitle": "A track record of impactful roles, technical leadership, and shipping production-ready code.",
     "earlierRolesLabel": "Earlier roles",
     "items": [
@@ -105,7 +105,7 @@
     ]
   },
   "projects": {
-    "title": "Notable Projects",
+    "title": "A selected index.",
     "subtitle": "Real problems solved — with measurable outcomes.",
     "items": [
       {
@@ -222,7 +222,7 @@
     ]
   },
   "skills": {
-    "title": "What I Deliver",
+    "title": "From the core to the edge.",
     "subtitle": "Production skills across backend engineering, full-stack delivery, DevOps, and AI integration.",
     "categories": [
       {
@@ -265,7 +265,7 @@
     ]
   },
   "education": {
-    "title": "Education",
+    "title": "Always learning.",
     "subtitle": "Solid academic foundation in computer science and software engineering.",
     "items": [
       {
@@ -283,13 +283,13 @@
     ]
   },
   "blog": {
-    "title": "Latest Writing",
+    "title": "Thinking, in public.",
     "subtitle": "Notes on backend work, tooling, and things I've shipped.",
     "limit": 3,
     "viewAllText": "Read all posts"
   },
   "contact": {
-    "title": "Get In Touch",
+    "title": "Good things start with a hello.",
     "subtitle": "Have a project or opportunity in mind? Let's connect.",
     "info": {
       "location": {

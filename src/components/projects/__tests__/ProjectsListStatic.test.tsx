@@ -63,13 +63,7 @@ describe('ProjectsListStatic', () => {
 
     // Check main container
     const grid = document.getElementById('projects-grid');
-    expect(grid).toHaveClass(
-      'grid',
-      'grid-cols-1',
-      'md:grid-cols-2',
-      'lg:grid-cols-3',
-      'gap-8'
-    );
+    expect(grid).toHaveClass('border-b', 'border-border');
     expect(grid).toHaveAttribute('id', 'projects-grid');
 
     // Check project cards
@@ -111,7 +105,7 @@ describe('ProjectsListStatic', () => {
 
     const featuredBadge = screen.getByText('Featured');
     expect(featuredBadge).toBeInTheDocument();
-    expect(featuredBadge).toHaveClass('bg-yellow-100', 'text-yellow-800');
+    expect(featuredBadge).toHaveClass('uppercase', 'tracking-[0.16em]');
     expect(featuredBadge).toHaveAttribute('data-featured', 'true');
   });
 
@@ -132,12 +126,8 @@ describe('ProjectsListStatic', () => {
       expect(tag).toHaveClass(
         'px-2',
         'py-1',
-        'bg-gray-100',
-        'dark:bg-gray-700',
-        'text-gray-700',
-        'dark:text-gray-300',
         'text-xs',
-        'rounded-md'
+        'text-muted-foreground'
       );
     });
   });

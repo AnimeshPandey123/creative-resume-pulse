@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
-import { BookOpen, Rss, Tag } from 'lucide-react';
+import { Rss } from 'lucide-react';
 import BlogPostCard from '@/components/blog/BlogPostCard';
 import BlogSearch from '@/components/blog/BlogSearch';
 import BlogTagFilter from '@/components/blog/BlogTagFilter';
@@ -143,20 +143,21 @@ export default function BlogPageClient({
 
   return (
     <div className="min-h-screen bg-background">
-      <section className="py-16 page-hero-gradient">
+      <section className="pb-4 pt-28 page-hero-gradient">
         <div className="section-container pb-1">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-4xl md:text-6xl font-display font-bold text-foreground mb-6 tracking-tight">
+          <div className="max-w-3xl">
+            <p className="section-kicker mb-4">Notes</p>
+            <h1 className="text-4xl md:text-6xl font-display font-medium tracking-tight text-foreground mb-6">
               Engineering Blog
             </h1>
-            <p className="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto">
+            <p className="text-base md:text-lg text-muted-foreground mb-8 max-w-xl">
               {selectedTag
                 ? `Articles about ${selectedTagName}`
                 : 'Practical notes on backend systems, full-stack development, DevOps, and AI integration.'}
             </p>
             <a
               href="/feed.xml"
-              className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors text-sm font-medium"
+              className="text-link"
               title="Subscribe to RSS feed"
             >
               <Rss className="w-4 h-4" />
@@ -168,53 +169,30 @@ export default function BlogPageClient({
 
       <section className="pt-8 pb-4">
         <div className="section-container pt-1 pb-1">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-            <div className="glass-card p-6">
-              <div className="flex items-center">
-                <div className="p-2 bg-blue-100 dark:bg-blue-900 rounded-lg">
-                  <BookOpen className="h-6 w-6 text-blue-600 dark:text-blue-400" />
-                </div>
-                <div className="ml-4">
-                  <p className="text-sm font-medium text-muted-foreground">
-                    Total Posts
-                  </p>
-                  <p className="text-2xl font-bold text-foreground">
-                    {stats.totalPosts}
-                  </p>
-                </div>
-              </div>
+          <div className="mb-8 grid grid-cols-1 gap-8 border-y border-border py-8 sm:grid-cols-3">
+            <div>
+              <p className="text-3xl font-display font-medium tracking-tight">
+                {stats.totalPosts}
+              </p>
+              <p className="mt-2 text-[11px] uppercase tracking-[0.16em] text-muted-foreground">
+                Total Posts
+              </p>
             </div>
-
-            <div className="glass-card p-6">
-              <div className="flex items-center">
-                <div className="p-2 bg-green-100 dark:bg-green-900 rounded-lg">
-                  <Tag className="h-6 w-6 text-green-600 dark:text-green-400" />
-                </div>
-                <div className="ml-4">
-                  <p className="text-sm font-medium text-muted-foreground">
-                    Topics
-                  </p>
-                  <p className="text-2xl font-bold text-foreground">
-                    {stats.totalTags}
-                  </p>
-                </div>
-              </div>
+            <div>
+              <p className="text-3xl font-display font-medium tracking-tight">
+                {stats.totalTags}
+              </p>
+              <p className="mt-2 text-[11px] uppercase tracking-[0.16em] text-muted-foreground">
+                Topics
+              </p>
             </div>
-
-            <div className="glass-card p-6">
-              <div className="flex items-center">
-                <div className="p-2 bg-purple-100 dark:bg-purple-900 rounded-lg">
-                  <Rss className="h-6 w-6 text-purple-600 dark:text-purple-400" />
-                </div>
-                <div className="ml-4">
-                  <p className="text-sm font-medium text-muted-foreground">
-                    Showing
-                  </p>
-                  <p className="text-2xl font-bold text-foreground">
-                    {visibleCount}
-                  </p>
-                </div>
-              </div>
+            <div>
+              <p className="text-3xl font-display font-medium tracking-tight">
+                {visibleCount}
+              </p>
+              <p className="mt-2 text-[11px] uppercase tracking-[0.16em] text-muted-foreground">
+                Showing
+              </p>
             </div>
           </div>
 
@@ -262,7 +240,7 @@ export default function BlogPageClient({
             </div>
           ) : (
             <>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+              <div className="mb-12 border-b border-border">
                 {paginatedPosts.map((post, index) => (
                   <BlogPostCard key={post.id} post={post} index={index} />
                 ))}

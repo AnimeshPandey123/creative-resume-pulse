@@ -14,11 +14,11 @@ export default function HomePage() {
   return (
     <Layout>
       <Hero />
-      <About />
       <Projects />
+      <About />
+      <Skills />
       <Experience />
       <LatestWriting />
-      <Skills />
       <Education />
       <Contact />
     </Layout>

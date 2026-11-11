@@ -55,8 +55,8 @@ const BlogTagFilter: React.FC<BlogTagFilterProps> = ({
           <Button
             className={cn(
               'justify-between min-w-[150px] h-9 px-3 py-2 text-sm font-medium transition-colors',
-              'bg-white/50 dark:bg-gray-800/50 border border-white/20 dark:border-gray-700/30',
-              'hover:bg-white/70 dark:hover:bg-gray-800/70',
+              'bg-background border border-border',
+              'hover:bg-secondary',
               'text-foreground hover:text-foreground',
               selectedTag
                 ? 'bg-primary/10 dark:bg-primary/20 border-primary/30 dark:border-primary/30'
@@ -69,7 +69,7 @@ const BlogTagFilter: React.FC<BlogTagFilterProps> = ({
             <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-[200px] p-0 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md border border-white/20 dark:border-gray-700/30 shadow-lg">
+        <PopoverContent className="w-[200px] p-0 bg-popover border border-border shadow-none">
           <Command value={selectedTag}>
             <CommandInput placeholder="Search tags..." />
             <CommandList>

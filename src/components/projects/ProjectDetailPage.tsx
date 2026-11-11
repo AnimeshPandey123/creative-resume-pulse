@@ -22,40 +22,30 @@ const ProjectDetailPage: React.FC<ProjectDetailPageProps> = ({ project }) => {
   const enhancedProject = project;
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-900">
-      {/* Back Navigation */}
-      <div className="border-b border-gray-200 dark:border-gray-700 pt-20">
+    <div className="min-h-screen bg-background">
+      <div className="border-b border-border pt-20">
         <div className="section-container py-4">
-          <Link
-            href="/projects"
-            className="inline-flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-primary transition-colors"
-          >
+          <Link href="/projects" className="text-link">
             <ArrowLeft className="h-4 w-4" />
             Back to Projects
           </Link>
         </div>
       </div>
 
-      {/* Project Hero */}
       <section className="py-14 md:py-16 page-hero-gradient">
         <div className="section-container">
-          <div className="max-w-5xl mx-auto text-center">
-            <div className="mb-6">
-              <span className="inline-block px-3 py-1 bg-primary/10 text-primary text-sm font-medium rounded-full mb-4">
-                {enhancedProject.category}
-              </span>
-            </div>
+          <div className="max-w-3xl">
+            <p className="section-kicker mb-4">{enhancedProject.category}</p>
 
-            <h1 className="text-4xl md:text-5xl font-display font-bold tracking-tight text-foreground mb-4">
+            <h1 className="text-4xl md:text-6xl font-display font-medium tracking-tight text-foreground mb-4">
               {project.title}
             </h1>
 
-            <p className="text-lg md:text-xl text-gray-600 dark:text-gray-300 mb-6 max-w-3xl mx-auto">
+            <p className="text-lg md:text-xl text-muted-foreground mb-6">
               {project.description[0]}
             </p>
 
-            {/* Project Meta */}
-            <div className="flex flex-wrap justify-center gap-x-6 gap-y-3 text-sm text-gray-700 dark:text-gray-300">
+            <div className="flex flex-wrap gap-x-6 gap-y-3 text-sm text-muted-foreground">
               <div className="flex items-center gap-2">
                 <User className="h-4 w-4" />
                 <span>{project.role}</span>
@@ -70,16 +60,15 @@ const ProjectDetailPage: React.FC<ProjectDetailPageProps> = ({ project }) => {
               </div>
             </div>
 
-            {/* Action Buttons */}
-            <div className="flex flex-wrap justify-center gap-3 md:gap-4 mt-7">
+            <div className="flex flex-wrap gap-x-6 gap-y-3 mt-7">
               {enhancedProject.demoUrl && (
                 <a
                   href={enhancedProject.demoUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-5 py-3 bg-primary text-white font-medium rounded-lg hover:bg-primary/90 transition-colors shadow-sm"
+                  className="text-link"
                 >
-                  <Eye className="h-5 w-5" />
+                  <Eye className="h-4 w-4" />
                   View Live Demo
                 </a>
               )}
@@ -88,9 +77,9 @@ const ProjectDetailPage: React.FC<ProjectDetailPageProps> = ({ project }) => {
                   href={enhancedProject.githubUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-5 py-3 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200 font-medium rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+                  className="text-link"
                 >
-                  <Github className="h-5 w-5" />
+                  <Github className="h-4 w-4" />
                   View Source Code
                 </a>
               )}
@@ -105,17 +94,16 @@ const ProjectDetailPage: React.FC<ProjectDetailPageProps> = ({ project }) => {
           <div className="max-w-6xl mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 lg:gap-12">
               {/* Main Content */}
-              <div className="lg:col-span-2 space-y-10">
-                {/* Project Overview */}
-                <div className="bg-white dark:bg-gray-900">
-                  <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-4">
+              <div className="lg:col-span-2 space-y-12">
+                <div>
+                  <h2 className="text-2xl md:text-3xl font-medium tracking-tight text-foreground mb-4">
                     Project Overview
                   </h2>
-                  <div className="prose prose-lg dark:prose-invert max-w-none">
+                  <div className="max-w-none">
                     {project.description.map((desc, index) => (
                       <p
                         key={index}
-                        className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4"
+                        className="text-muted-foreground leading-relaxed mb-4"
                       >
                         {desc}
                       </p>
@@ -123,16 +111,15 @@ const ProjectDetailPage: React.FC<ProjectDetailPageProps> = ({ project }) => {
                   </div>
                 </div>
 
-                {/* Challenges & Solutions */}
                 {enhancedProject.challenges && (
-                  <div>
-                    <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-4">
+                  <div className="border-t border-border pt-8">
+                    <h2 className="text-2xl md:text-3xl font-medium tracking-tight text-foreground mb-6">
                       Challenges & Solutions
                     </h2>
-                    <div className="space-y-6">
+                    <div className="grid gap-8 md:grid-cols-2">
                       <div>
-                        <h3 className="text-lg md:text-xl font-semibold text-gray-900 dark:text-white mb-3 inline-flex items-center gap-2">
-                          <Award className="h-5 w-5 text-amber-500" />
+                        <h3 className="text-sm uppercase tracking-[0.16em] text-primary mb-3 inline-flex items-center gap-2">
+                          <Award className="h-4 w-4" />
                           Challenges
                         </h3>
                         <ul className="space-y-2">
@@ -140,29 +127,26 @@ const ProjectDetailPage: React.FC<ProjectDetailPageProps> = ({ project }) => {
                             (challenge, index) => (
                               <li
                                 key={index}
-                                className="flex items-start gap-3"
+                                className="text-muted-foreground leading-relaxed"
                               >
-                                <span className="flex-shrink-0 w-2 h-2 bg-red-500 rounded-full mt-2"></span>
-                                <span className="text-gray-700 dark:text-gray-300">
-                                  {challenge}
-                                </span>
+                                {challenge}
                               </li>
                             )
                           )}
                         </ul>
                       </div>
                       <div>
-                        <h3 className="text-lg md:text-xl font-semibold text-gray-900 dark:text-white mb-3 inline-flex items-center gap-2">
-                          <CheckCircle2 className="h-5 w-5 text-emerald-500" />
+                        <h3 className="text-sm uppercase tracking-[0.16em] text-primary mb-3 inline-flex items-center gap-2">
+                          <CheckCircle2 className="h-4 w-4" />
                           Solutions
                         </h3>
                         <ul className="space-y-2">
                           {enhancedProject.solutions?.map((solution, index) => (
-                            <li key={index} className="flex items-start gap-3">
-                              <span className="flex-shrink-0 w-2 h-2 bg-green-500 rounded-full mt-2"></span>
-                              <span className="text-gray-700 dark:text-gray-300">
-                                {solution}
-                              </span>
+                            <li
+                              key={index}
+                              className="text-muted-foreground leading-relaxed"
+                            >
+                              {solution}
                             </li>
                           ))}
                         </ul>
@@ -171,23 +155,22 @@ const ProjectDetailPage: React.FC<ProjectDetailPageProps> = ({ project }) => {
                   </div>
                 )}
 
-                {/* Results */}
                 {enhancedProject.results && (
-                  <div>
-                    <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-4 inline-flex items-center gap-2">
-                      <BarChart3 className="h-6 w-6 text-blue-600" />
+                  <div className="border-t border-border pt-8">
+                    <h2 className="text-2xl md:text-3xl font-medium tracking-tight text-foreground mb-6 inline-flex items-center gap-2">
+                      <BarChart3 className="h-5 w-5 text-primary" />
                       Results & Impact
                     </h2>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2">
                       {enhancedProject.results.map((result, index) => (
                         <div
                           key={index}
-                          className="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm"
+                          className="border-t border-border py-5 pr-6"
                         >
-                          <h4 className="font-semibold text-gray-900 dark:text-white mb-2">
+                          <h4 className="font-medium text-foreground mb-2">
                             {result.title}
                           </h4>
-                          <p className="text-gray-600 dark:text-gray-300 text-sm">
+                          <p className="text-muted-foreground text-sm">
                             {result.description}
                           </p>
                         </div>
@@ -197,18 +180,16 @@ const ProjectDetailPage: React.FC<ProjectDetailPageProps> = ({ project }) => {
                 )}
               </div>
 
-              {/* Sidebar */}
-              <div className="space-y-6 lg:space-y-8 lg:sticky lg:top-24 h-max">
-                {/* Technologies */}
-                <div className="rounded-xl border border-gray-200 dark:border-gray-700 p-6 bg-white dark:bg-gray-900 shadow-sm">
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">
+              <div className="space-y-8 lg:sticky lg:top-24 h-max">
+                <div className="border-t border-border pt-6">
+                  <h3 className="text-sm uppercase tracking-[0.16em] text-primary mb-4">
                     Technologies Used
                   </h3>
-                  <div className="flex flex-wrap gap-2">
+                  <div className="flex flex-wrap gap-x-3 gap-y-1">
                     {project.technologies.map((tech, index) => (
                       <span
                         key={index}
-                        className="px-3 py-1.5 bg-primary/10 text-primary dark:bg-gray-700 dark:text-gray-200 text-sm font-medium rounded-full"
+                        className="text-sm text-muted-foreground"
                       >
                         {tech}
                       </span>
@@ -216,10 +197,9 @@ const ProjectDetailPage: React.FC<ProjectDetailPageProps> = ({ project }) => {
                   </div>
                 </div>
 
-                {/* Project Metrics */}
                 {enhancedProject.metrics && (
-                  <div className="rounded-xl border border-gray-200 dark:border-gray-700 p-6 bg-white dark:bg-gray-900 shadow-sm">
-                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">
+                  <div className="border-t border-border pt-6">
+                    <h3 className="text-sm uppercase tracking-[0.16em] text-primary mb-4">
                       Key Metrics
                     </h3>
                     <div className="space-y-3">
@@ -227,12 +207,12 @@ const ProjectDetailPage: React.FC<ProjectDetailPageProps> = ({ project }) => {
                         ([key, value]) => (
                           <div
                             key={key}
-                            className="flex justify-between items-start gap-4"
+                            className="flex justify-between items-start gap-4 border-t border-border pt-3"
                           >
-                            <span className="text-gray-600 dark:text-gray-400 capitalize">
+                            <span className="text-muted-foreground capitalize">
                               {key.replace(/([A-Z])/g, ' $1').trim()}
                             </span>
-                            <span className="font-semibold text-gray-900 dark:text-white">
+                            <span className="font-medium text-foreground">
                               {value}
                             </span>
                           </div>
@@ -242,41 +222,32 @@ const ProjectDetailPage: React.FC<ProjectDetailPageProps> = ({ project }) => {
                   </div>
                 )}
 
-                {/* Project Info */}
-                <div className="rounded-xl border border-gray-200 dark:border-gray-700 p-6 bg-white dark:bg-gray-900 shadow-sm">
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">
+                <div className="border-t border-border pt-6">
+                  <h3 className="text-sm uppercase tracking-[0.16em] text-primary mb-4">
                     Project Details
                   </h3>
                   <div className="space-y-3">
-                    <div className="flex justify-between">
-                      <span className="text-gray-600 dark:text-gray-400">
-                        Category
-                      </span>
-                      <span className="font-medium text-gray-900 dark:text-white">
+                    <div className="flex justify-between gap-4 border-t border-border pt-3">
+                      <span className="text-muted-foreground">Category</span>
+                      <span className="font-medium text-foreground">
                         {enhancedProject.category}
                       </span>
                     </div>
-                    <div className="flex justify-between">
-                      <span className="text-gray-600 dark:text-gray-400">
-                        Year
-                      </span>
-                      <span className="font-medium text-gray-900 dark:text-white">
+                    <div className="flex justify-between gap-4 border-t border-border pt-3">
+                      <span className="text-muted-foreground">Year</span>
+                      <span className="font-medium text-foreground">
                         {enhancedProject.year}
                       </span>
                     </div>
-                    <div className="flex justify-between">
-                      <span className="text-gray-600 dark:text-gray-400">
-                        Status
-                      </span>
-                      <span className="font-medium text-gray-900 dark:text-white capitalize">
+                    <div className="flex justify-between gap-4 border-t border-border pt-3">
+                      <span className="text-muted-foreground">Status</span>
+                      <span className="font-medium text-foreground capitalize">
                         {enhancedProject.status}
                       </span>
                     </div>
-                    <div className="flex justify-between">
-                      <span className="text-gray-600 dark:text-gray-400">
-                        Role
-                      </span>
-                      <span className="font-medium text-gray-900 dark:text-white">
+                    <div className="flex justify-between gap-4 border-t border-border pt-3">
+                      <span className="text-muted-foreground">Role</span>
+                      <span className="font-medium text-foreground">
                         {project.role}
                       </span>
                     </div>

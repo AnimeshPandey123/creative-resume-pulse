@@ -81,7 +81,7 @@ describe('Projects', () => {
     const { container } = render(<Projects />);
 
     const section = container.querySelector('section');
-    expect(section).toHaveClass('py-20', 'bg-white', 'dark:bg-gray-900');
+    expect(section).toHaveClass('py-20', 'bg-background');
     expect(section).toHaveAttribute('id', 'projects');
     expect(section).toHaveAttribute('role', 'region');
     expect(section).toHaveAttribute('aria-labelledby', 'projects-heading');
@@ -99,15 +99,7 @@ describe('Projects', () => {
 
     // Check first project card
     const firstCard = projectCards[0];
-    expect(firstCard).toHaveClass(
-      'glass-card',
-      'p-6',
-      'dark:bg-gray-800/80',
-      'dark:border-gray-700/20',
-      'hover:shadow-lg',
-      'transition-all',
-      'duration-300'
-    );
+    expect(firstCard).toHaveClass('index-row');
     expect(firstCard).toHaveAttribute('role', 'listitem');
     expect(firstCard).toHaveStyle('animation-delay: 0ms');
 
@@ -195,17 +187,13 @@ describe('Projects', () => {
   it('renders technology tags with correct styling', () => {
     const { container } = render(<Projects />);
 
-    const techTags = container.querySelectorAll('.px-3.py-1.bg-accent');
+    const techTags = container.querySelectorAll(
+      '[role="listitem"].text-xs.text-muted-foreground'
+    );
     expect(techTags).toHaveLength(4); // 2 projects × 2 technologies each
 
     techTags.forEach(tag => {
-      expect(tag).toHaveClass(
-        'rounded-full',
-        'text-xs',
-        'font-medium',
-        'text-accent-foreground',
-        'dark:text-gray-200'
-      );
+      expect(tag).toHaveClass('text-xs', 'text-muted-foreground');
       expect(tag).toHaveAttribute('role', 'listitem');
     });
   });
@@ -213,9 +201,7 @@ describe('Projects', () => {
   it('has correct grid layout classes', () => {
     const { container } = render(<Projects />);
 
-    const grid = container.querySelector(
-      '.grid.grid-cols-1.md\\:grid-cols-2.lg\\:grid-cols-3.gap-6.mt-12'
-    );
+    const grid = container.querySelector('.mt-12');
     expect(grid).toBeInTheDocument();
     expect(grid).toHaveAttribute('role', 'list');
   });

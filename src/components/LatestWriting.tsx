@@ -2,10 +2,10 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { ArrowRight } from 'lucide-react';
-import BlogPostCard from '@/components/blog/BlogPostCard';
+import { ArrowUpRight } from 'lucide-react';
 import { blogPosts } from '@/data/mockBlogData';
 import { blogSectionData } from '@/data/landingData';
+import { formatPublishDate } from '@/lib/blog';
 
 const LatestWriting: React.FC = () => {
   const posts = blogPosts.slice(0, blogSectionData.limit);
@@ -17,36 +17,56 @@ const LatestWriting: React.FC = () => {
   return (
     <section
       id="writing"
-      className="py-20 bg-white dark:bg-gray-900"
+      className="py-20 bg-background"
       role="region"
       aria-labelledby="writing-heading"
     >
       <div className="section-container">
-        <header className="text-center mb-12">
-          <h2 id="writing-heading" className="section-title">
-            {blogSectionData.title}
-          </h2>
-          <p className="section-subtitle">{blogSectionData.subtitle}</p>
+        <header className="mb-10 grid gap-6 md:grid-cols-12 md:items-end">
+          <div className="md:col-span-7">
+            <p className="section-kicker mb-4">Notes / public work</p>
+            <h2 id="writing-heading" className="section-title">
+              {blogSectionData.title}
+            </h2>
+          </div>
+          <p className="section-subtitle md:col-span-5">
+            {blogSectionData.subtitle}
+          </p>
         </header>
 
-        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {posts.map((post, index) => (
-            <BlogPostCard
-              key={post.id}
-              post={post}
-              index={index}
-              showImmediately
-            />
+        <div role="list">
+          {posts.map(post => (
+            <article key={post.id} className="index-row" role="listitem">
+              <time
+                dateTime={post.publishDate}
+                className="text-xs uppercase tracking-[0.14em] text-muted-foreground md:col-span-3"
+              >
+                {formatPublishDate(post.publishDate)}
+              </time>
+              <h3 className="text-xl font-medium tracking-tight md:col-span-7">
+                <Link
+                  href={`/blog/${post.slug}/`}
+                  className="hover:text-primary transition-colors"
+                >
+                  {post.title}
+                </Link>
+              </h3>
+              <div className="flex justify-end md:col-span-2">
+                <Link
+                  href={`/blog/${post.slug}/`}
+                  aria-label={`Read ${post.title}`}
+                  className="text-foreground/70 hover:text-foreground"
+                >
+                  <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+                </Link>
+              </div>
+            </article>
           ))}
         </div>
 
-        <div className="text-center mt-12">
-          <Link
-            href="/blog/"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground font-medium rounded-lg hover:bg-primary/90 transition-colors"
-          >
+        <div className="mt-10 border-t border-border pt-6">
+          <Link href="/blog/" className="text-link">
             {blogSectionData.viewAllText}
-            <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
       </div>

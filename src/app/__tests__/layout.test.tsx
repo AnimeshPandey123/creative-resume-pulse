@@ -37,17 +37,11 @@ jest.mock('@vercel/speed-insights/next', () => ({
   SpeedInsights: () => <div data-testid="speed-insights" />,
 }));
 
-jest.mock('@/components/Hotjar', () => {
-  return function MockHotjar() {
-    return <div data-testid="hotjar" />;
+jest.mock('@/components/DeferredAnalytics', () => {
+  return function MockDeferredAnalytics() {
+    return <div data-testid="deferred-analytics" />;
   };
 });
-
-jest.mock('@next/third-parties/google', () => ({
-  GoogleAnalytics: ({ gaId }: { gaId: string }) => (
-    <div data-testid="google-analytics" data-ga-id={gaId} />
-  ),
-}));
 
 describe('RootLayout', () => {
   it('should render without crashing', () => {
@@ -69,53 +63,28 @@ describe('RootLayout', () => {
     expect(html).toHaveAttribute('lang', 'en-GB');
   });
 
-  it('should include all required meta tags', () => {
+  it('should include required icon and manifest tags without eager preloads', () => {
     const { container } = render(
       <RootLayout>
         <div>Test content</div>
       </RootLayout>
     );
 
-    // Check for favicon
     expect(container.querySelector('link[rel="icon"]')).toBeInTheDocument();
     expect(
       container.querySelector('link[rel="apple-touch-icon"]')
     ).toBeInTheDocument();
     expect(container.querySelector('link[rel="manifest"]')).toBeInTheDocument();
 
-    // Check for preconnect links
     expect(
-      container.querySelector(
-        'link[rel="preconnect"][href="https://fonts.googleapis.com"]'
-      )
-    ).toBeInTheDocument();
+      container.querySelector('link[rel="preconnect"]')
+    ).not.toBeInTheDocument();
     expect(
-      container.querySelector(
-        'link[rel="preconnect"][href="https://fonts.gstatic.com"]'
-      )
-    ).toBeInTheDocument();
-
-    // Check for DNS prefetch
+      container.querySelector('link[rel="dns-prefetch"]')
+    ).not.toBeInTheDocument();
     expect(
-      container.querySelector(
-        'link[rel="dns-prefetch"][href="//fonts.googleapis.com"]'
-      )
-    ).toBeInTheDocument();
-    expect(
-      container.querySelector(
-        'link[rel="dns-prefetch"][href="//fonts.gstatic.com"]'
-      )
-    ).toBeInTheDocument();
-
-    // Check for preload
-    expect(
-      container.querySelector('link[rel="preload"][href="/favicon.ico"]')
-    ).toBeInTheDocument();
-    expect(
-      container.querySelector(
-        'link[rel="preload"][href="/opengraph-image.png"]'
-      )
-    ).toBeInTheDocument();
+      container.querySelector('link[rel="preload"]')
+    ).not.toBeInTheDocument();
   });
 
   it('should include structured data scripts', () => {
@@ -137,7 +106,7 @@ describe('RootLayout', () => {
     });
   });
 
-  it('should include analytics and speed insights', () => {
+  it('should include analytics, speed insights, and deferred third parties', () => {
     const { getByTestId } = render(
       <RootLayout>
         <div>Test content</div>
@@ -146,24 +115,7 @@ describe('RootLayout', () => {
 
     expect(getByTestId('analytics')).toBeInTheDocument();
     expect(getByTestId('speed-insights')).toBeInTheDocument();
-    expect(getByTestId('google-analytics')).toBeInTheDocument();
-  });
-
-  it('should pass GA measurement ID to GoogleAnalytics component', () => {
-    const originalEnv = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
-    process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID = 'G-TEST123456';
-
-    const { getByTestId } = render(
-      <RootLayout>
-        <div>Test content</div>
-      </RootLayout>
-    );
-
-    const googleAnalytics = getByTestId('google-analytics');
-    expect(googleAnalytics).toHaveAttribute('data-ga-id', 'G-TEST123456');
-
-    // Restore original env
-    process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID = originalEnv;
+    expect(getByTestId('deferred-analytics')).toBeInTheDocument();
   });
 
   it('should wrap content in ClientProviders', () => {
@@ -202,42 +154,6 @@ describe('RootLayout', () => {
     expect(rssLink).toHaveAttribute('title', 'Animesh Pandey Blog RSS Feed');
   });
 
-  it('should include all preconnect links for external domains', () => {
-    const { container } = render(
-      <RootLayout>
-        <div>Test content</div>
-      </RootLayout>
-    );
-
-    // Check CloudFront preconnect
-    expect(
-      container.querySelector(
-        'link[rel="preconnect"][href="https://d1iukwsziul56d.cloudfront.net"]'
-      )
-    ).toBeInTheDocument();
-
-    // Check Dev.to preconnect
-    expect(
-      container.querySelector(
-        'link[rel="preconnect"][href="https://dev-to-uploads.s3.amazonaws.com"]'
-      )
-    ).toBeInTheDocument();
-
-    // Check DNS prefetch for CloudFront
-    expect(
-      container.querySelector(
-        'link[rel="dns-prefetch"][href="//d1iukwsziul56d.cloudfront.net"]'
-      )
-    ).toBeInTheDocument();
-
-    // Check DNS prefetch for Dev.to
-    expect(
-      container.querySelector(
-        'link[rel="dns-prefetch"][href="//dev-to-uploads.s3.amazonaws.com"]'
-      )
-    ).toBeInTheDocument();
-  });
-
   it('should include all favicon and app icon links', () => {
     const { container } = render(
       <RootLayout>
@@ -274,19 +190,6 @@ describe('RootLayout', () => {
     // Check manifest
     expect(
       container.querySelector('link[rel="manifest"][href="/site.webmanifest"]')
-    ).toBeInTheDocument();
-  });
-
-  it('should include Hotjar analytics component', () => {
-    const { container } = render(
-      <RootLayout>
-        <div>Test content</div>
-      </RootLayout>
-    );
-
-    // Hotjar component should be rendered (mocked in the test)
-    expect(
-      container.querySelector('[data-testid="hotjar"]')
     ).toBeInTheDocument();
   });
 });

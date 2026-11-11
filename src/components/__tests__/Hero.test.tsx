@@ -95,16 +95,13 @@ describe('Hero', () => {
     expect(heroSection).toHaveClass('relative', 'overflow-hidden', 'pt-28');
 
     const title = screen.getByText('Test Title');
-    expect(title).toHaveClass('section-kicker', 'animate-fade-in');
+    expect(title).toHaveClass('section-kicker');
+    expect(title).not.toHaveClass('animate-fade-in');
 
     const name = screen.getByRole('heading', { level: 1 });
-    expect(name).toHaveClass(
-      'font-display',
-      'font-medium',
-      'tracking-tight',
-      'animate-fade-in',
-      'animate-delay-100'
-    );
+    expect(name).toHaveClass('font-display', 'font-medium', 'tracking-tight');
+    expect(name).not.toHaveClass('animate-fade-in');
+    expect(name).not.toHaveClass('animate-delay-100');
   });
 
   it('sets up intersection observer for subtitle animation', () => {

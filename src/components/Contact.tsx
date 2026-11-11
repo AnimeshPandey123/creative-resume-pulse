@@ -5,6 +5,7 @@ import { Mail, Phone, MapPin, FileDown } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { contactData, resumeData } from '@/data/landingData';
 import { trackDownload } from '@/lib/analytics';
+import { ensureRecaptchaReady } from '@/lib/loadRecaptcha';
 
 interface FormState {
   name: string;
@@ -21,6 +22,7 @@ const Contact: React.FC = () => {
     recaptchaToken: '',
   });
   const [submitting, setSubmitting] = useState(false);
+  const contactSectionRef = useRef<HTMLElement>(null);
   const contactContentRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
 
@@ -33,80 +35,91 @@ const Contact: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!window.grecaptcha) {
+    setSubmitting(true);
+
+    try {
+      await ensureRecaptchaReady();
+      if (!window.grecaptcha) {
+        throw new Error('reCAPTCHA not ready');
+      }
+
+      const token = await window.grecaptcha.execute(
+        process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY,
+        { action: 'submit' }
+      );
+
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...formState,
+          recaptchaToken: token,
+        }),
+      });
+
+      if (res.ok) {
+        setFormState({
+          name: '',
+          email: '',
+          message: '',
+          recaptchaToken: '',
+        });
+
+        toast({
+          title: 'Message sent!',
+          description: "Thank you for reaching out. I'll get back to you soon.",
+        });
+      } else {
+        toast({
+          title: 'Message not sent!',
+          description: 'Something went wrong',
+        });
+      }
+    } catch {
       toast({
         title: 'reCAPTCHA not ready',
         description: 'Please wait a moment and try again.',
       });
-      return;
-    }
-    setSubmitting(true);
-    const token = await window.grecaptcha.execute(
-      process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY,
-      { action: 'submit' }
-    );
-
-    const res = await fetch('/api/contact', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        ...formState,
-        recaptchaToken: token,
-      }),
-    });
-
-    if (res.ok) {
+    } finally {
       setSubmitting(false);
-      setFormState({
-        name: '',
-        email: '',
-        message: '',
-        recaptchaToken: '',
-      });
-
-      toast({
-        title: 'Message sent!',
-        description: "Thank you for reaching out. I'll get back to you soon.",
-      });
-    } else {
-      toast({
-        title: 'Message not sent!',
-        description: 'Something went wrong',
-      });
     }
   };
 
   useEffect(() => {
     const options = {
       root: null,
-      rootMargin: '0px',
+      rootMargin: '200px',
       threshold: 0.1,
     };
 
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          entry.target.classList.add('animate-slide-in-bottom');
-          observer.unobserve(entry.target);
+          void ensureRecaptchaReady().catch(() => {
+            // Keep the form usable; submit will retry loading.
+          });
+          if (contactContentRef.current) {
+            contactContentRef.current.classList.add('animate-slide-in-bottom');
+          }
+          observer.disconnect();
         }
       });
     }, options);
 
-    const currentRef = contactContentRef.current;
+    const currentRef = contactSectionRef.current;
     if (currentRef) {
       observer.observe(currentRef);
     }
 
     return () => {
-      if (currentRef) {
-        observer.unobserve(currentRef);
-      }
+      observer.disconnect();
     };
   }, []);
 
   return (
     <section
       id="contact"
+      ref={contactSectionRef}
       className="bg-secondary"
       role="region"
       aria-labelledby="contact-heading"

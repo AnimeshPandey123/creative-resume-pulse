@@ -60,11 +60,9 @@ const Hero: React.FC = () => {
       <div className="section-container relative z-10 py-0">
         <div className="grid items-end gap-12 lg:grid-cols-12">
           <header className="lg:col-span-7">
-            <p className="section-kicker mb-6 animate-fade-in">
-              {heroData.title}
-            </p>
+            <p className="section-kicker mb-6">{heroData.title}</p>
 
-            <h1 className="text-5xl md:text-6xl lg:text-[4.25rem] font-display font-medium tracking-tight leading-[1.02] animate-fade-in animate-delay-100">
+            <h1 className="text-5xl md:text-6xl lg:text-[4.25rem] font-display font-medium tracking-tight leading-[1.02]">
               Hi, I&apos;m <span>{heroData.name}</span>.
               <span className="mt-1 block">
                 I make complex things feel simple.

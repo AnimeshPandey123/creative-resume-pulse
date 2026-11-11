@@ -18,7 +18,7 @@ describe('PerformanceOptimizer', () => {
     jest.clearAllMocks();
   });
 
-  it('preloads critical resources on mount', () => {
+  it('does not preload favicon or opengraph images on mount', () => {
     render(
       <PerformanceOptimizer>
         <div />
@@ -28,7 +28,7 @@ describe('PerformanceOptimizer', () => {
       document.head.querySelectorAll('link[rel="preload"]')
     );
     const hrefs = links.map(l => l.getAttribute('href'));
-    expect(hrefs).toEqual(
+    expect(hrefs).not.toEqual(
       expect.arrayContaining(['/favicon.ico', '/opengraph-image.png'])
     );
   });

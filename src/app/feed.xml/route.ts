@@ -35,7 +35,7 @@ function generateRSSFeed(posts: typeof blogPosts) {
 
   const rssItems = posts
     .map(post => {
-      const postUrl = `${siteUrl}/blog/${post.slug}`;
+      const postUrl = `${siteUrl}/blog/${post.slug}/`;
       const pubDate = new Date(post.publishDate).toUTCString();
       const categories = post.tags.map(tag => tag.name).join(', ');
 
@@ -58,7 +58,7 @@ function generateRSSFeed(posts: typeof blogPosts) {
   <channel>
     <title><![CDATA[${SITE_CONFIG.name} Blog]]></title>
     <description><![CDATA[${SITE_CONFIG.description} - Software engineering insights, tutorials, and technical articles by Animesh Pandey.]]></description>
-    <link>${siteUrl}/blog</link>
+    <link>${siteUrl}/blog/</link>
     <language>en-US</language>
     <lastBuildDate>${buildDate}</lastBuildDate>
     <pubDate>${buildDate}</pubDate>
@@ -70,7 +70,7 @@ function generateRSSFeed(posts: typeof blogPosts) {
     <image>
       <url>${SITE_CONFIG.avatarUrl}</url>
       <title><![CDATA[${SITE_CONFIG.name} Blog]]></title>
-      <link>${siteUrl}/blog</link>
+      <link>${siteUrl}/blog/</link>
       <width>144</width>
       <height>144</height>
     </image>

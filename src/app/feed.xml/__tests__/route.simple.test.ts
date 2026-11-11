@@ -82,7 +82,7 @@ describe('RSS Feed Route - Simple Tests', () => {
     // Check for channel information
     expect(rssXml).toContain('<channel>');
     expect(rssXml).toContain('<title><![CDATA[Animesh Pandey Blog]]></title>');
-    expect(rssXml).toContain('<link>https://animeshpandey.com/blog</link>');
+    expect(rssXml).toContain('<link>https://animeshpandey.com/blog/</link>');
     expect(rssXml).toContain('<language>en-US</language>');
   });
 
@@ -96,10 +96,10 @@ describe('RSS Feed Route - Simple Tests', () => {
     expect(rssXml).toContain('<title><![CDATA[Test Blog Post 1]]></title>');
     expect(rssXml).toContain('<title><![CDATA[Test Blog Post 2]]></title>');
     expect(rssXml).toContain(
-      '<link>https://animeshpandey.com/blog/test-blog-post-1</link>'
+      '<link>https://animeshpandey.com/blog/test-blog-post-1/</link>'
     );
     expect(rssXml).toContain(
-      '<link>https://animeshpandey.com/blog/test-blog-post-2</link>'
+      '<link>https://animeshpandey.com/blog/test-blog-post-2/</link>'
     );
   });
 
@@ -198,7 +198,7 @@ describe('RSS Feed Route - Simple Tests', () => {
       '<url>https://d1iukwsziul56d.cloudfront.net/drupal-local/s3fs-public/2025-08/IMG_3793%202.JPG</url>'
     );
     expect(rssXml).toContain('<title><![CDATA[Animesh Pandey Blog]]></title>');
-    expect(rssXml).toContain('<link>https://animeshpandey.com/blog</link>');
+    expect(rssXml).toContain('<link>https://animeshpandey.com/blog/</link>');
     expect(rssXml).toContain('<width>144</width>');
     expect(rssXml).toContain('<height>144</height>');
   });

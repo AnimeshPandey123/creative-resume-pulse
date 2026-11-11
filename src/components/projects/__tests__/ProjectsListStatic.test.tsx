@@ -171,7 +171,10 @@ describe('ProjectsListStatic', () => {
       'noopener noreferrer'
     );
 
-    const learnMoreLinks = screen.getAllByRole('link', { name: /project$/ });
+    expect(screen.getAllByText('Learn More')).toHaveLength(2);
+    const learnMoreLinks = screen.getAllByRole('link', {
+      name: /Learn more about/,
+    });
     expect(learnMoreLinks).toHaveLength(2);
     expect(learnMoreLinks[0]).toHaveAttribute(
       'href',
@@ -217,11 +220,12 @@ describe('ProjectsListStatic', () => {
     // Should not render View Demo buttons
     expect(screen.queryByText('View Demo')).not.toBeInTheDocument();
 
+    expect(screen.getAllByText('Learn More')).toHaveLength(2);
     expect(
-      screen.getByRole('link', { name: 'Test Project 1 project' })
+      screen.getByRole('link', { name: 'Learn more about Test Project 1' })
     ).toBeInTheDocument();
     expect(
-      screen.getByRole('link', { name: 'Test Project 2 project' })
+      screen.getByRole('link', { name: 'Learn more about Test Project 2' })
     ).toBeInTheDocument();
   });
 

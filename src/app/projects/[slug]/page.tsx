@@ -26,7 +26,7 @@ export async function generateMetadata({
 
   if (project) {
     return generatePageMetadata({
-      title: `${project.title} - Project Details`,
+      title: project.title,
       description:
         project.description[0] ||
         `Learn more about ${project.title}, a project by Animesh Pandey.`,

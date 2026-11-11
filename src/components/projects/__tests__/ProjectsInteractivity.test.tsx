@@ -118,15 +118,6 @@ describe('ProjectsInteractivity', () => {
     expect(screen.getByText('Alphabetical')).toBeInTheDocument();
   });
 
-  it('renders view toggle button', () => {
-    render(<ProjectsInteractivity {...defaultProps} />);
-
-    const viewToggleButton = screen.getByRole('button', {
-      name: 'Toggle view mode',
-    });
-    expect(viewToggleButton).toBeInTheDocument();
-  });
-
   it('updates search term when typing in search input', () => {
     render(<ProjectsInteractivity {...defaultProps} />);
 
@@ -154,18 +145,6 @@ describe('ProjectsInteractivity', () => {
     fireEvent.change(sortSelect, { target: { value: 'year' } });
 
     expect(sortSelect).toHaveValue('year');
-  });
-
-  it('toggles view mode when view toggle button is clicked', () => {
-    render(<ProjectsInteractivity {...defaultProps} />);
-
-    const viewToggleButton = screen.getByRole('button', {
-      name: 'Toggle view mode',
-    });
-    fireEvent.click(viewToggleButton);
-
-    // The button should still be present (just toggles internal state)
-    expect(viewToggleButton).toBeInTheDocument();
   });
 
   it('displays initial results count', () => {
@@ -267,11 +246,6 @@ describe('ProjectsInteractivity', () => {
 
     const sortSelect = screen.getByDisplayValue('Featured First');
     expect(sortSelect).toHaveAttribute('class');
-
-    const viewToggleButton = screen.getByRole('button', {
-      name: 'Toggle view mode',
-    });
-    expect(viewToggleButton).toHaveAttribute('title', 'Toggle view mode');
   });
 
   it('maintains state correctly across multiple interactions', () => {
@@ -410,7 +384,7 @@ describe('ProjectsInteractivity', () => {
     const mockProject1 = {
       style: { display: 'block' },
       dataset: {
-        projectTitle: 'Newer Project',
+        projectTitle: 'zebra project',
         projectTechnologies: 'react typescript',
         projectCategory: 'frontend',
         featured: 'false',
@@ -423,11 +397,11 @@ describe('ProjectsInteractivity', () => {
     const mockProject2 = {
       style: { display: 'block' },
       dataset: {
-        projectTitle: 'Older Project',
+        projectTitle: 'alpha project',
         projectTechnologies: 'vue javascript',
         projectCategory: 'frontend',
         featured: 'false',
-        projectYear: '2023',
+        projectYear: '2020',
       },
       textContent: 'older project description',
       querySelector: jest.fn().mockReturnValue(null),
@@ -449,40 +423,17 @@ describe('ProjectsInteractivity', () => {
 
     const sortSelect = screen.getByDisplayValue('Featured First');
 
-    // Test year sorting
+    mockAppendChild.mockClear();
+
+    // Newest first should ignore title order
     fireEvent.change(sortSelect, { target: { value: 'year' } });
 
     await waitFor(() => {
-      expect(mockGetElementById).toHaveBeenCalledWith('projects-grid');
-    });
-  });
-
-  it('covers view toggle to grid mode (else branch)', () => {
-    // Mock grid element with list class initially
-    const mockGrid = {
-      className: 'flex flex-col space-y-4', // List view class
-      children: [],
-      appendChild: mockAppendChild,
-      querySelectorAll: jest.fn().mockReturnValue([]),
-    };
-
-    mockGetElementById.mockImplementation(id => {
-      if (id === 'projects-grid') return mockGrid;
-      if (id === 'results-count') return { textContent: '0 projects found' };
-      return null;
+      expect(mockAppendChild).toHaveBeenCalledTimes(2);
     });
 
-    render(<ProjectsInteractivity {...defaultProps} />);
-
-    const viewToggleButton = screen.getByRole('button', {
-      name: 'Toggle view mode',
-    });
-
-    // Click to toggle from list to grid (this should trigger the else branch)
-    fireEvent.click(viewToggleButton);
-
-    // Verify the button is still present
-    expect(viewToggleButton).toBeInTheDocument();
+    expect(mockAppendChild.mock.calls[0][0]).toBe(mockProject1);
+    expect(mockAppendChild.mock.calls[1][0]).toBe(mockProject2);
   });
 
   it('covers default case in sorting switch statement', async () => {
@@ -585,42 +536,53 @@ describe('ProjectsInteractivity', () => {
     expect(mockGrid.appendChild).toHaveBeenCalled();
   });
 
-  it('covers the view toggle else branch with proper DOM manipulation', async () => {
-    // Create a real DOM element to test the actual manipulation
-    const realGrid = document.createElement('div');
-    realGrid.id = 'projects-grid';
-    realGrid.className = 'grid grid-cols-1 gap-8'; // Start in list view
-    document.body.appendChild(realGrid);
-
-    const mockResultsElement = {
-      textContent: '0 projects found',
+  it('clears inline display for matches so index rows keep their grid', async () => {
+    const card = {
+      style: { display: 'block' },
+      dataset: {
+        projectTitle: 'test project',
+        projectTechnologies: 'react typescript',
+        projectCategory: 'frontend',
+        projectYear: '2024',
+      },
+      textContent: 'test project description',
+      querySelector: jest.fn().mockReturnValue(null),
     };
 
-    mockGetElementById.mockImplementation(id => {
-      if (id === 'projects-grid') return realGrid;
-      if (id === 'results-count') return mockResultsElement;
-      return null;
-    });
+    mockQuerySelectorAll.mockReturnValue([card]);
 
     render(<ProjectsInteractivity {...defaultProps} />);
 
-    const viewToggleButton = screen.getByRole('button', {
-      name: 'Toggle view mode',
-    });
-
-    // Click to toggle from list to grid (this should trigger the else branch)
-    fireEvent.click(viewToggleButton);
-
-    // Wait for the state update and DOM manipulation
     await waitFor(() => {
-      expect(mockGetElementById).toHaveBeenCalledWith('projects-grid');
+      expect(card.style.display).toBe('');
     });
+  });
 
-    // Verify the button is still present
-    expect(viewToggleButton).toBeInTheDocument();
+  it('hides rows that do not match the search', async () => {
+    const card = {
+      style: { display: '' },
+      dataset: {
+        projectTitle: 'unrelated',
+        projectTechnologies: 'php',
+        projectCategory: 'backend',
+        projectYear: '2024',
+      },
+      textContent: 'unrelated description',
+      querySelector: jest.fn().mockReturnValue(null),
+    };
 
-    // Clean up
-    document.body.removeChild(realGrid);
+    mockQuerySelectorAll.mockReturnValue([card]);
+
+    render(<ProjectsInteractivity {...defaultProps} />);
+
+    fireEvent.change(
+      screen.getByPlaceholderText('Search projects, technologies...'),
+      { target: { value: 'react' } }
+    );
+
+    await waitFor(() => {
+      expect(card.style.display).toBe('none');
+    });
   });
 
   it('covers the default case in sorting with real DOM manipulation', async () => {
@@ -700,42 +662,6 @@ describe('ProjectsInteractivity', () => {
         expect(mockGetElementById).toHaveBeenCalledWith('projects-grid');
       });
     }
-
-    // Clean up
-    document.body.removeChild(realGrid);
-  });
-
-  it('covers view toggle with comprehensive state testing', async () => {
-    // Create a real DOM element to test view toggle
-    const realGrid = document.createElement('div');
-    realGrid.id = 'projects-grid';
-    realGrid.className = 'grid grid-cols-1 gap-8'; // Start in list view
-    document.body.appendChild(realGrid);
-
-    const mockResultsElement = {
-      textContent: '0 projects found',
-    };
-
-    mockGetElementById.mockImplementation(id => {
-      if (id === 'projects-grid') return realGrid;
-      if (id === 'results-count') return mockResultsElement;
-      return null;
-    });
-
-    render(<ProjectsInteractivity {...defaultProps} />);
-
-    const viewToggleButton = screen.getByRole('button', {
-      name: 'Toggle view mode',
-    });
-
-    // Test multiple toggles to ensure both branches are covered
-    fireEvent.click(viewToggleButton); // Should trigger else branch (list -> grid)
-    fireEvent.click(viewToggleButton); // Should trigger if branch (grid -> list)
-    fireEvent.click(viewToggleButton); // Should trigger else branch again (list -> grid)
-
-    await waitFor(() => {
-      expect(mockGetElementById).toHaveBeenCalledWith('projects-grid');
-    });
 
     // Clean up
     document.body.removeChild(realGrid);

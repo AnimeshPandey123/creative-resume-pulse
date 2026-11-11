@@ -190,6 +190,7 @@ describe('ProjectsListStatic', () => {
       'data-project-technologies',
       'react typescript'
     );
+    expect(firstCard).toHaveAttribute('data-project-year', '2024');
 
     // Check second project data attributes
     const secondCard = projectCards[1];
@@ -197,6 +198,7 @@ describe('ProjectsListStatic', () => {
     expect(secondCard).toHaveAttribute('data-project-title', 'test project 2');
     expect(secondCard).toHaveAttribute('data-project-category', 'Backend');
     expect(secondCard).toHaveAttribute('data-project-technologies', 'vue css');
+    expect(secondCard).toHaveAttribute('data-project-year', '2023');
   });
 
   it('handles projects without url gracefully', () => {

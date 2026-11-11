@@ -160,9 +160,9 @@ const Hero: React.FC = () => {
 
       <div className="section-container flex justify-end py-6">
         <a
-          href="#about"
+          href="#projects"
           className="text-link"
-          aria-label="Scroll down to About section"
+          aria-label="Scroll down to the project index"
         >
           Index ↓
         </a>

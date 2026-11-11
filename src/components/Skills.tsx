@@ -8,6 +8,24 @@ const Skills: React.FC = () => {
   const skillsRefs = useRef<(HTMLElement | null)[]>([]);
 
   useEffect(() => {
+    const reduceMotion =
+      typeof window.matchMedia === 'function' &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const reveal = (skill: HTMLElement) => {
+      skill.classList.remove('opacity-0');
+      if (!reduceMotion) {
+        skill.classList.add('animate-fade-in');
+      }
+    };
+
+    if (reduceMotion) {
+      skillsRefs.current.forEach(skill => {
+        if (skill) reveal(skill);
+      });
+      return;
+    }
+
     const options = {
       root: null,
       rootMargin: '0px',
@@ -18,9 +36,7 @@ const Skills: React.FC = () => {
       if (entries[0].isIntersecting) {
         skillsRefs.current.forEach((skill, index) => {
           if (skill) {
-            setTimeout(() => {
-              skill.classList.add('animate-fade-in');
-            }, index * 40);
+            setTimeout(() => reveal(skill), index * 40);
           }
         });
         observer.unobserve(entries[0].target);

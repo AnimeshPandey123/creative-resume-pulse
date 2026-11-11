@@ -83,7 +83,7 @@ describe('Hero', () => {
     expect(resumeLink).toHaveAttribute('download', 'Animesh-Pandey-CV.pdf');
 
     const scrollDownLink = screen.getByLabelText(
-      'Scroll down to About section'
+      'Scroll down to the project index'
     );
     expect(scrollDownLink).toBeInTheDocument();
   });
@@ -199,8 +199,10 @@ describe('Hero', () => {
   it('has correct scroll down button', () => {
     render(<Hero />);
 
-    const scrollButton = screen.getByLabelText('Scroll down to About section');
-    expect(scrollButton).toHaveAttribute('href', '#about');
+    const scrollButton = screen.getByLabelText(
+      'Scroll down to the project index'
+    );
+    expect(scrollButton).toHaveAttribute('href', '#projects');
     expect(scrollButton).toHaveClass('text-link');
   });
 

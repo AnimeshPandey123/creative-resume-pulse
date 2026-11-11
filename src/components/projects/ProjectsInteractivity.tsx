@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Search, Grid, List } from 'lucide-react';
+import { Search } from 'lucide-react';
 // Data is passed as props from server component
 
 interface ProjectsInteractivityProps {
@@ -19,7 +19,6 @@ const ProjectsInteractivity: React.FC<ProjectsInteractivityProps> = ({
 }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
-  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [sortBy, setSortBy] = useState<'featured' | 'year' | 'name'>(
     'featured'
   );
@@ -49,7 +48,7 @@ const ProjectsInteractivity: React.FC<ProjectsInteractivityProps> = ({
 
       // Show/hide based on filters
       if (matchesSearch && matchesCategory) {
-        element.style.display = 'block';
+        element.style.display = '';
         visibleCount++;
       } else {
         element.style.display = 'none';
@@ -71,10 +70,12 @@ const ProjectsInteractivity: React.FC<ProjectsInteractivityProps> = ({
     const projectCards = Array.from(grid.children) as HTMLElement[];
 
     projectCards.sort((a, b) => {
-      const aFeatured = a.querySelector('[data-featured]') !== null;
-      const bFeatured = b.querySelector('[data-featured]') !== null;
+      const aFeatured = a.querySelector?.('[data-featured]') != null;
+      const bFeatured = b.querySelector?.('[data-featured]') != null;
       const aTitle = a.dataset.projectTitle || '';
       const bTitle = b.dataset.projectTitle || '';
+      const aYear = Number(a.dataset.projectYear) || 0;
+      const bYear = Number(b.dataset.projectYear) || 0;
 
       switch (sortBy) {
         case 'featured':
@@ -84,7 +85,7 @@ const ProjectsInteractivity: React.FC<ProjectsInteractivityProps> = ({
         case 'name':
           return aTitle.localeCompare(bTitle);
         case 'year':
-          // For year sorting, we'd need to add year data attributes
+          if (aYear !== bYear) return bYear - aYear;
           return aTitle.localeCompare(bTitle);
         default:
           return 0;
@@ -94,20 +95,6 @@ const ProjectsInteractivity: React.FC<ProjectsInteractivityProps> = ({
     // Re-append sorted elements
     projectCards.forEach(card => grid.appendChild(card));
   }, [sortBy]);
-
-  // Toggle view mode
-  const toggleViewMode = () => {
-    const grid = document.getElementById('projects-grid');
-    if (!grid) return;
-
-    if (viewMode === 'grid') {
-      grid.className = 'grid grid-cols-1 gap-8';
-      setViewMode('list');
-    } else {
-      grid.className = 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8';
-      setViewMode('grid');
-    }
-  };
 
   return (
     <div className="space-y-6">
@@ -186,25 +173,6 @@ const ProjectsInteractivity: React.FC<ProjectsInteractivityProps> = ({
               <option value="year">Newest First</option>
               <option value="name">Alphabetical</option>
             </select>
-          </div>
-
-          {/* View Mode Toggle */}
-          <div className="flex gap-2">
-            <button
-              onClick={toggleViewMode}
-              className={`p-2 border transition-colors ${
-                viewMode === 'grid'
-                  ? 'bg-primary text-primary-foreground border-primary'
-                  : 'bg-background text-muted-foreground border-border'
-              }`}
-              title="Toggle view mode"
-            >
-              {viewMode === 'grid' ? (
-                <List className="h-5 w-5" />
-              ) : (
-                <Grid className="h-5 w-5" />
-              )}
-            </button>
           </div>
         </div>
 

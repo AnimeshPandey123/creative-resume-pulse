@@ -101,4 +101,22 @@ describe('Skills', () => {
 
     jest.useRealTimers();
   });
+
+  it('shows every row immediately when motion is reduced', () => {
+    window.matchMedia = jest.fn().mockImplementation((query: string) => ({
+      matches: query === '(prefers-reduced-motion: reduce)',
+      media: query,
+      addEventListener: jest.fn(),
+      removeEventListener: jest.fn(),
+    }));
+
+    const { container } = render(<Skills />);
+    const rows = container.querySelectorAll('.index-row');
+
+    expect(rows.length).toBeGreaterThan(0);
+    rows.forEach(row => {
+      expect(row).not.toHaveClass('opacity-0');
+      expect(row).not.toHaveClass('animate-fade-in');
+    });
+  });
 });

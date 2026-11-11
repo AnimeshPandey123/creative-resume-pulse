@@ -22,6 +22,7 @@ const ProjectsListStatic: React.FC<ProjectsListStaticProps> = ({
           data-project-technologies={project.technologies
             .join(' ')
             .toLowerCase()}
+          data-project-year={project.year}
         >
           <div className="md:col-span-12">
             <header className="mb-4">

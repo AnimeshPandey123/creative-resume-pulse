@@ -39,67 +39,15 @@ describe('Skills', () => {
     expect(container.firstChild).toHaveClass('py-20', 'bg-secondary');
   });
 
-  it('should trigger staggered animation when skills intersect', () => {
-    jest.useFakeTimers();
-
-    const mockIntersectionObserver = jest.fn();
-    const mockObserve = jest.fn();
-    const mockUnobserve = jest.fn();
-
-    let savedCallback: any;
-    mockIntersectionObserver.mockImplementation(callback => {
-      // Store the callback for testing
-      savedCallback = callback;
-      return {
-        observe: mockObserve,
-        unobserve: mockUnobserve,
-        disconnect: jest.fn(),
-      };
-    });
-
-    global.IntersectionObserver = mockIntersectionObserver;
-
+  it('renders capability rows without hiding them', () => {
     const { container } = render(<Skills />);
+    const rows = container.querySelectorAll('.index-row');
 
-    // Verify observer was created and observe was called
-    expect(mockIntersectionObserver).toHaveBeenCalledWith(
-      expect.any(Function),
-      expect.objectContaining({
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.1,
-      })
-    );
-    expect(mockObserve).toHaveBeenCalled();
-
-    // Simulate intersection
-    const skillsContainer =
-      container.querySelector('[data-testid="skills-container"]') ||
-      container.firstChild;
-
-    if (skillsContainer) {
-      const mockEntry = {
-        target: skillsContainer,
-        isIntersecting: true,
-      };
-
-      // Call the intersection observer callback
-      if (savedCallback) {
-        savedCallback([mockEntry]);
-
-        // Verify unobserve was called after intersection
-        expect(mockUnobserve).toHaveBeenCalledWith(mockEntry.target);
-
-        // Fast-forward timers to trigger setTimeout calls
-        jest.advanceTimersByTime(200); // Advance past all setTimeout calls
-
-        // Verify that setTimeout was called (skills should have staggered animation)
-        // Note: setTimeout is already mocked by jest.useFakeTimers()
-        expect(jest.getTimerCount()).toBeGreaterThanOrEqual(0);
-      }
-    }
-
-    jest.useRealTimers();
+    expect(rows.length).toBeGreaterThan(0);
+    rows.forEach(row => {
+      expect(row).not.toHaveClass('opacity-0');
+      expect(row).not.toHaveClass('blog-card-pending');
+    });
   });
 
   it('shows every row immediately when motion is reduced', () => {

@@ -1,60 +1,9 @@
 'use client';
 
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import { skillsData } from '@/data/landingData';
 
 const Skills: React.FC = () => {
-  const skillsContainerRef = useRef<HTMLDivElement>(null);
-  const skillsRefs = useRef<(HTMLElement | null)[]>([]);
-
-  useEffect(() => {
-    const reduceMotion =
-      typeof window.matchMedia === 'function' &&
-      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    const reveal = (skill: HTMLElement) => {
-      skill.classList.remove('opacity-0');
-      if (!reduceMotion) {
-        skill.classList.add('animate-fade-in');
-      }
-    };
-
-    if (reduceMotion) {
-      skillsRefs.current.forEach(skill => {
-        if (skill) reveal(skill);
-      });
-      return;
-    }
-
-    const options = {
-      root: null,
-      rootMargin: '0px',
-      threshold: 0.1,
-    };
-
-    const observer = new IntersectionObserver(entries => {
-      if (entries[0].isIntersecting) {
-        skillsRefs.current.forEach((skill, index) => {
-          if (skill) {
-            setTimeout(() => reveal(skill), index * 40);
-          }
-        });
-        observer.unobserve(entries[0].target);
-      }
-    }, options);
-
-    const currentRef = skillsContainerRef.current;
-    if (currentRef) {
-      observer.observe(currentRef);
-    }
-
-    return () => {
-      if (currentRef) {
-        observer.unobserve(currentRef);
-      }
-    };
-  }, []);
-
   return (
     <section
       id="skills"
@@ -77,19 +26,9 @@ const Skills: React.FC = () => {
           </p>
         </header>
 
-        <div
-          ref={skillsContainerRef}
-          data-testid="skills-container"
-          className="border-b border-border"
-        >
+        <div data-testid="skills-container" className="border-b border-border">
           {skillsData.categories.map((category, categoryIndex) => (
-            <section
-              key={categoryIndex}
-              ref={el => {
-                skillsRefs.current[categoryIndex] = el;
-              }}
-              className="index-row opacity-0"
-            >
+            <section key={categoryIndex} className="index-row">
               <p className="text-xs tabular-nums text-muted-foreground md:col-span-1">
                 {String(categoryIndex + 1).padStart(2, '0')}
               </p>

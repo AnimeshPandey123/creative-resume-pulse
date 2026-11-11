@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo } from 'react';
+import { useMemo } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { Rss } from 'lucide-react';
 import BlogPostCard from '@/components/blog/BlogPostCard';
@@ -107,39 +107,6 @@ export default function BlogPageClient({
   };
 
   const hasActiveFilters = Boolean(searchTerm || selectedTag);
-
-  useEffect(() => {
-    const cards = document.querySelectorAll('[data-blog-card]');
-
-    const revealCard = (card: Element) => {
-      if (!(card instanceof HTMLElement)) {
-        return;
-      }
-
-      card.classList.remove('blog-card-pending');
-      card.classList.add('animate-fade-in');
-    };
-
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      cards.forEach(revealCard);
-      return;
-    }
-
-    const observer = new IntersectionObserver(
-      entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            revealCard(entry.target);
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-
-    cards.forEach(card => observer.observe(card));
-    return () => observer.disconnect();
-  }, [paginatedPosts]);
 
   return (
     <div className="min-h-screen bg-background">

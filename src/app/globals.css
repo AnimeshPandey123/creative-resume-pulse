@@ -151,9 +151,10 @@
   background: hsl(var(--foreground));
 }
 
-/* Smooth scrolling */
+/* Smooth scrolling. Padding keeps hash targets clear of the fixed header. */
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
 }
 
 /* Focus styles */
@@ -211,6 +212,23 @@ html {
 
 .animate-scale-up {
   animation: scaleUp 0.5s ease-in-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .animate-in,
+  .animate-fade-in,
+  .animate-fade-in-left,
+  .animate-fade-in-right,
+  .animate-scale-up,
+  .blog-card-pending {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
 }
 
 @keyframes fadeIn {

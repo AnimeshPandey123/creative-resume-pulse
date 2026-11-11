@@ -10,22 +10,13 @@ import { formatPublishDate, getReadingTimeLabel } from '@/lib/blog';
 interface BlogPostCardProps {
   post: BlogPost;
   index?: number;
-  showImmediately?: boolean;
 }
 
-const BlogPostCard: React.FC<BlogPostCardProps> = ({
-  post,
-  index = 0,
-  showImmediately = false,
-}) => {
+const BlogPostCard: React.FC<BlogPostCardProps> = ({ post }) => {
   const { title, excerpt, slug, publishDate, readingTime, tags } = post;
 
   return (
-    <article
-      className={`index-row${showImmediately ? '' : ' blog-card-pending'}`}
-      style={{ animationDelay: `${index * 100}ms` }}
-      data-blog-card
-    >
+    <article className="index-row" data-blog-card>
       <div className="md:col-span-3">
         <time
           dateTime={publishDate}

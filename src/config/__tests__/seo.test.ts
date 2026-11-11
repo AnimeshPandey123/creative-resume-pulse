@@ -208,6 +208,24 @@ describe('SEO Configuration', () => {
       expect(openGraph?.publishedTime).toBe('2024-01-01');
     });
 
+    it('should publish a root-relative cover as an absolute social image', () => {
+      const metadata = generateBlogPostMetadata({
+        title: 'Test Post',
+        description: 'Test post description',
+        slug: 'test-post',
+        publishedAt: '2024-01-01',
+        image: '/images/blog/hybrid-rag-architecture.jpg',
+      });
+
+      const openGraph = metadata.openGraph as any;
+      const twitter = metadata.twitter as any;
+      const absolute =
+        'https://animeshpandey.com/images/blog/hybrid-rag-architecture.jpg';
+
+      expect(openGraph.images?.[0]?.url).toBe(absolute);
+      expect(twitter.images).toEqual([absolute]);
+    });
+
     it('should handle blog post without tags', () => {
       const metadata = generateBlogPostMetadata({
         title: 'Test Post',

@@ -1,5 +1,5 @@
 import { blogPosts } from '@/data/mockBlogData';
-import { SITE_CONFIG } from '@/config/seo';
+import { SITE_CONFIG, absoluteAssetUrl } from '@/config/seo';
 
 // Test the RSS feed generation logic directly
 describe('RSS Feed Route Logic', () => {
@@ -57,14 +57,23 @@ describe('RSS Feed Route Logic', () => {
   });
 
   it('should handle image enclosures correctly', () => {
-    const postWithImage = blogPosts.find(post => post.coverImage);
+    const postsWithImages = blogPosts.filter(post => post.coverImage);
+    expect(postsWithImages.length).toBeGreaterThan(0);
+
+    postsWithImages.forEach(post => {
+      expect(post.coverImage).toMatch(/^(https?:\/\/|\/)/);
+      expect(absoluteAssetUrl(post.coverImage)).toMatch(/^https?:\/\//);
+    });
+
+    const hybridRag = postsWithImages.find(
+      post =>
+        post.slug === 'designing-hybrid-rag-architecture-academic-research'
+    );
+    expect(absoluteAssetUrl(hybridRag?.coverImage ?? '')).toBe(
+      'https://animeshpandey.com/images/blog/hybrid-rag-architecture.jpg'
+    );
+
     const postWithoutImage = blogPosts.find(post => !post.coverImage);
-
-    if (postWithImage) {
-      expect(postWithImage.coverImage).toBeDefined();
-      expect(postWithImage.coverImage).toMatch(/^https?:\/\//);
-    }
-
     if (postWithoutImage) {
       expect(postWithoutImage.coverImage).toBeNull();
     }

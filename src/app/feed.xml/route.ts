@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { blogPosts } from '@/data/mockBlogData';
-import { SITE_CONFIG } from '@/config/seo';
+import { SITE_CONFIG, absoluteAssetUrl } from '@/config/seo';
 
 // Force static generation for static export
 export const dynamic = 'force-static';
@@ -48,7 +48,11 @@ function generateRSSFeed(posts: typeof blogPosts) {
       <pubDate>${pubDate}</pubDate>
       <author><![CDATA[${SITE_CONFIG.author.name} <animeshpandey.pro@gmail.com>]]></author>
       <category><![CDATA[${categories}]]></category>
-      ${post.coverImage ? `<enclosure url="${post.coverImage}" type="image/jpeg" />` : ''}
+      ${
+        post.coverImage
+          ? `<enclosure url="${absoluteAssetUrl(post.coverImage)}" type="image/jpeg" />`
+          : ''
+      }
     </item>`;
     })
     .join('');

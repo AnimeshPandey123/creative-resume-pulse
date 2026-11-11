@@ -38,8 +38,7 @@ class BlogDataSyncer {
   constructor() {
     this.blogDir = path.join(__dirname, '../src/content/blog');
     this.jsonPath = path.join(__dirname, '../src/data/blog-posts.json');
-    this.defaultCoverImage =
-      'https://d1iukwsziul56d.cloudfront.net/drupal-prodv2/s3fs-public/2025-03/default-blog-image.webp';
+    this.defaultCoverImage = '/images/blog/default-cover.jpg';
     this.defaultTags = ['web-development', 'programming', 'tutorial'];
   }
 

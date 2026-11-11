@@ -334,6 +334,15 @@ export function optimizeTitleForSEO(
   return truncateForSEO(title, maxTitleLength);
 }
 
+export function absoluteAssetUrl(url: string): string {
+  if (/^https?:\/\//i.test(url)) {
+    return url;
+  }
+
+  const path = url.startsWith('/') ? url : `/${url}`;
+  return `${SITE_CONFIG.url}${path}`;
+}
+
 export function generateBlogPostMetadata(post: {
   title: string;
   description: string;
@@ -343,7 +352,7 @@ export function generateBlogPostMetadata(post: {
   image?: string;
 }): Metadata {
   const postUrl = `${SITE_CONFIG.url}/blog/${post.slug}`;
-  const socialImage = post.image || SITE_CONFIG.ogImage;
+  const socialImage = absoluteAssetUrl(post.image || SITE_CONFIG.ogImage);
   const optimizedTitle = optimizeTitleForSEO(
     post.title,
     SITE_CONFIG.name,
@@ -566,7 +575,7 @@ export function generateBlogPostStructuredData(post: {
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
     headline: post.title,
-    image: post.image || SITE_CONFIG.avatarUrl,
+    image: absoluteAssetUrl(post.image || SITE_CONFIG.avatarUrl),
     datePublished: post.publishDate,
     dateModified: post.publishDate,
     author: {

@@ -20,8 +20,7 @@ export const openAIConfig: OpenAIConfig = {
 };
 
 export const blogConfig: BlogConfig = {
-  defaultCoverImage:
-    'https://d1iukwsziul56d.cloudfront.net/drupal-prodv2/s3fs-public/2025-03/default-blog-image.webp',
+  defaultCoverImage: '/images/blog/default-cover.jpg',
   defaultTags: ['web-development', 'programming', 'tutorial'],
   contentStructure: [
     'Introduction',

@@ -74,4 +74,14 @@
       <image:title>Headless Drupal powering a React frontend</image:title>
     </image:image>
   </url>
+  <url>
+    <loc>https://animeshpandey.com/blog/designing-hybrid-rag-architecture-academic-research/</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://d1iukwsziul56d.cloudfront.net/drupal-prodv2/s3fs-public/2025-03/default-blog-image.webp</image:loc>
+      <image:title>Designing a Hybrid RAG Architecture for Academic Research</image:title>
+    </image:image>
+  </url>
 </urlset>

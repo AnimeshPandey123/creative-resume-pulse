@@ -11,57 +11,55 @@ const ProjectsListStatic: React.FC<ProjectsListStaticProps> = ({
   projects,
 }) => {
   return (
-    <div
-      className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-      id="projects-grid"
-    >
+    <div className="border-b border-border" id="projects-grid">
       {projects.map(project => (
         <article
           key={project.id}
-          className="bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-200 dark:border-gray-700"
+          className="index-row"
           data-project-id={project.id}
           data-project-category={project.category}
           data-project-title={project.title.toLowerCase()}
           data-project-technologies={project.technologies
             .join(' ')
             .toLowerCase()}
+          data-project-year={project.year}
         >
-          <div className="p-6">
+          <div className="md:col-span-12">
             <header className="mb-4">
-              <div className="flex items-center justify-between mb-2">
-                <span className="inline-block px-3 py-1 bg-primary/10 text-primary text-xs font-medium rounded-full">
+              <div className="mb-2 flex items-center gap-3">
+                <span className="text-[11px] uppercase tracking-[0.16em] text-primary">
                   {project.category}
                 </span>
                 {project.featured && (
                   <span
-                    className="inline-block px-2 py-1 bg-yellow-100 text-yellow-800 text-xs font-medium rounded-full"
+                    className="text-[11px] uppercase tracking-[0.16em] text-foreground"
                     data-featured="true"
                   >
                     Featured
                   </span>
                 )}
               </div>
-              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
+              <h3 className="mb-2 text-xl font-medium tracking-tight text-foreground">
                 {project.title}
               </h3>
-              <p className="text-primary font-medium text-sm">{project.role}</p>
+              <p className="text-sm text-primary">{project.role}</p>
             </header>
 
             <div className="mb-4">
-              <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">
+              <p className="text-muted-foreground text-sm leading-relaxed">
                 {project.description[0]}
               </p>
             </div>
 
             <div className="mb-6">
-              <h4 className="text-sm font-semibold text-gray-900 dark:text-white mb-2">
+              <h4 className="text-[11px] uppercase tracking-[0.16em] text-primary mb-2">
                 Technologies
               </h4>
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-x-3 gap-y-1">
                 {project.technologies.map((tech, index) => (
                   <span
                     key={index}
-                    className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-xs rounded-md"
+                    className="px-2 py-1 text-xs text-muted-foreground"
                   >
                     {tech}
                   </span>
@@ -70,13 +68,13 @@ const ProjectsListStatic: React.FC<ProjectsListStaticProps> = ({
             </div>
 
             <footer className="flex flex-col gap-3">
-              <div className="flex gap-3">
+              <div className="flex flex-wrap gap-x-5 gap-y-2">
                 {project.url && (
                   <a
                     href={project.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-center gap-2 px-3 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 text-sm font-medium rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+                    className="text-link"
                   >
                     <Eye className="h-4 w-4" />
                     View Demo
@@ -87,7 +85,7 @@ const ProjectsListStatic: React.FC<ProjectsListStaticProps> = ({
                     href={project.githubUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-center gap-2 px-3 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 text-sm font-medium rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+                    className="text-link"
                   >
                     <Github className="h-4 w-4" />
                     View Code
@@ -96,7 +94,7 @@ const ProjectsListStatic: React.FC<ProjectsListStaticProps> = ({
                 <a
                   href={`/projects/${project.slug}`}
                   aria-label={`Learn more about ${project.title}`}
-                  className="flex items-center justify-center gap-2 px-3 py-2 text-primary text-sm font-medium rounded-lg hover:bg-primary/10 transition-colors"
+                  className="text-link"
                 >
                   Learn More
                 </a>

@@ -88,7 +88,7 @@ export default async function BlogPostPage({
 
     return (
       <Layout>
-        <section className="py-16 md:py-20 bg-gray-50 dark:bg-gray-900">
+        <section className="bg-background pb-16 pt-28 md:pb-20">
           <div className="section-container">
             <BlogPostContent post={post} />
             <RelatedPosts posts={relatedPosts} />

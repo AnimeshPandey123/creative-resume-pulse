@@ -73,7 +73,7 @@ describe('Education', () => {
   it('has correct CSS classes', () => {
     const { container } = render(<Education />);
 
-    expect(container.firstChild).toHaveClass('py-20', 'bg-white');
+    expect(container.firstChild).toHaveClass('py-20', 'bg-background');
   });
 
   it('has correct accessibility attributes', () => {

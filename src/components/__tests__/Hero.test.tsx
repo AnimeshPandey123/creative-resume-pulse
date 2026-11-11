@@ -47,12 +47,14 @@ describe('Hero', () => {
     render(<Hero />);
 
     expect(screen.getByText('Test Title')).toBeInTheDocument();
-    expect(screen.getByText("Hello, I'm")).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(
+      "Hi, I'm Test Name."
+    );
     expect(screen.getByText('Test Name')).toBeInTheDocument();
     expect(screen.getByText('Test Subtitle')).toBeInTheDocument();
     expect(screen.getByText('Primary CTA')).toBeInTheDocument();
-    expect(screen.getByText('Secondary CTA')).toBeInTheDocument();
-    expect(screen.getByText('Download CV')).toBeInTheDocument();
+    expect(screen.getByText(/Secondary CTA/)).toBeInTheDocument();
+    expect(screen.getByText(/Download CV/)).toBeInTheDocument();
   });
 
   it('has correct accessibility attributes', () => {
@@ -81,7 +83,7 @@ describe('Hero', () => {
     expect(resumeLink).toHaveAttribute('download', 'Animesh-Pandey-CV.pdf');
 
     const scrollDownLink = screen.getByLabelText(
-      'Scroll down to About section'
+      'Scroll down to the project index'
     );
     expect(scrollDownLink).toBeInTheDocument();
   });
@@ -90,34 +92,16 @@ describe('Hero', () => {
     const { container } = render(<Hero />);
 
     const heroSection = container.querySelector('section');
-    expect(heroSection).toHaveClass(
-      'relative',
-      'min-h-screen',
-      'overflow-hidden',
-      'pt-24',
-      'md:pt-28',
-      'pb-24'
-    );
+    expect(heroSection).toHaveClass('relative', 'overflow-hidden', 'pt-28');
 
     const title = screen.getByText('Test Title');
-    expect(title).toHaveClass(
-      'text-primary',
-      'font-medium',
-      'tracking-widest',
-      'uppercase',
-      'mb-4',
-      'animate-fade-in'
-    );
+    expect(title).toHaveClass('section-kicker', 'animate-fade-in');
 
-    const name = screen.getByText("Hello, I'm");
+    const name = screen.getByRole('heading', { level: 1 });
     expect(name).toHaveClass(
-      'text-4xl',
-      'md:text-5xl',
-      'lg:text-6xl',
       'font-display',
-      'font-bold',
-      'leading-tight',
-      'mb-6',
+      'font-medium',
+      'tracking-tight',
       'animate-fade-in',
       'animate-delay-100'
     );
@@ -209,56 +193,23 @@ describe('Hero', () => {
       name: 'Primary navigation',
     });
     expect(navigation).toBeInTheDocument();
-    expect(navigation).toHaveClass(
-      'flex',
-      'flex-col',
-      'sm:flex-row',
-      'justify-center',
-      'gap-3',
-      'animate-fade-in',
-      'animate-delay-200'
-    );
+    expect(navigation).toHaveClass('flex', 'flex-wrap', 'gap-x-6');
   });
 
   it('has correct scroll down button', () => {
     render(<Hero />);
 
-    const scrollButton = screen.getByLabelText('Scroll down to About section');
-    expect(scrollButton).toHaveAttribute('href', '#about');
-    const scrollContainer = scrollButton.parentElement;
-    expect(scrollContainer).toHaveClass(
-      'absolute',
-      'bottom-8',
-      'left-1/2',
-      '-translate-x-1/2',
-      'animate-bounce'
+    const scrollButton = screen.getByLabelText(
+      'Scroll down to the project index'
     );
-  });
-
-  it('has correct gradient background', () => {
-    const { container } = render(<Hero />);
-
-    const gradientDiv = container.querySelector(
-      '.absolute.inset-0.bg-gradient-to-b'
-    );
-    expect(gradientDiv).toHaveClass(
-      'from-primary/8',
-      'via-accent/20',
-      'to-transparent',
-      'opacity-90',
-      'z-0'
-    );
+    expect(scrollButton).toHaveAttribute('href', '#projects');
+    expect(scrollButton).toHaveClass('text-link');
   });
 
   it('has correct container structure', () => {
     const { container } = render(<Hero />);
 
-    const containerDiv = container.querySelector('.container.mx-auto.px-4');
+    const containerDiv = container.querySelector('.section-container');
     expect(containerDiv).toHaveClass('relative', 'z-10');
-
-    const maxWidthDiv = container.querySelector(
-      '.max-w-3xl.mx-auto.text-center'
-    );
-    expect(maxWidthDiv).toBeInTheDocument();
   });
 });

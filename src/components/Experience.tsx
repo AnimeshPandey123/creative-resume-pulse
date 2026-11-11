@@ -95,27 +95,30 @@ const ExperienceTimelineItem: React.FC<ExperienceTimelineItemProps> = ({
     className="timeline-item"
     style={{ animationDelay: `${index * 100}ms` }}
   >
-    <article className="p-6 rounded-lg bg-white/50 dark:bg-transparent border border-white/20 dark:border-gray-700/30 shadow-sm hover:shadow-md transition-shadow duration-300">
-      <header className="flex flex-col md:flex-row justify-between items-start mb-4">
-        <div>
-          <h3 className="text-xl font-bold text-foreground">
-            {experience.title}
+    <article>
+      <header className="mb-4">
+        <div className="flex flex-wrap items-baseline justify-between gap-3">
+          <h3 className="text-xl font-medium tracking-tight text-foreground">
+            {experience.company}
           </h3>
-          <p className="text-primary font-medium">{experience.company}</p>
-          <p className="text-muted-foreground">{experience.location}</p>
+          <time
+            className="text-xs uppercase tracking-[0.14em] text-muted-foreground"
+            dateTime={experience.period}
+          >
+            {experience.period}
+          </time>
         </div>
-        <time
-          className="px-4 py-1 bg-accent dark:bg-gray-700/50 rounded-full text-sm font-medium text-accent-foreground dark:text-gray-200 mt-2 md:mt-0"
-          dateTime={experience.period}
-        >
-          {experience.period}
-        </time>
+        <p className="mt-1 text-sm text-primary">{experience.title}</p>
+        <p className="text-sm text-muted-foreground">{experience.location}</p>
       </header>
       <section>
         <h4 className="sr-only">Key Responsibilities and Achievements</h4>
-        <ul className="list-disc list-inside space-y-2" role="list">
+        <ul className="space-y-2" role="list">
           {experience.responsibilities.map((responsibility, respIndex) => (
-            <li key={respIndex} className="text-foreground leading-relaxed">
+            <li
+              key={respIndex}
+              className="text-sm leading-relaxed text-foreground/90"
+            >
               {responsibility}
             </li>
           ))}
@@ -167,15 +170,25 @@ export const Experience: React.FC<{
       aria-labelledby="experience-heading"
     >
       <div className="section-container">
-        <header className="text-center mb-12">
-          <h2 id="experience-heading" className="section-title">
-            {experienceData.title}
-          </h2>
-          <p className="section-subtitle">{experienceData.subtitle}</p>
+        <header className="mb-10 grid gap-6 md:grid-cols-12 md:items-end">
+          <div className="md:col-span-7">
+            <p className="section-kicker mb-4">
+              Experience / built with great teams
+            </p>
+            <h2 id="experience-heading" className="section-title">
+              {experienceData.title}
+            </h2>
+          </div>
+          <p className="section-subtitle md:col-span-5">
+            {experienceData.subtitle}
+          </p>
         </header>
 
-        <div className="max-w-4xl mx-auto">
-          <ol className="mt-8 space-y-8" role="list">
+        <div>
+          <ol
+            className="grid grid-cols-1 gap-0 md:grid-cols-2 md:gap-x-12"
+            role="list"
+          >
             {featuredItems.map(experience => {
               const currentIndex = itemIndex;
               itemIndex += 1;
@@ -196,7 +209,7 @@ export const Experience: React.FC<{
               <CollapsibleTrigger asChild>
                 <button
                   type="button"
-                  className="mt-8 w-full flex items-center justify-center gap-2 px-4 py-3 rounded-lg border border-border bg-white/50 dark:bg-gray-900/40 text-sm font-medium text-foreground hover:bg-accent/50 transition-colors"
+                  className="mt-8 w-full flex items-center justify-between gap-2 border-t border-border py-4 text-sm text-foreground hover:text-primary transition-colors"
                   aria-expanded={earlierOpen}
                 >
                   {experienceData.earlierRolesLabel} ({earlierItems.length})
@@ -209,7 +222,7 @@ export const Experience: React.FC<{
                 </button>
               </CollapsibleTrigger>
               <CollapsibleContent>
-                <ol className="mt-8 space-y-8" role="list">
+                <ol className="mt-2" role="list">
                   {earlierItems.map(experience => {
                     const currentIndex = itemIndex;
                     itemIndex += 1;

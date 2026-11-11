@@ -29,13 +29,14 @@ export default function Projects() {
     <Layout>
       <div className="min-h-screen bg-background">
         {/* Hero Section */}
-        <section className="py-16 page-hero-gradient">
+        <section className="py-16 pt-28 page-hero-gradient">
           <div className="section-container pb-1">
-            <div className="max-w-4xl mx-auto text-center">
-              <h1 className="text-4xl md:text-6xl font-display font-bold text-foreground mb-6 tracking-tight">
+            <div className="max-w-3xl">
+              <p className="section-kicker mb-4">Work</p>
+              <h1 className="mb-6 text-4xl font-display font-medium tracking-tight text-foreground md:text-6xl">
                 My Projects
               </h1>
-              <p className="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto">
+              <p className="mb-8 max-w-xl text-base text-muted-foreground md:text-lg">
                 A collection of my work showcasing engineering expertise, AI
                 innovation, and business impact across various technologies and
                 domains.

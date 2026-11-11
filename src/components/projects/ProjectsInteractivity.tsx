@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Search, Filter, Grid, List } from 'lucide-react';
+import { Search } from 'lucide-react';
 // Data is passed as props from server component
 
 interface ProjectsInteractivityProps {
@@ -19,7 +19,6 @@ const ProjectsInteractivity: React.FC<ProjectsInteractivityProps> = ({
 }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
-  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [sortBy, setSortBy] = useState<'featured' | 'year' | 'name'>(
     'featured'
   );
@@ -49,7 +48,7 @@ const ProjectsInteractivity: React.FC<ProjectsInteractivityProps> = ({
 
       // Show/hide based on filters
       if (matchesSearch && matchesCategory) {
-        element.style.display = 'block';
+        element.style.display = '';
         visibleCount++;
       } else {
         element.style.display = 'none';
@@ -71,10 +70,12 @@ const ProjectsInteractivity: React.FC<ProjectsInteractivityProps> = ({
     const projectCards = Array.from(grid.children) as HTMLElement[];
 
     projectCards.sort((a, b) => {
-      const aFeatured = a.querySelector('[data-featured]') !== null;
-      const bFeatured = b.querySelector('[data-featured]') !== null;
+      const aFeatured = a.querySelector?.('[data-featured]') != null;
+      const bFeatured = b.querySelector?.('[data-featured]') != null;
       const aTitle = a.dataset.projectTitle || '';
       const bTitle = b.dataset.projectTitle || '';
+      const aYear = Number(a.dataset.projectYear) || 0;
+      const bYear = Number(b.dataset.projectYear) || 0;
 
       switch (sortBy) {
         case 'featured':
@@ -84,7 +85,7 @@ const ProjectsInteractivity: React.FC<ProjectsInteractivityProps> = ({
         case 'name':
           return aTitle.localeCompare(bTitle);
         case 'year':
-          // For year sorting, we'd need to add year data attributes
+          if (aYear !== bYear) return bYear - aYear;
           return aTitle.localeCompare(bTitle);
         default:
           return 0;
@@ -95,86 +96,51 @@ const ProjectsInteractivity: React.FC<ProjectsInteractivityProps> = ({
     projectCards.forEach(card => grid.appendChild(card));
   }, [sortBy]);
 
-  // Toggle view mode
-  const toggleViewMode = () => {
-    const grid = document.getElementById('projects-grid');
-    if (!grid) return;
-
-    if (viewMode === 'grid') {
-      grid.className = 'grid grid-cols-1 gap-8';
-      setViewMode('list');
-    } else {
-      grid.className = 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8';
-      setViewMode('grid');
-    }
-  };
-
   return (
     <div className="space-y-6">
       {/* Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
-          <div className="flex items-center">
-            <div className="p-2 bg-blue-100 dark:bg-blue-900 rounded-lg">
-              <Filter className="h-6 w-6 text-blue-600 dark:text-blue-400" />
-            </div>
-            <div className="ml-4">
-              <p className="text-sm font-medium text-gray-600 dark:text-gray-400">
-                Total Projects
-              </p>
-              <p className="text-2xl font-bold text-gray-900 dark:text-white">
-                {totalProjects}
-              </p>
-            </div>
-          </div>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 border-y border-border py-8">
+        <div>
+          <p className="text-3xl font-display font-medium tracking-tight text-foreground">
+            {totalProjects}
+          </p>
+          <p className="mt-2 text-[11px] uppercase tracking-[0.16em] text-muted-foreground">
+            Total Projects
+          </p>
         </div>
 
-        <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
-          <div className="flex items-center">
-            <div className="p-2 bg-green-100 dark:bg-green-900 rounded-lg">
-              <Filter className="h-6 w-6 text-green-600 dark:text-green-400" />
-            </div>
-            <div className="ml-4">
-              <p className="text-sm font-medium text-gray-600 dark:text-gray-400">
-                Categories
-              </p>
-              <p className="text-2xl font-bold text-gray-900 dark:text-white">
-                {totalCategories}
-              </p>
-            </div>
-          </div>
+        <div>
+          <p className="text-3xl font-display font-medium tracking-tight text-foreground">
+            {totalCategories}
+          </p>
+          <p className="mt-2 text-[11px] uppercase tracking-[0.16em] text-muted-foreground">
+            Categories
+          </p>
         </div>
 
-        <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
-          <div className="flex items-center">
-            <div className="p-2 bg-purple-100 dark:bg-purple-900 rounded-lg">
-              <Filter className="h-6 w-6 text-purple-600 dark:text-purple-400" />
-            </div>
-            <div className="ml-4">
-              <p className="text-sm font-medium text-gray-600 dark:text-gray-400">
-                Technologies
-              </p>
-              <p className="text-2xl font-bold text-gray-900 dark:text-white">
-                {totalTechnologies}
-              </p>
-            </div>
-          </div>
+        <div>
+          <p className="text-3xl font-display font-medium tracking-tight text-foreground">
+            {totalTechnologies}
+          </p>
+          <p className="mt-2 text-[11px] uppercase tracking-[0.16em] text-muted-foreground">
+            Technologies
+          </p>
         </div>
       </div>
 
       {/* Search and Filters */}
-      <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
+      <div className="border-t border-border pt-6">
         <div className="flex flex-col lg:flex-row gap-4">
           {/* Search */}
           <div className="flex-1">
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-muted-foreground" />
               <input
                 type="text"
                 placeholder="Search projects, technologies..."
                 value={searchTerm}
                 onChange={e => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                className="contact-input pl-10"
               />
             </div>
           </div>
@@ -184,7 +150,7 @@ const ProjectsInteractivity: React.FC<ProjectsInteractivityProps> = ({
             <select
               value={selectedCategory}
               onChange={e => setSelectedCategory(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+              className="contact-input"
             >
               {categories.map(category => (
                 <option key={category} value={category}>
@@ -201,37 +167,18 @@ const ProjectsInteractivity: React.FC<ProjectsInteractivityProps> = ({
               onChange={e =>
                 setSortBy(e.target.value as 'featured' | 'year' | 'name')
               }
-              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+              className="contact-input"
             >
               <option value="featured">Featured First</option>
               <option value="year">Newest First</option>
               <option value="name">Alphabetical</option>
             </select>
           </div>
-
-          {/* View Mode Toggle */}
-          <div className="flex gap-2">
-            <button
-              onClick={toggleViewMode}
-              className={`p-2 rounded-lg border transition-colors ${
-                viewMode === 'grid'
-                  ? 'bg-primary text-white border-primary'
-                  : 'bg-white dark:bg-gray-700 text-gray-600 dark:text-gray-400 border-gray-300 dark:border-gray-600'
-              }`}
-              title="Toggle view mode"
-            >
-              {viewMode === 'grid' ? (
-                <List className="h-5 w-5" />
-              ) : (
-                <Grid className="h-5 w-5" />
-              )}
-            </button>
-          </div>
         </div>
 
         {/* Results Count */}
         <div className="mt-4">
-          <p className="text-sm text-gray-600 dark:text-gray-400">
+          <p className="text-sm text-muted-foreground">
             <span id="results-count">{totalProjects} projects found</span>
           </p>
         </div>

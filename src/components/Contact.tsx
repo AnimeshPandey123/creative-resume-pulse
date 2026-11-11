@@ -107,25 +107,31 @@ const Contact: React.FC = () => {
   return (
     <section
       id="contact"
-      className="py-20 bg-accent/50"
+      className="bg-secondary"
       role="region"
       aria-labelledby="contact-heading"
     >
       <div className="section-container">
-        <header className="text-center mb-12">
-          <h2 id="contact-heading" className="section-title">
-            {contactData.title}
+        <header className="mb-12 max-w-3xl">
+          <p className="section-kicker mb-4">Contact / start a conversation</p>
+          <h2
+            id="contact-heading"
+            className="text-4xl md:text-6xl font-display font-medium tracking-tight leading-[1.05]"
+          >
+            {contactData.title}{' '}
+            <span aria-hidden="true" className="text-foreground/70">
+              ↗
+            </span>
           </h2>
-          <p className="section-subtitle">{contactData.subtitle}</p>
+          <p className="section-subtitle mt-6">{contactData.subtitle}</p>
         </header>
 
-        <div
-          ref={contactContentRef}
-          className="max-w-5xl mx-auto glass-card p-8 md:p-10"
-        >
+        <div ref={contactContentRef} className="border-t border-border pt-10">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
             <aside>
-              <h3 className="text-2xl font-bold mb-6">Contact Information</h3>
+              <h3 className="text-sm uppercase tracking-[0.16em] text-muted-foreground mb-6">
+                Contact Information
+              </h3>
 
               <address className="space-y-6 not-italic">
                 <div className="flex items-start">
@@ -200,7 +206,7 @@ const Contact: React.FC = () => {
                       href={social.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="p-2 bg-secondary rounded-full hover:bg-primary hover:text-white transition-colors"
+                      className="text-foreground/70 hover:text-foreground transition-colors"
                       aria-label={`Visit ${social.name} profile`}
                     >
                       {social.icon === 'linkedin' && (
@@ -263,7 +269,9 @@ const Contact: React.FC = () => {
             </aside>
 
             <main>
-              <h3 className="text-2xl font-bold mb-6">Send Me a Message</h3>
+              <h3 className="text-sm uppercase tracking-[0.16em] text-muted-foreground mb-6">
+                Send Me a Message
+              </h3>
 
               <form
                 onSubmit={handleSubmit}
@@ -342,7 +350,7 @@ const Contact: React.FC = () => {
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="w-full px-6 py-3 bg-primary text-primary-foreground rounded-lg font-medium transition-all hover:bg-primary/90 hover:shadow-md disabled:opacity-70 disabled:cursor-not-allowed"
+                  className="px-6 py-3 bg-primary text-primary-foreground rounded-md text-sm font-medium transition-colors hover:bg-primary/90 disabled:opacity-70 disabled:cursor-not-allowed"
                   aria-describedby="submit-status"
                 >
                   {submitting ? 'Sending...' : 'Send Message'}

@@ -346,12 +346,7 @@ describe('BlogTagFilter', () => {
     render(<BlogTagFilter {...mockProps} />);
 
     const button = screen.getByRole('combobox');
-    expect(button).toHaveClass(
-      'bg-white/50',
-      'dark:bg-gray-800/50',
-      'border-white/20',
-      'dark:border-gray-700/30'
-    );
+    expect(button).toHaveClass('bg-background', 'border', 'border-border');
   });
 
   it('shows search input in dropdown', () => {

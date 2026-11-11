@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
-import { Menu, X, Moon, Sun, BookOpen } from 'lucide-react';
+import { Menu, X, Moon, Sun } from 'lucide-react';
 import { useTheme } from '@/components/ThemeProvider';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -21,7 +21,7 @@ const Navigation: React.FC = () => {
     { name: 'Skills', href: '#skills' },
     { name: 'Education', href: '#education' },
     { name: 'Contact', href: '#contact' },
-    { name: 'Blog', href: '/blog', icon: BookOpen },
+    { name: 'Blog', href: '/blog' },
   ];
 
   useEffect(() => {
@@ -51,17 +51,17 @@ const Navigation: React.FC = () => {
         className={cn(
           'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
           isScrolled
-            ? 'bg-background/85 dark:bg-background/90 backdrop-blur-md shadow-sm border-b border-border/60'
-            : 'bg-transparent'
+            ? 'bg-background border-b border-border'
+            : 'bg-background/80'
         )}
       >
-        <div className="container mx-auto px-4 flex items-center justify-between h-16 md:h-20">
-          <Link href="/" className="font-display font-bold text-lg md:text-xl">
+        <div className="mx-auto flex h-16 max-w-[1080px] items-center justify-between px-5 sm:px-8">
+          <Link href="/" className="text-sm font-medium tracking-tight">
             Animesh Pandey
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-1">
+          <nav className="hidden md:flex items-center gap-5">
             {navLinks.map(link =>
               link.href.startsWith('#') ? (
                 <a
@@ -73,19 +73,14 @@ const Navigation: React.FC = () => {
                   {link.name}
                 </a>
               ) : (
-                <Link
-                  key={link.name}
-                  href={link.href}
-                  className="nav-link flex items-center gap-1"
-                >
-                  {link.icon && <link.icon size={16} />}
+                <Link key={link.name} href={link.href} className="nav-link">
                   {link.name}
                 </Link>
               )
             )}
             <button
               onClick={toggleTheme}
-              className="ml-4 p-2 rounded-full hover:bg-secondary transition-colors"
+              className="ml-2 p-2 text-foreground/70 hover:text-foreground transition-colors"
               aria-label={
                 theme === 'dark'
                   ? 'Switch to light mode'
@@ -131,7 +126,7 @@ const Navigation: React.FC = () => {
       {/* Mobile Menu */}
       <div
         className={cn(
-          'fixed inset-0 bg-white dark:bg-gray-900 z-40 flex flex-col pt-20 px-4 transition-all duration-300 ease-in-out transform md:hidden',
+          'fixed inset-0 bg-background z-40 flex flex-col pt-20 px-5 transition-all duration-300 ease-in-out transform md:hidden',
           mobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
         )}
       >
@@ -141,23 +136,21 @@ const Navigation: React.FC = () => {
               <a
                 key={link.name}
                 href={isHomePage ? link.href : `/${link.href}`}
-                className="text-xl py-3 px-4 border-b border-border/50 flex items-center gap-2 hover:bg-secondary/50 rounded-lg transition-colors"
+                className="text-2xl font-display font-medium tracking-tight py-3 border-b border-border"
                 onClick={e => {
                   setMobileMenuOpen(false);
                   handleSectionNavigation(e, link.href);
                 }}
               >
-                {link.icon && <link.icon size={18} />}
                 {link.name}
               </a>
             ) : (
               <Link
                 key={link.name}
                 href={link.href}
-                className="text-xl py-3 px-4 border-b border-border/50 flex items-center gap-2 hover:bg-secondary/50 rounded-lg transition-colors"
+                className="text-2xl font-display font-medium tracking-tight py-3 border-b border-border"
                 onClick={() => setMobileMenuOpen(false)}
               >
-                {link.icon && <link.icon size={18} />}
                 {link.name}
               </Link>
             )

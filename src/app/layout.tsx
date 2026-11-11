@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react';
-import { Inter, Source_Serif_4 } from 'next/font/google';
+import { Inter } from 'next/font/google';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { GoogleAnalytics } from '@next/third-parties/google';
@@ -17,14 +17,6 @@ const inter = Inter({
   fallback: ['system-ui', 'arial'],
 });
 
-const sourceSerif = Source_Serif_4({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-display',
-  preload: true,
-  fallback: ['Georgia', 'Times New Roman', 'serif'],
-});
-
 export const metadata = baseMetadata;
 
 export default function RootLayout({
@@ -33,11 +25,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html
-      lang="en-GB"
-      className={`${inter.variable} ${sourceSerif.variable}`}
-      suppressHydrationWarning
-    >
+    <html lang="en-GB" className={inter.variable} suppressHydrationWarning>
       <head>
         <script
           dangerouslySetInnerHTML={{

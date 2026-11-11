@@ -195,9 +195,7 @@ describe('Projects Page', () => {
     expect(sectionContainers.length).toBeGreaterThan(0);
 
     // Check max width container
-    const maxWidthContainer = container.querySelector(
-      '.max-w-4xl.mx-auto.text-center'
-    );
+    const maxWidthContainer = container.querySelector('.max-w-3xl');
     expect(maxWidthContainer).toBeInTheDocument();
   });
 

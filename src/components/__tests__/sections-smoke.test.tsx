@@ -19,30 +19,36 @@ describe('Sections smoke tests', () => {
 
   it('renders Experience section', () => {
     const { getByRole } = render(<Experience />);
-    expect(getByRole('region', { name: /experience/i })).toBeInTheDocument();
+    expect(
+      getByRole('region', { name: /built with great teams/i })
+    ).toBeInTheDocument();
   });
 
   it('renders Projects section', () => {
     const { getByRole } = render(<Projects />);
-    expect(getByRole('region', { name: /projects/i })).toBeInTheDocument();
+    expect(
+      getByRole('region', { name: /selected index/i })
+    ).toBeInTheDocument();
   });
 
   it('renders Latest Writing section', () => {
     const { getByRole } = render(<LatestWriting />);
     expect(
-      getByRole('region', { name: /latest writing/i })
+      getByRole('region', { name: /thinking, in public/i })
     ).toBeInTheDocument();
   });
 
   it('renders Skills section', () => {
     const { getByRole } = render(<Skills />);
     expect(
-      getByRole('region', { name: /what i deliver/i })
+      getByRole('region', { name: /core to the edge/i })
     ).toBeInTheDocument();
   });
 
   it('renders Education section', () => {
     const { getByRole } = render(<Education />);
-    expect(getByRole('region', { name: /education/i })).toBeInTheDocument();
+    expect(
+      getByRole('region', { name: /always learning/i })
+    ).toBeInTheDocument();
   });
 });

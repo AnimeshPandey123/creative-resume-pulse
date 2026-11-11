@@ -297,16 +297,10 @@ describe('ProjectDetailPage', () => {
 
     // Check main container
     const mainContainer = container.firstChild;
-    expect(mainContainer).toHaveClass(
-      'min-h-screen',
-      'bg-white',
-      'dark:bg-gray-900'
-    );
+    expect(mainContainer).toHaveClass('min-h-screen', 'bg-background');
 
     // Check back navigation
-    const backNav = container.querySelector(
-      '.border-b.border-gray-200.dark\\:border-gray-700.pt-20'
-    );
+    const backNav = container.querySelector('.border-b.border-border.pt-20');
     expect(backNav).toBeInTheDocument();
 
     // Check hero section

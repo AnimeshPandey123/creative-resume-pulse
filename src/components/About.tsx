@@ -39,50 +39,59 @@ const About: React.FC = () => {
   return (
     <section
       id="about"
-      className="py-20 bg-white dark:bg-gray-900"
+      className="py-20 bg-background"
       role="region"
       aria-labelledby="about-heading"
     >
       <div className="section-container">
-        <header className="text-center mb-12">
-          <h2 id="about-heading" className="section-title">
-            {aboutData.title}
-          </h2>
-          <p className="section-subtitle">{aboutData.subtitle}</p>
+        <header className="mb-10 grid gap-6 md:grid-cols-12 md:items-end">
+          <div className="md:col-span-7">
+            <h2 id="about-heading" className="section-title">
+              <span className="section-kicker mb-4 block font-medium">
+                About / the person behind the systems
+              </span>
+              A systems mind.
+              <span className="block">A human approach.</span>
+            </h2>
+          </div>
+          <p className="section-subtitle md:col-span-5 md:justify-self-end">
+            {aboutData.subtitle}
+          </p>
         </header>
 
         <article
           ref={aboutContentRef}
-          className="max-w-4xl mx-auto glass-card p-8 md:p-10 dark:bg-gray-800/80"
+          className="grid items-start gap-8 border-t border-border pt-8 md:grid-cols-12"
         >
-          <div className="flex flex-col md:flex-row gap-8 items-start">
-            <div className="flex-shrink-0 mx-auto md:mx-0">
-              <Image
-                src={SITE_CONFIG.avatarUrl}
-                alt="Portrait of Animesh Pandey"
-                width={160}
-                height={160}
-                className="h-40 w-40 rounded-2xl object-cover ring-2 ring-primary/20 shadow-md"
-                priority
-              />
-            </div>
+          <div className="md:col-span-3">
+            <Image
+              src={SITE_CONFIG.avatarUrl}
+              alt="Portrait of Animesh Pandey"
+              width={160}
+              height={160}
+              className="h-28 w-28 object-cover"
+              priority
+            />
+            <p className="mt-4 text-[11px] uppercase tracking-[0.16em] text-muted-foreground">
+              {aboutData.title}
+            </p>
+          </div>
 
-            <div className="flex-1">
-              {aboutData.personalLine && (
-                <p className="text-lg font-medium text-foreground mb-6 border-l-4 border-primary pl-4 italic">
-                  {aboutData.personalLine}
-                </p>
-              )}
+          <div className="md:col-span-9">
+            {aboutData.personalLine && (
+              <p className="mb-6 max-w-2xl text-lg leading-relaxed text-foreground">
+                {aboutData.personalLine}
+              </p>
+            )}
 
-              {aboutData.content.map((paragraph, index) => (
-                <p
-                  key={index}
-                  className="text-lg leading-relaxed mb-6 last:mb-0 text-foreground"
-                >
-                  {paragraph}
-                </p>
-              ))}
-            </div>
+            {aboutData.content.map((paragraph, index) => (
+              <p
+                key={index}
+                className="mb-6 max-w-2xl text-base leading-relaxed text-muted-foreground last:mb-0"
+              >
+                {paragraph}
+              </p>
+            ))}
           </div>
         </article>
       </div>

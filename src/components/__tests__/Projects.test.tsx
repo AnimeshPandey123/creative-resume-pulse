@@ -116,6 +116,18 @@ describe('Projects', () => {
     expect(secondCard).toHaveStyle('animation-delay: 100ms');
   });
 
+  it('keeps Learn More visible and names the project for assistive tech', () => {
+    render(<Projects />);
+
+    expect(screen.getAllByText('Learn More')).toHaveLength(2);
+    expect(
+      screen.getByRole('link', { name: 'Learn more about Test Project 1' })
+    ).toHaveAttribute('href', '/projects/test-project-1');
+    expect(
+      screen.getByRole('link', { name: 'Learn more about Test Project 2' })
+    ).toHaveAttribute('href', '/projects/test-project-2');
+  });
+
   it('renders external link for projects with URLs', () => {
     render(<Projects />);
 

@@ -95,6 +95,7 @@ const ProjectsListStatic: React.FC<ProjectsListStaticProps> = ({
                 )}
                 <a
                   href={`/projects/${project.slug}`}
+                  aria-label={`Learn more about ${project.title}`}
                   className="flex items-center justify-center gap-2 px-3 py-2 text-primary text-sm font-medium rounded-lg hover:bg-primary/10 transition-colors"
                 >
                   Learn More

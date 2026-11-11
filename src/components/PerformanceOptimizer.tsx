@@ -29,20 +29,6 @@ const PerformanceOptimizer: React.FC<PerformanceOptimizerProps> = ({
       }
     };
 
-    // Preload critical resources immediately
-    const preloadCriticalResources = () => {
-      // Preload critical images
-      const criticalImages = ['/favicon.ico', '/opengraph-image.png'];
-
-      criticalImages.forEach(src => {
-        const link = document.createElement('link');
-        link.rel = 'preload';
-        link.href = src;
-        link.as = 'image';
-        document.head.appendChild(link);
-      });
-    };
-
     // Optimize images with better performance
     const optimizeImages = () => {
       const images = document.querySelectorAll('img:not([data-optimized])');
@@ -128,7 +114,6 @@ const PerformanceOptimizer: React.FC<PerformanceOptimizerProps> = ({
     };
 
     // Initialize optimizations
-    preloadCriticalResources();
     deferOptimizations();
 
     // Cleanup function

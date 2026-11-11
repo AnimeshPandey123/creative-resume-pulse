@@ -2,6 +2,13 @@ import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import Contact from '../Contact';
 
+const mockEnsureRecaptchaReady = jest.fn().mockResolvedValue(undefined);
+
+jest.mock('@/lib/loadRecaptcha', () => ({
+  ensureRecaptchaReady: (...args: unknown[]) =>
+    mockEnsureRecaptchaReady(...args),
+}));
+
 // Mock the toast hook
 const mockToast = jest.fn();
 beforeAll(() => {
@@ -74,6 +81,7 @@ global.fetch = jest.fn();
 describe('Contact', () => {
   beforeEach(() => {
     jest.clearAllMocks();
+    mockEnsureRecaptchaReady.mockResolvedValue(undefined);
     (global.fetch as jest.Mock).mockResolvedValue({
       ok: true,
       json: () => Promise.resolve({ success: true }),
@@ -242,51 +250,74 @@ describe('Contact', () => {
     expect(messageInput.tagName).toBe('TEXTAREA');
   });
 
-  it('should trigger animation when element intersects', () => {
-    const mockIntersectionObserver = jest.fn();
+  it('should load reCAPTCHA when the contact section intersects', async () => {
+    const mockDisconnect = jest.fn();
     const mockObserve = jest.fn();
-    const mockUnobserve = jest.fn();
+    let savedCallback: ((entries: any[], observer: any) => void) | undefined;
 
-    let savedCallback: any;
-    mockIntersectionObserver.mockImplementation(callback => {
-      // Store the callback for testing
+    const mockIntersectionObserver = jest.fn((callback: any) => {
       savedCallback = callback;
       return {
         observe: mockObserve,
-        unobserve: mockUnobserve,
-        disconnect: jest.fn(),
+        unobserve: jest.fn(),
+        disconnect: mockDisconnect,
       };
     });
 
-    global.IntersectionObserver = mockIntersectionObserver;
+    global.IntersectionObserver = mockIntersectionObserver as any;
 
     const { container } = render(<Contact />);
 
-    // Verify observer was created and observe was called
     expect(mockIntersectionObserver).toHaveBeenCalledWith(
       expect.any(Function),
       expect.objectContaining({
         root: null,
-        rootMargin: '0px',
+        rootMargin: '200px',
         threshold: 0.1,
       })
     );
     expect(mockObserve).toHaveBeenCalled();
+    expect(
+      document.querySelector('#recaptcha-api-script')
+    ).not.toBeInTheDocument();
 
-    // Simulate intersection
-    const mockEntry = {
-      target:
-        container.querySelector('[data-testid="contact-content"]') ||
-        container.firstChild,
-      isIntersecting: true,
-    };
+    const section = container.querySelector('#contact');
+    savedCallback?.(
+      [
+        {
+          target: section,
+          isIntersecting: true,
+        },
+      ],
+      {
+        disconnect: mockDisconnect,
+      }
+    );
 
-    // Call the intersection observer callback
-    if (savedCallback) {
-      savedCallback([mockEntry]);
+    await waitFor(() => {
+      expect(mockEnsureRecaptchaReady).toHaveBeenCalled();
+    });
+    expect(mockDisconnect).toHaveBeenCalled();
+  });
 
-      // Verify unobserve was called after intersection
-      expect(mockUnobserve).toHaveBeenCalledWith(mockEntry.target);
-    }
+  it('should wait for reCAPTCHA before submitting', async () => {
+    render(<Contact />);
+
+    fireEvent.change(screen.getByLabelText(/your name/i), {
+      target: { value: 'John Doe' },
+    });
+    fireEvent.change(screen.getByLabelText(/your email/i), {
+      target: { value: 'john@example.com' },
+    });
+    fireEvent.change(screen.getByLabelText(/message/i), {
+      target: { value: 'Test message' },
+    });
+    fireEvent.click(screen.getByRole('button', { name: /send message/i }));
+
+    await waitFor(() => {
+      expect(mockEnsureRecaptchaReady).toHaveBeenCalled();
+      expect((window as any).grecaptcha.execute).toHaveBeenCalled();
+      expect(global.fetch).toHaveBeenCalled();
+    });
   });
 });

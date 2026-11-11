@@ -2,9 +2,8 @@ import React, { Suspense } from 'react';
 import { Inter } from 'next/font/google';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
-import { GoogleAnalytics } from '@next/third-parties/google';
 import ClientProviders from '@/components/ClientProviders';
-import HotjarAnalytics from '@/components/Hotjar';
+import DeferredAnalytics from '@/components/DeferredAnalytics';
 import RouteTracker from '@/components/RouteTracker';
 import { baseMetadata, mainStructuredData } from '@/config/seo';
 import './globals.css';
@@ -31,41 +30,6 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{
             __html: `(function(){try{var stored=localStorage.getItem('theme');var prefersDark=window.matchMedia('(prefers-color-scheme: dark)').matches;var theme=stored==='dark'||stored==='light'?stored:(prefersDark?'dark':'light');document.documentElement.classList.remove('light','dark');document.documentElement.classList.add(theme);}catch(e){}})();`,
           }}
-        />
-        {/* Critical Resource Hints */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
-        <link rel="preconnect" href="https://d1iukwsziul56d.cloudfront.net" />
-        <link rel="preconnect" href="https://dev-to-uploads.s3.amazonaws.com" />
-
-        {/* DNS Prefetch for external domains */}
-        <link rel="dns-prefetch" href="//fonts.googleapis.com" />
-        <link rel="dns-prefetch" href="//fonts.gstatic.com" />
-        <link rel="dns-prefetch" href="//d1iukwsziul56d.cloudfront.net" />
-        <link rel="dns-prefetch" href="//dev-to-uploads.s3.amazonaws.com" />
-
-        {/* Preload critical resources */}
-        <link
-          rel="preload"
-          href="/favicon.ico"
-          as="image"
-          type="image/x-icon"
-        />
-        <link
-          rel="preload"
-          href="/opengraph-image.png"
-          as="image"
-          type="image/png"
-        />
-        <link
-          rel="preload"
-          href="/apple-touch-icon.png"
-          as="image"
-          type="image/png"
         />
 
         {/* Favicon and App Icons */}
@@ -112,13 +76,10 @@ export default function RootLayout({
         <ClientProviders>{children}</ClientProviders>
         <Analytics />
         <SpeedInsights />
-        <GoogleAnalytics
-          gaId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || ''}
-        />
+        <DeferredAnalytics />
         <Suspense fallback={null}>
           <RouteTracker />
         </Suspense>
-        <HotjarAnalytics />
       </body>
     </html>
   );

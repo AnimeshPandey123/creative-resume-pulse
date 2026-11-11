@@ -70,7 +70,6 @@ const About: React.FC = () => {
               width={160}
               height={160}
               className="h-28 w-28 object-cover"
-              priority
             />
             <p className="mt-4 text-[11px] uppercase tracking-[0.16em] text-muted-foreground">
               {aboutData.title}

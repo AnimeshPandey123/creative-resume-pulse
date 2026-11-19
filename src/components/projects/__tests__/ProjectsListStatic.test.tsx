@@ -168,11 +168,11 @@ describe('ProjectsListStatic', () => {
     expect(learnMoreLinks).toHaveLength(2);
     expect(learnMoreLinks[0]).toHaveAttribute(
       'href',
-      '/projects/test-project-1'
+      '/projects/test-project-1/'
     );
     expect(learnMoreLinks[1]).toHaveAttribute(
       'href',
-      '/projects/test-project-2'
+      '/projects/test-project-2/'
     );
   });
 

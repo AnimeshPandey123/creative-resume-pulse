@@ -1,7 +1,7 @@
 'use client';
 
-import { useMemo } from 'react';
-import { useSearchParams, useRouter } from 'next/navigation';
+import { useEffect, useMemo, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { Rss } from 'lucide-react';
 import BlogPostCard from '@/components/blog/BlogPostCard';
 import BlogSearch from '@/components/blog/BlogSearch';
@@ -32,9 +32,20 @@ export default function BlogPageClient({
   tags,
   stats,
 }: BlogPageClientProps) {
-  const searchParams = useSearchParams();
   const router = useRouter();
-  const params = searchParams ?? new URLSearchParams();
+  // Start empty so the static export contains the unfiltered list.
+  // useSearchParams() would replace this page with the Suspense fallback.
+  const [params, setParams] = useState(() => new URLSearchParams());
+
+  useEffect(() => {
+    const syncParams = () => {
+      setParams(new URLSearchParams(window.location.search));
+    };
+
+    syncParams();
+    window.addEventListener('popstate', syncParams);
+    return () => window.removeEventListener('popstate', syncParams);
+  }, []);
 
   const searchTerm = params.get('search') ?? '';
   const selectedTag = params.get('tag') ?? '';
@@ -98,11 +109,13 @@ export default function BlogPageClient({
       nextParams.delete('page');
     }
 
+    setParams(nextParams);
     const query = nextParams.toString();
     router.push(query ? `/blog/?${query}` : '/blog/');
   };
 
   const clearFilters = () => {
+    setParams(new URLSearchParams());
     router.push('/blog/');
   };
 
@@ -208,14 +221,20 @@ export default function BlogPageClient({
           ) : (
             <>
               <div className="mb-12 border-b border-border">
-                {paginatedPosts.map((post, index) => (
-                  <BlogPostCard key={post.id} post={post} index={index} />
+                {paginatedPosts.map(post => (
+                  <BlogPostCard key={post.id} post={post} />
                 ))}
               </div>
 
               <BlogPagination
                 totalPages={totalPages}
                 currentPage={safeCurrentPage}
+                query={params.toString()}
+                onPageChange={page => {
+                  const nextParams = new URLSearchParams(params.toString());
+                  nextParams.set('page', String(page));
+                  setParams(nextParams);
+                }}
               />
             </>
           )}

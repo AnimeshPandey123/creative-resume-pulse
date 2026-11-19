@@ -52,22 +52,16 @@ describe('BlogPage', () => {
     expect(getByTestId('blog-page-client')).toBeInTheDocument();
   });
 
-  it('should render loading fallback initially', () => {
+  it('should render the blog page content', () => {
     const { getByText } = render(<BlogPage />);
     expect(getByText('Blog')).toBeInTheDocument();
     expect(getByText('Loading blog posts...')).toBeInTheDocument();
   });
 
-  it('should render Suspense with proper fallback structure', () => {
-    // Since BlogPageClient is mocked and renders immediately,
-    // we can't test the fallback directly. Instead, we test that
-    // the Suspense component is present and the BlogPageClient renders
+  it('should render the blog page client instead of a loading shell', () => {
     const { container, getByTestId } = render(<BlogPage />);
 
-    // The BlogPageClient should be rendered (not the fallback)
     expect(getByTestId('blog-page-client')).toBeInTheDocument();
-
-    // The BlogPageClient mock includes the same content as the fallback
     expect(container.querySelector('h1')).toHaveTextContent('Blog');
     expect(container.querySelector('p')).toHaveTextContent(
       'Loading blog posts...'

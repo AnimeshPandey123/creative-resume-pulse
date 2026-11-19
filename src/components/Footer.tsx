@@ -38,7 +38,7 @@ const Footer: React.FC = () => {
               </svg>
             </a>
             <a
-              href="https://animeshpandey.com"
+              href="https://animeshpandey.com/"
               target="_blank"
               rel="noopener noreferrer"
               className="text-muted-foreground hover:text-primary transition-colors"

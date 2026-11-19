@@ -92,7 +92,7 @@ const ProjectsListStatic: React.FC<ProjectsListStaticProps> = ({
                   </a>
                 )}
                 <a
-                  href={`/projects/${project.slug}`}
+                  href={`/projects/${project.slug}/`}
                   aria-label={`Learn more about ${project.title}`}
                   className="text-link"
                 >

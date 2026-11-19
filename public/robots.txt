@@ -10,9 +10,6 @@ Sitemap: https://animeshpandey.com/sitemap-index.xml
 Sitemap: https://animeshpandey.com/sitemap.xml
 Sitemap: https://animeshpandey.com/sitemap-blog.xml
 
-# RSS Feed
-Sitemap: https://animeshpandey.com/feed.xml
-
 # Disallow paths that are not pages
 Disallow: /api/
 Disallow: /admin/

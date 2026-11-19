@@ -48,7 +48,7 @@ export default function NotFound() {
                   Projects
                 </a>
                 <a
-                  href="/blog"
+                  href="/blog/"
                   className="hover:text-primary transition-colors"
                 >
                   Blog

@@ -1,7 +1,7 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { Suspense, useEffect, useMemo, useState } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { Rss } from 'lucide-react';
 import BlogPostCard from '@/components/blog/BlogPostCard';
 import BlogSearch from '@/components/blog/BlogSearch';
@@ -27,6 +27,20 @@ function parsePageParam(value: string | null): number {
   return Number.isFinite(page) && page > 0 ? page : 1;
 }
 
+function BlogSearchParamsSync({
+  onParams,
+}: {
+  onParams: (params: URLSearchParams) => void;
+}) {
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    onParams(new URLSearchParams(searchParams?.toString() ?? ''));
+  }, [onParams, searchParams]);
+
+  return null;
+}
+
 export default function BlogPageClient({
   posts,
   tags,
@@ -34,18 +48,9 @@ export default function BlogPageClient({
 }: BlogPageClientProps) {
   const router = useRouter();
   // Start empty so the static export contains the unfiltered list.
-  // useSearchParams() would replace this page with the Suspense fallback.
+  // The sync child is the only caller of useSearchParams(), so a query
+  // change can update this list without replacing the page with a fallback.
   const [params, setParams] = useState(() => new URLSearchParams());
-
-  useEffect(() => {
-    const syncParams = () => {
-      setParams(new URLSearchParams(window.location.search));
-    };
-
-    syncParams();
-    window.addEventListener('popstate', syncParams);
-    return () => window.removeEventListener('popstate', syncParams);
-  }, []);
 
   const searchTerm = params.get('search') ?? '';
   const selectedTag = params.get('tag') ?? '';
@@ -123,6 +128,9 @@ export default function BlogPageClient({
 
   return (
     <div className="min-h-screen bg-background">
+      <Suspense fallback={null}>
+        <BlogSearchParamsSync onParams={setParams} />
+      </Suspense>
       <section className="pb-4 pt-28 page-hero-gradient">
         <div className="section-container pb-1">
           <div className="max-w-3xl">

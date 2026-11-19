@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { act, render, screen } from '@testing-library/react';
 import BlogPageClient from '@/components/blog/BlogPageClient';
 
 // Mock the blog data
@@ -36,14 +36,32 @@ jest.mock('@/components/blog/BlogPagination', () => ({
   ),
 }));
 
-// Mock next/navigation
+// Mock next/navigation. useSearchParams notifies subscribers so a query
+// change after mount re-renders the same way the App Router does.
 const mockPush = jest.fn();
-jest.mock('next/navigation', () => ({
-  useRouter: () => ({ push: mockPush }),
-}));
+const searchParamListeners = new Set<() => void>();
+let currentSearchParams = new URLSearchParams();
+
+jest.mock('next/navigation', () => {
+  const React = require('react');
+  return {
+    useRouter: () => ({ push: mockPush }),
+    useSearchParams: () =>
+      React.useSyncExternalStore(
+        (listener: () => void) => {
+          searchParamListeners.add(listener);
+          return () => searchParamListeners.delete(listener);
+        },
+        () => currentSearchParams,
+        () => currentSearchParams
+      ),
+  };
+});
 
 function setBlogQuery(query: string) {
+  currentSearchParams = new URLSearchParams(query);
   window.history.pushState({}, '', query ? `/blog/?${query}` : '/blog/');
+  searchParamListeners.forEach(listener => listener());
 }
 
 describe('BlogPageClient', () => {
@@ -168,6 +186,53 @@ describe('BlogPageClient', () => {
     render(<BlogPageClient {...mockProps} />);
 
     expect(screen.getByText('Articles about React')).toBeInTheDocument();
+  });
+
+  it('filters posts when the query changes after the page is mounted', () => {
+    const mockProps = {
+      posts: [
+        {
+          id: '1',
+          title: 'React Post',
+          slug: 'react-post',
+          excerpt: 'React post excerpt',
+          coverImage: '/react-image.jpg',
+          publishDate: '2024-01-01',
+          readingTime: 4,
+          author: mockAuthor,
+          tags: [{ id: '1', name: 'React', slug: 'react' }],
+        },
+        {
+          id: '2',
+          title: 'Python Post',
+          slug: 'python-post',
+          excerpt: 'Python post excerpt',
+          coverImage: '/python-image.jpg',
+          publishDate: '2024-01-02',
+          readingTime: 3,
+          author: mockAuthor,
+          tags: [{ id: '2', name: 'Python', slug: 'python' }],
+        },
+      ],
+      tags: [
+        { id: '1', name: 'React', slug: 'react' },
+        { id: '2', name: 'Python', slug: 'python' },
+      ],
+      stats: { totalPosts: 2, totalTags: 2 },
+    };
+
+    render(<BlogPageClient {...mockProps} />);
+
+    expect(screen.getByText('React Post')).toBeInTheDocument();
+    expect(screen.getByText('Python Post')).toBeInTheDocument();
+
+    act(() => {
+      setBlogQuery('tag=react');
+    });
+
+    expect(screen.getByText('Articles about React')).toBeInTheDocument();
+    expect(screen.getByText('React Post')).toBeInTheDocument();
+    expect(screen.queryByText('Python Post')).not.toBeInTheDocument();
   });
 
   it('displays tag slug as fallback when tag is not found in blogTags', () => {

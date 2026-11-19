@@ -22,6 +22,9 @@ describe('SEO public assets', () => {
       expect(content).toContain(
         'Sitemap: https://animeshpandey.com/sitemap-blog.xml'
       );
+      expect(content).not.toContain(
+        'Sitemap: https://animeshpandey.com/feed.xml'
+      );
     });
 
     it('disallows private paths and allows static assets', () => {

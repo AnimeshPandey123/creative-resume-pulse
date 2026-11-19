@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { useSearchParams, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import {
   Pagination,
   PaginationContent,
@@ -15,20 +15,22 @@ import {
 interface BlogPaginationProps {
   totalPages: number;
   currentPage: number;
+  query?: string;
+  onPageChange?: (page: number) => void;
 }
 
 const BlogPagination: React.FC<BlogPaginationProps> = ({
   totalPages,
   currentPage,
+  query = '',
+  onPageChange,
 }) => {
-  const searchParams = useSearchParams();
   const router = useRouter();
 
   const handlePageChange = (page: number) => {
-    const newParams = new URLSearchParams(
-      searchParams ? searchParams.toString() : ''
-    );
+    const newParams = new URLSearchParams(query);
     newParams.set('page', page.toString());
+    onPageChange?.(page);
     router.push(`/blog/?${newParams.toString()}`);
 
     // Scroll to top when changing pages

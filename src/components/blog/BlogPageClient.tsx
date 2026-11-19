@@ -1,7 +1,7 @@
 'use client';
 
-import { useMemo } from 'react';
-import { useSearchParams, useRouter } from 'next/navigation';
+import { Suspense, useEffect, useMemo, useState } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { Rss } from 'lucide-react';
 import BlogPostCard from '@/components/blog/BlogPostCard';
 import BlogSearch from '@/components/blog/BlogSearch';
@@ -27,14 +27,30 @@ function parsePageParam(value: string | null): number {
   return Number.isFinite(page) && page > 0 ? page : 1;
 }
 
+function BlogSearchParamsSync({
+  onParams,
+}: {
+  onParams: (params: URLSearchParams) => void;
+}) {
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    onParams(new URLSearchParams(searchParams?.toString() ?? ''));
+  }, [onParams, searchParams]);
+
+  return null;
+}
+
 export default function BlogPageClient({
   posts,
   tags,
   stats,
 }: BlogPageClientProps) {
-  const searchParams = useSearchParams();
   const router = useRouter();
-  const params = searchParams ?? new URLSearchParams();
+  // Start empty so the static export contains the unfiltered list.
+  // The sync child is the only caller of useSearchParams(), so a query
+  // change can update this list without replacing the page with a fallback.
+  const [params, setParams] = useState(() => new URLSearchParams());
 
   const searchTerm = params.get('search') ?? '';
   const selectedTag = params.get('tag') ?? '';
@@ -98,11 +114,13 @@ export default function BlogPageClient({
       nextParams.delete('page');
     }
 
+    setParams(nextParams);
     const query = nextParams.toString();
     router.push(query ? `/blog/?${query}` : '/blog/');
   };
 
   const clearFilters = () => {
+    setParams(new URLSearchParams());
     router.push('/blog/');
   };
 
@@ -110,6 +128,9 @@ export default function BlogPageClient({
 
   return (
     <div className="min-h-screen bg-background">
+      <Suspense fallback={null}>
+        <BlogSearchParamsSync onParams={setParams} />
+      </Suspense>
       <section className="pb-4 pt-28 page-hero-gradient">
         <div className="section-container pb-1">
           <div className="max-w-3xl">
@@ -208,14 +229,20 @@ export default function BlogPageClient({
           ) : (
             <>
               <div className="mb-12 border-b border-border">
-                {paginatedPosts.map((post, index) => (
-                  <BlogPostCard key={post.id} post={post} index={index} />
+                {paginatedPosts.map(post => (
+                  <BlogPostCard key={post.id} post={post} />
                 ))}
               </div>
 
               <BlogPagination
                 totalPages={totalPages}
                 currentPage={safeCurrentPage}
+                query={params.toString()}
+                onPageChange={page => {
+                  const nextParams = new URLSearchParams(params.toString());
+                  nextParams.set('page', String(page));
+                  setParams(nextParams);
+                }}
               />
             </>
           )}
